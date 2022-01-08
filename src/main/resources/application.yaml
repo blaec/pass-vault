@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: url to db
+    username: username
+    password: password
+
+server:
+  port: 8082
