@@ -17,5 +17,12 @@ public class Folder {
     @Id
     private Integer id;
 
-    @NonNull private String folder;
+    @NonNull private String name;
+
+    public static Folder from(String name) {
+        Folder created = new Folder();
+        created.name = name;
+
+        return created;
+    }
 }

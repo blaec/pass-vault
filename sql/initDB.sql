@@ -1,10 +1,10 @@
-DROP TABLE IF EXISTS folders;
 DROP TABLE IF EXISTS passwords;
+DROP TABLE IF EXISTS folders;
 
 CREATE TABLE folders
 (
     id              INT auto_increment,
-    folder          VARCHAR(100) 			    NULL,
+    name            VARCHAR(100) 			    NULL,
     PRIMARY KEY     (id)
 );
 ALTER TABLE folders AUTO_INCREMENT = 100000;
