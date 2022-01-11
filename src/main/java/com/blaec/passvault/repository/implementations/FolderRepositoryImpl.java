@@ -18,6 +18,11 @@ public class FolderRepositoryImpl implements FolderRepository {
     }
 
     @Override
+    public Folder getByName(String name) {
+        return crudFolderRepository.findByName(name);
+    }
+
+    @Override
     public Folder save(Folder folder) {
         return crudFolderRepository.save(folder);
     }
