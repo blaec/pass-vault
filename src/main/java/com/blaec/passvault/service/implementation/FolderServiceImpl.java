@@ -1,6 +1,7 @@
 package com.blaec.passvault.service.implementation;
 
 import com.blaec.passvault.model.Folder;
+import com.blaec.passvault.model.response.Response;
 import com.blaec.passvault.repository.FolderRepository;
 import com.blaec.passvault.service.FolderService;
 import lombok.AllArgsConstructor;
@@ -25,14 +26,15 @@ public class FolderServiceImpl implements FolderService {
     }
 
     @Override
-    public String save(Folder folder) {
-        String response = "success";
+    public Response save(Folder folder) {
+        Response.Builder response = Response.Builder.create();
         try {
             Folder saved = folderRepository.save(folder);
             log.info("Folder {} successfully saved", saved.getName());
+            response.setSuccess("success");
         } catch (Exception e) {
-            response = "failure";
+            response.setFailure("failure");
         }
-        return response;
+        return response.build();
     }
 }
