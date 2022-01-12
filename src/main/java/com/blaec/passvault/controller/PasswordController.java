@@ -2,6 +2,7 @@ package com.blaec.passvault.controller;
 
 import com.blaec.passvault.model.Folder;
 import com.blaec.passvault.model.Password;
+import com.blaec.passvault.model.response.Response;
 import com.blaec.passvault.model.to.PasswordTo;
 import com.blaec.passvault.service.FolderService;
 import com.blaec.passvault.service.PasswordService;
@@ -25,7 +26,7 @@ public class PasswordController extends AbstractController{
     }
 
     @PostMapping("/create")
-    public String saveWishMovie(@RequestBody PasswordTo passwordTo) {
+    public Response saveWishMovie(@RequestBody PasswordTo passwordTo) {
         log.info("saving password | {}", passwordTo.getTitle());
         Folder folder = folderService.getByName(passwordTo.getFolder());
         Password password = Password.from(passwordTo, folder);

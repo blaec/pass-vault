@@ -15,4 +15,8 @@ public class PasswordTo {
     private final String password;
     private final String website;
     private final String note;
+
+    public static PasswordTo create(String folder, String title, String user, String password, String website, String note) {
+        return new PasswordTo(folder, title, user, password, website, note);
+    }
 }
