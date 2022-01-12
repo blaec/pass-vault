@@ -1,6 +1,7 @@
 package com.blaec.passvault.service.implementation;
 
 import com.blaec.passvault.model.Password;
+import com.blaec.passvault.model.response.Response;
 import com.blaec.passvault.repository.PasswordRepository;
 import com.blaec.passvault.service.PasswordService;
 import lombok.AllArgsConstructor;
@@ -19,14 +20,15 @@ public class PasswordServiceImpl implements PasswordService {
     }
 
     @Override
-    public String save(Password password) {
-        String response = "success";
+    public Response save(Password password) {
+        Response.Builder response = Response.Builder.create();
         try {
             Password save = passwordRepository.save(password);
-            log.info("Password for {} successfully saved", password.getTitle());
+            log.info("Password for {} successfully saved", save.getTitle());
+            response.setSuccess("success");
         } catch (Exception e) {
-            response = "failure";
+            response.setFailure("failure");
         }
-        return response;
+        return response.build();
     }
 }
