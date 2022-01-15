@@ -1,4 +1,4 @@
-import Folder from "./component/Toolbar/components/Pages/Folder/Folder";
+import Folder from "./component/Pages/Folder/Folder";
 import './App.css';
 
 function App() {
