@@ -1,9 +1,10 @@
-import Folder from "./component/Pages/Folder/Folder";
+import MyDrawer from "./component/Toolbar/components/MyDrawer";
+import MyToolbar from "./component/Toolbar/MyToolbar";
 import './App.css';
 
 function App() {
   return (
-    <Folder/>
+    <MyToolbar/>
   );
 }
 
