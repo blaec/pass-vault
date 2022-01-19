@@ -1,10 +1,17 @@
-import MyDrawer from "./component/Toolbar/components/MyDrawer";
-import MyToolbar from "./component/Toolbar/MyToolbar";
-import './App.css';
+import React from 'react';
+
+import Layout from "./hoc/Layout";
 
 function App() {
+  const layout = (
+      <Layout>
+      </Layout>
+  );
+
   return (
-    <MyToolbar/>
+    <React.Fragment>
+      {layout}
+    </React.Fragment>
   );
 }
 
