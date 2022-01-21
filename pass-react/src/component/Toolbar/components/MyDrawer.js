@@ -1,15 +1,9 @@
 import * as React from 'react';
 
+import MyMenu from "./MyMenu";
+
 import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import MailIcon from '@mui/icons-material/Mail';
-import Toolbar from '@mui/material/Toolbar';
 
 
 function MyDrawer(props) {
@@ -29,34 +23,6 @@ function MyDrawer(props) {
         '& .MuiDrawer-paper': {boxSizing: 'border-box', width: drawerWidth},
     };
 
-    const drawer = (
-        <div>
-            <Toolbar/>
-            <Divider/>
-            <List>
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>
-                            {index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}
-                        </ListItemIcon>
-                        <ListItemText primary={text}/>
-                    </ListItem>
-                ))}
-            </List>
-            <Divider/>
-            <List>
-                {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>
-                            {index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}
-                        </ListItemIcon>
-                        <ListItemText primary={text}/>
-                    </ListItem>
-                ))}
-            </List>
-        </div>
-    );
-
     return (
 
         <Box
@@ -74,14 +40,14 @@ function MyDrawer(props) {
                     keepMounted: true, // Better open performance on mobile.
                 }}
             >
-                {drawer}
+                <MyMenu/>
             </Drawer>
             <Drawer
                 sx={drawerDesktop}
                 variant="permanent"
                 open
             >
-                {drawer}
+                <MyMenu/>
             </Drawer>
         </Box>
         // <Box
