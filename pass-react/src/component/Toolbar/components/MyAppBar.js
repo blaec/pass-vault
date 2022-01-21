@@ -5,17 +5,18 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Typography from "@mui/material/Typography";
+import {drawer} from "../../../utils/Constants";
 
 const MyAppBar = (props) => {
-    const {drawerWidth, onToggle} = props;
+    const {onToggle} = props;
 
     const iconButton = {
         mr: 2,
         display: {sm: 'none'}
     };
     const appBar = {
-        width: {sm: `calc(100% - ${drawerWidth}px)`},
-        ml: {sm: `${drawerWidth}px`},
+        width: {sm: `calc(100% - ${drawer.width}px)`},
+        ml: {sm: `${drawer.width}px`},
     };
 
     return (
