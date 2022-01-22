@@ -1,8 +1,7 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
 
-import {ListItemIcon, ListItemText} from "@material-ui/core";
-import {ListItemButton} from "@mui/material";
+import {ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 
 const myListItem = (props) => {
     const {caption, icon, link} = props;
