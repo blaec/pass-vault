@@ -1,13 +1,12 @@
 import React from 'react';
-
-import {styled} from '@mui/material/styles';
 import {Avatar, Grid, ListItem, ListItemAvatar, ListItemText} from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import List from "@mui/material/List";
 import IconButton from "@mui/material/IconButton";
-import DeleteIcon from '@mui/icons-material/Delete';
-import FolderIcon from '@mui/icons-material/Folder';
+import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
+import FolderTwoToneIcon from '@mui/icons-material/FolderTwoTone';
+import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 
 function generate(element) {
     return [0, 1, 2].map((value) =>
@@ -17,43 +16,42 @@ function generate(element) {
     );
 }
 
-const Demo = styled('div')(({ theme }) => ({
-    backgroundColor: theme.palette.background.paper,
-}));
-
 const Folder = () => {
     const dense = false;
     const secondary = false;
 
     return (
-        <Box sx={{ flexGrow: 1, maxWidth: 752 }}>
+        <Box sx={{flexGrow: 1, maxWidth: 752}}>
             <Grid item xs={12} md={6}>
-                <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
+                <Typography sx={{mt: 4, mb: 2}} variant="h6" component="div">
                     Avatar with text and icon
                 </Typography>
-                <Demo>
-                    <List dense={dense}>
-                        {generate(
-                            <ListItem
-                                secondaryAction={
-                                    <IconButton edge="end" aria-label="delete">
-                                        <DeleteIcon />
+                <List dense={dense}>
+                    {generate(
+                        <ListItem
+                            secondaryAction={
+                                <Box>
+                                    <IconButton edge="end" sx={{ml: 2, color: 'green'}}>
+                                        <EditTwoToneIcon/>
                                     </IconButton>
-                                }
-                            >
-                                <ListItemAvatar>
-                                    <Avatar>
-                                        <FolderIcon />
-                                    </Avatar>
-                                </ListItemAvatar>
-                                <ListItemText
-                                    primary="Single-line item"
-                                    secondary={secondary ? 'Secondary text' : null}
-                                />
-                            </ListItem>,
-                        )}
-                    </List>
-                </Demo>
+                                    <IconButton edge="end" sx={{ml: 2, color: 'red'}}>
+                                        <DeleteTwoToneIcon/>
+                                    </IconButton>
+                                </Box>
+                            }
+                        >
+                            <ListItemAvatar>
+                                <Avatar>
+                                    <FolderTwoToneIcon/>
+                                </Avatar>
+                            </ListItemAvatar>
+                            <ListItemText
+                                primary="Single-line item"
+                                secondary={secondary ? 'Secondary text' : null}
+                            />
+                        </ListItem>,
+                    )}
+                </List>
             </Grid>
         </Box>
     );
