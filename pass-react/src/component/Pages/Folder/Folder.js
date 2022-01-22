@@ -7,22 +7,11 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import List from "@mui/material/List";
 
-const generate = (element) => {
-    return [0, 1, 2].map((value) =>
-        React.cloneElement(element, {
-            key: value,
-        }),
-    );
-}
-
-const folders = {
-    site: 'site',
-    app: 'application',
-
-};
+const folders = ['Site', 'Application'];
 
 const Folder = () => {
-    const dense = false;
+    const folderItems = folders.map(folder => <FolderItem folder={folder}/>);
+    folderItems.push(<FolderItem folder="Create new folder..." isNew={true}/>)
 
     return (
         <Box sx={{flexGrow: 1, maxWidth: 752}}>
@@ -30,8 +19,8 @@ const Folder = () => {
                 <Typography sx={{mt: 4, mb: 2}} variant="h6" component="div">
                     Avatar with text and icon
                 </Typography>
-                <List dense={dense}>
-                    {generate(<FolderItem/>)}
+                <List>
+                    {folderItems}
                 </List>
             </Grid>
         </Box>
