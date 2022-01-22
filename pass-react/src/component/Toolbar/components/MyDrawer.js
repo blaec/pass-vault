@@ -4,23 +4,24 @@ import MyMenu from "./MyMenu";
 
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
+import {drawer} from "../../../utils/Constants";
 
 
 function MyDrawer(props) {
-    const {window, drawerWidth, mobileOpen, onToggle} = props;
+    const {window, mobileOpen, onToggle} = props;
 
     const container = window !== undefined
         ? () => window().document.body
         : undefined;
 
-    const box = {width: {sm: drawerWidth}, flexShrink: {sm: 0}};
+    const box = {width: {sm: drawer.width}, flexShrink: {sm: 0}};
     const drawerMobile = {
         display: {xs: 'block', sm: 'none'},
-        '& .MuiDrawer-paper': {boxSizing: 'border-box', width: drawerWidth},
+        '& .MuiDrawer-paper': {boxSizing: 'border-box', width: drawer.width},
     };
     const drawerDesktop = {
         display: {xs: 'none', sm: 'block'},
-        '& .MuiDrawer-paper': {boxSizing: 'border-box', width: drawerWidth},
+        '& .MuiDrawer-paper': {boxSizing: 'border-box', width: drawer.width},
     };
 
     return (
