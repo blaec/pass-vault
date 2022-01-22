@@ -3,14 +3,12 @@ import React from 'react';
 import MyListItem from "../../../UI/MyListItem";
 import {reactLinks} from "../../../utils/UrlUtils";
 
-import {Divider, List} from "@material-ui/core";
 import VpnKeyTwoToneIcon from '@mui/icons-material/VpnKeyTwoTone';
-import SettingsIcon from '@material-ui/icons/Settings';
-import Toolbar from "@mui/material/Toolbar";
+import SettingsApplicationsTwoToneIcon from '@mui/icons-material/SettingsApplicationsTwoTone';
 
-const getMenuItemsBlock = (itemsData) => {
+export const GetMenuItemsBlock = (itemsData) => {
 
-    return  itemsData.map((item, index) => {
+    return itemsData.map((item, index) => {
             const {text, link, icon} = item;
 
             return (
@@ -25,32 +23,18 @@ const getMenuItemsBlock = (itemsData) => {
     );
 }
 
-const mainItemsData = [
+export const MainItemsData = [
     {
         text: "Passwords",
         link: reactLinks.passwords,
         icon: <VpnKeyTwoToneIcon/>
     },
 ];
-const settingsItemsData = [
+
+export const SettingsItemsData = [
     {
         text: "Settings",
         link: reactLinks.settings,
-        icon: <SettingsIcon/>
+        icon: <SettingsApplicationsTwoToneIcon/>
     },
 ];
-
-const MyMenu = () => {
-    return (
-        <div>
-            <Toolbar/>
-            <List>
-                {getMenuItemsBlock(mainItemsData)}
-                <Divider/>
-                {getMenuItemsBlock(settingsItemsData)}
-            </List>
-        </div>
-    )
-};
-
-export default MyMenu;
