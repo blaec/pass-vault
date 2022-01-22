@@ -1,110 +1,71 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
-import AppBar from '@mui/material/AppBar';
+
+import {GetMenuItemsBlock, MainItemsData, SettingsItemsData} from "./MyMenu";
+import {drawer} from "../../../utils/Constants";
+
 import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
-import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import {GetMenuItemsBlock, MainItemsData, SettingsItemsData} from "./MyMenu";
 
-const drawerWidth = 240;
+const MyDrawer = (props) => {
+    const {window, mobileOpen, onToggle} = props;
 
-function MyDrawer(props) {
-    const { window } = props;
-    const [mobileOpen, setMobileOpen] = React.useState(false);
+    const container = window !== undefined
+        ? () => window().document.body
+        : undefined;
 
-    const handleDrawerToggle = () => {
-        setMobileOpen(!mobileOpen);
+    const box = {width: {sm: drawer.width}, flexShrink: {sm: 0}};
+    const drawerMobile = {
+        display: {xs: 'block', sm: 'none'},
+        '& .MuiDrawer-paper': {boxSizing: 'border-box', width: drawer.width},
+    };
+    const drawerDesktop = {
+        display: {xs: 'none', sm: 'block'},
+        '& .MuiDrawer-paper': {boxSizing: 'border-box', width: drawer.width},
     };
 
-    const drawer = (
+    const menuItems = (
         <div>
-            <Toolbar />
-            <Divider />
+            <Toolbar/>
+            <Divider/>
             <List>
                 {GetMenuItemsBlock(MainItemsData)}
             </List>
-            <Divider />
+            <Divider/>
             <List>
                 {GetMenuItemsBlock(SettingsItemsData)}
             </List>
         </div>
     );
 
-    const container = window !== undefined ? () => window().document.body : undefined;
-
     return (
-        <Box sx={{ display: 'flex' }}>
-            <CssBaseline />
-            <AppBar
-                position="fixed"
-                sx={{
-                    width: { sm: `calc(100% - ${drawerWidth}px)` },
-                    ml: { sm: `${drawerWidth}px` },
+        <Box
+            sx={box}
+            component="nav"
+        >
+            <Drawer
+                sx={drawerMobile}
+                container={container}
+                variant="temporary"
+                open={mobileOpen}
+                onClose={onToggle}
+                ModalProps={{
+                    keepMounted: true, // Better open performance on mobile.
                 }}
             >
-                <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        edge="start"
-                        onClick={handleDrawerToggle}
-                        sx={{ mr: 2, display: { sm: 'none' } }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography variant="h6" noWrap component="div">
-                        Responsive drawer
-                    </Typography>
-                </Toolbar>
-            </AppBar>
-            <Box
-                component="nav"
-                sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-                aria-label="mailbox folders"
+                {menuItems}
+            </Drawer>
+            <Drawer
+                sx={drawerDesktop}
+                variant="permanent"
+                open
             >
-                {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-                <Drawer
-                    container={container}
-                    variant="temporary"
-                    open={mobileOpen}
-                    onClose={handleDrawerToggle}
-                    ModalProps={{
-                        keepMounted: true, // Better open performance on mobile.
-                    }}
-                    sx={{
-                        display: { xs: 'block', sm: 'none' },
-                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-                    }}
-                >
-                    {drawer}
-                </Drawer>
-                <Drawer
-                    variant="permanent"
-                    sx={{
-                        display: { xs: 'none', sm: 'block' },
-                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-                    }}
-                    open
-                >
-                    {drawer}
-                </Drawer>
-            </Box>
+                {menuItems}
+            </Drawer>
         </Box>
     );
 }
-
-MyDrawer.propTypes = {
-    /**
-     * Injected by the documentation to work in an iframe.
-     * You won't need it on your project.
-     */
-    window: PropTypes.func,
-};
 
 export default MyDrawer;
