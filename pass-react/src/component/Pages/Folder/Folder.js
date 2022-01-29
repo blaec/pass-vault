@@ -7,11 +7,24 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import List from "@mui/material/List";
 
-const folders = ['Site', 'Application'];
+const folders = [{name: 'Site', id: 1}, {name: 'Application', id: 2}];
 
 const Folder = () => {
-    const folderItems = folders.map(folder => <FolderItem folder={folder}/>);
-    folderItems.push(<FolderItem folder="Create new folder..." isNew={true}/>)
+    const folderItems = folders.map(folder => (
+        <FolderItem
+            key={folder.id}
+            id={folder.id}
+            folder={folder.name}
+        />
+    ));
+    folderItems.push(
+        <FolderItem
+            key='0'
+            id='0'
+            folder="Create new folder..."
+            isNew={true}
+        />
+    )
 
     return (
         <Box sx={{flexGrow: 1, maxWidth: 752}}>

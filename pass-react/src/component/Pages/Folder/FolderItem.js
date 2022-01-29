@@ -7,27 +7,43 @@ import FolderTwoToneIcon from "@mui/icons-material/FolderTwoTone";
 import CreateNewFolderTwoToneIcon from '@mui/icons-material/CreateNewFolderTwoTone';
 
 const FolderItem = (props) => {
-    const {folder, isNew} = props;
+    const {id, folder, isNew} = props;
     const secondary = false;
 
-    const oldControls = (
+    const editIcon = {ml: 2, color: 'green'};
+    const deleteIcon = {ml: 2, color: 'red'};
+    const createIcon = {ml: 2, color: 'blue'};
+
+    const modifyControls = (
         <>
-            <IconButton edge="end" sx={{ml: 2, color: 'green'}}>
+            <IconButton
+                edge="end"
+                sx={editIcon}
+                onClick={() => alert(`edit ${id}`)}
+            >
                 <EditTwoToneIcon/>
             </IconButton>
-            <IconButton edge="end" sx={{ml: 2, color: 'red'}}>
+            <IconButton
+                edge="end"
+                sx={deleteIcon}
+                onClick={() => alert(`delete ${id}`)}
+            >
                 <DeleteTwoToneIcon/>
             </IconButton>
         </>
     );
-    const newControls = (
+    const createControls = (
         <>
-            <IconButton edge="end" sx={{ml: 2, color: 'blue'}}>
+            <IconButton
+                edge="end"
+                sx={createIcon}
+                onClick={() => alert(`create ${id}`)}
+            >
                 <CreateNewFolderTwoToneIcon/>
             </IconButton>
         </>
     );
-    const controls = isNew ? newControls : oldControls;
+    const controls = isNew ? createControls : modifyControls;
 
     return (
 
