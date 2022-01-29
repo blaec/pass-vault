@@ -14,19 +14,29 @@ const FolderItem = (props) => {
     const deleteIcon = {ml: 2, color: 'red'};
     const createIcon = {ml: 2, color: 'blue'};
 
+    const handleEdit = (id) => {
+        alert(`edit ${id}`);
+    };
+    const handleDelete = (id) => {
+        alert(`delete ${id}`);
+    };
+    const handleCreate = (id) => {
+        alert(`create ${id}`);
+    };
+
     const modifyControls = (
         <>
             <IconButton
                 edge="end"
                 sx={editIcon}
-                onClick={() => alert(`edit ${id}`)}
+                onClick={() => handleEdit(id)}
             >
                 <EditTwoToneIcon/>
             </IconButton>
             <IconButton
                 edge="end"
                 sx={deleteIcon}
-                onClick={() => alert(`delete ${id}`)}
+                onClick={() => handleDelete(id)}
             >
                 <DeleteTwoToneIcon/>
             </IconButton>
@@ -37,7 +47,7 @@ const FolderItem = (props) => {
             <IconButton
                 edge="end"
                 sx={createIcon}
-                onClick={() => alert(`create ${id}`)}
+                onClick={() => handleCreate(id)}
             >
                 <CreateNewFolderTwoToneIcon/>
             </IconButton>
