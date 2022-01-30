@@ -1,6 +1,6 @@
 import React from 'react';
 
-import MyFormDialog from "../../../UI/MyFormDialog";
+import MyFormDialog, {FolderAction} from "../../../UI/MyFormDialog";
 
 import {Avatar, ListItem, ListItemAvatar, ListItemText} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
@@ -13,40 +13,46 @@ const FolderItem = (props) => {
     const {id, folder, isNew} = props;
     const secondary = false;
 
-    const [dialog, setDialog] = React.useState({title: '', ok: '', cancel: '', open: false, message: ''});
+    const [dialog, setDialog] = React.useState({id: null, action: null, title: '', ok: '', cancel: '', message: '', isOpen: false});
 
     const editIcon = {ml: 2, color: 'green'};
     const deleteIcon = {ml: 2, color: 'red'};
     const createIcon = {ml: 2, color: 'blue'};
 
     const handleCloseDialog = () => {
-        setDialog({...dialog, open: false})
+        setDialog({...dialog, isOpen: false})
     };
 
     const handleEdit = (id) => {
         setDialog({
+            id: id,
+            action: FolderAction.edit,
             title: `Edit folder #${id}`,
             ok: 'Edit',
             cancel: 'Cancel',
-            open: true,
+            isOpen: true,
             message: 'Set new folder name'
         })
     };
     const handleDelete = (id) => {
         setDialog({
+            id: id,
+            action: FolderAction.delete,
             title: `Delete folder #${id}`,
             ok: 'Delete',
             cancel: 'Cancel',
-            open: true,
+            isOpen: true,
             message: 'Do you want to delete this folder?'
         })
     };
     const handleCreate = (id) => {
         setDialog({
+            id: id,
+            action: FolderAction.create,
             title: `Create folder | ${id}`,
             ok: 'Create',
             cancel: 'Cancel',
-            open: true,
+            isOpen: true,
             message: `Set name for a new folder`
         })
     };

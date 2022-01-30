@@ -8,11 +8,24 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
+export const FolderAction = Object.freeze(
+    {
+        create: 'created',
+        edit: 'edited',
+        delete: 'deleted',
+    }
+);
+
 const MyFormDialog = (props) => {
-    const {dialog: {title, ok, cancel, open, message}, onClose} = props;
+    const {dialog: {id, action, title, ok, cancel, message, isOpen}, onClose} = props;
+
+    const handleConfirm = () => {
+        alert(`Folder ${id} will be ${action}`);
+        onClose();
+    };
 
     return (
-        <Dialog open={open} onClose={onClose}>
+        <Dialog open={isOpen} onClose={onClose}>
             <DialogTitle>{title}</DialogTitle>
             <DialogContent>
                 <DialogContentText>
@@ -30,7 +43,7 @@ const MyFormDialog = (props) => {
             </DialogContent>
             <DialogActions>
                 <Button onClick={onClose}>{cancel}</Button>
-                <Button onClick={onClose}>{ok}</Button>
+                <Button onClick={handleConfirm}>{ok}</Button>
             </DialogActions>
         </Dialog>
     );
