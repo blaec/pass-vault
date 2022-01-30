@@ -30,7 +30,7 @@ const Folder = () => {
         <Box sx={{flexGrow: 1, maxWidth: 752}}>
             <Grid item xs={12} md={6}>
                 <Typography sx={{mt: 4, mb: 2}} variant="h6" component="div">
-                    Avatar with text and icon
+                    Folders list
                 </Typography>
                 <List>
                     {folderItems}

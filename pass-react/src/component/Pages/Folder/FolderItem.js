@@ -13,26 +13,42 @@ const FolderItem = (props) => {
     const {id, folder, isNew} = props;
     const secondary = false;
 
-    const [open, setOpen] = React.useState(false);
+    const [dialog, setDialog] = React.useState({title: '', ok: '', cancel: '', open: false, message: ''});
 
     const editIcon = {ml: 2, color: 'green'};
     const deleteIcon = {ml: 2, color: 'red'};
     const createIcon = {ml: 2, color: 'blue'};
 
     const handleCloseDialog = () => {
-        setOpen(false);
+        setDialog({...dialog, open: false})
     };
 
     const handleEdit = (id) => {
-        setOpen(true);
-        alert(`edit ${id}`);
+        setDialog({
+            title: `Edit folder #${id}`,
+            ok: 'Edit',
+            cancel: 'Cancel',
+            open: true,
+            message: 'Set new folder name'
+        })
     };
     const handleDelete = (id) => {
-        alert(`delete ${id}`);
+        setDialog({
+            title: `Delete folder #${id}`,
+            ok: 'Delete',
+            cancel: 'Cancel',
+            open: true,
+            message: 'Do you want to delete this folder?'
+        })
     };
     const handleCreate = (id) => {
-        setOpen(true);
-        alert(`create ${id}`);
+        setDialog({
+            title: `Create folder | ${id}`,
+            ok: 'Create',
+            cancel: 'Cancel',
+            open: true,
+            message: `Set name for a new folder`
+        })
     };
 
     const modifyControls = (
@@ -80,7 +96,7 @@ const FolderItem = (props) => {
                 />
             </ListItem>
             <MyFormDialog
-                open={open}
+                dialog={dialog}
                 onClose={handleCloseDialog}
             />
         </>
