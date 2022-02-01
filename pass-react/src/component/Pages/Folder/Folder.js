@@ -10,6 +10,9 @@ import List from "@mui/material/List";
 const folders = [{name: 'Site', id: 1}, {name: 'Application', id: 2}];
 
 const Folder = () => {
+    const root = {flexGrow: 1, maxWidth: 752};
+    const header = {mt: 4, mb: 2};
+
     const folderItems = folders.map(folder => (
         <FolderItem
             key={folder.id}
@@ -27,9 +30,9 @@ const Folder = () => {
     )
 
     return (
-        <Box sx={{flexGrow: 1, maxWidth: 752}}>
+        <Box sx={root}>
             <Grid item xs={12} md={6}>
-                <Typography sx={{mt: 4, mb: 2}} variant="h6" component="div">
+                <Typography sx={header} variant="h6" component="div">
                     Folders list
                 </Typography>
                 <List>
