@@ -5,6 +5,7 @@ import {reactLinks} from "../../../utils/UrlUtils";
 
 import VpnKeyTwoToneIcon from '@mui/icons-material/VpnKeyTwoTone';
 import SettingsApplicationsTwoToneIcon from '@mui/icons-material/SettingsApplicationsTwoTone';
+import CreateNewFolderTwoToneIcon from '@mui/icons-material/CreateNewFolderTwoTone';
 
 export const GetMenuItemsBlock = (itemsData) => {
 
@@ -32,6 +33,11 @@ export const MainItemsData = [
 ];
 
 export const SettingsItemsData = [
+    {
+        text: "Folders",
+        link: reactLinks.folders,
+        icon: <CreateNewFolderTwoToneIcon/>
+    },
     {
         text: "Settings",
         link: reactLinks.settings,

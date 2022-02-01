@@ -4,6 +4,7 @@ import {
     Route
 } from "react-router-dom";
 
+import Password from "./component/Pages/Password/Password";
 import Folder from "./component/Pages/Folder/Folder";
 import Settings from "./component/Pages/Settings/Settings";
 
@@ -13,6 +14,7 @@ import {reactLinks} from "./utils/UrlUtils";
 function App() {
     const {
         passwords,
+        folders,
         settings,
     } = reactLinks;
 
@@ -22,7 +24,8 @@ function App() {
             <Routes>
 
                 {/* Menu items */}
-                <Route path={passwords} element={<Folder/>}/>
+                <Route path={passwords} element={<Password/>}/>
+                <Route path={folders} element={<Folder/>}/>
                 <Route path={settings} element={<Settings/>}/>
             </Routes>
         </Layout>

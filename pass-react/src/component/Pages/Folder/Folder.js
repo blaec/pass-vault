@@ -1,47 +1,45 @@
 import React from 'react';
 
-import {Button, TextField} from "@mui/material";
-import CreateNewFolderTwoToneIcon from '@mui/icons-material/CreateNewFolderTwoTone';
-import Box from "@mui/material/Box";
+import FolderItem from "./FolderItem";
 
+import {Grid} from "@mui/material";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import List from "@mui/material/List";
+
+const folders = [{name: 'Site', id: 1}, {name: 'Application', id: 2}];
 
 const Folder = () => {
+    const root = {flexGrow: 1, maxWidth: 752};
+    const header = {mt: 4, mb: 2};
+
+    const folderItems = folders.map(folder => (
+        <FolderItem
+            key={folder.id}
+            id={folder.id}
+            folder={folder.name}
+        />
+    ));
+    folderItems.push(
+        <FolderItem
+            key='0'
+            id='0'
+            folder="Create new folder..."
+            isNew={true}
+        />
+    )
+
     return (
-        <React.Fragment>
-            <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-                <CreateNewFolderTwoToneIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
-                <TextField id="standard-basic" label="Folder name" variant="standard"/>
-            </Box>
-            <Box sx={{ '& button': { m: 1 } }}>
-                <div>
-                    <Button size="small">Small</Button>
-                    <Button size="medium">Medium</Button>
-                    <Button size="large">Large</Button>
-                </div>
-                <div>
-                    <Button variant="outlined" size="small">
-                        Small
-                    </Button>
-                    <Button variant="outlined" size="medium">
-                        Medium
-                    </Button>
-                    <Button variant="outlined" size="large">
-                        Large
-                    </Button>
-                </div>
-                <div>
-                    <Button variant="contained" size="small">
-                        Small
-                    </Button>
-                    <Button variant="contained" size="medium">
-                        Medium
-                    </Button>
-                    <Button variant="contained" size="large">
-                        Large
-                    </Button>
-                </div>
-            </Box>
-        </React.Fragment>
+        <Box sx={root}>
+            <Grid item xs={12} md={6}>
+                <Typography sx={header} variant="h6" component="div">
+                    Folders list
+                </Typography>
+                <List>
+                    {folderItems}
+                </List>
+            </Grid>
+        </Box>
     );
 };
 
