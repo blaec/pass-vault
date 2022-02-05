@@ -18,7 +18,7 @@ import java.util.Optional;
 @CrossOrigin(origins = "*")
 @RestController
 public class FolderController extends AbstractController{
-    static final String URL = API_VERSION + "/folder";
+    static final String URL = API_VERSION + "/folders";
     private final FolderService folderService;
 
     @GetMapping("/get-all")
@@ -27,7 +27,7 @@ public class FolderController extends AbstractController{
     }
 
     @PostMapping("/create/{name}")
-    public Response saveWishMovie(@PathVariable String name) {
+    public Response saveFolder(@PathVariable String name) {
         log.info("saving folder | {}", name);
         return folderService.save(Folder.from(name));
     }

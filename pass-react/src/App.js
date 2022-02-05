@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
     Routes,
     Route
@@ -10,6 +10,8 @@ import Settings from "./component/Pages/Settings/Settings";
 
 import Layout from "./hoc/Layout";
 import {reactLinks} from "./utils/UrlUtils";
+import {fetchFolders} from "./store/state/folder/folder-actions";
+import {useDispatch} from "react-redux";
 
 function App() {
     const {
@@ -18,6 +20,11 @@ function App() {
         settings,
     } = reactLinks;
 
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchFolders());
+    }, []);
 
     const layout = (
         <Layout>

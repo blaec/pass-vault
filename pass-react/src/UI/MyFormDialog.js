@@ -1,4 +1,7 @@
 import React from 'react';
+import {useDispatch} from "react-redux";
+
+import {saveFolder} from "../store/state/folder/folder-actions";
 
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -19,9 +22,14 @@ export const FolderAction = Object.freeze(
 const MyFormDialog = (props) => {
     const {dialog: {id, action, title, ok, cancel, message, isOpen}, onClose} = props;
     const inputRef = React.useRef();
+    const dispatch = useDispatch();
 
     const handleConfirm = () => {
-        alert(`Folder ${id} will be ${action}${inputRef?.current?.value ?? ''}`);
+        if (action === FolderAction.create && inputRef?.current?.value.length > 0) {
+            dispatch(saveFolder(inputRef.current.value));
+        } else {
+            alert(`Folder ${id} will be ${action}${inputRef?.current?.value ?? ''}`);
+        }
         onClose();
     };
 
