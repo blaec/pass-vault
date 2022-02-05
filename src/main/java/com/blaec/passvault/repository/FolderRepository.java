@@ -6,4 +6,5 @@ public interface FolderRepository {
     Iterable<Folder> getAll();
     Folder getByName(String name);
     Folder save(Folder folder);
+    boolean delete(int id);
 }

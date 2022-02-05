@@ -5,4 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface CrudFolderRepository extends CrudRepository<Folder, Integer> {
     Folder findByName(String name);
+    int deleteById(int id);
 }

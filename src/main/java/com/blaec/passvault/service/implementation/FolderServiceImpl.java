@@ -26,7 +26,7 @@ public class FolderServiceImpl implements FolderService {
     }
 
     @Override
-    public Response save(Folder folder) {
+    public Response.Builder save(Folder folder) {
         Response.Builder response = Response.Builder.create();
         try {
             Folder saved = folderRepository.save(folder);
@@ -35,6 +35,21 @@ public class FolderServiceImpl implements FolderService {
         } catch (Exception e) {
             response.setFailure("failure");
         }
-        return response.build();
+        return response;
+    }
+
+    @Override
+    public Response.Builder delete(int id) {
+        Response.Builder response = Response.Builder.create();
+
+        if (folderRepository.delete(id)) {
+            String message = String.format("deleted | folder with id %d", id);
+            log.info(message);
+            response.setSuccess(message);
+        } else {
+            throw new IllegalStateException();
+        }
+
+        return response;
     }
 }
