@@ -17,8 +17,20 @@ export const fetchFolders = () => {
 
 export const saveFolder = (folder) => {
     return async (dispatch) => {
-        console.log(folder);
-        axios.post(`${folderApi.post.saveFolder}${folder}`)
+        axios.post(`${folderApi.post.save}${folder}`)
+            .then(response => {
+                const {data} = response;
+                dispatch(fetchFolders());
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    };
+};
+
+export const deleteFolder = (id) => {
+    return async (dispatch) => {
+        axios.delete(`${folderApi.delete.delete}${id}`)
             .then(response => {
                 const {data} = response;
                 dispatch(fetchFolders());

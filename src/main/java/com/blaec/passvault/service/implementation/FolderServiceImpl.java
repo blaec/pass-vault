@@ -42,7 +42,7 @@ public class FolderServiceImpl implements FolderService {
     public Response.Builder delete(int id) {
         Response.Builder response = Response.Builder.create();
 
-        if (folderRepository.delete(id)) {
+        if (folderRepository.isDeleted(id)) {
             String message = String.format("deleted | folder with id %d", id);
             log.info(message);
             response.setSuccess(message);

@@ -28,7 +28,7 @@ public class FolderRepositoryImpl implements FolderRepository {
     }
 
     @Override
-    public boolean delete(int id) {
+    public boolean isDeleted(int id) {
         return crudFolderRepository.deleteById(id) != 0;
     }
 }

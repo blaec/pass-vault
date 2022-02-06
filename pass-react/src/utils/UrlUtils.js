@@ -11,6 +11,9 @@ export const folderApi = {
         getAll: `${baseFolderApi}get-all`,
     },
     post: {
-        saveFolder: `${baseFolderApi}create/`,
+        save: `${baseFolderApi}create/`,
+    },
+    delete: {
+        delete: `${baseFolderApi}delete/`,
     },
 };
