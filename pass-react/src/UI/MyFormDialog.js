@@ -1,7 +1,7 @@
 import React from 'react';
 import {useDispatch} from "react-redux";
 
-import {deleteFolder, saveFolder} from "../store/state/folder/folder-actions";
+import {deleteFolder, saveFolder, updateFolder} from "../store/state/folder/folder-actions";
 
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -27,6 +27,8 @@ const MyFormDialog = (props) => {
     const handleConfirm = () => {
         if (action === FolderAction.create && inputRef?.current?.value.length > 0) {
             dispatch(saveFolder(inputRef.current.value));
+        } else if (action === FolderAction.edit && inputRef?.current?.value.length > 0) {
+            dispatch(updateFolder(inputRef.current.value));
         } else if (action === FolderAction.delete) {
             dispatch(deleteFolder(id));
         } else {

@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Slf4j
 @AllArgsConstructor
 @Repository
@@ -23,8 +25,8 @@ public class FolderRepositoryImpl implements FolderRepository {
     }
 
     @Override
-    public Folder save(Folder folder) {
-        return crudFolderRepository.save(folder);
+    public Optional<Folder> save(Folder folder) {
+        return Optional.of(crudFolderRepository.save(folder));
     }
 
     @Override

@@ -12,6 +12,7 @@ export const folderApi = {
     },
     post: {
         save: `${baseFolderApi}create/`,
+        update: `${baseFolderApi}update/`,
     },
     delete: {
         delete: `${baseFolderApi}delete/`,

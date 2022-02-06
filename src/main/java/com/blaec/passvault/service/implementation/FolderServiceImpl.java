@@ -29,11 +29,27 @@ public class FolderServiceImpl implements FolderService {
     public Response.Builder save(Folder folder) {
         Response.Builder response = Response.Builder.create();
         try {
-            Folder saved = folderRepository.save(folder);
+            Folder saved = folderRepository.save(folder)
+                    .orElseThrow(IllegalArgumentException::new);
             log.info("Folder {} successfully saved", saved.getName());
             response.setSuccess("success");
         } catch (Exception e) {
             response.setFailure("failure");
+        }
+        return response;
+    }
+
+    @Override
+    public Response.Builder update(Folder folder) {
+        Response.Builder response = Response.Builder.create();
+        try {
+            Folder updatedFolder = folderRepository.save(folder)
+                    .orElseThrow(IllegalArgumentException::new);
+            response.setSuccess(updatedFolder.getName());
+        } catch (Exception e) {
+            String message = String.format("Failed to update folder | %s", folder);
+            log.error(message, e);
+            response.setFailure(message);
         }
         return response;
     }

@@ -8,5 +8,6 @@ public interface FolderService {
     Iterable<Folder> getAll();
     Folder getByName(String name);
     @Transactional Response.Builder save(Folder folder);
+    @Transactional Response.Builder update(Folder folder);
     @Transactional Response.Builder delete(int id);
 }
