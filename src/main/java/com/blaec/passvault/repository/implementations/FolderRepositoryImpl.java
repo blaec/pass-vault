@@ -26,4 +26,9 @@ public class FolderRepositoryImpl implements FolderRepository {
     public Folder save(Folder folder) {
         return crudFolderRepository.save(folder);
     }
+
+    @Override
+    public boolean isDeleted(int id) {
+        return crudFolderRepository.deleteById(id) != 0;
+    }
 }

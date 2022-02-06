@@ -7,5 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 public interface FolderService {
     Iterable<Folder> getAll();
     Folder getByName(String name);
-    @Transactional Response save(Folder folder);
+    @Transactional Response.Builder save(Folder folder);
+    @Transactional Response.Builder delete(int id);
 }
