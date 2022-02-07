@@ -20,7 +20,7 @@ export const FolderAction = Object.freeze(
 );
 
 const MyFormDialog = (props) => {
-    const {dialog: {id, action, title, ok, cancel, message, isOpen}, onClose} = props;
+    const {dialog: {id, action, folder, title, ok, cancel, message, isOpen}, onClose} = props;
     const inputRef = React.useRef();
     const dispatch = useDispatch();
 
@@ -42,6 +42,7 @@ const MyFormDialog = (props) => {
         : (
             <TextField
                 inputRef={inputRef}
+                defaultValue={folder}
                 autoFocus
                 margin="dense"
                 id="name"
