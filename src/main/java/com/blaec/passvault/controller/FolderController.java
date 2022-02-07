@@ -27,10 +27,10 @@ public class FolderController extends AbstractController{
         return folderService.save(Folder.from(name)).build();
     }
 
-    @PostMapping("/update/{name}")
-    public Response updateFolder(@PathVariable String name) {
-        log.info("updating folder | {}", name);
-        return folderService.update(Folder.from(name)).build();
+    @PutMapping("/update")
+    public Response updateFolder(@RequestBody Folder folder) {
+        log.info("updating folder | {}", folder.getName());
+        return folderService.update(folder).build();
     }
 
     @DeleteMapping("/delete/{id}")

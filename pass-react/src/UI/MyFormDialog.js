@@ -28,7 +28,7 @@ const MyFormDialog = (props) => {
         if (action === FolderAction.create && inputRef?.current?.value.length > 0) {
             dispatch(saveFolder(inputRef.current.value));
         } else if (action === FolderAction.edit && inputRef?.current?.value.length > 0) {
-            dispatch(updateFolder(inputRef.current.value));
+            dispatch(updateFolder({id: id, name: inputRef.current.value}));
         } else if (action === FolderAction.delete) {
             dispatch(deleteFolder(id));
         } else {

@@ -12,6 +12,8 @@ export const folderApi = {
     },
     post: {
         save: `${baseFolderApi}create/`,
+    },
+    put: {
         update: `${baseFolderApi}update/`,
     },
     delete: {

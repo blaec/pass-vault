@@ -30,7 +30,7 @@ export const saveFolder = (folder) => {
 
 export const updateFolder = (folder) => {
     return async (dispatch) => {
-        axios.post(`${folderApi.post.update}${folder}`)
+        axios.put(`${folderApi.put.update}`, folder)
             .then(response => {
                 const {data} = response;
                 dispatch(fetchFolders());
