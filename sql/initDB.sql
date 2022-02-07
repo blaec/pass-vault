@@ -8,6 +8,7 @@ CREATE TABLE folders
     PRIMARY KEY     (id)
 );
 ALTER TABLE folders AUTO_INCREMENT = 100000;
+CREATE UNIQUE INDEX folders_unique_name_idx ON folders (name);
 
 
 CREATE TABLE passwords
