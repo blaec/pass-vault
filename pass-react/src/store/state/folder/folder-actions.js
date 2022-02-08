@@ -28,6 +28,19 @@ export const saveFolder = (folder) => {
     };
 };
 
+export const updateFolder = (folder) => {
+    return async (dispatch) => {
+        axios.put(`${folderApi.put.update}`, folder)
+            .then(response => {
+                const {data} = response;
+                dispatch(fetchFolders());
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    };
+};
+
 export const deleteFolder = (id) => {
     return async (dispatch) => {
         axios.delete(`${folderApi.delete.delete}${id}`)

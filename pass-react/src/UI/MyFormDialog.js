@@ -1,7 +1,7 @@
 import React from 'react';
 import {useDispatch} from "react-redux";
 
-import {deleteFolder, saveFolder} from "../store/state/folder/folder-actions";
+import {deleteFolder, saveFolder, updateFolder} from "../store/state/folder/folder-actions";
 
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -20,13 +20,15 @@ export const FolderAction = Object.freeze(
 );
 
 const MyFormDialog = (props) => {
-    const {dialog: {id, action, title, ok, cancel, message, isOpen}, onClose} = props;
+    const {dialog: {id, action, folder, title, ok, cancel, message, isOpen}, onClose} = props;
     const inputRef = React.useRef();
     const dispatch = useDispatch();
 
     const handleConfirm = () => {
         if (action === FolderAction.create && inputRef?.current?.value.length > 0) {
             dispatch(saveFolder(inputRef.current.value));
+        } else if (action === FolderAction.edit && inputRef?.current?.value.length > 0) {
+            dispatch(updateFolder({id: id, name: inputRef.current.value}));
         } else if (action === FolderAction.delete) {
             dispatch(deleteFolder(id));
         } else {
@@ -40,6 +42,7 @@ const MyFormDialog = (props) => {
         : (
             <TextField
                 inputRef={inputRef}
+                defaultValue={folder}
                 autoFocus
                 margin="dense"
                 id="name"

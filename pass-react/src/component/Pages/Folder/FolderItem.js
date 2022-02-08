@@ -13,7 +13,7 @@ const FolderItem = (props) => {
     const {id, folder, isNew} = props;
     const secondary = false;
 
-    const [dialog, setDialog] = React.useState({id: null, action: null, title: '', ok: '', cancel: '', message: '', isOpen: false});
+    const [dialog, setDialog] = React.useState({id: null, action: null, folder: '', title: '', ok: '', cancel: '', message: '', isOpen: false});
 
     const editIcon = {ml: 2, color: 'green'};
     const deleteIcon = {ml: 2, color: 'red'};
@@ -27,6 +27,7 @@ const FolderItem = (props) => {
         setDialog({
             id: id,
             action: FolderAction.edit,
+            folder: folder,
             title: `Edit folder #${id}`,
             ok: 'Edit',
             cancel: 'Cancel',
