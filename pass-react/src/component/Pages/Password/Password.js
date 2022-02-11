@@ -1,7 +1,9 @@
 import React from 'react';
-import {Card, CardActions, CardContent, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
 import {useSelector} from "react-redux";
+
 import {isArrayExist} from "../../../utils/Utils";
+
+import {Card, CardActions, CardContent, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
@@ -35,8 +37,6 @@ const Password = () => {
                 </FormControl>
                 <TextField
                     autoFocus
-                    margin="dense"
-                    id="name"
                     label="Title"
                     type="text"
                     fullWidth
@@ -44,8 +44,6 @@ const Password = () => {
                 />
                 <TextField
                     autoFocus
-                    margin="dense"
-                    id="name"
                     label="User"
                     type="text"
                     fullWidth
@@ -53,8 +51,6 @@ const Password = () => {
                 />
                 <TextField
                     autoFocus
-                    margin="dense"
-                    id="name"
                     label="Password"
                     type="password"
                     fullWidth
@@ -62,8 +58,6 @@ const Password = () => {
                 />
                 <TextField
                     autoFocus
-                    margin="dense"
-                    id="name"
                     label="Website"
                     type="text"
                     fullWidth
