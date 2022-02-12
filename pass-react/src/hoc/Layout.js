@@ -1,8 +1,9 @@
 import React from 'react';
 
+import {drawer, toolbarHeight} from "../utils/Constants";
+
 import MyToolbar from "../component/Toolbar/MyToolbar";
 import Box from "@mui/material/Box";
-import {drawer, toolbarHeight} from "../utils/Constants";
 
 const Layout = (props) => {
     const {children} = props;
