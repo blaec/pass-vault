@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public interface FolderRepository {
     Iterable<Folder> getAll();
-    Folder getByName(String name);
+    Optional<Folder> getById(int id);
     Optional<Folder> save(Folder folder);
     boolean isDeleted(int id);
 }

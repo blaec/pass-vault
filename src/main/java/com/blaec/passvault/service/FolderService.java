@@ -4,9 +4,11 @@ import com.blaec.passvault.model.Folder;
 import com.blaec.passvault.model.response.Response;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 public interface FolderService {
     Iterable<Folder> getAll();
-    Folder getByName(String name);
+    Optional<Folder> getById(int folderId);
     @Transactional Response.Builder save(Folder folder);
     @Transactional Response.Builder update(Folder folder);
     @Transactional Response.Builder delete(int id);

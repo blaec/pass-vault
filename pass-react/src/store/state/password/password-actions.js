@@ -17,7 +17,7 @@ export const fetchPasswords = () => {
 
 export const savePassword = (password) => {
     return async (dispatch) => {
-        axios.post(`${passwordApi.post.save}${password}`)
+        axios.post(`${passwordApi.post.save}`, password)
             .then(response => {
                 const {data} = response;
                 dispatch(fetchPasswords());
