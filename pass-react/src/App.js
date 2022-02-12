@@ -4,7 +4,7 @@ import {
     Route
 } from "react-router-dom";
 
-import Password from "./component/Pages/Password/Password";
+import NewPassword from "./component/Pages/Password/NewPassword";
 import Folder from "./component/Pages/Folder/Folder";
 import Settings from "./component/Pages/Settings/Settings";
 
@@ -31,7 +31,7 @@ function App() {
             <Routes>
 
                 {/* Menu items */}
-                <Route path={passwords} element={<Password/>}/>
+                <Route path={passwords} element={<NewPassword/>}/>
                 <Route path={folders} element={<Folder/>}/>
                 <Route path={settings} element={<Settings/>}/>
             </Routes>
