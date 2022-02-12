@@ -1,5 +1,5 @@
 import React from 'react';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 import {isArrayExist} from "../../../utils/Utils";
 
@@ -7,6 +7,7 @@ import {Card, CardActions, CardContent, FormControl, InputLabel, MenuItem, Selec
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
+import {savePassword} from "../../../store/state/password/password-actions";
 
 const Password = () => {
     const [folder, setFolder] = React.useState('');
@@ -16,6 +17,8 @@ const Password = () => {
     const passwordRef = React.useRef();
     const websiteRef = React.useRef();
     const noteRef = React.useRef();
+
+    const dispatch = useDispatch();
 
     const handleChange = (event) => {
         setFolder(event.target.value);
@@ -31,7 +34,15 @@ const Password = () => {
     };
 
     const handleSave = () => {
-        alert(`New password: title ${titleRef.current.value} | user: ${userRef.current.value} | password: ${passwordRef.current.value} | website: ${websiteRef.current.value} | note: ${noteRef.current.value} | to folder: ${folder}`);
+        const password = {
+            folderId: folder,
+            title: titleRef.current.value,
+            user: userRef.current.value,
+            password: passwordRef.current.value,
+            website: websiteRef.current.value,
+            note: noteRef.current.value
+        };
+        dispatch(savePassword(password));
     };
 
     const handleGeneratePassword = () => {

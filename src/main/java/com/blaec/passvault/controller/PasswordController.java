@@ -10,6 +10,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @Slf4j
 @AllArgsConstructor
 @RequestMapping(PasswordController.URL)
@@ -28,8 +30,7 @@ public class PasswordController extends AbstractController{
     @PostMapping("/create")
     public Response saveWishMovie(@RequestBody PasswordTo passwordTo) {
         log.info("saving password | {}", passwordTo.getTitle());
-        Folder folder = folderService.getByName(passwordTo.getFolder());
-        Password password = Password.from(passwordTo, folder);
-        return passwordService.save(password);
+        Optional<Folder> folder = folderService.getById(passwordTo.getFolderId());
+        return passwordService.save(passwordTo, folder);
     }
 }

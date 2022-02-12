@@ -20,8 +20,8 @@ public class FolderRepositoryImpl implements FolderRepository {
     }
 
     @Override
-    public Folder getByName(String name) {
-        return crudFolderRepository.findByName(name);
+    public Optional<Folder> getById(int id) {
+        return crudFolderRepository.findById(id);
     }
 
     @Override

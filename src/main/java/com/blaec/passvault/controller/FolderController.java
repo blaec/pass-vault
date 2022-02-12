@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "*")
 @RestController
 public class FolderController extends AbstractController{
-    static final String URL = API_VERSION + "/folders";
+    static final String URL = API_VERSION + "/folder";
     private final FolderService folderService;
 
     @GetMapping("/get-all")

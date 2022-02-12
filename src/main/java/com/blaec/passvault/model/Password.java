@@ -5,6 +5,7 @@ import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Slf4j
 @Entity
@@ -29,7 +30,7 @@ public class Password {
     private String note;
 
     @Column(name="creation_date")
-    @NonNull private String creationDate;
+    @NonNull private LocalDate creationDate;
 
     public static Password from(PasswordTo passwordTo, Folder folder) {
         Password created = new Password();
@@ -39,6 +40,7 @@ public class Password {
         created.password = passwordTo.getPassword();
         created.website = passwordTo.getWebsite();
         created.note = passwordTo.getNote();
+        created.creationDate = LocalDate.now();
 
         return created;
     }
