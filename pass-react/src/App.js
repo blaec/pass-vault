@@ -12,6 +12,7 @@ import Layout from "./hoc/Layout";
 import {reactLinks} from "./utils/UrlUtils";
 import {fetchFolders} from "./store/state/folder/folder-actions";
 import {useDispatch} from "react-redux";
+import {fetchPasswords} from "./store/state/password/password-actions";
 
 function App() {
     const {
@@ -24,6 +25,7 @@ function App() {
 
     useEffect(() => {
         dispatch(fetchFolders());
+        dispatch(fetchPasswords());
     }, []);
 
     const layout = (
