@@ -4,7 +4,7 @@ import {
     Route
 } from "react-router-dom";
 
-import Password from "./component/Pages/Password/Password";
+import NewPassword from "./component/Pages/Password/Passwords";
 import Folder from "./component/Pages/Folder/Folder";
 import Settings from "./component/Pages/Settings/Settings";
 
@@ -12,6 +12,7 @@ import Layout from "./hoc/Layout";
 import {reactLinks} from "./utils/UrlUtils";
 import {fetchFolders} from "./store/state/folder/folder-actions";
 import {useDispatch} from "react-redux";
+import {fetchPasswords} from "./store/state/password/password-actions";
 
 function App() {
     const {
@@ -24,6 +25,7 @@ function App() {
 
     useEffect(() => {
         dispatch(fetchFolders());
+        dispatch(fetchPasswords());
     }, []);
 
     const layout = (
@@ -31,7 +33,7 @@ function App() {
             <Routes>
 
                 {/* Menu items */}
-                <Route path={passwords} element={<Password/>}/>
+                <Route path={passwords} element={<NewPassword/>}/>
                 <Route path={folders} element={<Folder/>}/>
                 <Route path={settings} element={<Settings/>}/>
             </Routes>

@@ -9,7 +9,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import {savePassword} from "../../../store/state/password/password-actions";
 
-const Password = () => {
+const NewPassword = () => {
     const [folder, setFolder] = React.useState('');
     const {folders, isFoldersLoaded} = useSelector(state => state.folder.folders);
     const titleRef = React.useRef();
@@ -129,4 +129,4 @@ const Password = () => {
     );
 };
 
-export default Password;
+export default NewPassword;

@@ -9,7 +9,7 @@ const passwordSlice = createSlice({
     initialState,
     reducers: {
         setPasswords(state, action) {
-            state.passwords = {passwords: action.payload, isFoldersLoaded: true};
+            state.passwords = {passwords: action.payload, isPasswordsLoaded: true};
         },
     }
 });
