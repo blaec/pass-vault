@@ -1,9 +1,21 @@
 import React from 'react';
 import {DataGrid} from '@mui/x-data-grid';
 import {useSelector} from "react-redux";
-import {Drawer} from "@mui/material";
+import {Avatar, Drawer, ListItem, ListItemAvatar, ListItemText, Table, TableContainer} from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import CancelTwoToneIcon from '@mui/icons-material/CancelTwoTone';
+import IconButton from "@mui/material/IconButton";
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableFooter from '@mui/material/TableFooter';
+import TablePagination from '@mui/material/TablePagination';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import ContentCopyTwoToneIcon from '@mui/icons-material/ContentCopyTwoTone';
+import VisibilityTwoToneIcon from '@mui/icons-material/VisibilityTwoTone';
+import {isObjectExist} from "../../../utils/Utils";
+import Toolbar from "@mui/material/Toolbar";
 
 const columns = [
     // { field: 'id', headerName: 'ID', width: 70 },
@@ -46,6 +58,81 @@ const Passwords = () => {
         setShowDetails(false);
     };
 
+    let list = null;
+    if (isObjectExist(selectedPassword)) {
+        const rows = (
+                <>
+                    <TableRow key={selectedPassword.id}>
+                        <TableCell  style={{width: 60}}>
+                            Email or User
+                        </TableCell>
+                        <TableCell style={{width: 160}} align="left">
+                            {selectedPassword.user}
+                        </TableCell>
+                        <TableCell style={{width: 160}} align="right">
+                            <IconButton>
+                                <ContentCopyTwoToneIcon/>
+                            </IconButton>
+                        </TableCell>
+                    </TableRow>
+                    <TableRow key={selectedPassword.id}>
+                        <TableCell  style={{width: 60}}>
+                            Password
+                        </TableCell>
+                        <TableCell style={{width: 160}} align="left">
+                            {selectedPassword.password}
+                        </TableCell>
+                        <TableCell style={{width: 160}} align="right">
+                            <IconButton>
+                                <VisibilityTwoToneIcon/>
+                            </IconButton>
+                            <IconButton>
+                                <ContentCopyTwoToneIcon/>
+                            </IconButton>
+                        </TableCell>
+                    </TableRow>
+                    <TableRow key={selectedPassword.id}>
+                        <TableCell  style={{width: 60}}>
+                            Website Address
+                        </TableCell>
+                        <TableCell style={{width: 160}} align="left">
+                            {selectedPassword.website}
+                        </TableCell>
+                        <TableCell style={{width: 160}} align="right">
+                            <IconButton>
+                                <ContentCopyTwoToneIcon/>
+                            </IconButton>
+                        </TableCell>
+                    </TableRow>
+                    <TableRow key={selectedPassword.id}>
+                        <TableCell  style={{width: 60}}>
+                            Folder
+                        </TableCell>
+                        <TableCell style={{width: 160}} align="left">
+                            {selectedPassword.folder.name}
+                        </TableCell>
+                        <TableCell style={{width: 160}} align="right">
+                            <IconButton>
+                                <ContentCopyTwoToneIcon/>
+                            </IconButton>
+                        </TableCell>
+                    </TableRow>
+                </>
+            );
+
+        list = (
+            <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 500 }}>
+                    <TableBody>
+                        {rows}
+                    </TableBody>
+                    <TableFooter>
+                    </TableFooter>
+                </Table>
+            </TableContainer>
+        );
+    }
+
     let data = null;
     if (isPasswordsLoaded) {
         data = (
@@ -67,28 +154,17 @@ const Passwords = () => {
                     // onClose={toggleDrawer(anchor, false)}
                     // onOpen={toggleDrawer(anchor, true)}
                 >
+                    <Toolbar />
                     <Box
                         sx={{ width: 1250 }}
                         // role="presentation"
                         // onClick={toggleDrawer(anchor, false)}
                         // onKeyDown={toggleDrawer(anchor, false)}
                     >
-                        <Button onClick={handleCloseDetails}>Cancel</Button>
-                        <Box>
-                            {selectedPassword.title}
-                        </Box>
-                        <Box>
-                            {selectedPassword.user}
-                        </Box>
-                        <Box>
-                            {selectedPassword.password}
-                        </Box>
-                        <Box>
-                            {selectedPassword.note}
-                        </Box>
-                        <Box>
-                            {selectedPassword.creationDate}
-                        </Box>
+                        <IconButton color="primary" onClick={handleCloseDetails}>
+                            <CancelTwoToneIcon />
+                        </IconButton>
+                        {list}
                     </Box>
                 </Drawer>
             </>
