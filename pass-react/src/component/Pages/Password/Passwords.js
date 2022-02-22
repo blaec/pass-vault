@@ -1,21 +1,23 @@
 import React from 'react';
 import {DataGrid} from '@mui/x-data-grid';
 import {useSelector} from "react-redux";
-import {Avatar, Drawer, ListItem, ListItemAvatar, ListItemText, Table, TableContainer} from "@mui/material";
+import {Drawer, Table, TableContainer} from "@mui/material";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import CancelTwoToneIcon from '@mui/icons-material/CancelTwoTone';
 import IconButton from "@mui/material/IconButton";
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableFooter from '@mui/material/TableFooter';
-import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import ContentCopyTwoToneIcon from '@mui/icons-material/ContentCopyTwoTone';
 import VisibilityTwoToneIcon from '@mui/icons-material/VisibilityTwoTone';
 import {isObjectExist} from "../../../utils/Utils";
 import Toolbar from "@mui/material/Toolbar";
+import {toolbarHeight} from "../../../utils/Constants";
+import Typography from "@mui/material/Typography";
+import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
+import DriveFileMoveTwoToneIcon from '@mui/icons-material/DriveFileMoveTwoTone';
 
 const columns = [
     // { field: 'id', headerName: 'ID', width: 70 },
@@ -66,10 +68,10 @@ const Passwords = () => {
                         <TableCell  style={{width: 60}}>
                             Email or User
                         </TableCell>
-                        <TableCell style={{width: 160}} align="left">
+                        <TableCell style={{width: 100}} align="left">
                             {selectedPassword.user}
                         </TableCell>
-                        <TableCell style={{width: 160}} align="right">
+                        <TableCell style={{width: 10}} align="right">
                             <IconButton>
                                 <ContentCopyTwoToneIcon/>
                             </IconButton>
@@ -79,10 +81,10 @@ const Passwords = () => {
                         <TableCell  style={{width: 60}}>
                             Password
                         </TableCell>
-                        <TableCell style={{width: 160}} align="left">
+                        <TableCell style={{width: 100}} align="left">
                             {selectedPassword.password}
                         </TableCell>
-                        <TableCell style={{width: 160}} align="right">
+                        <TableCell style={{width: 10}} align="right">
                             <IconButton>
                                 <VisibilityTwoToneIcon/>
                             </IconButton>
@@ -95,10 +97,10 @@ const Passwords = () => {
                         <TableCell  style={{width: 60}}>
                             Website Address
                         </TableCell>
-                        <TableCell style={{width: 160}} align="left">
+                        <TableCell style={{width: 100}} align="left">
                             {selectedPassword.website}
                         </TableCell>
-                        <TableCell style={{width: 160}} align="right">
+                        <TableCell style={{width: 10}} align="right">
                             <IconButton>
                                 <ContentCopyTwoToneIcon/>
                             </IconButton>
@@ -108,10 +110,10 @@ const Passwords = () => {
                         <TableCell  style={{width: 60}}>
                             Folder
                         </TableCell>
-                        <TableCell style={{width: 160}} align="left">
+                        <TableCell style={{width: 100}} align="left">
                             {selectedPassword.folder.name}
                         </TableCell>
-                        <TableCell style={{width: 160}} align="right">
+                        <TableCell style={{width: 10}} align="right">
                             <IconButton>
                                 <ContentCopyTwoToneIcon/>
                             </IconButton>
@@ -122,7 +124,7 @@ const Passwords = () => {
 
         list = (
             <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 500 }}>
+                <Table>
                     <TableBody>
                         {rows}
                     </TableBody>
@@ -140,8 +142,9 @@ const Passwords = () => {
                 <DataGrid
                     rows={passwords}
                     columns={columns}
-                    pageSize={5}
-                    rowsPerPageOptions={[5]}
+                    // pageSize={5}
+                    // rowsPerPageOptions={[5]}
+                    hideFooterPagination={true}
                     checkboxSelection
                     disableSelectionOnClick={true}
                     onRowClick={handleRowClick}
@@ -156,7 +159,7 @@ const Passwords = () => {
                 >
                     <Toolbar />
                     <Box
-                        sx={{ width: 1250 }}
+                        sx={{ width: 1250, m: 2 }}
                         // role="presentation"
                         // onClick={toggleDrawer(anchor, false)}
                         // onKeyDown={toggleDrawer(anchor, false)}
@@ -164,6 +167,13 @@ const Passwords = () => {
                         <IconButton color="primary" onClick={handleCloseDetails}>
                             <CancelTwoToneIcon />
                         </IconButton>
+                        <IconButton color="primary" onClick={handleCloseDetails}>
+                            <EditTwoToneIcon />
+                        </IconButton>
+                        <IconButton color="primary" onClick={handleCloseDetails}>
+                            <DriveFileMoveTwoToneIcon />
+                        </IconButton>
+                        <Typography variant="h3" color="primary" align="center">{selectedPassword.title}</Typography>
                         {list}
                     </Box>
                 </Drawer>
@@ -172,9 +182,15 @@ const Passwords = () => {
     }
 
     return (
-        <div style={{ height: 400, width: '100%' }}>
+        <Box sx={{
+            height: window.innerHeight - toolbarHeight.desktop,
+            width: '100%',
+        }}>
+            <Typography variant={"h5"} sx={{m:2}}>
+                Passwords
+            </Typography>
             {data}
-        </div>
+        </Box>
     );
 };
 
