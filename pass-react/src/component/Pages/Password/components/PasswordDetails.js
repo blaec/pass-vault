@@ -80,6 +80,16 @@ const PasswordDetails = (props) => {
                         </IconButton>
                     }
                 />
+                <PasswordDataRow
+                    id={selectedPassword.id}
+                    description={"Note"}
+                    value={selectedPassword.note}
+                    icons={
+                        <IconButton>
+                            <ContentCopyTwoToneIcon/>
+                        </IconButton>
+                    }
+                />
             </>
         );
 
