@@ -18,6 +18,7 @@ const MyAppBar = (props) => {
     const appBar = {
         width: {sm: `calc(100% - ${drawer.width}px)`},
         ml: {sm: `${drawer.width}px`},
+        zIndex: (theme) => theme.zIndex.drawer + 1,
     };
 
     return (

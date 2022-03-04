@@ -1,5 +1,6 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
+import { useNavigate } from 'react-router-dom';
 
 import {isArrayExist} from "../../../utils/Utils";
 
@@ -8,6 +9,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import {savePassword} from "../../../store/state/password/password-actions";
+import {reactLinks} from "../../../utils/UrlUtils";
 
 const NewPassword = () => {
     const [folder, setFolder] = React.useState('');
@@ -17,6 +19,7 @@ const NewPassword = () => {
     const passwordRef = React.useRef();
     const websiteRef = React.useRef();
     const noteRef = React.useRef();
+    const navigate = useNavigate();
 
     const dispatch = useDispatch();
 
@@ -25,12 +28,7 @@ const NewPassword = () => {
     };
 
     const handleCancel = () => {
-        setFolder('');
-        titleRef.current.reset();
-        userRef.current.reset();
-        passwordRef.current.reset();
-        websiteRef.current.reset();
-        noteRef.current.reset();
+        navigate(reactLinks.passwords);
     };
 
     const handleSave = () => {
@@ -43,6 +41,7 @@ const NewPassword = () => {
             note: noteRef.current.value
         };
         dispatch(savePassword(password));
+        navigate(reactLinks.passwords);
     };
 
     const handleGeneratePassword = () => {
