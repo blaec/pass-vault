@@ -1,12 +1,15 @@
 import React from 'react';
 import {useSelector} from "react-redux";
+import {NavLink} from "react-router-dom";
 
 import {toolbarHeight} from "../../../utils/Constants";
 import PasswordDetails from "./components/PasswordDetails";
+import {reactLinks} from "../../../utils/UrlUtils";
 
 import {DataGrid} from '@mui/x-data-grid';
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 
 
 const columns = [
@@ -76,6 +79,9 @@ const Passwords = () => {
             >
                 Passwords
             </Typography>
+            <Button component={NavLink} to={`${reactLinks.newPassword}`}>
+                Add Password
+            </Button>
             {table}
         </Box>
     );

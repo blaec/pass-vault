@@ -4,7 +4,8 @@ import {
     Route
 } from "react-router-dom";
 
-import NewPassword from "./component/Pages/Password/Passwords";
+import NewPassword from "./component/Pages/Password/NewPassword";
+import Password from "./component/Pages/Password/Passwords";
 import Folder from "./component/Pages/Folder/Folder";
 import Settings from "./component/Pages/Settings/Settings";
 
@@ -17,6 +18,7 @@ import {fetchPasswords} from "./store/state/password/password-actions";
 function App() {
     const {
         passwords,
+        newPassword,
         folders,
         settings,
     } = reactLinks;
@@ -33,7 +35,8 @@ function App() {
             <Routes>
 
                 {/* Menu items */}
-                <Route path={passwords} element={<NewPassword/>}/>
+                <Route path={passwords} element={<Password/>}/>
+                <Route path={newPassword} element={<NewPassword/>}/>
                 <Route path={folders} element={<Folder/>}/>
                 <Route path={settings} element={<Settings/>}/>
             </Routes>
