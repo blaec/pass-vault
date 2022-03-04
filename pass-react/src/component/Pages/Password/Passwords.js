@@ -2,7 +2,7 @@ import React from 'react';
 import {useSelector} from "react-redux";
 
 import {toolbarHeight} from "../../../utils/Constants";
-import PasswordDetails from "./PasswordDetails";
+import PasswordDetails from "./components/PasswordDetails";
 
 import {DataGrid} from '@mui/x-data-grid';
 import Box from "@mui/material/Box";
@@ -31,11 +31,11 @@ const Passwords = () => {
 
     const {passwords, isPasswordsLoaded} = useSelector(state => state.password.passwords);
 
-    const root = {
+    const _root = {
         height: window.innerHeight - toolbarHeight.desktop,
         width: '100%',
     };
-    const title = {m:2};
+    const _title = {m: 2};
 
     const handleRowClick = (params) => {
         const {row: {id}} = params;
@@ -47,9 +47,9 @@ const Passwords = () => {
         setShowDetails(false);
     };
 
-    let data = null;
+    let table = null;
     if (isPasswordsLoaded) {
-        data = (
+        table = (
             <>
                 <DataGrid
                     rows={passwords}
@@ -69,14 +69,14 @@ const Passwords = () => {
     }
 
     return (
-        <Box sx={root}>
+        <Box sx={_root}>
             <Typography
                 variant={"h5"}
-                sx={title}
+                sx={_title}
             >
                 Passwords
             </Typography>
-            {data}
+            {table}
         </Box>
     );
 };
