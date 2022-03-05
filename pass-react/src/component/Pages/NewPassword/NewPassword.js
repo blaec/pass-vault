@@ -7,7 +7,7 @@ import {savePassword} from "../../../store/state/password/password-actions";
 import {reactLinks} from "../../../utils/UrlUtils";
 import PasswordElement from "./components/PasswordElement";
 
-import {Card, CardActions, CardContent, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
+import {Card, CardActions, CardContent, FormControl, Grid, InputLabel, MenuItem, Select} from "@mui/material";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 
@@ -24,9 +24,12 @@ const NewPassword = () => {
 
     const dispatch = useDispatch();
 
-    const _root = {width: 350};
-    const _caption = {mt:5};
-    const _element = {mt:1};
+    const _root = {
+        width: 350,
+        mt: 1
+    };
+    const _caption = {mt: 5};
+    const _element = {mt: 1};
 
     const handleChange = (event) => {
         setFolder(event.target.value);
@@ -62,67 +65,69 @@ const NewPassword = () => {
     const menuItems = folderItems.map(fi => <MenuItem key={fi.id} value={fi.id}>{fi.name}</MenuItem>)
 
     return (
-        <Card
-            variant="elevation"
-            sx={_root}
-        >
-            <CardContent>
-                <PasswordElement
-                    elemRef={titleRef}
-                    label={"Title"}
-                    type={"text"}
-                    autofocus={true}
-                />
-                <Box sx={_caption}>
-                    Login Details
-                </Box>
-                <PasswordElement
-                    style={_element}
-                    elemRef={userRef}
-                    label={"User"}
-                    type={"text"}
-                />
-                <PasswordElement
-                    style={_element}
-                    elemRef={passwordRef}
-                    label={"Password"}
-                    type={"password"}
-                />
-                <Button onClick={handleGeneratePassword}>Generate password</Button>
-                <PasswordElement
-                    style={_element}
-                    elemRef={websiteRef}
-                    label={"Website"}
-                    type={"text"}
-                />
-                <Box sx={_caption}>
-                    Other
-                </Box>
-                <FormControl fullWidth>
-                    <InputLabel>{label}</InputLabel>
-                    <Select
-                        value={folder}
-                        onChange={handleChange}
-                    >
-                        {menuItems}
-                    </Select>
-                </FormControl>
-                <PasswordElement
-                    style={_element}
-                    elemRef={noteRef}
-                    label={"Note"}
-                    multiline={true}
-                />
-            </CardContent>
-            <CardActions>
-                <Button onClick={handleCancel}>
-                    Cancel
-                </Button>
-                <Button onClick={handleSave}>
-                    Save
-                </Button>
-            </CardActions>
-        </Card>
+        <Grid container justifyContent="center">
+            <Card
+                variant="elevation"
+                sx={_root}
+            >
+                <CardContent>
+                    <PasswordElement
+                        elemRef={titleRef}
+                        label={"Title"}
+                        type={"text"}
+                        autofocus={true}
+                    />
+                    <Box sx={_caption}>
+                        Login Details
+                    </Box>
+                    <PasswordElement
+                        style={_element}
+                        elemRef={userRef}
+                        label={"User"}
+                        type={"text"}
+                    />
+                    <PasswordElement
+                        style={_element}
+                        elemRef={passwordRef}
+                        label={"Password"}
+                        type={"password"}
+                    />
+                    <Button onClick={handleGeneratePassword}>Generate password</Button>
+                    <PasswordElement
+                        style={_element}
+                        elemRef={websiteRef}
+                        label={"Website"}
+                        type={"text"}
+                    />
+                    <Box sx={_caption}>
+                        Other
+                    </Box>
+                    <FormControl fullWidth>
+                        <InputLabel>{label}</InputLabel>
+                        <Select
+                            value={folder}
+                            onChange={handleChange}
+                        >
+                            {menuItems}
+                        </Select>
+                    </FormControl>
+                    <PasswordElement
+                        style={_element}
+                        elemRef={noteRef}
+                        label={"Note"}
+                        multiline={true}
+                    />
+                </CardContent>
+                <CardActions>
+                    <Button onClick={handleCancel}>
+                        Cancel
+                    </Button>
+                    <Button onClick={handleSave}>
+                        Save
+                    </Button>
+                </CardActions>
+            </Card>
+        </Grid>
     );
 };
 
