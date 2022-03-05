@@ -4,8 +4,8 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 
 
-const PasswordDataRow = (params) => {
-    const {id, description, value, icons} = params;
+const PasswordDataRow = (props) => {
+    const {id, description, value, icons} = props;
 
     const _description = {width: 60};
     const _value = {width: 100};

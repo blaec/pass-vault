@@ -1,27 +1,32 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 import {isArrayExist} from "../../../utils/Utils";
-
-import {Card, CardActions, CardContent, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
 import {savePassword} from "../../../store/state/password/password-actions";
 import {reactLinks} from "../../../utils/UrlUtils";
+import PasswordElement from "./components/PasswordElement";
+
+import {Card, CardActions, CardContent, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+
 
 const NewPassword = () => {
     const [folder, setFolder] = React.useState('');
     const {folders, isFoldersLoaded} = useSelector(state => state.folder.folders);
+    const navigate = useNavigate();
     const titleRef = React.useRef();
     const userRef = React.useRef();
     const passwordRef = React.useRef();
     const websiteRef = React.useRef();
     const noteRef = React.useRef();
-    const navigate = useNavigate();
 
     const dispatch = useDispatch();
+
+    const _root = {width: 350};
+    const _caption = {mt:5};
+    const _element = {mt:1};
 
     const handleChange = (event) => {
         setFolder(event.target.value);
@@ -57,48 +62,40 @@ const NewPassword = () => {
     const menuItems = folderItems.map(fi => <MenuItem key={fi.id} value={fi.id}>{fi.name}</MenuItem>)
 
     return (
-        <Card variant="elevation" sx={{width: 300}}>
+        <Card
+            variant="elevation"
+            sx={_root}
+        >
             <CardContent>
-                <TextField
-                    inputRef={titleRef}
-                    autoFocus
-                    label="Title"
-                    type="text"
-                    fullWidth
-                    variant="filled"
+                <PasswordElement
+                    elemRef={titleRef}
+                    label={"Title"}
+                    type={"text"}
+                    autofocus={true}
                 />
-                <Box sx={{mt:5}}>
+                <Box sx={_caption}>
                     Login Details
                 </Box>
-                <TextField
-                    sx={{mt:1}}
-                    inputRef={userRef}
-                    autoFocus
-                    label="User"
-                    type="text"
-                    fullWidth
-                    variant="filled"
+                <PasswordElement
+                    style={_element}
+                    elemRef={userRef}
+                    label={"User"}
+                    type={"text"}
                 />
-                <TextField
-                    sx={{mt:1}}
-                    inputRef={passwordRef}
-                    autoFocus
-                    label="Password"
-                    type="password"
-                    fullWidth
-                    variant="filled"
+                <PasswordElement
+                    style={_element}
+                    elemRef={passwordRef}
+                    label={"Password"}
+                    type={"password"}
                 />
                 <Button onClick={handleGeneratePassword}>Generate password</Button>
-                <TextField
-                    sx={{mt:1}}
-                    inputRef={websiteRef}
-                    autoFocus
-                    label="Website"
-                    type="text"
-                    fullWidth
-                    variant="filled"
+                <PasswordElement
+                    style={_element}
+                    elemRef={websiteRef}
+                    label={"Website"}
+                    type={"text"}
                 />
-                <Box sx={{mt:5}}>
+                <Box sx={_caption}>
                     Other
                 </Box>
                 <FormControl fullWidth>
@@ -110,19 +107,20 @@ const NewPassword = () => {
                         {menuItems}
                     </Select>
                 </FormControl>
-                <TextField
-                    sx={{mt:1}}
-                    inputRef={noteRef}
-                    label="Note"
-                    multiline
-                    rows={4}
-                    fullWidth
-                    variant="filled"
+                <PasswordElement
+                    style={_element}
+                    elemRef={noteRef}
+                    label={"Note"}
+                    multiline={true}
                 />
             </CardContent>
             <CardActions>
-                <Button onClick={handleCancel}>Cancel</Button>
-                <Button onClick={handleSave}>Save</Button>
+                <Button onClick={handleCancel}>
+                    Cancel
+                </Button>
+                <Button onClick={handleSave}>
+                    Save
+                </Button>
             </CardActions>
         </Card>
     );

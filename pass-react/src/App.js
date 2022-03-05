@@ -4,7 +4,7 @@ import {
     Route
 } from "react-router-dom";
 
-import NewPassword from "./component/Pages/Password/NewPassword";
+import NewPassword from "./component/Pages/NewPassword/NewPassword";
 import Password from "./component/Pages/Password/Passwords";
 import Folder from "./component/Pages/Folder/Folder";
 import Settings from "./component/Pages/Settings/Settings";
