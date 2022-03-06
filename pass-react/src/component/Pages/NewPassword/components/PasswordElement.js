@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 
 
 const PasswordElement = (props) => {
-    const {style, elemRef, autofocus, label, type, multiline} = props;
+    const {elements: {style, elemRef, autofocus, label, type, multiline}} = props;
 
     return (
         <TextField

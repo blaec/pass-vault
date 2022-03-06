@@ -64,6 +64,39 @@ const NewPassword = () => {
     }
     const menuItems = folderItems.map(fi => <MenuItem key={fi.id} value={fi.id}>{fi.name}</MenuItem>)
 
+    const inputs = {
+        title: {
+            elementRef: titleRef,
+            label: 'Title',
+            type: 'text',
+            autofocus: true,
+        },
+        user: {
+            style: _element,
+            elementRef: userRef,
+            label: 'User',
+            type: 'text',
+        },
+        password: {
+            style: _element,
+            elementRef: passwordRef,
+            label: 'Password',
+            type: 'password',
+        },
+        website: {
+            style: _element,
+            elementRef: websiteRef,
+            label: 'Website',
+            type: 'text',
+        },
+        note: {
+            style: _element,
+            elementRef: noteRef,
+            label: 'Note',
+            multiline: true,
+        },
+    };
+
     return (
         <Grid container justifyContent="center">
             <Card
@@ -71,27 +104,12 @@ const NewPassword = () => {
                 sx={_root}
             >
                 <CardContent>
-                    <PasswordElement
-                        elemRef={titleRef}
-                        label={"Title"}
-                        type={"text"}
-                        autofocus={true}
-                    />
+                    <PasswordElement elements={inputs.title}/>
                     <Box sx={_caption}>
                         Login Details
                     </Box>
-                    <PasswordElement
-                        style={_element}
-                        elemRef={userRef}
-                        label={"User"}
-                        type={"text"}
-                    />
-                    <PasswordElement
-                        style={_element}
-                        elemRef={passwordRef}
-                        label={"Password"}
-                        type={"password"}
-                    />
+                    <PasswordElement elements={inputs.user}/>
+                    <PasswordElement elements={inputs.password}/>
                     <Grid
                         container
                         direction="row"
@@ -100,12 +118,7 @@ const NewPassword = () => {
                     >
                         <Button onClick={handleGeneratePassword}>Generate password</Button>
                     </Grid>
-                    <PasswordElement
-                        style={_element}
-                        elemRef={websiteRef}
-                        label={"Website"}
-                        type={"text"}
-                    />
+                    <PasswordElement elements={inputs.website}/>
                     <Box sx={_caption}>
                         Other
                     </Box>
@@ -118,12 +131,7 @@ const NewPassword = () => {
                             {menuItems}
                         </Select>
                     </FormControl>
-                    <PasswordElement
-                        style={_element}
-                        elemRef={noteRef}
-                        label={"Note"}
-                        multiline={true}
-                    />
+                    <PasswordElement elements={inputs.note}/>
                 </CardContent>
                 <CardActions>
                     <Grid
