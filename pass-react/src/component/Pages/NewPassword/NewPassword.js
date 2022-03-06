@@ -92,7 +92,14 @@ const NewPassword = () => {
                         label={"Password"}
                         type={"password"}
                     />
-                    <Button onClick={handleGeneratePassword}>Generate password</Button>
+                    <Grid
+                        container
+                        direction="row"
+                        justifyContent="flex-end"
+                        alignItems="flex-start"
+                    >
+                        <Button onClick={handleGeneratePassword}>Generate password</Button>
+                    </Grid>
                     <PasswordElement
                         style={_element}
                         elemRef={websiteRef}
@@ -119,12 +126,18 @@ const NewPassword = () => {
                     />
                 </CardContent>
                 <CardActions>
-                    <Button onClick={handleCancel}>
-                        Cancel
-                    </Button>
-                    <Button onClick={handleSave}>
-                        Save
-                    </Button>
+                    <Grid
+                        container
+                        direction="row"
+                        justifyContent="flex-end"
+                    >
+                        <Button onClick={handleCancel}>
+                            Cancel
+                        </Button>
+                        <Button onClick={handleSave}>
+                            Save
+                        </Button>
+                    </Grid>
                 </CardActions>
             </Card>
         </Grid>
