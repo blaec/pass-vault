@@ -36,9 +36,11 @@ function App() {
 
                 {/* Menu items */}
                 <Route path={passwords} element={<Password/>}/>
-                <Route path={newPassword} element={<NewPassword/>}/>
                 <Route path={folders} element={<Folder/>}/>
                 <Route path={settings} element={<Settings/>}/>
+
+                {/* Links */}
+                <Route path={newPassword} element={<NewPassword/>}/>
             </Routes>
         </Layout>
     );
