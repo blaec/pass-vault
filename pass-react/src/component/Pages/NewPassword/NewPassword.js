@@ -6,28 +6,15 @@ import {isArrayExist} from "../../../utils/Utils";
 import {savePassword} from "../../../store/state/password/password-actions";
 import {reactLinks} from "../../../utils/UrlUtils";
 import TextInputElement from "./components/TextInputElement";
+import PasswordInputElement from "./components/PasswordInputElement";
 
-import {
-    Card,
-    CardActions,
-    CardContent,
-    FilledInput,
-    FormControl,
-    Grid,
-    InputAdornment,
-    InputLabel,
-    MenuItem,
-    Select
-} from "@mui/material";
+import {Card, CardActions, CardContent, FormControl, Grid, InputLabel, MenuItem, Select} from "@mui/material";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import {Visibility, VisibilityOff} from "@mui/icons-material";
 
 
 const NewPassword = () => {
     const [folder, setFolder] = React.useState('');
-    const [showPassword, setShowPassword] = React.useState(false);
     const {folders, isFoldersLoaded} = useSelector(state => state.folder.folders);
     const navigate = useNavigate();
     const titleRef = React.useRef();
@@ -100,26 +87,11 @@ const NewPassword = () => {
                         label={"User"}
                         type={"text"}
                     />
-                    <FormControl fullWidth sx={_element} variant="filled">
-                        <InputLabel htmlFor="filled-adornment-password">Password</InputLabel>
-                        <FilledInput
-                            inputRef={passwordRef}
-                            type={showPassword ? 'text' : 'password'}
-                            endAdornment={
-                                <InputAdornment position="end">
-                                    <IconButton
-                                        aria-label="toggle password visibility"
-                                        onClick={() => setShowPassword(!showPassword)}
-                                        onMouseDown={() => setShowPassword(!showPassword)}
-                                        edge="end"
-                                    >
-                                        {showPassword ? <VisibilityOff/> : <Visibility/>}
-                                    </IconButton>
-                                </InputAdornment>
-                            }
-                            label="Password"
-                        />
-                    </FormControl>
+                    <PasswordInputElement
+                        style={_element}
+                        elemRef={passwordRef}
+                        label={"Password"}
+                    />
                     <Grid
                         container
                         direction="row"
