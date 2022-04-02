@@ -5,7 +5,7 @@ import {useNavigate} from 'react-router-dom';
 import {isArrayExist} from "../../../utils/Utils";
 import {savePassword} from "../../../store/state/password/password-actions";
 import {reactLinks} from "../../../utils/UrlUtils";
-import PasswordElement from "./components/PasswordElement";
+import TextInputElement from "./components/TextInputElement";
 
 import {
     Card,
@@ -85,7 +85,7 @@ const NewPassword = () => {
                 sx={_root}
             >
                 <CardContent>
-                    <PasswordElement
+                    <TextInputElement
                         elemRef={titleRef}
                         label={"Title"}
                         type={"text"}
@@ -94,7 +94,7 @@ const NewPassword = () => {
                     <Box sx={_caption}>
                         Login Details
                     </Box>
-                    <PasswordElement
+                    <TextInputElement
                         style={_element}
                         elemRef={userRef}
                         label={"User"}
@@ -128,7 +128,7 @@ const NewPassword = () => {
                     >
                         <Button onClick={handleGeneratePassword}>Generate password</Button>
                     </Grid>
-                    <PasswordElement
+                    <TextInputElement
                         style={_element}
                         elemRef={websiteRef}
                         label={"Website"}
@@ -146,7 +146,7 @@ const NewPassword = () => {
                             {menuItems}
                         </Select>
                     </FormControl>
-                    <PasswordElement
+                    <TextInputElement
                         style={_element}
                         elemRef={noteRef}
                         label={"Note"}

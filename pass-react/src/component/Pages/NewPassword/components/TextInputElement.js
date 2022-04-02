@@ -3,7 +3,7 @@ import React from 'react';
 import TextField from "@mui/material/TextField";
 
 
-const PasswordElement = (props) => {
+const TextInputElement = (props) => {
     const {style, elemRef, autofocus, label, type, multiline} = props;
 
     return (
@@ -21,4 +21,4 @@ const PasswordElement = (props) => {
     );
 };
 
-export default PasswordElement;
+export default TextInputElement;
