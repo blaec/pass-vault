@@ -3,7 +3,7 @@ import React from 'react';
 import {isObjectExist} from "../../../../utils/Utils";
 import PasswordDataRow from "./PasswordDataRow";
 
-import {Drawer, Table, TableContainer} from "@mui/material";
+import {Drawer, Grid, Table, TableContainer} from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -16,6 +16,7 @@ import VisibilityTwoToneIcon from "@mui/icons-material/VisibilityTwoTone";
 import Paper from "@mui/material/Paper";
 import TableBody from "@mui/material/TableBody";
 import TableFooter from "@mui/material/TableFooter";
+import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 
 
 const PasswordDetails = (props) => {
@@ -29,6 +30,10 @@ const PasswordDetails = (props) => {
 
     const handleMoveToFolder = () => {
         alert("move to folder");
+    };
+
+    const handleDelete = () => {
+        alert("delete password");
     };
 
     let details = null;
@@ -114,24 +119,39 @@ const PasswordDetails = (props) => {
         >
             <Toolbar/>
             <Box sx={_root}>
-                <IconButton
-                    color="primary"
-                    onClick={onClose}
+                <Grid
+                    container
+                    direction="row"
+                    justifyContent="space-between"
+                    alignItems="center"
                 >
-                    <CancelTwoToneIcon/>
-                </IconButton>
-                <IconButton
-                    color="primary"
-                    onClick={handleEdit}
-                >
-                    <EditTwoToneIcon/>
-                </IconButton>
-                <IconButton
-                    color="primary"
-                    onClick={handleMoveToFolder}
-                >
-                    <DriveFileMoveTwoToneIcon/>
-                </IconButton>
+                    <IconButton
+                        color="primary"
+                        onClick={onClose}
+                    >
+                        <CancelTwoToneIcon/>
+                    </IconButton>
+                    <Box>
+                        <IconButton
+                            color="primary"
+                            onClick={handleEdit}
+                        >
+                            <EditTwoToneIcon/>
+                        </IconButton>
+                        <IconButton
+                            color="primary"
+                            onClick={handleMoveToFolder}
+                        >
+                            <DriveFileMoveTwoToneIcon/>
+                        </IconButton>
+                        <IconButton
+                            color="primary"
+                            onClick={handleDelete}
+                        >
+                            <DeleteTwoToneIcon/>
+                        </IconButton>
+                    </Box>
+                </Grid>
                 <Typography
                     color="primary"
                     variant="h3"
