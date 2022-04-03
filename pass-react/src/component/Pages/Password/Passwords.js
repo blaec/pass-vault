@@ -10,6 +10,7 @@ import {DataGrid} from '@mui/x-data-grid';
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import {Grid} from "@mui/material";
 
 
 const columns = [
@@ -38,7 +39,7 @@ const Passwords = () => {
         height: window.innerHeight - toolbarHeight.desktop,
         width: '100%',
     };
-    const _title = {m: 2};
+    const _title = {p: 2};
 
     const handleRowClick = (params) => {
         const {row: {id}} = params;
@@ -73,15 +74,26 @@ const Passwords = () => {
 
     return (
         <Box sx={_root}>
-            <Typography
-                variant={"h5"}
+            <Grid
                 sx={_title}
+                container
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
             >
-                Passwords
-            </Typography>
-            <Button component={NavLink} to={`${reactLinks.newPassword}`}>
-                Add Password
-            </Button>
+                <Typography
+                    variant={"h5"}
+                >
+                    Passwords
+                </Typography>
+                <Button
+                    variant="outlined"
+                    component={NavLink}
+                    to={`${reactLinks.newPassword}`}
+                >
+                    Add Password
+                </Button>
+            </Grid>
             {table}
         </Box>
     );

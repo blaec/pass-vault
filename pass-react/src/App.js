@@ -4,7 +4,7 @@ import {
     Route
 } from "react-router-dom";
 
-import NewPassword from "./component/Pages/Password/NewPassword";
+import NewPassword from "./component/Pages/NewPassword/NewPassword";
 import Password from "./component/Pages/Password/Passwords";
 import Folder from "./component/Pages/Folder/Folder";
 import Settings from "./component/Pages/Settings/Settings";
@@ -36,9 +36,11 @@ function App() {
 
                 {/* Menu items */}
                 <Route path={passwords} element={<Password/>}/>
-                <Route path={newPassword} element={<NewPassword/>}/>
                 <Route path={folders} element={<Folder/>}/>
                 <Route path={settings} element={<Settings/>}/>
+
+                {/* Links */}
+                <Route path={newPassword} element={<NewPassword/>}/>
             </Routes>
         </Layout>
     );
