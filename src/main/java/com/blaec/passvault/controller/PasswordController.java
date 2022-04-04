@@ -33,4 +33,10 @@ public class PasswordController extends AbstractController{
         Optional<Folder> folder = folderService.getById(passwordTo.getFolderId());
         return passwordService.save(passwordTo, folder);
     }
+
+    @DeleteMapping("/delete/{id}")
+    public Response delete(@PathVariable int id) {
+        log.info("deleting password | #{}", id);
+        return passwordService.delete(id).build();
+    }
 }

@@ -11,4 +11,5 @@ import java.util.Optional;
 public interface PasswordService {
     Iterable<Password> getAll();
     @Transactional Response save(PasswordTo password, Optional<Folder> folder);
+    @Transactional Response.Builder delete(int id);
 }

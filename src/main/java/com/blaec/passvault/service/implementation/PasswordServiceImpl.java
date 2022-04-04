@@ -36,4 +36,19 @@ public class PasswordServiceImpl implements PasswordService {
         }
         return response.build();
     }
+
+    @Override
+    public Response.Builder delete(int id) {
+        Response.Builder response = Response.Builder.create();
+
+        if (passwordRepository.isDeleted(id)) {
+            String message = String.format("deleted | password with id %d", id);
+            log.info(message);
+            response.setSuccess(message);
+        } else {
+            throw new IllegalStateException();
+        }
+
+        return response;
+    }
 }
