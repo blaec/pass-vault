@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @Slf4j
@@ -24,10 +25,10 @@ public class PasswordServiceImpl implements PasswordService {
     }
 
     @Override
-    public Response save(PasswordTo passwordTo, Optional<Folder> folder) {
+    public Response save(PasswordTo passwordTo, Folder folder) {
         Response.Builder response = Response.Builder.create();
         try {
-            Password password = Password.from(passwordTo, folder.orElseThrow());
+            Password password = Password.from(passwordTo, Objects.requireNonNull(folder, "folder not supplied"));
             Password save = passwordRepository.save(password);
             log.info("Password for {} successfully saved", save.getTitle());
             response.setSuccess("success");
