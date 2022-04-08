@@ -2,14 +2,12 @@ import React from 'react';
 
 import {isObjectExist} from "../../../../utils/Utils";
 import PasswordDataRow from "./PasswordDataRow";
+import PasswordControls from "./PasswordControls";
 
 import {Drawer, Table, TableContainer} from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
-import CancelTwoToneIcon from "@mui/icons-material/CancelTwoTone";
-import EditTwoToneIcon from "@mui/icons-material/EditTwoTone";
-import DriveFileMoveTwoToneIcon from "@mui/icons-material/DriveFileMoveTwoTone";
 import Typography from "@mui/material/Typography";
 import ContentCopyTwoToneIcon from "@mui/icons-material/ContentCopyTwoTone";
 import VisibilityTwoToneIcon from "@mui/icons-material/VisibilityTwoTone";
@@ -22,14 +20,6 @@ const PasswordDetails = (props) => {
     const {selectedPassword, showDetails, onClose} = props;
 
     const _root = {width: 1250, m: 2};
-
-    const handleEdit = () => {
-        alert("edit");
-    };
-
-    const handleMoveToFolder = () => {
-        alert("move to folder");
-    };
 
     let details = null;
     if (isObjectExist(selectedPassword)) {
@@ -113,25 +103,11 @@ const PasswordDetails = (props) => {
             onClose={onClose}
         >
             <Toolbar/>
+            <PasswordControls
+                id={selectedPassword.id}
+                onClose={onClose}
+            />
             <Box sx={_root}>
-                <IconButton
-                    color="primary"
-                    onClick={onClose}
-                >
-                    <CancelTwoToneIcon/>
-                </IconButton>
-                <IconButton
-                    color="primary"
-                    onClick={handleEdit}
-                >
-                    <EditTwoToneIcon/>
-                </IconButton>
-                <IconButton
-                    color="primary"
-                    onClick={handleMoveToFolder}
-                >
-                    <DriveFileMoveTwoToneIcon/>
-                </IconButton>
                 <Typography
                     color="primary"
                     variant="h3"

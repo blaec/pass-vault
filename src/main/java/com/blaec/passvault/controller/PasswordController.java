@@ -30,7 +30,14 @@ public class PasswordController extends AbstractController{
     @PostMapping("/create")
     public Response saveWishMovie(@RequestBody PasswordTo passwordTo) {
         log.info("saving password | {}", passwordTo.getTitle());
-        Optional<Folder> folder = folderService.getById(passwordTo.getFolderId());
+        Folder folder = folderService.getById(passwordTo.getFolderId())
+                .orElse(null);
         return passwordService.save(passwordTo, folder);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public Response delete(@PathVariable int id) {
+        log.info("deleting password | #{}", id);
+        return passwordService.delete(id).build();
     }
 }

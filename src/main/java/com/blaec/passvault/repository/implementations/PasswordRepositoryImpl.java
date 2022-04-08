@@ -21,4 +21,9 @@ public class PasswordRepositoryImpl implements PasswordRepository {
     public Password save(Password password) {
         return crudPasswordRepository.save(password);
     }
+
+    @Override
+    public boolean isDeleted(int id) {
+        return crudPasswordRepository.deleteById(id) != 0;
+    }
 }
