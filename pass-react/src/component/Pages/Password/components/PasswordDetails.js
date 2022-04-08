@@ -103,7 +103,10 @@ const PasswordDetails = (props) => {
             onClose={onClose}
         >
             <Toolbar/>
-            <PasswordControls onClose={onClose}/>
+            <PasswordControls
+                id={selectedPassword.id}
+                onClose={onClose}
+            />
             <Box sx={_root}>
                 <Typography
                     color="primary"

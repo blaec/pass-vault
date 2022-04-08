@@ -1,4 +1,7 @@
 import React from 'react';
+import {useDispatch} from "react-redux";
+
+import {deletePassword} from "../../../../store/state/password/password-actions";
 
 import {Grid} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
@@ -10,7 +13,9 @@ import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 
 
 const PasswordControls = (props) => {
-    const {onClose} = props;
+    const {id, onClose} = props;
+
+    const dispatch = useDispatch();
 
     const handleEdit = () => {
         alert("edit");
@@ -21,7 +26,8 @@ const PasswordControls = (props) => {
     };
 
     const handleDelete = () => {
-        alert("delete password");
+        dispatch(deletePassword(id));
+        onClose();
     };
 
 
