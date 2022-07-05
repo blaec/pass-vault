@@ -25,17 +25,27 @@ public class PasswordServiceImpl implements PasswordService {
     }
 
     @Override
-    public Response save(PasswordTo passwordTo, Folder folder) {
+    public Response.Builder create(PasswordTo passwordTo, Folder folder) {
+        Password password = Password.from(passwordTo, Objects.requireNonNull(folder, "folder not supplied"));
+        return save(password, folder, "Password for {} successfully saved");
+    }
+
+    @Override
+    public Response.Builder update(Password password) {
+        return save(password, password.getFolder(), "Password for {} successfully updated");
+    }
+
+    private Response.Builder save(Password password, Folder folder, String message) {
         Response.Builder response = Response.Builder.create();
         try {
-            Password password = Password.from(passwordTo, Objects.requireNonNull(folder, "folder not supplied"));
-            Password save = passwordRepository.save(password);
-            log.info("Password for {} successfully saved", save.getTitle());
+            Password saved = passwordRepository.save(password);
+            log.info(message, saved.getTitle());
             response.setSuccess("success");
         } catch (Exception e) {
             response.setFailure("failure");
         }
-        return response.build();
+
+        return response;
     }
 
     @Override

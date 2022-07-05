@@ -28,11 +28,19 @@ public class PasswordController extends AbstractController{
     }
 
     @PostMapping("/create")
-    public Response saveWishMovie(@RequestBody PasswordTo passwordTo) {
+    public Response savePassword(@RequestBody PasswordTo passwordTo) {
         log.info("saving password | {}", passwordTo.getTitle());
         Folder folder = folderService.getById(passwordTo.getFolderId())
                 .orElse(null);
-        return passwordService.save(passwordTo, folder);
+
+        return passwordService.create(passwordTo, folder).build();
+    }
+
+    @PutMapping("/update")
+    public Response updatePassword(@RequestBody Password password) {
+        log.info("updating password | {}", password.getTitle());
+
+        return passwordService.update(password).build();
     }
 
     @DeleteMapping("/delete/{id}")

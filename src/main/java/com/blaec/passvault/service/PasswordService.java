@@ -10,6 +10,7 @@ import java.util.Optional;
 
 public interface PasswordService {
     Iterable<Password> getAll();
-    @Transactional Response save(PasswordTo password, Folder folder);
+    @Transactional Response.Builder create(PasswordTo password, Folder folder);
+    @Transactional Response.Builder update(Password password);
     @Transactional Response.Builder delete(int id);
 }
