@@ -30,31 +30,26 @@ public class FolderServiceImpl implements FolderService {
     }
 
     @Override
-    public Response.Builder save(Folder folder) {
-        Response.Builder response = Response.Builder.create();
-        try {
-            Folder saved = folderRepository.save(folder)
-                    .orElseThrow(IllegalArgumentException::new);
-            log.info("Folder {} successfully saved", saved.getName());
-            response.setSuccess("success");
-        } catch (Exception e) {
-            response.setFailure("failure");
-        }
-        return response;
+    public Response.Builder create(Folder folder) {
+        return save(folder, "Folder {} successfully created");
     }
 
     @Override
     public Response.Builder update(Folder folder) {
+        return save(folder, "Folder {} successfully updated");
+    }
+
+    private Response.Builder save(Folder folder, String message) {
         Response.Builder response = Response.Builder.create();
         try {
-            Folder updatedFolder = folderRepository.save(folder)
+            Folder saved = folderRepository.save(folder)
                     .orElseThrow(IllegalArgumentException::new);
-            response.setSuccess(updatedFolder.getName());
+            log.info(message, saved.getName());
+            response.setSuccess("success");
         } catch (Exception e) {
-            String message = String.format("Failed to update folder | %s", folder);
-            log.error(message, e);
-            response.setFailure(message);
+            response.setFailure("failure");
         }
+
         return response;
     }
 
