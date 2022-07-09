@@ -7,6 +7,7 @@ import {savePassword} from "../../../store/state/password/password-actions";
 import {reactLinks} from "../../../utils/UrlUtils";
 import TextInputElement from "./components/TextInputElement";
 import PasswordInputElement from "./components/PasswordInputElement";
+import {passwordActions} from "../../../store/state/password/password-slice";
 
 import {Card, CardActions, CardContent, FormControl, Grid, InputLabel, MenuItem, Select} from "@mui/material";
 import Button from "@mui/material/Button";
@@ -37,6 +38,7 @@ const NewPassword = () => {
     };
 
     const handleCancel = () => {
+        dispatch(passwordActions.resetEditablePassword());
         navigate(reactLinks.passwords);
     };
 

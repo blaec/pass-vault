@@ -13,7 +13,7 @@ export const fetchPasswords = () => {
                 console.log(error);
             });
     };
-}
+};
 
 export const savePassword = (password) => {
     return async (dispatch) => {
@@ -21,6 +21,7 @@ export const savePassword = (password) => {
             .then(response => {
                 const {data} = response;
                 dispatch(fetchPasswords());
+                dispatch(passwordActions.resetEditablePassword());
             })
             .catch(error => {
                 console.log(error);

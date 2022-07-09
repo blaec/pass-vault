@@ -1,7 +1,10 @@
 import React from 'react';
 import {useDispatch} from "react-redux";
+import {useNavigate} from "react-router-dom";
 
 import {deletePassword} from "../../../../store/state/password/password-actions";
+import {reactLinks} from "../../../../utils/UrlUtils";
+import {passwordActions} from "../../../../store/state/password/password-slice";
 
 import {Grid} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
@@ -16,9 +19,11 @@ const PasswordControls = (props) => {
     const {id, onClose} = props;
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleEdit = () => {
-        alert("edit");
+        dispatch(passwordActions.setEditablePassword(id));
+        navigate(reactLinks.newPassword);
     };
 
     const handleMoveToFolder = () => {
