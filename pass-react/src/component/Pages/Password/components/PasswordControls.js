@@ -1,10 +1,7 @@
 import React from 'react';
 import {useDispatch} from "react-redux";
-import {useNavigate} from "react-router-dom";
 
 import {deletePassword} from "../../../../store/state/password/password-actions";
-import {reactLinks} from "../../../../utils/UrlUtils";
-import {passwordActions} from "../../../../store/state/password/password-slice";
 
 import {Grid} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
@@ -16,14 +13,12 @@ import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 
 
 const PasswordControls = (props) => {
-    const {id, onClose} = props;
+    const {id, onClose, onEdit} = props;
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const handleEdit = () => {
-        dispatch(passwordActions.setEditablePassword(id));
-        navigate(reactLinks.newPassword);
+        onEdit(true);
     };
 
     const handleMoveToFolder = () => {
@@ -32,6 +27,7 @@ const PasswordControls = (props) => {
 
     const handleDelete = () => {
         dispatch(deletePassword(id));
+        onEdit(false);
         onClose();
     };
 

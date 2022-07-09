@@ -17,28 +17,30 @@ import TableFooter from "@mui/material/TableFooter";
 
 
 const PasswordDetails = (props) => {
-    const {selectedPassword, showDetails, onClose} = props;
+    const {selectedPassword: {isEditable, passwordData}, showDetails, onClose, onEdit} = props;
 
     const _root = {width: 1250, m: 2};
 
     let details = null;
-    if (isObjectExist(selectedPassword)) {
+    if (isObjectExist(passwordData)) {
+        const {id, user, password, website, folder, note} = passwordData;
         const passwordDetails = (
             <>
                 <PasswordDataRow
-                    id={selectedPassword.id}
+                    id={id}
                     description={"Email or User"}
-                    value={selectedPassword.user}
+                    value={user}
                     icons={
                         <IconButton>
                             <ContentCopyTwoToneIcon/>
                         </IconButton>
                     }
+                    isEdit={isEditable}
                 />
                 <PasswordDataRow
-                    id={selectedPassword.id}
+                    id={id}
                     description={"Password"}
-                    value={selectedPassword.password}
+                    value={password}
                     icons={
                         <>
                             <IconButton>
@@ -49,21 +51,23 @@ const PasswordDetails = (props) => {
                             </IconButton>
                         </>
                     }
+                    isEdit={isEditable}
                 />
                 <PasswordDataRow
-                    id={selectedPassword.id}
+                    id={id}
                     description={"Website Address"}
-                    value={selectedPassword.website}
+                    value={website}
                     icons={
                         <IconButton>
                             <ContentCopyTwoToneIcon/>
                         </IconButton>
                     }
+                    isEdit={isEditable}
                 />
                 <PasswordDataRow
-                    id={selectedPassword.id}
+                    id={id}
                     description={"Folder"}
-                    value={selectedPassword.folder.name}
+                    value={folder.name}
                     icons={
                         <IconButton>
                             <ContentCopyTwoToneIcon/>
@@ -71,14 +75,15 @@ const PasswordDetails = (props) => {
                     }
                 />
                 <PasswordDataRow
-                    id={selectedPassword.id}
+                    id={id}
                     description={"Note"}
-                    value={selectedPassword.note}
+                    value={note}
                     icons={
                         <IconButton>
                             <ContentCopyTwoToneIcon/>
                         </IconButton>
                     }
+                    isEdit={isEditable}
                 />
             </>
         );
@@ -96,6 +101,7 @@ const PasswordDetails = (props) => {
         );
     }
 
+    // TODO password may be undefined
     return (
         <Drawer
             anchor='right'
@@ -104,7 +110,8 @@ const PasswordDetails = (props) => {
         >
             <Toolbar/>
             <PasswordControls
-                id={selectedPassword.id}
+                id={passwordData.id}
+                onEdit={onEdit}
                 onClose={onClose}
             />
             <Box sx={_root}>
@@ -113,7 +120,7 @@ const PasswordDetails = (props) => {
                     variant="h3"
                     align="center"
                 >
-                    {selectedPassword.title}
+                    {passwordData.title}
                 </Typography>
                 {details}
             </Box>

@@ -31,7 +31,7 @@ const columns = [
 
 const Passwords = () => {
     const [showDetails, setShowDetails] = React.useState(false);
-    const [selectedPassword, setSelectedPassword] = React.useState({});
+    const [selectedPassword, setSelectedPassword] = React.useState({isEditable: false, passwordData: {}});
 
     const {passwords, isPasswordsLoaded} = useSelector(state => state.password.passwords);
 
@@ -43,12 +43,27 @@ const Passwords = () => {
 
     const handleRowClick = (params) => {
         const {row: {id}} = params;
-        setSelectedPassword(passwords.find(pass => pass.id === id));
+        setSelectedPassword(
+            {
+                ...selectedPassword,
+                passwordData: passwords.find(pass => pass.id === id)
+            }
+        );
         setShowDetails(true);
+    };
+
+    const handleEditPassword = (value) => {
+        setSelectedPassword(
+            {
+                ...selectedPassword,
+                isEditable: value
+            }
+        );
     };
 
     const handleCloseDetails = () => {
         setShowDetails(false);
+        handleEditPassword(false);
     };
 
     let table = null;
@@ -67,6 +82,7 @@ const Passwords = () => {
                     selectedPassword={selectedPassword}
                     showDetails={showDetails}
                     onClose={handleCloseDetails}
+                    onEdit={handleEditPassword}
                 />
             </>
         );
