@@ -3,6 +3,7 @@ package com.blaec.passvault.service.implementation;
 import com.blaec.passvault.model.Folder;
 import com.blaec.passvault.model.Password;
 import com.blaec.passvault.model.response.Response;
+import com.blaec.passvault.model.to.ExistingPasswordTo;
 import com.blaec.passvault.model.to.NewPasswordTo;
 import com.blaec.passvault.repository.PasswordRepository;
 import com.blaec.passvault.service.PasswordService;
@@ -26,15 +27,16 @@ public class PasswordServiceImpl implements PasswordService {
     @Override
     public Response.Builder create(NewPasswordTo passwordTo, Folder folder) {
         Password password = Password.from(passwordTo, Objects.requireNonNull(folder, "folder not supplied"));
-        return save(password, folder, "Password for {} successfully saved");
+        return save(password, "Password for {} successfully saved");
     }
 
     @Override
-    public Response.Builder update(Password password) {
-        return save(password, password.getFolder(), "Password for {} successfully updated");
+    public Response.Builder update(ExistingPasswordTo passwordTo, Folder folder) {
+        Password password = Password.from(passwordTo, Objects.requireNonNull(folder, "folder not supplied"));
+        return save(password, "Password for {} successfully updated");
     }
 
-    private Response.Builder save(Password password, Folder folder, String message) {
+    private Response.Builder save(Password password, String message) {
         Response.Builder response = Response.Builder.create();
         try {
             Password saved = passwordRepository.save(password);

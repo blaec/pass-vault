@@ -67,7 +67,7 @@ const Passwords = () => {
         );
         if (!isEditMode) {
             const password = {
-                id: selectedPassword.passwordData.id,
+                passwordId: selectedPassword.passwordData.id,
                 folderId: selectedPassword.passwordData.folder.id,
                 title: selectedPassword.passwordData.title,
                 user: userRef?.current?.value ?? selectedPassword.user,
