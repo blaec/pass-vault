@@ -29,7 +29,7 @@ export const savePassword = (password) => {
     };
 };
 
-export const updateFolder = (password) => {
+export const updatePassword = (password) => {
     return async (dispatch) => {
         axios.put(`${passwordApi.put.update}`, password)
             .then(response => {

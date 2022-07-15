@@ -17,7 +17,7 @@ import TableFooter from "@mui/material/TableFooter";
 
 
 const PasswordDetails = (props) => {
-    const {selectedPassword: {isEditable, passwordData}, showDetails, onClose, onEdit} = props;
+    const {selectedPassword: {isEditable, passwordData}, selectedPasswordRef, showDetails, onClose, onEdit} = props;
 
     const _root = {width: 1250, m: 2};
 
@@ -30,6 +30,7 @@ const PasswordDetails = (props) => {
                     id={id}
                     description={"Email or User"}
                     value={user}
+                    valueRef={selectedPasswordRef.userRef}
                     icons={
                         <IconButton>
                             <ContentCopyTwoToneIcon/>
@@ -41,6 +42,7 @@ const PasswordDetails = (props) => {
                     id={id}
                     description={"Password"}
                     value={password}
+                    valueRef={selectedPasswordRef.passwordRef}
                     icons={
                         <>
                             <IconButton>
@@ -57,6 +59,7 @@ const PasswordDetails = (props) => {
                     id={id}
                     description={"Website Address"}
                     value={website}
+                    valueRef={selectedPasswordRef.websiteRef}
                     icons={
                         <IconButton>
                             <ContentCopyTwoToneIcon/>
@@ -78,6 +81,7 @@ const PasswordDetails = (props) => {
                     id={id}
                     description={"Note"}
                     value={note}
+                    valueRef={selectedPasswordRef.noteRef}
                     icons={
                         <IconButton>
                             <ContentCopyTwoToneIcon/>

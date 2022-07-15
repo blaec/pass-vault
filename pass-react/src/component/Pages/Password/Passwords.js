@@ -1,5 +1,5 @@
 import React from 'react';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {NavLink} from "react-router-dom";
 
 import {toolbarHeight} from "../../../utils/Constants";
@@ -11,6 +11,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import {Grid} from "@mui/material";
+import {savePassword, updatePassword} from "../../../store/state/password/password-actions";
 
 
 const columns = [
@@ -32,8 +33,13 @@ const columns = [
 const Passwords = () => {
     const [showDetails, setShowDetails] = React.useState(false);
     const [selectedPassword, setSelectedPassword] = React.useState({isEditable: false, passwordData: {}});
+    const userRef = React.useRef();
+    const passwordRef = React.useRef();
+    const websiteRef = React.useRef();
+    const noteRef = React.useRef();
 
     const {passwords, isPasswordsLoaded} = useSelector(state => state.password.passwords);
+    const dispatch = useDispatch();
 
     const _root = {
         height: window.innerHeight - toolbarHeight.desktop,
@@ -52,22 +58,45 @@ const Passwords = () => {
         setShowDetails(true);
     };
 
-    const handleEditPassword = (value) => {
+    const handleEditPassword = (isEditMode) => {
         setSelectedPassword(
             {
                 ...selectedPassword,
-                isEditable: value
+                isEditable: isEditMode
             }
         );
+        if (!isEditMode) {
+            const password = {
+                id: selectedPassword.passwordData.id,
+                folderId: selectedPassword.passwordData.folder.id,
+                title: selectedPassword.passwordData.title,
+                user: userRef?.current?.value ?? selectedPassword.user,
+                password: passwordRef?.current?.value ?? selectedPassword.password,
+                website: websiteRef?.current?.value ?? selectedPassword.website,
+                note: noteRef?.current?.value ?? selectedPassword.note
+            };
+            dispatch(updatePassword(password));
+        }
     };
 
     const handleCloseDetails = () => {
         setShowDetails(false);
-        handleEditPassword(false);
+        setSelectedPassword(
+            {
+                ...selectedPassword,
+                isEditable: false
+            }
+        );
     };
 
     let table = null;
     if (isPasswordsLoaded) {
+        const selectedPasswordRef = {
+            userRef: userRef,
+            passwordRef: passwordRef,
+            websiteRef: websiteRef,
+            noteRef: noteRef
+        };
         table = (
             <>
                 <DataGrid
@@ -80,6 +109,7 @@ const Passwords = () => {
                 />
                 <PasswordDetails
                     selectedPassword={selectedPassword}
+                    selectedPasswordRef={selectedPasswordRef}
                     showDetails={showDetails}
                     onClose={handleCloseDetails}
                     onEdit={handleEditPassword}

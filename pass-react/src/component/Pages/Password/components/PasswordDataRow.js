@@ -6,14 +6,14 @@ import {TextField} from "@mui/material";
 
 
 const PasswordDataRow = (props) => {
-    const {id, description, value, icons, isEdit} = props;
+    const {id, description, value, valueRef, icons, isEdit} = props;
 
     const _description = {width: 60};
     const _value = {width: 100};
     const _icons = {width: 10};
 
     const field = isEdit
-        ? <TextField defaultValue={value} variant="standard"/>
+        ? <TextField defaultValue={value} inputRef={valueRef} variant="standard"/>
         : value;
 
     return (
