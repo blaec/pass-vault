@@ -10,15 +10,21 @@ import Box from "@mui/material/Box";
 import EditTwoToneIcon from "@mui/icons-material/EditTwoTone";
 import DriveFileMoveTwoToneIcon from "@mui/icons-material/DriveFileMoveTwoTone";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
+import DoneTwoToneIcon from '@mui/icons-material/DoneTwoTone';
 
 
 const PasswordControls = (props) => {
     const {id, onClose, onEdit} = props;
+    const [isEditMode, setIsEditMode] = React.useState(false);
 
     const dispatch = useDispatch();
 
     const handleEdit = () => {
-        onEdit(true);
+        setIsEditMode(!isEditMode);
+        onEdit(!isEditMode);
+        if (isEditMode) {
+            onClose();
+        }
     };
 
     const handleMoveToFolder = () => {
@@ -31,6 +37,9 @@ const PasswordControls = (props) => {
         onClose();
     };
 
+    const editButton = isEditMode
+        ? <DoneTwoToneIcon/>
+        : <EditTwoToneIcon/>;
 
     return (
         <Grid
@@ -50,7 +59,7 @@ const PasswordControls = (props) => {
                     color="primary"
                     onClick={handleEdit}
                 >
-                    <EditTwoToneIcon/>
+                    {editButton}
                 </IconButton>
                 <IconButton
                     color="primary"
