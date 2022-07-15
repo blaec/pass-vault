@@ -3,7 +3,7 @@ package com.blaec.passvault.service.implementation;
 import com.blaec.passvault.model.Folder;
 import com.blaec.passvault.model.Password;
 import com.blaec.passvault.model.response.Response;
-import com.blaec.passvault.model.to.PasswordTo;
+import com.blaec.passvault.model.to.NewPasswordTo;
 import com.blaec.passvault.repository.PasswordRepository;
 import com.blaec.passvault.service.PasswordService;
 import lombok.AllArgsConstructor;
@@ -11,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
-import java.util.Optional;
 
 @Slf4j
 @AllArgsConstructor
@@ -25,7 +24,7 @@ public class PasswordServiceImpl implements PasswordService {
     }
 
     @Override
-    public Response.Builder create(PasswordTo passwordTo, Folder folder) {
+    public Response.Builder create(NewPasswordTo passwordTo, Folder folder) {
         Password password = Password.from(passwordTo, Objects.requireNonNull(folder, "folder not supplied"));
         return save(password, folder, "Password for {} successfully saved");
     }
