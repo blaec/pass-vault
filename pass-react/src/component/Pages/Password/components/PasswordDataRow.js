@@ -12,6 +12,10 @@ const PasswordDataRow = (props) => {
     const _value = {width: 100};
     const _icons = {width: 10};
 
+    const field = isEdit
+        ? <TextField defaultValue={value} variant="standard"/>
+        : value;
+
     return (
         <TableRow key={id}>
             <TableCell style={_description}>
@@ -21,9 +25,7 @@ const PasswordDataRow = (props) => {
                 style={_value}
                 align="left"
             >
-                {isEdit
-                    ? <TextField defaultValue={value}/>
-                    : value}
+                {field}
             </TableCell>
             <TableCell
                 style={_icons}
