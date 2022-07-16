@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface FolderService {
     Iterable<Folder> getAll();
     Optional<Folder> getById(int folderId);
-    @Transactional Response.Builder save(Folder folder);
+    @Transactional Response.Builder create(Folder folder);
     @Transactional Response.Builder update(Folder folder);
     @Transactional Response.Builder delete(int id);
 }

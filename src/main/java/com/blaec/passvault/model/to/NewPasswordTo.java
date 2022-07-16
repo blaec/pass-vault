@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class PasswordTo {
+public class NewPasswordTo {
     private final int folderId;
     private final String title;
     private final String user;
@@ -16,7 +16,7 @@ public class PasswordTo {
     private final String website;
     private final String note;
 
-    public static PasswordTo create(int folderId, String title, String user, String password, String website, String note) {
-        return new PasswordTo(folderId, title, user, password, website, note);
+    public static NewPasswordTo create(int folderId, String title, String user, String password, String website, String note) {
+        return new NewPasswordTo(folderId, title, user, password, website, note);
     }
 }

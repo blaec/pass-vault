@@ -24,7 +24,7 @@ public class FolderController extends AbstractController{
     @PostMapping("/create/{name}")
     public Response saveFolder(@PathVariable String name) {
         log.info("saving folder | {}", name);
-        return folderService.save(Folder.from(name)).build();
+        return folderService.create(Folder.from(name)).build();
     }
 
     @PutMapping("/update")
