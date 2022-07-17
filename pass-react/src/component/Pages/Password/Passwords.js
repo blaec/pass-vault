@@ -1,10 +1,11 @@
 import React from 'react';
-import {useSelector} from "react-redux";
-import {NavLink} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {NavLink, useNavigate} from "react-router-dom";
 
 import {toolbarHeight} from "../../../utils/Constants";
 import PasswordDetails from "./components/PasswordDetails";
 import {reactLinks} from "../../../utils/UrlUtils";
+import {passwordActions} from "../../../store/state/password/password-slice";
 
 import {DataGrid} from '@mui/x-data-grid';
 import Box from "@mui/material/Box";
@@ -35,6 +36,9 @@ const Passwords = () => {
 
     const {passwords, isPasswordsLoaded} = useSelector(state => state.password.passwords);
 
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
     const _root = {
         height: window.innerHeight - toolbarHeight.desktop,
         width: '100%',
@@ -43,12 +47,19 @@ const Passwords = () => {
 
     const handleRowClick = (params) => {
         const {row: {id}} = params;
-        setSelectedPassword(passwords.find(pass => pass.id === id));
+        const selected = passwords.find(pass => pass.id === id);
+        setSelectedPassword(selected);
+        dispatch(passwordActions.setEditablePassword(selected));
         setShowDetails(true);
+    };
+
+    const handleEditPassword = () => {
+        navigate(reactLinks.newPassword);
     };
 
     const handleCloseDetails = () => {
         setShowDetails(false);
+        dispatch(passwordActions.resetEditablePassword());
     };
 
     let table = null;
@@ -66,6 +77,7 @@ const Passwords = () => {
                 <PasswordDetails
                     selectedPassword={selectedPassword}
                     showDetails={showDetails}
+                    onEdit={handleEditPassword}
                     onClose={handleCloseDetails}
                 />
             </>

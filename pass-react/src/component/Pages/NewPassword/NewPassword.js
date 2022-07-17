@@ -11,11 +11,13 @@ import PasswordInputElement from "./components/PasswordInputElement";
 import {Card, CardActions, CardContent, FormControl, Grid, InputLabel, MenuItem, Select} from "@mui/material";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
+import {passwordActions} from "../../../store/state/password/password-slice";
 
 
 const NewPassword = () => {
     const [folder, setFolder] = React.useState('');
     const {folders, isFoldersLoaded} = useSelector(state => state.folder.folders);
+    const {editablePassword} = useSelector(state => state.password.editablePassword);
     const navigate = useNavigate();
     const titleRef = React.useRef();
     const userRef = React.useRef();
@@ -24,6 +26,8 @@ const NewPassword = () => {
     const noteRef = React.useRef();
 
     const dispatch = useDispatch();
+
+    console.log(editablePassword);
 
     const _root = {
         width: 350,
@@ -38,6 +42,7 @@ const NewPassword = () => {
 
     const handleCancel = () => {
         navigate(reactLinks.passwords);
+        dispatch(passwordActions.resetEditablePassword());
     };
 
     const handleSave = () => {
