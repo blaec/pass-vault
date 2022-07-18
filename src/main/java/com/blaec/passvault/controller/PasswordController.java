@@ -3,6 +3,7 @@ package com.blaec.passvault.controller;
 import com.blaec.passvault.model.Folder;
 import com.blaec.passvault.model.Password;
 import com.blaec.passvault.model.response.Response;
+import com.blaec.passvault.model.to.ExistingPasswordTo;
 import com.blaec.passvault.model.to.NewPasswordTo;
 import com.blaec.passvault.service.FolderService;
 import com.blaec.passvault.service.PasswordService;
@@ -35,10 +36,12 @@ public class PasswordController extends AbstractController{
     }
 
     @PutMapping("/update")
-    public Response updatePassword(@RequestBody Password password) {
-        log.info("updating password | {}", password.getTitle());
+    public Response updatePassword(@RequestBody ExistingPasswordTo passwordTo) {
+        log.info("updating password | {}", passwordTo.getTitle());
+        Folder folder = folderService.getById(passwordTo.getFolderId())
+                .orElse(null);
 
-        return passwordService.update(password).build();
+        return passwordService.update(passwordTo, folder).build();
     }
 
     @DeleteMapping("/delete/{id}")
