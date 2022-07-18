@@ -4,11 +4,12 @@ import TextField from "@mui/material/TextField";
 
 
 const TextInputElement = (props) => {
-    const {style, elemRef, autofocus, label, type, multiline} = props;
+    const {style, value, elemRef, autofocus, label, type, multiline} = props;
 
     return (
         <TextField
             sx={style}
+            defaultValue={value}
             inputRef={elemRef}
             autoFocus={autofocus}
             label={label}

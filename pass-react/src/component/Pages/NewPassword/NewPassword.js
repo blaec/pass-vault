@@ -2,16 +2,16 @@ import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from 'react-router-dom';
 
-import {isArrayExist} from "../../../utils/Utils";
+import {isArrayExist, isObjectExist} from "../../../utils/Utils";
 import {savePassword} from "../../../store/state/password/password-actions";
 import {reactLinks} from "../../../utils/UrlUtils";
 import TextInputElement from "./components/TextInputElement";
 import PasswordInputElement from "./components/PasswordInputElement";
+import {passwordActions} from "../../../store/state/password/password-slice";
 
 import {Card, CardActions, CardContent, FormControl, Grid, InputLabel, MenuItem, Select} from "@mui/material";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import {passwordActions} from "../../../store/state/password/password-slice";
 
 
 const NewPassword = () => {
@@ -26,8 +26,6 @@ const NewPassword = () => {
     const noteRef = React.useRef();
 
     const dispatch = useDispatch();
-
-    console.log(editablePassword);
 
     const _root = {
         width: 350,
@@ -58,6 +56,10 @@ const NewPassword = () => {
         navigate(reactLinks.passwords);
     };
 
+    const handleUpdate = () => {
+        alert("update goes here");
+    };
+
     const handleGeneratePassword = () => {
         alert("Generate Password");
     };
@@ -70,6 +72,74 @@ const NewPassword = () => {
     }
     const menuItems = folderItems.map(fi => <MenuItem key={fi.id} value={fi.id}>{fi.name}</MenuItem>)
 
+    let passwordInput = {
+        titleValue: "",
+        userValue: "",
+        passwordValue: "",
+        websiteValue: "",
+        noteValue: "",
+        folderValue: "",
+        actionHandler: handleSave,
+        action: "Create"
+    };
+    if (isObjectExist(editablePassword)) {
+        const {title, user, password, website, note, folder} = editablePassword;
+        passwordInput = {
+            titleValue: title,
+            userValue: user,
+            passwordValue: password,
+            websiteValue: website,
+            noteValue: note,
+            folderValue: folder.id,
+            actionHandler: handleUpdate,
+            action: "Update"
+        };
+    }
+
+    const titleElement = <TextInputElement
+        value={passwordInput.titleValue}
+        elemRef={titleRef}
+        label={"Title"}
+        type={"text"}
+        autofocus={true}
+    />;
+    const userElement = <TextInputElement
+        style={_element}
+        value={passwordInput.userValue}
+        elemRef={userRef}
+        label={"User"}
+        type={"text"}
+    />;
+    const passwordElement = <PasswordInputElement
+        style={_element}
+        value={passwordInput.passwordValue}
+        elemRef={passwordRef}
+        label={"Password"}
+    />;
+    const websiteElement = <TextInputElement
+        style={_element}
+        value={passwordInput.websiteValue}
+        elemRef={websiteRef}
+        label={"Website"}
+        type={"text"}
+    />;
+    const folderSelect = <FormControl fullWidth>
+        <InputLabel>{label}</InputLabel>
+        <Select
+            value={passwordInput.folderValue}
+            onChange={handleChange}
+        >
+            {menuItems}
+        </Select>
+    </FormControl>;
+    const noteElement = <TextInputElement
+        style={_element}
+        value={passwordInput.noteValue}
+        elemRef={noteRef}
+        label={"Note"}
+        multiline={true}
+    />;
+
     return (
         <Grid container justifyContent="center">
             <Card
@@ -77,26 +147,12 @@ const NewPassword = () => {
                 sx={_root}
             >
                 <CardContent>
-                    <TextInputElement
-                        elemRef={titleRef}
-                        label={"Title"}
-                        type={"text"}
-                        autofocus={true}
-                    />
+                    {titleElement}
                     <Box sx={_caption}>
                         Login Details
                     </Box>
-                    <TextInputElement
-                        style={_element}
-                        elemRef={userRef}
-                        label={"User"}
-                        type={"text"}
-                    />
-                    <PasswordInputElement
-                        style={_element}
-                        elemRef={passwordRef}
-                        label={"Password"}
-                    />
+                    {userElement}
+                    {passwordElement}
                     <Grid
                         container
                         direction="row"
@@ -105,30 +161,12 @@ const NewPassword = () => {
                     >
                         <Button onClick={handleGeneratePassword}>Generate password</Button>
                     </Grid>
-                    <TextInputElement
-                        style={_element}
-                        elemRef={websiteRef}
-                        label={"Website"}
-                        type={"text"}
-                    />
+                    {websiteElement}
                     <Box sx={_caption}>
                         Other
                     </Box>
-                    <FormControl fullWidth>
-                        <InputLabel>{label}</InputLabel>
-                        <Select
-                            value={folder}
-                            onChange={handleChange}
-                        >
-                            {menuItems}
-                        </Select>
-                    </FormControl>
-                    <TextInputElement
-                        style={_element}
-                        elemRef={noteRef}
-                        label={"Note"}
-                        multiline={true}
-                    />
+                    {folderSelect}
+                    {noteElement}
                 </CardContent>
                 <CardActions>
                     <Grid
@@ -139,8 +177,8 @@ const NewPassword = () => {
                         <Button onClick={handleCancel}>
                             Cancel
                         </Button>
-                        <Button onClick={handleSave}>
-                            Save
+                        <Button onClick={passwordInput.actionHandler}>
+                            {passwordInput.action}
                         </Button>
                     </Grid>
                 </CardActions>
