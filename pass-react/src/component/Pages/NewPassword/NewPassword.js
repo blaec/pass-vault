@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from 'react-router-dom';
 
 import {isArrayExist, isObjectExist} from "../../../utils/Utils";
-import {savePassword} from "../../../store/state/password/password-actions";
+import {savePassword, updatePassword} from "../../../store/state/password/password-actions";
 import {reactLinks} from "../../../utils/UrlUtils";
 import TextInputElement from "./components/TextInputElement";
 import PasswordInputElement from "./components/PasswordInputElement";
@@ -57,12 +57,27 @@ const NewPassword = () => {
     };
 
     const handleUpdate = () => {
-        alert("update goes here");
+        const password = {
+            passwordId: editablePassword.id,
+            folderId: folder.id,
+            title: titleRef.current.value,
+            user: userRef.current.value,
+            password: passwordRef.current.value,
+            website: websiteRef.current.value,
+            note: noteRef.current.value
+        };
+        dispatch(updatePassword(password));
+        navigate(reactLinks.passwords);
     };
 
     const handleGeneratePassword = () => {
         alert("Generate Password");
     };
+
+    useEffect(() => {
+        const {folder} = editablePassword;
+        setFolder(folder);
+    }, [editablePassword])
 
     let label = "Create folders";
     let folderItems = [];
@@ -127,7 +142,7 @@ const NewPassword = () => {
         <InputLabel>{label}</InputLabel>
         <Select
             value={passwordInput.folderValue}
-            onChange={handleChange}
+            onChange={handleChange} // TODO not changes the folder
         >
             {menuItems}
         </Select>

@@ -6,7 +6,7 @@ import {Visibility, VisibilityOff} from "@mui/icons-material";
 
 
 const PasswordInputElement = (props) => {
-    const {style, elemRef, label} = props;
+    const {style, value, elemRef, label} = props;
     const [showPassword, setShowPassword] = React.useState(false);
 
     const handleShowPassword = () => {
@@ -22,6 +22,7 @@ const PasswordInputElement = (props) => {
         >
             <InputLabel>Password</InputLabel>
             <FilledInput
+                defaultValue={value}
                 inputRef={elemRef}
                 type={showPassword ? 'text' : 'password'}
                 endAdornment={
