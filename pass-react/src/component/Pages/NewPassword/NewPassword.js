@@ -15,7 +15,7 @@ import Box from "@mui/material/Box";
 
 
 const NewPassword = () => {
-    const [folder, setFolder] = React.useState('');
+    const [folderId, setFolderId] = React.useState(undefined);
     const {folders, isFoldersLoaded} = useSelector(state => state.folder.folders);
     const {editablePassword} = useSelector(state => state.password.editablePassword);
     const navigate = useNavigate();
@@ -35,7 +35,7 @@ const NewPassword = () => {
     const _element = {mt: 1};
 
     const handleChange = (event) => {
-        setFolder(event.target.value);
+        setFolderId(event.target.value);
     };
 
     const handleCancel = () => {
@@ -45,7 +45,7 @@ const NewPassword = () => {
 
     const handleSave = () => {
         const password = {
-            folderId: folder,
+            folderId: folderId,
             title: titleRef.current.value,
             user: userRef.current.value,
             password: passwordRef.current.value,
@@ -59,7 +59,7 @@ const NewPassword = () => {
     const handleUpdate = () => {
         const password = {
             passwordId: editablePassword.id,
-            folderId: folder.id,
+            folderId: folderId,
             title: titleRef.current.value,
             user: userRef.current.value,
             password: passwordRef.current.value,
@@ -76,7 +76,7 @@ const NewPassword = () => {
 
     useEffect(() => {
         const {folder} = editablePassword;
-        setFolder(folder);
+        setFolderId(folder.id);
     }, [editablePassword])
 
     let label = "Create folders";
@@ -105,7 +105,7 @@ const NewPassword = () => {
             passwordValue: password,
             websiteValue: website,
             noteValue: note,
-            folderValue: folder.id,
+            folderValue: folderId || folder.id,
             actionHandler: handleUpdate,
             action: "Update"
         };
