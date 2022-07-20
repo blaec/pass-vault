@@ -142,7 +142,7 @@ const NewPassword = () => {
         <InputLabel>{label}</InputLabel>
         <Select
             value={passwordInput.folderValue}
-            onChange={handleChange} // TODO not changes the folder
+            onChange={handleChange}
         >
             {menuItems}
         </Select>
