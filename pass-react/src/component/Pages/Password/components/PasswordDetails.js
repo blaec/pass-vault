@@ -17,7 +17,7 @@ import TableFooter from "@mui/material/TableFooter";
 
 
 const PasswordDetails = (props) => {
-    const {selectedPassword, showDetails, onClose} = props;
+    const {selectedPassword, showDetails, onEdit, onClose} = props;
 
     const _root = {width: 1250, m: 2};
 
@@ -105,6 +105,7 @@ const PasswordDetails = (props) => {
             <Toolbar/>
             <PasswordControls
                 id={selectedPassword.id}
+                onEdit={onEdit}
                 onClose={onClose}
             />
             <Box sx={_root}>

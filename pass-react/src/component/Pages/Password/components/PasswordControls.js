@@ -13,12 +13,12 @@ import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 
 
 const PasswordControls = (props) => {
-    const {id, onClose} = props;
+    const {id, onEdit, onClose} = props;
 
     const dispatch = useDispatch();
 
     const handleEdit = () => {
-        alert("edit");
+        onEdit();
     };
 
     const handleMoveToFolder = () => {
