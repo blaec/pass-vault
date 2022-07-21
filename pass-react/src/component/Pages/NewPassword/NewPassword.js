@@ -75,8 +75,10 @@ const NewPassword = () => {
     };
 
     useEffect(() => {
-        const {folder} = editablePassword;
-        setFolderId(folder.id);
+        if (isObjectExist(editablePassword)) {
+            const {folder} = editablePassword;
+            setFolderId(folder.id);
+        }
     }, [editablePassword])
 
     let label = "Create folders";
