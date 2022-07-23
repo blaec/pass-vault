@@ -18,14 +18,9 @@ import TableFooter from "@mui/material/TableFooter";
 
 
 const PasswordDetails = (props) => {
-    const {selectedPassword, showDetails, onEdit, onClose} = props;
-    const [showPassword, setShowPassword] = React.useState(false);
+    const {selectedPassword, showDetails, showPassword, onEdit, onShowHidePassword, onClose} = props;
 
     const _root = {width: 1250, m: 2};
-
-    const handleShowPassword = () => {
-        setShowPassword(!showPassword)
-    };
 
     let details = null;
     const passwordValue = showPassword ? selectedPassword.password : convertToPassword(selectedPassword.password);
@@ -49,8 +44,8 @@ const PasswordDetails = (props) => {
                     icons={
                         <>
                             <IconButton
-                                onClick={handleShowPassword}
-                                onMouseDown={handleShowPassword}
+                                onClick={onShowHidePassword}
+                                onMouseDown={onShowHidePassword}
                             >
                                 {showPassword ? <VisibilityOffTwoToneIcon/> : <VisibilityTwoToneIcon/>}
                             </IconButton>
