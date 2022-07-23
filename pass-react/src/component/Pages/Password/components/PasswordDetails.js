@@ -9,7 +9,6 @@ import Toolbar from "@mui/material/Toolbar";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import ContentCopyTwoToneIcon from "@mui/icons-material/ContentCopyTwoTone";
 import VisibilityTwoToneIcon from "@mui/icons-material/VisibilityTwoTone";
 import VisibilityOffTwoToneIcon from "@mui/icons-material/VisibilityOffTwoTone";
 import Paper from "@mui/material/Paper";
@@ -21,6 +20,7 @@ const PasswordDetails = (props) => {
     const {selectedPassword, showDetails, showPassword, onEdit, onShowHidePassword, onClose} = props;
 
     const _root = {width: 1250, m: 2};
+
 
     let details = null;
     if (isObjectExist(selectedPassword)) {
@@ -35,11 +35,6 @@ const PasswordDetails = (props) => {
                 {visibilityElement}
             </IconButton>
         );
-        const copyIcon = (
-            <IconButton>
-                <ContentCopyTwoToneIcon/>
-            </IconButton>
-        );
         const passwordValue = showPassword
             ? selectedPassword.password
             : convertToPassword(selectedPassword.password);
@@ -50,36 +45,27 @@ const PasswordDetails = (props) => {
                     id={selectedPassword.id}
                     description={"Email or User"}
                     value={selectedPassword.user}
-                    icons={copyIcon}
                 />
                 <PasswordDataRow
                     id={selectedPassword.id}
                     description={"Password"}
                     value={passwordValue}
-                    icons={
-                        <>
-                            {showHidePasswordIcon}
-                            {copyIcon}
-                        </>
-                    }
+                    icon={showHidePasswordIcon}
                 />
                 <PasswordDataRow
                     id={selectedPassword.id}
                     description={"Website Address"}
                     value={selectedPassword.website}
-                    icons={copyIcon}
                 />
                 <PasswordDataRow
                     id={selectedPassword.id}
                     description={"Folder"}
                     value={selectedPassword.folder.name}
-                    icons={copyIcon}
                 />
                 <PasswordDataRow
                     id={selectedPassword.id}
                     description={"Note"}
                     value={selectedPassword.note}
-                    icons={copyIcon}
                 />
             </>
         );
