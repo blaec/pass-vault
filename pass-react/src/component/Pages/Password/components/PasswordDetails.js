@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {isObjectExist} from "../../../../utils/Utils";
+import {convertToPassword, isObjectExist} from "../../../../utils/Utils";
 import PasswordDataRow from "./PasswordDataRow";
 import PasswordControls from "./PasswordControls";
 
@@ -11,42 +11,55 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import ContentCopyTwoToneIcon from "@mui/icons-material/ContentCopyTwoTone";
 import VisibilityTwoToneIcon from "@mui/icons-material/VisibilityTwoTone";
+import VisibilityOffTwoToneIcon from "@mui/icons-material/VisibilityOffTwoTone";
 import Paper from "@mui/material/Paper";
 import TableBody from "@mui/material/TableBody";
 import TableFooter from "@mui/material/TableFooter";
 
 
 const PasswordDetails = (props) => {
-    const {selectedPassword, showDetails, onEdit, onClose} = props;
+    const {selectedPassword, showDetails, showPassword, onEdit, onShowHidePassword, onClose} = props;
 
     const _root = {width: 1250, m: 2};
 
     let details = null;
     if (isObjectExist(selectedPassword)) {
+        const visibilityElement = showPassword
+            ? <VisibilityOffTwoToneIcon/>
+            : <VisibilityTwoToneIcon/>;
+        const showHidePasswordIcon = (
+            <IconButton
+                onClick={onShowHidePassword}
+                onMouseDown={onShowHidePassword}
+            >
+                {visibilityElement}
+            </IconButton>
+        );
+        const copyIcon = (
+            <IconButton>
+                <ContentCopyTwoToneIcon/>
+            </IconButton>
+        );
+        const passwordValue = showPassword
+            ? selectedPassword.password
+            : convertToPassword(selectedPassword.password);
+
         const passwordDetails = (
             <>
                 <PasswordDataRow
                     id={selectedPassword.id}
                     description={"Email or User"}
                     value={selectedPassword.user}
-                    icons={
-                        <IconButton>
-                            <ContentCopyTwoToneIcon/>
-                        </IconButton>
-                    }
+                    icons={copyIcon}
                 />
                 <PasswordDataRow
                     id={selectedPassword.id}
                     description={"Password"}
-                    value={selectedPassword.password}
+                    value={passwordValue}
                     icons={
                         <>
-                            <IconButton>
-                                <VisibilityTwoToneIcon/>
-                            </IconButton>
-                            <IconButton>
-                                <ContentCopyTwoToneIcon/>
-                            </IconButton>
+                            {showHidePasswordIcon}
+                            {copyIcon}
                         </>
                     }
                 />
@@ -54,31 +67,19 @@ const PasswordDetails = (props) => {
                     id={selectedPassword.id}
                     description={"Website Address"}
                     value={selectedPassword.website}
-                    icons={
-                        <IconButton>
-                            <ContentCopyTwoToneIcon/>
-                        </IconButton>
-                    }
+                    icons={copyIcon}
                 />
                 <PasswordDataRow
                     id={selectedPassword.id}
                     description={"Folder"}
                     value={selectedPassword.folder.name}
-                    icons={
-                        <IconButton>
-                            <ContentCopyTwoToneIcon/>
-                        </IconButton>
-                    }
+                    icons={copyIcon}
                 />
                 <PasswordDataRow
                     id={selectedPassword.id}
                     description={"Note"}
                     value={selectedPassword.note}
-                    icons={
-                        <IconButton>
-                            <ContentCopyTwoToneIcon/>
-                        </IconButton>
-                    }
+                    icons={copyIcon}
                 />
             </>
         );

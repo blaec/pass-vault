@@ -33,6 +33,7 @@ const columns = [
 const Passwords = () => {
     const [showDetails, setShowDetails] = React.useState(false);
     const [selectedPassword, setSelectedPassword] = React.useState({});
+    const [showPassword, setShowPassword] = React.useState(false);
 
     const {passwords, isPasswordsLoaded} = useSelector(state => state.password.passwords);
 
@@ -60,6 +61,11 @@ const Passwords = () => {
     const handleCloseDetails = () => {
         setShowDetails(false);
         dispatch(passwordActions.resetEditablePassword());
+        setShowPassword(false);
+    };
+
+    const handleShowPassword = () => {
+        setShowPassword(!showPassword);
     };
 
     let table = null;
@@ -77,7 +83,9 @@ const Passwords = () => {
                 <PasswordDetails
                     selectedPassword={selectedPassword}
                     showDetails={showDetails}
+                    showPassword={showPassword}
                     onEdit={handleEditPassword}
+                    onShowHidePassword={handleShowPassword}
                     onClose={handleCloseDetails}
                 />
             </>

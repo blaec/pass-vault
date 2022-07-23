@@ -2,7 +2,8 @@ import React from 'react';
 
 import {FilledInput, FormControl, InputAdornment, InputLabel} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
-import {Visibility, VisibilityOff} from "@mui/icons-material";
+import VisibilityTwoToneIcon from "@mui/icons-material/VisibilityTwoTone";
+import VisibilityOffTwoToneIcon from "@mui/icons-material/VisibilityOffTwoTone";
 
 
 const PasswordInputElement = (props) => {
@@ -12,6 +13,24 @@ const PasswordInputElement = (props) => {
     const handleShowPassword = () => {
         setShowPassword(!showPassword)
     }
+
+    const visibilityElement = showPassword
+        ? <VisibilityOffTwoToneIcon/>
+        : <VisibilityTwoToneIcon/>;
+    const inputType = showPassword
+        ? 'text'
+        : 'password';
+    const inputEndAdornment = (
+        <InputAdornment position="end">
+            <IconButton
+                edge="end"
+                onClick={handleShowPassword}
+                onMouseDown={handleShowPassword}
+            >
+                {visibilityElement}
+            </IconButton>
+        </InputAdornment>
+    );
 
 
     return (
@@ -24,18 +43,8 @@ const PasswordInputElement = (props) => {
             <FilledInput
                 defaultValue={value}
                 inputRef={elemRef}
-                type={showPassword ? 'text' : 'password'}
-                endAdornment={
-                    <InputAdornment position="end">
-                        <IconButton
-                            onClick={handleShowPassword}
-                            onMouseDown={handleShowPassword}
-                            edge="end"
-                        >
-                            {showPassword ? <VisibilityOff/> : <Visibility/>}
-                        </IconButton>
-                    </InputAdornment>
-                }
+                type={inputType}
+                endAdornment={inputEndAdornment}
                 label={label}
             />
         </FormControl>
