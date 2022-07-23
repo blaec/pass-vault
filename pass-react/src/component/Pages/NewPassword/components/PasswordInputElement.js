@@ -2,7 +2,8 @@ import React from 'react';
 
 import {FilledInput, FormControl, InputAdornment, InputLabel} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
-import {Visibility, VisibilityOff} from "@mui/icons-material";
+import VisibilityTwoToneIcon from "@mui/icons-material/VisibilityTwoTone";
+import VisibilityOffTwoToneIcon from "@mui/icons-material/VisibilityOffTwoTone";
 
 
 const PasswordInputElement = (props) => {
@@ -32,7 +33,7 @@ const PasswordInputElement = (props) => {
                             onMouseDown={handleShowPassword}
                             edge="end"
                         >
-                            {showPassword ? <VisibilityOff/> : <Visibility/>}
+                            {showPassword ? <VisibilityOffTwoToneIcon/> : <VisibilityTwoToneIcon/>}
                         </IconButton>
                     </InputAdornment>
                 }
