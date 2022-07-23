@@ -61,10 +61,11 @@ const Passwords = () => {
     const handleCloseDetails = () => {
         setShowDetails(false);
         dispatch(passwordActions.resetEditablePassword());
+        setShowPassword(false);
     };
 
     const handleShowPassword = () => {
-        setShowPassword(!showPassword)
+        setShowPassword(!showPassword);
     };
 
     let table = null;
