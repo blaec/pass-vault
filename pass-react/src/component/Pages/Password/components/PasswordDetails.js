@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {isObjectExist} from "../../../../utils/Utils";
+import {convertToPassword, isObjectExist} from "../../../../utils/Utils";
 import PasswordDataRow from "./PasswordDataRow";
 import PasswordControls from "./PasswordControls";
 
@@ -11,6 +11,7 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import ContentCopyTwoToneIcon from "@mui/icons-material/ContentCopyTwoTone";
 import VisibilityTwoToneIcon from "@mui/icons-material/VisibilityTwoTone";
+import VisibilityOffTwoToneIcon from "@mui/icons-material/VisibilityOffTwoTone";
 import Paper from "@mui/material/Paper";
 import TableBody from "@mui/material/TableBody";
 import TableFooter from "@mui/material/TableFooter";
@@ -18,10 +19,16 @@ import TableFooter from "@mui/material/TableFooter";
 
 const PasswordDetails = (props) => {
     const {selectedPassword, showDetails, onEdit, onClose} = props;
+    const [showPassword, setShowPassword] = React.useState(false);
 
     const _root = {width: 1250, m: 2};
 
+    const handleShowPassword = () => {
+        setShowPassword(!showPassword)
+    };
+
     let details = null;
+    const passwordValue = showPassword ? selectedPassword.password : convertToPassword(selectedPassword.password);
     if (isObjectExist(selectedPassword)) {
         const passwordDetails = (
             <>
@@ -38,11 +45,14 @@ const PasswordDetails = (props) => {
                 <PasswordDataRow
                     id={selectedPassword.id}
                     description={"Password"}
-                    value={selectedPassword.password}
+                    value={passwordValue}
                     icons={
                         <>
-                            <IconButton>
-                                <VisibilityTwoToneIcon/>
+                            <IconButton
+                                onClick={handleShowPassword}
+                                onMouseDown={handleShowPassword}
+                            >
+                                {showPassword ? <VisibilityOffTwoToneIcon/> : <VisibilityTwoToneIcon/>}
                             </IconButton>
                             <IconButton>
                                 <ContentCopyTwoToneIcon/>
