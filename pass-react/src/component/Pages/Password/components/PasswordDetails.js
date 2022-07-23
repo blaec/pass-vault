@@ -1,48 +1,33 @@
 import React from 'react';
 
-import {convertToPassword, isObjectExist} from "../../../../utils/Utils";
+import {isObjectExist} from "../../../../utils/Utils";
 import PasswordDataRow from "./PasswordDataRow";
 import PasswordControls from "./PasswordControls";
+import IconVisibility from "./IconVisibility";
 
 import {Drawer, Table, TableContainer} from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
 import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import ContentCopyTwoToneIcon from "@mui/icons-material/ContentCopyTwoTone";
-import VisibilityTwoToneIcon from "@mui/icons-material/VisibilityTwoTone";
-import VisibilityOffTwoToneIcon from "@mui/icons-material/VisibilityOffTwoTone";
 import Paper from "@mui/material/Paper";
 import TableBody from "@mui/material/TableBody";
 import TableFooter from "@mui/material/TableFooter";
 
 
 const PasswordDetails = (props) => {
-    const {selectedPassword, showDetails, showPassword, onEdit, onShowHidePassword, onClose} = props;
+    const {selectedPassword, showDetails, isShowPassword, onEdit, onShowHidePassword, onClose} = props;
 
     const _root = {width: 1250, m: 2};
 
+
     let details = null;
     if (isObjectExist(selectedPassword)) {
-        const visibilityElement = showPassword
-            ? <VisibilityOffTwoToneIcon/>
-            : <VisibilityTwoToneIcon/>;
         const showHidePasswordIcon = (
-            <IconButton
-                onClick={onShowHidePassword}
-                onMouseDown={onShowHidePassword}
-            >
-                {visibilityElement}
-            </IconButton>
+            <IconVisibility
+                isShowPassword={isShowPassword}
+                onShowHidePassword={onShowHidePassword}
+            />
         );
-        const copyIcon = (
-            <IconButton>
-                <ContentCopyTwoToneIcon/>
-            </IconButton>
-        );
-        const passwordValue = showPassword
-            ? selectedPassword.password
-            : convertToPassword(selectedPassword.password);
 
         const passwordDetails = (
             <>
@@ -50,36 +35,28 @@ const PasswordDetails = (props) => {
                     id={selectedPassword.id}
                     description={"Email or User"}
                     value={selectedPassword.user}
-                    icons={copyIcon}
                 />
                 <PasswordDataRow
                     id={selectedPassword.id}
                     description={"Password"}
-                    value={passwordValue}
-                    icons={
-                        <>
-                            {showHidePasswordIcon}
-                            {copyIcon}
-                        </>
-                    }
+                    value={selectedPassword.password}
+                    isHidden={!isShowPassword}
+                    icon={showHidePasswordIcon}
                 />
                 <PasswordDataRow
                     id={selectedPassword.id}
                     description={"Website Address"}
                     value={selectedPassword.website}
-                    icons={copyIcon}
                 />
                 <PasswordDataRow
                     id={selectedPassword.id}
                     description={"Folder"}
                     value={selectedPassword.folder.name}
-                    icons={copyIcon}
                 />
                 <PasswordDataRow
                     id={selectedPassword.id}
                     description={"Note"}
                     value={selectedPassword.note}
-                    icons={copyIcon}
                 />
             </>
         );

@@ -1,15 +1,23 @@
 import React from 'react';
 
+import {convertToPassword} from "../../../../utils/Utils";
+import IconCopy from "./IconCopy";
+
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 
 
 const PasswordDataRow = (props) => {
-    const {id, description, value, icons} = props;
+    const {id, description, value, isHidden, icon} = props;
 
     const _description = {width: '25%'};
     const _value = {width: '65%'};
     const _icons = {width: '10%'};
+
+    const displayValue = isHidden
+        ? convertToPassword(value)
+        : value;
+
 
     return (
         <TableRow key={id}>
@@ -20,13 +28,18 @@ const PasswordDataRow = (props) => {
                 style={_value}
                 align="left"
             >
-                {value}
+                {displayValue}
             </TableCell>
             <TableCell
                 style={_icons}
                 align="right"
             >
-                {icons}
+                {
+                    <>
+                        {icon}
+                        <IconCopy copyValue={value}/>
+                    </>
+                }
             </TableCell>
         </TableRow>
     );
