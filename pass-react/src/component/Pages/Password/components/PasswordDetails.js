@@ -50,6 +50,7 @@ const PasswordDetails = (props) => {
                     id={selectedPassword.id}
                     description={"Password"}
                     value={passwordValue}
+                    hiddenPassword={selectedPassword.password}
                     icon={showHidePasswordIcon}
                 />
                 <PasswordDataRow
