@@ -23,19 +23,34 @@ const PasswordDetails = (props) => {
     const _root = {width: 1250, m: 2};
 
     let details = null;
-    const passwordValue = showPassword ? selectedPassword.password : convertToPassword(selectedPassword.password);
     if (isObjectExist(selectedPassword)) {
+        const visibilityElement = showPassword
+            ? <VisibilityOffTwoToneIcon/>
+            : <VisibilityTwoToneIcon/>;
+        const showHidePasswordIcon = (
+            <IconButton
+                onClick={onShowHidePassword}
+                onMouseDown={onShowHidePassword}
+            >
+                {visibilityElement}
+            </IconButton>
+        );
+        const copyIcon = (
+            <IconButton>
+                <ContentCopyTwoToneIcon/>
+            </IconButton>
+        );
+        const passwordValue = showPassword
+            ? selectedPassword.password
+            : convertToPassword(selectedPassword.password);
+
         const passwordDetails = (
             <>
                 <PasswordDataRow
                     id={selectedPassword.id}
                     description={"Email or User"}
                     value={selectedPassword.user}
-                    icons={
-                        <IconButton>
-                            <ContentCopyTwoToneIcon/>
-                        </IconButton>
-                    }
+                    icons={copyIcon}
                 />
                 <PasswordDataRow
                     id={selectedPassword.id}
@@ -43,15 +58,8 @@ const PasswordDetails = (props) => {
                     value={passwordValue}
                     icons={
                         <>
-                            <IconButton
-                                onClick={onShowHidePassword}
-                                onMouseDown={onShowHidePassword}
-                            >
-                                {showPassword ? <VisibilityOffTwoToneIcon/> : <VisibilityTwoToneIcon/>}
-                            </IconButton>
-                            <IconButton>
-                                <ContentCopyTwoToneIcon/>
-                            </IconButton>
+                            {showHidePasswordIcon}
+                            {copyIcon}
                         </>
                     }
                 />
@@ -59,31 +67,19 @@ const PasswordDetails = (props) => {
                     id={selectedPassword.id}
                     description={"Website Address"}
                     value={selectedPassword.website}
-                    icons={
-                        <IconButton>
-                            <ContentCopyTwoToneIcon/>
-                        </IconButton>
-                    }
+                    icons={copyIcon}
                 />
                 <PasswordDataRow
                     id={selectedPassword.id}
                     description={"Folder"}
                     value={selectedPassword.folder.name}
-                    icons={
-                        <IconButton>
-                            <ContentCopyTwoToneIcon/>
-                        </IconButton>
-                    }
+                    icons={copyIcon}
                 />
                 <PasswordDataRow
                     id={selectedPassword.id}
                     description={"Note"}
                     value={selectedPassword.note}
-                    icons={
-                        <IconButton>
-                            <ContentCopyTwoToneIcon/>
-                        </IconButton>
-                    }
+                    icons={copyIcon}
                 />
             </>
         );

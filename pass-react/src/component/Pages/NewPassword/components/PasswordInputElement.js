@@ -14,21 +14,23 @@ const PasswordInputElement = (props) => {
         setShowPassword(!showPassword)
     }
 
-    const iconElement = showPassword
+    const visibilityElement = showPassword
         ? <VisibilityOffTwoToneIcon/>
         : <VisibilityTwoToneIcon/>;
     const inputType = showPassword
         ? 'text'
         : 'password';
-    const inputEndAdornment = <InputAdornment position="end">
-                                  <IconButton
-                                      edge="end"
-                                      onClick={handleShowPassword}
-                                      onMouseDown={handleShowPassword}
-                                  >
-                                      {iconElement}
-                                  </IconButton>
-                              </InputAdornment>;
+    const inputEndAdornment = (
+        <InputAdornment position="end">
+            <IconButton
+                edge="end"
+                onClick={handleShowPassword}
+                onMouseDown={handleShowPassword}
+            >
+                {visibilityElement}
+            </IconButton>
+        </InputAdornment>
+    );
 
 
     return (
