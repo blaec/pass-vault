@@ -14,6 +14,22 @@ const PasswordInputElement = (props) => {
         setShowPassword(!showPassword)
     }
 
+    const iconElement = showPassword
+        ? <VisibilityOffTwoToneIcon/>
+        : <VisibilityTwoToneIcon/>;
+    const inputType = showPassword
+        ? 'text'
+        : 'password';
+    const inputEndAdornment = <InputAdornment position="end">
+                                  <IconButton
+                                      edge="end"
+                                      onClick={handleShowPassword}
+                                      onMouseDown={handleShowPassword}
+                                  >
+                                      {iconElement}
+                                  </IconButton>
+                              </InputAdornment>;
+
 
     return (
         <FormControl
@@ -25,18 +41,8 @@ const PasswordInputElement = (props) => {
             <FilledInput
                 defaultValue={value}
                 inputRef={elemRef}
-                type={showPassword ? 'text' : 'password'}
-                endAdornment={
-                    <InputAdornment position="end">
-                        <IconButton
-                            onClick={handleShowPassword}
-                            onMouseDown={handleShowPassword}
-                            edge="end"
-                        >
-                            {showPassword ? <VisibilityOffTwoToneIcon/> : <VisibilityTwoToneIcon/>}
-                        </IconButton>
-                    </InputAdornment>
-                }
+                type={inputType}
+                endAdornment={inputEndAdornment}
                 label={label}
             />
         </FormControl>
