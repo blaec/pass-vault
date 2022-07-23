@@ -1,33 +1,23 @@
 import React from 'react';
 
+import {convertToPassword} from "../../../../utils/Utils";
+import IconCopy from "./IconCopy";
+
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
-import IconButton from "@mui/material/IconButton";
-import ContentCopyTwoToneIcon from "@mui/icons-material/ContentCopyTwoTone";
-import {copyToClipboard, isObjectExist} from "../../../../utils/Utils";
 
 
 const PasswordDataRow = (props) => {
-    const {id, description, value, hiddenPassword, icon} = props;
+    const {id, description, value, isHidden, icon} = props;
 
     const _description = {width: '25%'};
     const _value = {width: '65%'};
     const _icons = {width: '10%'};
 
-    const handleCopy = () => {
-        const copyValue = isObjectExist(icon)
-            ? hiddenPassword
-            : value;
-        copyToClipboard(copyValue);
-    };
+    const displayValue = isHidden
+        ? convertToPassword(value)
+        : value;
 
-    const copyIcon = (
-        <IconButton
-            onClick={handleCopy}
-        >
-            <ContentCopyTwoToneIcon/>
-        </IconButton>
-    );
 
     return (
         <TableRow key={id}>
@@ -38,7 +28,7 @@ const PasswordDataRow = (props) => {
                 style={_value}
                 align="left"
             >
-                {value}
+                {displayValue}
             </TableCell>
             <TableCell
                 style={_icons}
@@ -47,7 +37,7 @@ const PasswordDataRow = (props) => {
                 {
                     <>
                         {icon}
-                        {copyIcon}
+                        <IconCopy copyValue={value}/>
                     </>
                 }
             </TableCell>
