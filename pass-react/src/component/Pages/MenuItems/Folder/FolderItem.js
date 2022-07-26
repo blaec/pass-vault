@@ -1,8 +1,8 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
 
-import MyFormDialog, {FolderAction} from "../../../UI/MyFormDialog";
-import {reactLinks} from "../../../utils/UrlUtils";
+import MyFormDialog, {FolderAction} from "../../../../UI/MyFormDialog";
+import {reactLinks} from "../../../../utils/UrlUtils";
 
 import {Avatar, ListItem, ListItemAvatar, ListItemText} from "@mui/material";
 import IconButton from "@mui/material/IconButton";

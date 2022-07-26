@@ -4,9 +4,9 @@ import {
     Route
 } from "react-router-dom";
 
-import NewPassword from "./component/Pages/NewPassword/NewPassword";
-import Password from "./component/Pages/Password/Passwords";
-import Folder from "./component/Pages/Folder/Folder";
+import NewPassword from "./component/Pages/PathLinks/NewPassword/NewPassword";
+import Password from "./component/Pages/MenuItems/Password/Passwords";
+import Folder from "./component/Pages/MenuItems/Folder/Folder";
 import Settings from "./component/Pages/Settings/Settings";
 
 import Layout from "./hoc/Layout";
