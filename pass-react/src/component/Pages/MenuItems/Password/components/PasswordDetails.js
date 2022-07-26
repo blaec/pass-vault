@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {isObjectExist} from "../../../../utils/Utils";
+import {isObjectExist} from "../../../../../utils/Utils";
 import PasswordDataRow from "./PasswordDataRow";
 import PasswordControls from "./PasswordControls";
 import IconVisibility from "./IconVisibility";

@@ -1,7 +1,7 @@
 import React from 'react';
 import {useDispatch} from "react-redux";
 
-import {deletePassword} from "../../../../store/state/password/password-actions";
+import {deletePassword} from "../../../../../store/state/password/password-actions";
 
 import {Grid} from "@mui/material";
 import IconButton from "@mui/material/IconButton";

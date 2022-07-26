@@ -1,6 +1,8 @@
 import React from 'react';
+import {NavLink} from "react-router-dom";
 
-import MyFormDialog, {FolderAction} from "../../../UI/MyFormDialog";
+import MyFormDialog, {FolderAction} from "../../../../UI/MyFormDialog";
+import {reactLinks} from "../../../../utils/UrlUtils";
 
 import {Avatar, ListItem, ListItemAvatar, ListItemText} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
@@ -98,13 +100,23 @@ const FolderItem = (props) => {
     );
     const controls = isNew ? createControls : modifyControls;
 
+    const avatar = Number(id) === 0
+        ? <Avatar><FolderTwoToneIcon/></Avatar>
+        : (
+            <Avatar
+                component={NavLink}
+                to={`${reactLinks.folderItemsEndpoint}${id}`}
+            >
+                <FolderTwoToneIcon/>
+            </Avatar>
+        );
+
+
     return (
         <>
             <ListItem secondaryAction={controls}>
                 <ListItemAvatar>
-                    <Avatar>
-                        <FolderTwoToneIcon/>
-                    </Avatar>
+                    {avatar}
                 </ListItemAvatar>
                 <ListItemText
                     primary={folder}

@@ -2,12 +2,12 @@ import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from 'react-router-dom';
 
-import {isArrayExist, isObjectExist} from "../../../utils/Utils";
-import {savePassword, updatePassword} from "../../../store/state/password/password-actions";
-import {reactLinks} from "../../../utils/UrlUtils";
+import {isArrayExist, isObjectExist} from "../../../../utils/Utils";
+import {savePassword, updatePassword} from "../../../../store/state/password/password-actions";
+import {reactLinks} from "../../../../utils/UrlUtils";
 import TextInputElement from "./components/TextInputElement";
 import PasswordInputElement from "./components/PasswordInputElement";
-import {passwordActions} from "../../../store/state/password/password-slice";
+import {passwordActions} from "../../../../store/state/password/password-slice";
 
 import {Card, CardActions, CardContent, FormControl, Grid, InputLabel, MenuItem, Select} from "@mui/material";
 import Button from "@mui/material/Button";

@@ -1,6 +1,12 @@
 export const reactLinks = {
     home: "/passwords",
+    allItems: "/all-items",
     passwords: "/passwords",
+    folderItemsEndpoint: "/folder-items/",
+    folderItems: "/folder-items/:folderId",
+    secureNotes: "/secure-notes",
+    creditCards: "/credit-cards",
+    trash: "/trash",
     newPassword: "/new-password",
     folders: "/folders",
     settings: "/settings",

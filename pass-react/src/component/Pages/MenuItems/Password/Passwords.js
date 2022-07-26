@@ -2,10 +2,10 @@ import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {NavLink, useNavigate} from "react-router-dom";
 
-import {toolbarHeight} from "../../../utils/Constants";
+import {toolbarHeight} from "../../../../utils/Constants";
 import PasswordDetails from "./components/PasswordDetails";
-import {reactLinks} from "../../../utils/UrlUtils";
-import {passwordActions} from "../../../store/state/password/password-slice";
+import {reactLinks} from "../../../../utils/UrlUtils";
+import {passwordActions} from "../../../../store/state/password/password-slice";
 
 import {DataGrid} from '@mui/x-data-grid';
 import Box from "@mui/material/Box";
