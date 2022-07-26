@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {NavLink, useNavigate} from "react-router-dom";
+import {NavLink, useNavigate, useParams} from "react-router-dom";
 
 import {toolbarHeight} from "../../../utils/Constants";
 import PasswordDetails from "./components/PasswordDetails";
@@ -31,6 +31,8 @@ const columns = [
 ];
 
 const Passwords = () => {
+    const {folderId} = useParams();
+    console.log(folderId);
     const [showDetails, setShowDetails] = React.useState(false);
     const [selectedPassword, setSelectedPassword] = React.useState({});
     const [isShowPassword, setIsShowPassword] = React.useState(false);

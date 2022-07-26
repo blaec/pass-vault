@@ -17,7 +17,13 @@ import {fetchPasswords} from "./store/state/password/password-actions";
 
 function App() {
     const {
+        home,
+        allItems,
         passwords,
+        passwordsByFolder,
+        secureNotes,
+        creditCards,
+        trash,
         newPassword,
         folders,
         settings,
@@ -38,6 +44,9 @@ function App() {
                 <Route path={passwords} element={<Password/>}/>
                 <Route path={folders} element={<Folder/>}/>
                 <Route path={settings} element={<Settings/>}/>
+
+                {/* Path links */}
+                <Route path={passwordsByFolder} exact element={<Password/>}/>
 
                 {/* Links */}
                 <Route path={newPassword} element={<NewPassword/>}/>
