@@ -25,6 +25,11 @@ public class PasswordServiceImpl implements PasswordService {
     }
 
     @Override
+    public Iterable<Password> getAllByFolder(Folder folder) {
+        return passwordRepository.getAllByFolder(folder);
+    }
+
+    @Override
     public Response.Builder create(NewPasswordTo passwordTo, Folder folder) {
         Password password = Password.from(passwordTo, Objects.requireNonNull(folder, "folder not supplied"));
         return save(password, "Password for {} successfully saved");

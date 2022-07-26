@@ -1,5 +1,6 @@
 package com.blaec.passvault.repository.implementations;
 
+import com.blaec.passvault.model.Folder;
 import com.blaec.passvault.model.Password;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -12,4 +13,7 @@ public interface CrudPasswordRepository extends CrudRepository<Password, Integer
     @Modifying
     @Query("DELETE FROM Password p WHERE p.id=:id")
     int deleteById(int id);
+
+    @Query("SELECT p FROM Password p WHERE p.folder=:folder")
+    Iterable<Password> findAllByFolder(Folder folder);
 }

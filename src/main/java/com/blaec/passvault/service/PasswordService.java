@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface PasswordService {
     Iterable<Password> getAll();
+    Iterable<Password> getAllByFolder(Folder folder);
     @Transactional Response.Builder create(NewPasswordTo password, Folder folder);
     @Transactional Response.Builder update(ExistingPasswordTo password, Folder folder);
     @Transactional Response.Builder delete(int id);
