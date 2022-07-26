@@ -3,16 +3,17 @@ import {
     Routes,
     Route
 } from "react-router-dom";
+import {useDispatch} from "react-redux";
 
 import NewPassword from "./component/Pages/PathLinks/NewPassword/NewPassword";
 import Password from "./component/Pages/MenuItems/Password/Passwords";
 import Folder from "./component/Pages/MenuItems/Folder/Folder";
 import Settings from "./component/Pages/Settings/Settings";
+import FolderItems from "./component/Pages/PathLinks/FolderItems/FolderItems";
 
 import Layout from "./hoc/Layout";
 import {reactLinks} from "./utils/UrlUtils";
 import {fetchFolders} from "./store/state/folder/folder-actions";
-import {useDispatch} from "react-redux";
 import {fetchPasswords} from "./store/state/password/password-actions";
 
 function App() {
@@ -46,10 +47,8 @@ function App() {
                 <Route path={settings} element={<Settings/>}/>
 
                 {/* Path links */}
-                <Route path={passwordsByFolder} exact element={<Password/>}/>
-
-                {/* Links */}
                 <Route path={newPassword} element={<NewPassword/>}/>
+                <Route path={passwordsByFolder} exact element={<FolderItems/>}/>
             </Routes>
         </Layout>
     );
