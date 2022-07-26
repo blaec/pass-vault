@@ -28,9 +28,7 @@ public class PasswordController extends AbstractController{
 
     @GetMapping("/get-all-by-folder/{folderId}")
     public Iterable<Password> getAll(@PathVariable int folderId) {
-        Folder folder = folderService.getById(folderId)
-                .orElse(null);
-        return passwordService.getAllByFolder(folder);
+        return passwordService.getAllByFolderId(folderId);
     }
 
     @PostMapping("/create")

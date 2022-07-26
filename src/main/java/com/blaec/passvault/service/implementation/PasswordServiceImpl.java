@@ -25,8 +25,8 @@ public class PasswordServiceImpl implements PasswordService {
     }
 
     @Override
-    public Iterable<Password> getAllByFolder(Folder folder) {
-        return passwordRepository.getAllByFolder(folder);
+    public Iterable<Password> getAllByFolderId(int folderId) {
+        return passwordRepository.getAllByFolderId(folderId);
     }
 
     @Override

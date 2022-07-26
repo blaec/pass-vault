@@ -19,8 +19,8 @@ public class PasswordRepositoryImpl implements PasswordRepository {
     }
 
     @Override
-    public Iterable<Password> getAllByFolder(Folder folder) {
-        return crudPasswordRepository.findAllByFolder(folder);
+    public Iterable<Password> getAllByFolderId(int folderId) {
+        return crudPasswordRepository.findAllByFolderId(folderId);
     }
 
     @Override

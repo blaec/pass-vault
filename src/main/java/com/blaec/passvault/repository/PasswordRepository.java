@@ -5,7 +5,7 @@ import com.blaec.passvault.model.Password;
 
 public interface PasswordRepository {
     Iterable<Password> getAll();
-    Iterable<Password> getAllByFolder(Folder folder);
+    Iterable<Password> getAllByFolderId(int folderId);
     Password save(Password password);
     boolean isDeleted(int id);
 }
