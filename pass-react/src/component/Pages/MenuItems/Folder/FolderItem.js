@@ -105,7 +105,7 @@ const FolderItem = (props) => {
         : (
             <Avatar
                 component={NavLink}
-                to={`${reactLinks.passwordsByFolderEndpoint}${id}`}
+                to={`${reactLinks.folderItemsEndpoint}${id}`}
             >
                 <FolderTwoToneIcon/>
             </Avatar>

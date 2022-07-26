@@ -21,7 +21,7 @@ function App() {
         home,
         allItems,
         passwords,
-        passwordsByFolder,
+        folderItems,
         secureNotes,
         creditCards,
         trash,
@@ -48,7 +48,7 @@ function App() {
 
                 {/* Path links */}
                 <Route path={newPassword} element={<NewPassword/>}/>
-                <Route path={passwordsByFolder} exact element={<FolderItems/>}/>
+                <Route path={folderItems} exact element={<FolderItems/>}/>
             </Routes>
         </Layout>
     );
