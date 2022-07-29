@@ -2,7 +2,7 @@ import {createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
     passwords: {passwords: '', isPasswordsLoaded: false},
-    passwordsByFolder: {passwordsByFolder: '', isPasswordsByFolderLoaded: false},
+    passwordsByFolder: {passwords: '', isPasswordsLoaded: false},
     editablePassword: {password: ''}
 };
 
@@ -14,7 +14,7 @@ const passwordSlice = createSlice({
             state.passwords = {passwords: action.payload, isPasswordsLoaded: true};
         },
         setPasswordsByFolder(state, action) {
-            state.passwordsByFolder = {passwordsByFolder: action.payload, isPasswordsByFolderLoaded: true};
+            state.passwordsByFolder = {passwords: action.payload, isPasswordsLoaded: true};
         },
         setEditablePassword(state, action) {
             state.editablePassword = {editablePassword: action.payload};
