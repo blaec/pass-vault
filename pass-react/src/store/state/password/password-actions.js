@@ -15,6 +15,19 @@ export const fetchPasswords = () => {
     };
 };
 
+export const fetchPasswordsByFolder = (folderId) => {
+    return async (dispatch) => {
+        axios.get(`${passwordApi.get.getAllByFolder}${folderId}`)
+            .then(response => {
+                const {data} = response;
+                dispatch(passwordActions.setPasswordsByFolder(data));
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    };
+};
+
 export const savePassword = (password) => {
     return async (dispatch) => {
         axios.post(`${passwordApi.post.save}`, password)

@@ -9,7 +9,7 @@ import NewPassword from "./component/Pages/PathLinks/NewPassword/NewPassword";
 import Password from "./component/Pages/MenuItems/Password/Passwords";
 import Folder from "./component/Pages/MenuItems/Folder/Folder";
 import Settings from "./component/Pages/Settings/Settings";
-import FolderItems from "./component/Pages/PathLinks/FolderItems/FolderItems";
+import ItemsInFolder from "./component/Pages/PathLinks/ItemsInFolder/ItemsInFolder";
 
 import Layout from "./hoc/Layout";
 import {reactLinks} from "./utils/UrlUtils";
@@ -42,13 +42,13 @@ function App() {
             <Routes>
 
                 {/* Menu items */}
-                <Route path={passwords} element={<Password/>}/>
-                <Route path={folders} element={<Folder/>}/>
-                <Route path={settings} element={<Settings/>}/>
+                <Route path={passwords} exact element={<Password/>}/>
+                <Route path={folders} exact element={<Folder/>}/>
+                <Route path={settings} exact element={<Settings/>}/>
 
                 {/* Path links */}
-                <Route path={newPassword} element={<NewPassword/>}/>
-                <Route path={folderItems} exact element={<FolderItems/>}/>
+                <Route path={newPassword} exact element={<NewPassword/>}/>
+                <Route path={folderItems} exact element={<ItemsInFolder/>}/>
             </Routes>
         </Layout>
     );
