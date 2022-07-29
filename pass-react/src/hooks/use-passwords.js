@@ -30,12 +30,13 @@ const columns = [
     },
 ];
 
-const usePasswords = (item) => {
+const usePasswords = (item, folderId) => {
     const [showDetails, setShowDetails] = React.useState(false);
     const [selectedPassword, setSelectedPassword] = React.useState({});
     const [isShowPassword, setIsShowPassword] = React.useState(false);
 
     const {passwords, isPasswordsLoaded} = useSelector(state => state.password[item]);
+    const {folders, isFoldersLoaded} = useSelector(state => state.folder.folders);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -69,7 +70,8 @@ const usePasswords = (item) => {
     };
 
     let table = null;
-    if (isPasswordsLoaded) {
+    let folderName;
+    if (isPasswordsLoaded && isFoldersLoaded) {
         table = (
             <>
                 <DataGrid
@@ -90,6 +92,7 @@ const usePasswords = (item) => {
                 />
             </>
         );
+        folderName = folders.find(folder => folder.id === parseInt(folderId))?.name;
     }
 
 
@@ -105,7 +108,7 @@ const usePasswords = (item) => {
                 <Typography
                     variant={"h5"}
                 >
-                    Passwords
+                    {folderName ?? "Passwords"}
                 </Typography>
                 <Button
                     variant="outlined"

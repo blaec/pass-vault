@@ -15,7 +15,7 @@ const ItemsInFolder = () => {
         dispatch(fetchPasswordsByFolder(folderId));
     }, [folderId])
 
-    return usePasswords("passwordsByFolder");
+    return usePasswords("passwordsByFolder", folderId);
 };
 
 export default ItemsInFolder;
