@@ -4,7 +4,7 @@ import {NavLink, useNavigate} from "react-router-dom";
 
 import {toolbarHeight} from "../utils/Constants";
 import {passwordActions} from "../store/state/password/password-slice";
-import PasswordDetails from "../component/Pages/MenuItems/Password/components/PasswordDetails";
+import PasswordDetails from "../component/Items/PasswordDetails";
 import {reactLinks} from "../utils/UrlUtils";
 
 import {DataGrid} from "@mui/x-data-grid";
