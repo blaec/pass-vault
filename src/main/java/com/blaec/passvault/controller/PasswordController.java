@@ -26,6 +26,11 @@ public class PasswordController extends AbstractController{
         return passwordService.getAll();
     }
 
+    @GetMapping("/get-all-by-folder/{folderId}")
+    public Iterable<Password> getAll(@PathVariable int folderId) {
+        return passwordService.getAllByFolderId(folderId);
+    }
+
     @PostMapping("/create")
     public Response savePassword(@RequestBody NewPasswordTo passwordTo) {
         log.info("saving password | {}", passwordTo.getTitle());

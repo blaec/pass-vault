@@ -32,6 +32,7 @@ let basePasswordApi = "/password/";
 export const passwordApi = {
     get: {
         getAll: `${basePasswordApi}get-all`,
+        getAllByFolder: `${basePasswordApi}get-all-by-folder/`,
     },
     post: {
         save: `${basePasswordApi}create/`,

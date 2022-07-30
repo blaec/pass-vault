@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {copyToClipboard} from "../../../../../utils/Utils";
+import {copyToClipboard} from "../../utils/Utils";
 
 import ContentCopyTwoToneIcon from "@mui/icons-material/ContentCopyTwoTone";
 import IconButton from "@mui/material/IconButton";

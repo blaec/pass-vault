@@ -1,5 +1,6 @@
 package com.blaec.passvault.repository.implementations;
 
+import com.blaec.passvault.model.Folder;
 import com.blaec.passvault.model.Password;
 import com.blaec.passvault.repository.PasswordRepository;
 import lombok.AllArgsConstructor;
@@ -15,6 +16,11 @@ public class PasswordRepositoryImpl implements PasswordRepository {
     @Override
     public Iterable<Password> getAll() {
         return crudPasswordRepository.findAll();
+    }
+
+    @Override
+    public Iterable<Password> getAllByFolderId(int folderId) {
+        return crudPasswordRepository.findAllByFolderId(folderId);
     }
 
     @Override
