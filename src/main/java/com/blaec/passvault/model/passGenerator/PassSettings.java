@@ -1,64 +1,56 @@
 package com.blaec.passvault.model.passGenerator;
 
+import com.blaec.passvault.model.to.PasswordConfigTo;
 import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
 import org.passay.CharacterData;
 import org.passay.CharacterRule;
 import org.passay.EnglishCharacterData;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
-@Slf4j
 @Getter
 public class PassSettings {
     private final int length;
-    private final List<CharacterRule> rules;
+    private final List<CharacterRule> rules = new ArrayList<>();
 
-    public PassSettings(Builder builder) {
-        this.length = builder.length;
-        this.rules = builder.rules;
+    private PassSettings(int length, boolean isUpperCase, boolean isDigits, boolean isSpecialChars) {
+        this.length = length;
+        rules.add(new CharacterRule(EnglishCharacterData.LowerCase));
+        useUpperCase.accept(isUpperCase);
+        useDigits.accept(isDigits);
+        useSpecialCharacters.accept(isSpecialChars);
     }
 
-    private static class Builder {
-        private final int length;
-        private final List<CharacterRule> rules = new ArrayList<>();
+    public static PassSettings create(PasswordConfigTo config) {
+        return new PassSettings(config.getLength(), config.isUseUpperCase(), config.isUseDigit(), config.isUseSpecialChars());
+    }
 
-        private Builder(int length) {
-            rules.add(new CharacterRule(EnglishCharacterData.LowerCase));
-            this.length = length;
-        }
-
-        public static Builder create(int length) {
-            return new Builder(length);
-        }
-
-        public Builder addUpperCaseLimit() {
+    private final Consumer<Boolean> useUpperCase = (isApply) -> {
+        if (isApply) {
             rules.add(new CharacterRule(EnglishCharacterData.UpperCase));
-            return this;
         }
+    };
 
-        public Builder addDigitCharLimit() {
+    private final Consumer<Boolean> useDigits = (isApply) -> {
+        if (isApply) {
             rules.add(new CharacterRule(EnglishCharacterData.Digit));
-            return this;
         }
+    };
 
-        public Builder addSpecialCharLimit(SpecialChars set) {
+    private final Consumer<Boolean> useSpecialCharacters = (isApply) -> {
+        if (isApply) {
             CharacterData specialChars = new CharacterData() {
                 public String getErrorCode() {
                     return "ERROR_CODE";
                 }
 
                 public String getCharacters() {
-                    return SpecialChars.getSpecialChars(set);
+                    return "!@#$%&*";
                 }
             };
             rules.add(new CharacterRule(specialChars));
-            return this;
         }
-
-        public PassSettings build() {
-            return new PassSettings(this);
-        }
-    }
+    };
 }
