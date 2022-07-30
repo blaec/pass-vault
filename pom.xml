@@ -13,9 +13,12 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>pass-vault</name>
     <description>pass-vault</description>
+
     <properties>
         <java.version>11</java.version>
+        <passay.version>1.6.1</passay.version>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -50,6 +53,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.passay</groupId>
+            <artifactId>passay</artifactId>
+            <version>${passay.version}</version>
         </dependency>
     </dependencies>
 
