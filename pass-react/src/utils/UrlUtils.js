@@ -44,3 +44,10 @@ export const passwordApi = {
         delete: `${basePasswordApi}delete/`,
     },
 };
+
+let basePassGeneratorApi = "/pass-generator/";
+export const passgenApi = {
+    post: {
+        create: `${basePassGeneratorApi}create/`,
+    },
+};

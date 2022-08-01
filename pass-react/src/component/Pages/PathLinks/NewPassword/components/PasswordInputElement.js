@@ -4,11 +4,15 @@ import {FilledInput, FormControl, InputAdornment, InputLabel} from "@mui/materia
 import IconButton from "@mui/material/IconButton";
 import VisibilityTwoToneIcon from "@mui/icons-material/VisibilityTwoTone";
 import VisibilityOffTwoToneIcon from "@mui/icons-material/VisibilityOffTwoTone";
+import {useSelector} from "react-redux";
 
 
 const PasswordInputElement = (props) => {
     const {style, value, elemRef, label} = props;
     const [showPassword, setShowPassword] = React.useState(false);
+    const {passgen, isPassgenLoaded} = useSelector(state => state.passgen.passgen);
+
+    const passValue = isPassgenLoaded ? passgen : value;
 
     const handleShowPassword = () => {
         setShowPassword(!showPassword)
@@ -41,7 +45,7 @@ const PasswordInputElement = (props) => {
         >
             <InputLabel>Password</InputLabel>
             <FilledInput
-                defaultValue={value}
+                defaultValue={passValue}
                 inputRef={elemRef}
                 type={inputType}
                 endAdornment={inputEndAdornment}
