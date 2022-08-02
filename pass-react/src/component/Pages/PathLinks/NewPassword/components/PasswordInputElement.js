@@ -12,7 +12,14 @@ const PasswordInputElement = (props) => {
     const [showPassword, setShowPassword] = React.useState(false);
     const {passgen, isPassgenLoaded} = useSelector(state => state.passgen.passgen);
 
-    const passValue = isPassgenLoaded ? passgen : value;
+    let passValue = value;
+    if (isPassgenLoaded) {
+        passValue = passgen;
+        if (elemRef && elemRef.current) {
+            elemRef.current.value = passgen;
+
+        }
+    }
 
     const handleShowPassword = () => {
         setShowPassword(!showPassword)

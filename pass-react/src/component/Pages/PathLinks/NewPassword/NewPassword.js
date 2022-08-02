@@ -8,10 +8,12 @@ import {reactLinks} from "../../../../utils/UrlUtils";
 import TextInputElement from "./components/TextInputElement";
 import PasswordInputElement from "./components/PasswordInputElement";
 import {passwordActions} from "../../../../store/state/password/password-slice";
+import {fetchGeneratedPassword} from "../../../../store/state/passgen/passgen-actions";
 
 import {Card, CardActions, CardContent, FormControl, Grid, InputLabel, MenuItem, Select} from "@mui/material";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
+import {passgenActions} from "../../../../store/state/passgen/passgen-slice";
 
 
 const NewPassword = () => {
@@ -41,6 +43,7 @@ const NewPassword = () => {
     const handleCancel = () => {
         navigate(reactLinks.passwords);
         dispatch(passwordActions.resetEditablePassword());
+        dispatch(passgenActions.resetPassgen());
     };
 
     const handleSave = () => {
@@ -53,6 +56,7 @@ const NewPassword = () => {
             note: noteRef.current.value
         };
         dispatch(savePassword(password));
+        dispatch(passgenActions.resetPassgen());
         navigate(reactLinks.passwords);
     };
 
@@ -71,7 +75,13 @@ const NewPassword = () => {
     };
 
     const handleGeneratePassword = () => {
-        alert("Generate Password");
+        const settings = {
+            length: 12,
+            isUseUpperCase: true,
+            isUseDigits: true,
+            isUseSpecialChars: true,
+        }
+        dispatch(fetchGeneratedPassword(settings));
     };
 
     useEffect(() => {
@@ -79,7 +89,7 @@ const NewPassword = () => {
             const {folder} = editablePassword;
             setFolderId(folder.id);
         }
-    }, [editablePassword])
+    }, [editablePassword]);
 
     let label = "Create folders";
     let folderItems = [];
