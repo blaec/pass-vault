@@ -4,11 +4,19 @@ import {FilledInput, FormControl, InputAdornment, InputLabel} from "@mui/materia
 import IconButton from "@mui/material/IconButton";
 import VisibilityTwoToneIcon from "@mui/icons-material/VisibilityTwoTone";
 import VisibilityOffTwoToneIcon from "@mui/icons-material/VisibilityOffTwoTone";
+import {useSelector} from "react-redux";
 
 
 const PasswordInputElement = (props) => {
     const {style, value, elemRef, label} = props;
     const [showPassword, setShowPassword] = React.useState(false);
+    const {passgen, isPassgenLoaded} = useSelector(state => state.passgen.passgen);
+
+    let isFocused = false;
+    if (isPassgenLoaded && elemRef?.current) {
+        elemRef.current.value = passgen;
+        isFocused = true;
+    }
 
     const handleShowPassword = () => {
         setShowPassword(!showPassword)
@@ -38,6 +46,7 @@ const PasswordInputElement = (props) => {
             sx={style}
             fullWidth
             variant="filled"
+            focused={isFocused}
         >
             <InputLabel>Password</InputLabel>
             <FilledInput

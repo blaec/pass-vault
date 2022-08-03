@@ -35,12 +35,19 @@ export const passwordApi = {
         getAllByFolder: `${basePasswordApi}get-all-by-folder/`,
     },
     post: {
-        save: `${basePasswordApi}create/`,
+        create: `${basePasswordApi}create/`,
     },
     put: {
         update: `${basePasswordApi}update/`,
     },
     delete: {
         delete: `${basePasswordApi}delete/`,
+    },
+};
+
+let basePassGeneratorApi = "/pass-generator/";
+export const passgenApi = {
+    post: {
+        create: `${basePassGeneratorApi}create/`,
     },
 };

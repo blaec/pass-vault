@@ -30,7 +30,7 @@ export const fetchPasswordsByFolder = (folderId) => {
 
 export const savePassword = (password) => {
     return async (dispatch) => {
-        axios.post(`${passwordApi.post.save}`, password)
+        axios.post(`${passwordApi.post.create}`, password)
             .then(response => {
                 const {data} = response;
                 dispatch(fetchPasswords());
