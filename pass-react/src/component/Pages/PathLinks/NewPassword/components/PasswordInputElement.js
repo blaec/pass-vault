@@ -12,12 +12,10 @@ const PasswordInputElement = (props) => {
     const [showPassword, setShowPassword] = React.useState(false);
     const {passgen, isPassgenLoaded} = useSelector(state => state.passgen.passgen);
 
-    let passValue = value;
-    if (isPassgenLoaded) {
-        passValue = passgen;
-        if (elemRef?.current) {
-            elemRef.current.value = passgen;
-        }
+    let isFocused = false;
+    if (isPassgenLoaded && elemRef?.current) {
+        elemRef.current.value = passgen;
+        isFocused = true;
     }
 
     const handleShowPassword = () => {
@@ -48,10 +46,11 @@ const PasswordInputElement = (props) => {
             sx={style}
             fullWidth
             variant="filled"
+            focused={isFocused}
         >
             <InputLabel>Password</InputLabel>
             <FilledInput
-                defaultValue={passValue}
+                defaultValue={value}
                 inputRef={elemRef}
                 type={inputType}
                 endAdornment={inputEndAdornment}
