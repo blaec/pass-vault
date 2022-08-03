@@ -15,9 +15,8 @@ const PasswordInputElement = (props) => {
     let passValue = value;
     if (isPassgenLoaded) {
         passValue = passgen;
-        if (elemRef && elemRef.current) {
+        if (elemRef?.current) {
             elemRef.current.value = passgen;
-
         }
     }
 
