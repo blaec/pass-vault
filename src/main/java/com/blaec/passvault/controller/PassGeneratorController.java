@@ -17,7 +17,10 @@ public class PassGeneratorController extends AbstractController{
 
     @PostMapping("/create")
     public String generatePassword(@RequestBody PasswordConfigTo passConfig) {
-        PassSettings settings = PassSettings.create(passConfig);
+        return generatePassword(PassSettings.create(passConfig));
+    }
+
+    private String generatePassword(PassSettings settings) {
         PasswordGenerator passwordGenerator = new PasswordGenerator();
 
         return passwordGenerator.generatePassword(settings.getLength(), settings.getRules());
