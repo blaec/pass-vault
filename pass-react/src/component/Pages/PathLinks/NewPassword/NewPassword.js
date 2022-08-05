@@ -8,16 +8,17 @@ import {reactLinks} from "../../../../utils/UrlUtils";
 import TextInputElement from "./components/TextInputElement";
 import PasswordInputElement from "./components/PasswordInputElement";
 import {passwordActions} from "../../../../store/state/password/password-slice";
-import {fetchGeneratedPassword} from "../../../../store/state/passgen/passgen-actions";
 
 import {Card, CardActions, CardContent, FormControl, Grid, InputLabel, MenuItem, Select} from "@mui/material";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import {passgenActions} from "../../../../store/state/passgen/passgen-slice";
+import PasswordGenerator from "../../Modals/PasswordGenerator/PasswordGenerator";
 
 
 const NewPassword = () => {
     const [folderId, setFolderId] = React.useState(undefined);
+    const [open, setOpen] = React.useState(false);
     const {folders, isFoldersLoaded} = useSelector(state => state.folder.folders);
     const {editablePassword} = useSelector(state => state.password.editablePassword);
     const navigate = useNavigate();
@@ -75,14 +76,12 @@ const NewPassword = () => {
     };
 
     const handleGeneratePassword = () => {
-        const settings = {
-            length: 12,
-            isUseUpperCase: true,
-            isUseDigits: true,
-            isUseSpecialChars: true,
-        }
-        dispatch(fetchGeneratedPassword(settings));
+        setOpen(true);
     };
+
+    const handleOpen = (value) => {
+        setOpen(value);
+    }
 
     useEffect(() => {
         if (isObjectExist(editablePassword)) {
@@ -210,6 +209,7 @@ const NewPassword = () => {
                     </Grid>
                 </CardActions>
             </Card>
+            <PasswordGenerator isOpen={open} setIsOpen={handleOpen}/>
         </Grid>
     );
 };
