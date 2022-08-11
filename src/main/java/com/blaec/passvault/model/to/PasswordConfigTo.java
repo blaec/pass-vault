@@ -12,5 +12,5 @@ public class PasswordConfigTo {
     private final int length;
     private final boolean isUseUpperCase;
     private final boolean isUseSpecialChars;
-    private final boolean isUseDigit;
+    private final boolean isUseDigits;
 }

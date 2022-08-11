@@ -24,7 +24,7 @@ public class PassSettings {
     }
 
     public static PassSettings create(PasswordConfigTo config) {
-        return new PassSettings(config.getLength(), config.isUseUpperCase(), config.isUseDigit(), config.isUseSpecialChars());
+        return new PassSettings(config.getLength(), config.isUseUpperCase(), config.isUseDigits(), config.isUseSpecialChars());
     }
 
     private final Consumer<Boolean> useUpperCase = (isApply) -> {
