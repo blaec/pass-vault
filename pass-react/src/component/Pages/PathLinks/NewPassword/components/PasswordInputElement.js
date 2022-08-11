@@ -10,10 +10,10 @@ import {useSelector} from "react-redux";
 const PasswordInputElement = (props) => {
     const {style, value, elemRef, label} = props;
     const [showPassword, setShowPassword] = React.useState(false);
-    const {passgen, isPassgenLoaded} = useSelector(state => state.passgen.passgen);
+    const {passgen, isPassgenLoaded, isInsertPassword} = useSelector(state => state.passgen.passgen);
 
     let isFocused = false;
-    if (isPassgenLoaded && elemRef?.current) {
+    if (isInsertPassword && isPassgenLoaded && elemRef?.current) {
         elemRef.current.value = passgen;
         isFocused = true;
     }

@@ -10,6 +10,7 @@ import {useDispatch, useSelector} from "react-redux";
 import VolumeUp from '@mui/icons-material/VolumeUp';
 import MuiInput from '@mui/material/Input';
 import {styled} from '@mui/material/styles';
+import {passgenActions} from "../../../../store/state/passgen/passgen-slice";
 
 
 const Input = styled(MuiInput)`
@@ -37,7 +38,7 @@ const _body = {
 };
 
 const PasswordGenerator = (props) => {
-    const {password, isOpen, setIsOpen} = props;
+    const {isOpen, setIsOpen} = props;
     const dispatch = useDispatch();
 
     const [isUpperCase, setIsUpperCase] = React.useState(false);
@@ -62,6 +63,9 @@ const PasswordGenerator = (props) => {
         }
         dispatch(fetchGeneratedPassword(settings));
     };
+    const handleInsertPassword = () => {
+        dispatch(passgenActions.insertPassgen(passgen));
+    };
     const handleSliderChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -76,9 +80,6 @@ const PasswordGenerator = (props) => {
         }
     };
 
-    useEffect(() => {
-        handleGeneratePassword();
-    }, [])
 
     return (
         <React.Fragment>
@@ -152,6 +153,9 @@ const PasswordGenerator = (props) => {
                         />
                     </Box>
                 </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleInsertPassword}>Insert</Button>
+                </DialogActions>
                 <DialogActions>
                     <Button onClick={handleGeneratePassword}>Generate</Button>
                 </DialogActions>
