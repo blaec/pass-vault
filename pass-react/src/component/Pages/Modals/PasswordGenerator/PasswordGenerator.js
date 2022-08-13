@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 
 import {fetchGeneratedPassword} from "../../../../store/state/passgen/passgen-actions";
 import {passgenActions} from "../../../../store/state/passgen/passgen-slice";
+import IconCopy from "../../../Items/IconCopy";
+import IconRefresh from "../../../Items/IconRefresh";
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -11,8 +13,6 @@ import DialogContentText from "@mui/material/DialogContentText";
 import MuiInput from '@mui/material/Input';
 import {styled} from '@mui/material/styles';
 import Paper from "@mui/material/Paper";
-import RefreshTwoToneIcon from '@mui/icons-material/RefreshTwoTone';
-import ContentCopyTwoToneIcon from '@mui/icons-material/ContentCopyTwoTone';
 import ShortTextTwoToneIcon from '@mui/icons-material/ShortTextTwoTone';
 
 
@@ -40,26 +40,26 @@ const _inputProps = {
     type: 'number',
 };
 
+
 const PasswordGenerator = (props) => {
     const {isOpen, setIsOpen} = props;
-    const dispatch = useDispatch();
 
     const [isUpperCase, setIsUpperCase] = React.useState(false);
     const [isDigits, setIsDigits] = React.useState(false);
     const [isSpecialChars, setIsSpecialChars] = React.useState(false);
-    const [value, setValue] = React.useState(8);
+    const [length, setLength] = React.useState(8);
 
     const {passgen} = useSelector(state => state.passgen.passgen);
 
-    const handleClose = () => {
-        setIsOpen(false);
-    };
+    const dispatch = useDispatch();
+
+    const handleClose = () => setIsOpen(false);
     const handleUpperCaseChange = () => setIsUpperCase(!isUpperCase);
     const handleDigitsChange = () => setIsDigits(!isDigits);
     const handleSpecialCharsChange = () => setIsSpecialChars(!isSpecialChars);
     const handleGeneratePassword = () => {
         const settings = {
-            length: value,
+            length: length,
             isUseUpperCase: isUpperCase,
             isUseDigits: isDigits,
             isUseSpecialChars: isSpecialChars,
@@ -71,94 +71,100 @@ const PasswordGenerator = (props) => {
         setIsOpen(false);
     };
     const handleSliderChange = (event, newValue) => {
-        setValue(newValue);
+        setLength(newValue);
     };
     const handleInputChange = (event) => {
-        setValue(event.target.value === '' ? '' : Number(event.target.value));
+        setLength(event.target.value === ''
+            ? ''
+            : Number(event.target.value));
     };
     const handleBlur = () => {
-        if (value < 0) {
-            setValue(0);
-        } else if (value > PASSWORD_MAX_LENGTH) {
-            setValue(PASSWORD_MAX_LENGTH);
+        if (length < 0) {
+            setLength(0);
+        } else if (length > PASSWORD_MAX_LENGTH) {
+            setLength(PASSWORD_MAX_LENGTH);
         }
     };
 
+    useEffect(() => {
+        handleGeneratePassword();
+    }, []);
+
 
     return (
-        <React.Fragment>
-            <Dialog
-                fullWidth
-                maxWidth={"xs"}
-                open={isOpen}
-                onClose={handleClose}
-            >
-                <DialogTitle>Password Generator</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        <Paper variant="outlined" sx={_passDisplay} >
-                            {passgen}
-                        </Paper>
-                    </DialogContentText>
-                    <Button onClick={handleGeneratePassword}><RefreshTwoToneIcon/></Button>
-                    <Button onClick={()=>alert("not implemented")}><ContentCopyTwoToneIcon/></Button>
-                    <Box
-                        noValidate
-                        component="form"
-                        sx={_body}
-                    >
-                        <Box sx={_sliderWidth}>
-                            <Grid container spacing={2} alignItems="center">
-                                <Grid item>
-                                    <ShortTextTwoToneIcon />
-                                </Grid>
-                                <Grid item xs>
-                                    <Slider
-                                        value={typeof value === 'number' ? value : 0}
-                                        onChange={handleSliderChange}
-                                        max={PASSWORD_MAX_LENGTH}
-                                    />
-                                </Grid>
-                                <Grid item>
-                                    <Input
-                                        value={value}
-                                        size="small"
-                                        onChange={handleInputChange}
-                                        onBlur={handleBlur}
-                                        inputProps={_inputProps}
-                                    />
-                                </Grid>
+        <Dialog
+            fullWidth
+            maxWidth={"xs"}
+            open={isOpen}
+            onClose={handleClose}
+        >
+            <DialogTitle>Password Generator</DialogTitle>
+            <DialogContent>
+                <DialogContentText>
+                    <Paper variant="outlined" sx={_passDisplay}>
+                        {passgen}
+                    </Paper>
+                </DialogContentText>
+                <Box sx={{textAlign: 'right',}}>
+                    <IconRefresh onGenerate={handleGeneratePassword}/>
+                    <IconCopy copyValue={passgen}/>
+                </Box>
+                <Box
+                    noValidate
+                    component="form"
+                    sx={_body}
+                >
+                    <Box sx={_sliderWidth}>
+                        <Grid container spacing={2} alignItems="center">
+                            <Grid item>
+                                <ShortTextTwoToneIcon/>
                             </Grid>
-                        </Box>
-                        <FormControlLabel
-                            sx={_formControl}
-                            control={
-                                <Switch checked={isUpperCase} onChange={handleUpperCaseChange} />
-                            }
-                            label="Use Upper Case"
-                        />
-                        <FormControlLabel
-                            sx={_formControl}
-                            control={
-                                <Switch checked={isDigits} onChange={handleDigitsChange} />
-                            }
-                            label="Use Digits"
-                        />
-                        <FormControlLabel
-                            sx={_formControl}
-                            control={
-                                <Switch checked={isSpecialChars} onChange={handleSpecialCharsChange} />
-                            }
-                            label="Use Special Chars"
-                        />
+                            <Grid item xs>
+                                <Slider
+                                    value={typeof length === 'number' ? length : 0}
+                                    onChange={handleSliderChange}
+                                    max={PASSWORD_MAX_LENGTH}
+                                />
+                            </Grid>
+                            <Grid item>
+                                <Input
+                                    value={length}
+                                    size="small"
+                                    onChange={handleInputChange}
+                                    onBlur={handleBlur}
+                                    inputProps={_inputProps}
+                                />
+                            </Grid>
+                        </Grid>
                     </Box>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleInsertPassword}>Insert</Button>
-                    <Button onClick={handleClose}>Close</Button>
-                </DialogActions>
-            </Dialog>
-        </React.Fragment>
+                    <FormControlLabel
+                        sx={_formControl}
+                        control={
+                            <Switch checked={isUpperCase} onChange={handleUpperCaseChange}/>
+                        }
+                        label="Use Upper Case"
+                    />
+                    <FormControlLabel
+                        sx={_formControl}
+                        control={
+                            <Switch checked={isDigits} onChange={handleDigitsChange}/>
+                        }
+                        label="Use Digits"
+                    />
+                    <FormControlLabel
+                        sx={_formControl}
+                        control={
+                            <Switch checked={isSpecialChars} onChange={handleSpecialCharsChange}/>
+                        }
+                        label="Use Special Chars"
+                    />
+                </Box>
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={handleInsertPassword}>Insert</Button>
+                <Button onClick={handleClose}>Close</Button>
+            </DialogActions>
+        </Dialog>
     );
 };
 
