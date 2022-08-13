@@ -69,6 +69,10 @@ const usePasswords = (item, folderId) => {
         setIsShowPassword(!isShowPassword);
     };
 
+    const handleAddNewPassword = () => {
+        dispatch(passwordActions.resetEditablePassword());
+    };
+
     let table = null;
     let folderName;
     if (isPasswordsLoaded && isFoldersLoaded) {
@@ -113,6 +117,7 @@ const usePasswords = (item, folderId) => {
                 <Button
                     variant="outlined"
                     component={NavLink}
+                    onClick={handleAddNewPassword}
                     to={`${reactLinks.newPassword}`}
                 >
                     Add Password
