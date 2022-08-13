@@ -3,8 +3,8 @@ import {useDispatch, useSelector} from "react-redux";
 
 import {fetchGeneratedPassword} from "../../../../store/state/passgen/passgen-actions";
 import {passgenActions} from "../../../../store/state/passgen/passgen-slice";
-import IconCopy from "../../../Items/IconCopy";
-import IconRefresh from "../../../Items/IconRefresh";
+import IconCopy from "../../../../UI/IconButtons/IconCopy";
+import IconRefresh from "../../../../UI/IconButtons/IconRefresh";
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';

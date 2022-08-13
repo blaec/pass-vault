@@ -3,7 +3,7 @@ import React from 'react';
 import {isObjectExist} from "../../utils/Utils";
 import PasswordDataRow from "./PasswordDataRow";
 import PasswordControls from "./PasswordControls";
-import IconVisibility from "./IconVisibility";
+import IconVisibility from "../../UI/IconButtons/IconVisibility";
 
 import {Drawer, Table, TableContainer} from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
