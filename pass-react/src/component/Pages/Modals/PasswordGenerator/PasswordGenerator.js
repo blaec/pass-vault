@@ -8,12 +8,13 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import {Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, Grid, Slider, Switch} from "@mui/material";
 import DialogContentText from "@mui/material/DialogContentText";
-import VolumeUp from '@mui/icons-material/VolumeUp';
 import MuiInput from '@mui/material/Input';
 import {styled} from '@mui/material/styles';
 import Paper from "@mui/material/Paper";
 import RefreshTwoToneIcon from '@mui/icons-material/RefreshTwoTone';
 import ContentCopyTwoToneIcon from '@mui/icons-material/ContentCopyTwoTone';
+import ShortTextTwoToneIcon from '@mui/icons-material/ShortTextTwoTone';
+
 
 const PASSWORD_MAX_LENGTH = 30;
 const Input = styled(MuiInput)`
@@ -109,7 +110,7 @@ const PasswordGenerator = (props) => {
                         <Box sx={_sliderWidth}>
                             <Grid container spacing={2} alignItems="center">
                                 <Grid item>
-                                    <VolumeUp />
+                                    <ShortTextTwoToneIcon />
                                 </Grid>
                                 <Grid item xs>
                                     <Slider
