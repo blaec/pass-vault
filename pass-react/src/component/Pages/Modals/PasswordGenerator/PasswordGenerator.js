@@ -3,7 +3,17 @@ import React, {useEffect} from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import {Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, Grid, Slider, Switch} from "@mui/material";
+import {
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    FormControlLabel,
+    Grid,
+    Slider,
+    Switch,
+    TextareaAutosize
+} from "@mui/material";
 import DialogContentText from "@mui/material/DialogContentText";
 import {fetchGeneratedPassword} from "../../../../store/state/passgen/passgen-actions";
 import {useDispatch, useSelector} from "react-redux";
@@ -11,6 +21,9 @@ import VolumeUp from '@mui/icons-material/VolumeUp';
 import MuiInput from '@mui/material/Input';
 import {styled} from '@mui/material/styles';
 import {passgenActions} from "../../../../store/state/passgen/passgen-slice";
+import Paper from "@mui/material/Paper";
+import RefreshTwoToneIcon from '@mui/icons-material/RefreshTwoTone';
+import ContentCopyTwoToneIcon from '@mui/icons-material/ContentCopyTwoTone';
 
 
 const Input = styled(MuiInput)`
@@ -36,6 +49,11 @@ const _body = {
     m: 'auto',
     width: 'fit-content',
 };
+const _passDisplay = {
+    textAlign: 'center',
+    height: 60,
+    p: 2,
+}
 
 const PasswordGenerator = (props) => {
     const {isOpen, setIsOpen} = props;
@@ -65,6 +83,7 @@ const PasswordGenerator = (props) => {
     };
     const handleInsertPassword = () => {
         dispatch(passgenActions.insertPassgen(passgen));
+        setIsOpen(false);
     };
     const handleSliderChange = (event, newValue) => {
         setValue(newValue);
@@ -84,23 +103,29 @@ const PasswordGenerator = (props) => {
     return (
         <React.Fragment>
             <Dialog
+                fullWidth
+                maxWidth={"xs"}
                 open={isOpen}
                 onClose={handleClose}
             >
-                <DialogTitle>Optional sizes</DialogTitle>
+                <DialogTitle>Password Generator</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        {passgen}
+                        <Paper variant="outlined" sx={_passDisplay} >
+                            {passgen}
+                        </Paper>
                     </DialogContentText>
+                    <Button onClick={handleGeneratePassword}><RefreshTwoToneIcon/></Button>
+                    <Button onClick={()=>alert("not implemented")}><ContentCopyTwoToneIcon/></Button>
                     <Box
                         noValidate
                         component="form"
                         sx={_body}
                     >
                         <Box sx={{ width: 250 }}>
-                            <Typography id="input-slider" gutterBottom>
-                                Volume
-                            </Typography>
+                            {/*<Typography id="input-slider" gutterBottom>*/}
+                            {/*    Volume*/}
+                            {/*</Typography>*/}
                             <Grid container spacing={2} alignItems="center">
                                 <Grid item>
                                     <VolumeUp />
@@ -155,11 +180,6 @@ const PasswordGenerator = (props) => {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleInsertPassword}>Insert</Button>
-                </DialogActions>
-                <DialogActions>
-                    <Button onClick={handleGeneratePassword}>Generate</Button>
-                </DialogActions>
-                <DialogActions>
                     <Button onClick={handleClose}>Close</Button>
                 </DialogActions>
             </Dialog>
