@@ -23,7 +23,7 @@ const _body = {
     display: 'flex',
     flexDirection: 'column',
     m: 'auto',
-    width: 'fit-content',
+    // width: 'fit-content',
 };
 const _passwordDisplay = {background: "whitesmoke", mb: 5};
 const _passwordText = {
@@ -34,6 +34,7 @@ const _passwordText = {
 };
 const _passwordControls = {textAlign: 'right'};
 const _formControl = {mt: 1};
+const _switch = {marginLeft:'auto'};
 const _sliderWidth = {width: 250};
 const _inputProps = {
     step: 1,
@@ -145,8 +146,10 @@ const PasswordGenerator = (props) => {
                     </Box>
                     <FormControlLabel
                         sx={_formControl}
+                        labelPlacement="start"
                         control={
                             <Switch
+                                sx={_switch}
                                 checked={isUpperCase}
                                 onChange={handleUpperCaseChange}
                             />
@@ -155,8 +158,10 @@ const PasswordGenerator = (props) => {
                     />
                     <FormControlLabel
                         sx={_formControl}
+                        labelPlacement="start"
                         control={
                             <Switch
+                                sx={_switch}
                                 checked={isDigits}
                                 onChange={handleDigitsChange}
                             />
@@ -165,8 +170,10 @@ const PasswordGenerator = (props) => {
                     />
                     <FormControlLabel
                         sx={_formControl}
+                        labelPlacement="start"
                         control={
                             <Switch
+                                sx={_switch}
                                 checked={isSpecialChars}
                                 onChange={handleSpecialCharsChange}
                             />
