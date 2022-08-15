@@ -12,7 +12,6 @@ import {Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, Gri
 import DialogContentText from "@mui/material/DialogContentText";
 import MuiInput from '@mui/material/Input';
 import {styled} from '@mui/material/styles';
-import Paper from "@mui/material/Paper";
 import ShortTextTwoToneIcon from '@mui/icons-material/ShortTextTwoTone';
 
 
@@ -26,11 +25,14 @@ const _body = {
     m: 'auto',
     width: 'fit-content',
 };
-const _passDisplay = {
+const _passwordDisplay = {background: "whitesmoke", mb: 5};
+const _passwordText = {
     textAlign: 'center',
     height: 60,
     p: 2,
-}
+    fontWeight:'bold',
+};
+const _passwordControls = {textAlign: 'right'};
 const _formControl = {mt: 1};
 const _sliderWidth = {width: 250};
 const _inputProps = {
@@ -100,22 +102,26 @@ const PasswordGenerator = (props) => {
         >
             <DialogTitle>Password Generator</DialogTitle>
             <DialogContent>
-                <DialogContentText>
-                    <Paper variant="outlined" sx={_passDisplay}>
+                <DialogContentText sx={_passwordDisplay}>
+                    <Box sx={_passwordText}>
                         {passgen}
-                    </Paper>
+                    </Box>
+                    <Box sx={_passwordControls}>
+                        <IconRefresh onGenerate={handleGeneratePassword}/>
+                        <IconCopy copyValue={passgen}/>
+                    </Box>
                 </DialogContentText>
-                <Box sx={{textAlign: 'right',}}>
-                    <IconRefresh onGenerate={handleGeneratePassword}/>
-                    <IconCopy copyValue={passgen}/>
-                </Box>
                 <Box
                     noValidate
                     component="form"
                     sx={_body}
                 >
                     <Box sx={_sliderWidth}>
-                        <Grid container spacing={2} alignItems="center">
+                        <Grid
+                            container
+                            spacing={2}
+                            alignItems="center"
+                        >
                             <Grid item>
                                 <ShortTextTwoToneIcon/>
                             </Grid>
@@ -140,21 +146,30 @@ const PasswordGenerator = (props) => {
                     <FormControlLabel
                         sx={_formControl}
                         control={
-                            <Switch checked={isUpperCase} onChange={handleUpperCaseChange}/>
+                            <Switch
+                                checked={isUpperCase}
+                                onChange={handleUpperCaseChange}
+                            />
                         }
                         label="Use Upper Case"
                     />
                     <FormControlLabel
                         sx={_formControl}
                         control={
-                            <Switch checked={isDigits} onChange={handleDigitsChange}/>
+                            <Switch
+                                checked={isDigits}
+                                onChange={handleDigitsChange}
+                            />
                         }
                         label="Use Digits"
                     />
                     <FormControlLabel
                         sx={_formControl}
                         control={
-                            <Switch checked={isSpecialChars} onChange={handleSpecialCharsChange}/>
+                            <Switch
+                                checked={isSpecialChars}
+                                onChange={handleSpecialCharsChange}
+                            />
                         }
                         label="Use Special Chars"
                     />
