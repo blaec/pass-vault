@@ -14,7 +14,7 @@ import MuiInput from '@mui/material/Input';
 import {styled} from '@mui/material/styles';
 
 
-const PASSWORD_MAX_LENGTH = 30;
+const PASSWORD_MAX_LENGTH = 60;
 const Input = styled(MuiInput)`
   width: 42px;
 `;
@@ -22,14 +22,16 @@ const _body = {
     display: 'flex',
     flexDirection: 'column',
     m: 'auto',
-    // width: 'fit-content',
 };
-const _passwordDisplay = {background: "whitesmoke", mb: 5};
+const _passwordDisplay = {
+    background: "whitesmoke",
+    mb: 5
+};
 const _passwordText = {
-    textAlign: 'center',
-    height: 60,
+    height: 80,
     p: 2,
     fontWeight: 'bold',
+    wordBreak: 'break-all',
 };
 const _passwordControls = {textAlign: 'right'};
 const _formControl = {mt: 1};
