@@ -12,7 +12,6 @@ import {Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, Gri
 import DialogContentText from "@mui/material/DialogContentText";
 import MuiInput from '@mui/material/Input';
 import {styled} from '@mui/material/styles';
-import ShortTextTwoToneIcon from '@mui/icons-material/ShortTextTwoTone';
 
 
 const PASSWORD_MAX_LENGTH = 30;
@@ -30,13 +29,15 @@ const _passwordText = {
     textAlign: 'center',
     height: 60,
     p: 2,
-    fontWeight:'bold',
+    fontWeight: 'bold',
 };
 const _passwordControls = {textAlign: 'right'};
 const _formControl = {mt: 1};
-const _switch = {marginLeft:'auto'};
-const _sliderWidth = {width: 250};
-const _inputProps = {
+const _switch = {marginLeft: 'auto'};
+const _slider = {ml: 2, mr: 1};
+const _sliderLabel = {ml: 2};
+
+const inputProps = {
     step: 1,
     min: 0,
     max: PASSWORD_MAX_LENGTH,
@@ -117,16 +118,17 @@ const PasswordGenerator = (props) => {
                     component="form"
                     sx={_body}
                 >
-                    <Box sx={_sliderWidth}>
+                    {/*<Box sx={_sliderWidth}>*/}
+                    <Box>
                         <Grid
                             container
                             spacing={2}
                             alignItems="center"
                         >
-                            <Grid item>
-                                <ShortTextTwoToneIcon/>
+                            <Grid item sx={_sliderLabel}>
+                                Length
                             </Grid>
-                            <Grid item xs>
+                            <Grid item xs sx={_slider}>
                                 <Slider
                                     value={typeof length === 'number' ? length : 0}
                                     onChange={handleSliderChange}
@@ -139,7 +141,7 @@ const PasswordGenerator = (props) => {
                                     size="small"
                                     onChange={handleInputChange}
                                     onBlur={handleBlur}
-                                    inputProps={_inputProps}
+                                    inputProps={inputProps}
                                 />
                             </Grid>
                         </Grid>
