@@ -10,8 +10,9 @@ import LengthSlider from "./components/LengthSlider";
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import {Dialog, DialogActions, DialogContent, DialogTitle} from "@mui/material";
+import {Dialog, DialogActions, DialogContent, DialogTitle, Grid} from "@mui/material";
 import DialogContentText from "@mui/material/DialogContentText";
+import PasswordStrength from "./components/PasswordStrength";
 
 
 const PASSWORD_MAX_LENGTH = 60;
@@ -30,7 +31,6 @@ const _passwordText = {
     fontWeight: 'bold',
     wordBreak: 'break-all',
 };
-const _passwordControls = {textAlign: 'right'};
 
 
 const PasswordGenerator = (props) => {
@@ -96,9 +96,21 @@ const PasswordGenerator = (props) => {
                     <Box sx={_passwordText}>
                         {passgen}
                     </Box>
-                    <Box sx={_passwordControls}>
-                        <IconRefresh onGenerate={handlePasswordGenerate}/>
-                        <IconCopy copyValue={passgen}/>
+                    <Box>
+                        <Grid
+                            container
+                            direction="row"
+                            justifyContent="space-between"
+                            alignItems="center"
+                        >
+                            <Grid item>
+                                <PasswordStrength/>
+                            </Grid>
+                            <Grid item>
+                                <IconRefresh onGenerate={handlePasswordGenerate}/>
+                                <IconCopy copyValue={passgen}/>
+                            </Grid>
+                        </Grid>
                     </Box>
                 </DialogContentText>
                 <Box
