@@ -5,20 +5,16 @@ import {fetchGeneratedPassword} from "../../../../store/state/passgen/passgen-ac
 import {passgenActions} from "../../../../store/state/passgen/passgen-slice";
 import IconCopy from "../../../../UI/IconButtons/IconCopy";
 import IconRefresh from "../../../../UI/IconButtons/IconRefresh";
+import SymbolSwitch from "./components/SymbolSwitch";
+import LengthSlider from "./components/LengthSlider";
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import {Dialog, DialogActions, DialogContent, DialogTitle, Grid, Slider} from "@mui/material";
+import {Dialog, DialogActions, DialogContent, DialogTitle} from "@mui/material";
 import DialogContentText from "@mui/material/DialogContentText";
-import MuiInput from '@mui/material/Input';
-import {styled} from '@mui/material/styles';
-import SymbolSwitch from "./components/SymbolSwitch";
 
 
 const PASSWORD_MAX_LENGTH = 60;
-const Input = styled(MuiInput)`
-  width: 42px;
-`;
 const _body = {
     display: 'flex',
     flexDirection: 'column',
@@ -35,15 +31,6 @@ const _passwordText = {
     wordBreak: 'break-all',
 };
 const _passwordControls = {textAlign: 'right'};
-const _slider = {ml: 2, mr: 1};
-const _sliderLabel = {ml: 2};
-
-const inputProps = {
-    step: 1,
-    min: 0,
-    max: PASSWORD_MAX_LENGTH,
-    type: 'number',
-};
 
 
 const PasswordGenerator = (props) => {
@@ -58,11 +45,15 @@ const PasswordGenerator = (props) => {
 
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        handlePasswordGenerate();
+    }, []);
+
     const handleClose = () => setIsOpen(false);
-    const handleUpperCaseChange = () => setIsUpperCase(!isUpperCase);
-    const handleDigitsChange = () => setIsDigits(!isDigits);
-    const handleSpecialCharsChange = () => setIsSpecialChars(!isSpecialChars);
-    const handleGeneratePassword = () => {
+    const handleUpperCaseSwitch = () => setIsUpperCase(!isUpperCase);
+    const handleDigitsSwitch = () => setIsDigits(!isDigits);
+    const handleSpecialCharsSwitch = () => setIsSpecialChars(!isSpecialChars);
+    const handlePasswordGenerate = () => {
         const settings = {
             length: length,
             isUseUpperCase: isUpperCase,
@@ -71,7 +62,7 @@ const PasswordGenerator = (props) => {
         }
         dispatch(fetchGeneratedPassword(settings));
     };
-    const handleInsertPassword = () => {
+    const handlePasswordInsert = () => {
         dispatch(passgenActions.insertPassgen(passgen));
         setIsOpen(false);
     };
@@ -83,17 +74,13 @@ const PasswordGenerator = (props) => {
             ? ''
             : Number(event.target.value));
     };
-    const handleBlur = () => {
+    const handleInputBlur = () => {
         if (length < 0) {
             setLength(0);
         } else if (length > PASSWORD_MAX_LENGTH) {
             setLength(PASSWORD_MAX_LENGTH);
         }
     };
-
-    useEffect(() => {
-        handleGeneratePassword();
-    }, []);
 
 
     return (
@@ -110,7 +97,7 @@ const PasswordGenerator = (props) => {
                         {passgen}
                     </Box>
                     <Box sx={_passwordControls}>
-                        <IconRefresh onGenerate={handleGeneratePassword}/>
+                        <IconRefresh onGenerate={handlePasswordGenerate}/>
                         <IconCopy copyValue={passgen}/>
                     </Box>
                 </DialogContentText>
@@ -119,52 +106,32 @@ const PasswordGenerator = (props) => {
                     component="form"
                     sx={_body}
                 >
-                    <Box>
-                        <Grid
-                            container
-                            spacing={2}
-                            alignItems="center"
-                        >
-                            <Grid item sx={_sliderLabel}>
-                                Length
-                            </Grid>
-                            <Grid item xs sx={_slider}>
-                                <Slider
-                                    value={typeof length === 'number' ? length : 0}
-                                    onChange={handleSliderChange}
-                                    max={PASSWORD_MAX_LENGTH}
-                                />
-                            </Grid>
-                            <Grid item>
-                                <Input
-                                    value={length}
-                                    size="small"
-                                    onChange={handleInputChange}
-                                    onBlur={handleBlur}
-                                    inputProps={inputProps}
-                                />
-                            </Grid>
-                        </Grid>
-                    </Box>
+                    <LengthSlider
+                        length={length}
+                        passwordMaxLength={PASSWORD_MAX_LENGTH}
+                        onSliderChange={handleSliderChange}
+                        onInputChange={handleInputChange}
+                        onInputBlur={handleInputBlur}
+                    />
                     <SymbolSwitch
                         label="Use capital letters (A-Z)"
                         isChecked={isUpperCase}
-                        onChange={handleUpperCaseChange}
+                        onChange={handleUpperCaseSwitch}
                     />
                     <SymbolSwitch
                         label="Use Digits (0-9)"
                         isChecked={isDigits}
-                        onChange={handleDigitsChange}
+                        onChange={handleDigitsSwitch}
                     />
                     <SymbolSwitch
                         label="Use symbols (!@#$%&*)"
                         isChecked={isSpecialChars}
-                        onChange={handleSpecialCharsChange}
+                        onChange={handleSpecialCharsSwitch}
                     />
                 </Box>
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleInsertPassword}>Insert</Button>
+                <Button onClick={handlePasswordInsert}>Insert</Button>
                 <Button onClick={handleClose}>Close</Button>
             </DialogActions>
         </Dialog>
