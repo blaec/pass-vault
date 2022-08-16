@@ -8,10 +8,11 @@ import IconRefresh from "../../../../UI/IconButtons/IconRefresh";
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import {Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, Grid, Slider, Switch} from "@mui/material";
+import {Dialog, DialogActions, DialogContent, DialogTitle, Grid, Slider} from "@mui/material";
 import DialogContentText from "@mui/material/DialogContentText";
 import MuiInput from '@mui/material/Input';
 import {styled} from '@mui/material/styles';
+import SymbolSwitch from "./components/SymbolSwitch";
 
 
 const PASSWORD_MAX_LENGTH = 60;
@@ -34,8 +35,6 @@ const _passwordText = {
     wordBreak: 'break-all',
 };
 const _passwordControls = {textAlign: 'right'};
-const _formControl = {mt: 1};
-const _switch = {marginLeft: 'auto'};
 const _slider = {ml: 2, mr: 1};
 const _sliderLabel = {ml: 2};
 
@@ -120,7 +119,6 @@ const PasswordGenerator = (props) => {
                     component="form"
                     sx={_body}
                 >
-                    {/*<Box sx={_sliderWidth}>*/}
                     <Box>
                         <Grid
                             container
@@ -148,41 +146,20 @@ const PasswordGenerator = (props) => {
                             </Grid>
                         </Grid>
                     </Box>
-                    <FormControlLabel
-                        sx={_formControl}
-                        labelPlacement="start"
-                        control={
-                            <Switch
-                                sx={_switch}
-                                checked={isUpperCase}
-                                onChange={handleUpperCaseChange}
-                            />
-                        }
-                        label="Use Upper Case"
+                    <SymbolSwitch
+                        label="Use capital letters (A-Z)"
+                        isChecked={isUpperCase}
+                        onChange={handleUpperCaseChange}
                     />
-                    <FormControlLabel
-                        sx={_formControl}
-                        labelPlacement="start"
-                        control={
-                            <Switch
-                                sx={_switch}
-                                checked={isDigits}
-                                onChange={handleDigitsChange}
-                            />
-                        }
-                        label="Use Digits"
+                    <SymbolSwitch
+                        label="Use Digits (0-9)"
+                        isChecked={isDigits}
+                        onChange={handleDigitsChange}
                     />
-                    <FormControlLabel
-                        sx={_formControl}
-                        labelPlacement="start"
-                        control={
-                            <Switch
-                                sx={_switch}
-                                checked={isSpecialChars}
-                                onChange={handleSpecialCharsChange}
-                            />
-                        }
-                        label="Use Special Chars"
+                    <SymbolSwitch
+                        label="Use symbols (!@#$%&*)"
+                        isChecked={isSpecialChars}
+                        onChange={handleSpecialCharsChange}
                     />
                 </Box>
             </DialogContent>
