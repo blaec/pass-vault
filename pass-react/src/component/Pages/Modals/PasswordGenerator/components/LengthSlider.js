@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Box from "@mui/material/Box";
 import {Grid, Slider} from "@mui/material";
 import {styled} from "@mui/material/styles";
@@ -9,7 +10,6 @@ const Input = styled(MuiInput)`width: 42px;`;
 
 const _sliderLabel = {ml: 2};
 const _slider = {ml: 2, mr: 1};
-
 
 
 const LengthSlider = (props) => {
