@@ -13,11 +13,11 @@ const _slider = {ml: 2, mr: 1};
 
 
 const LengthSlider = (props) => {
-    const {length, passwordMaxLength, onSliderChange, onInputChange, onInputBlur} = props;
+    const {length, passwordMinLength, passwordMaxLength, onSliderChange, onInputChange, onInputBlur} = props;
 
     const inputProps = {
         step: 1,
-        min: 0,
+        min: passwordMinLength,
         max: passwordMaxLength,
         type: 'number',
     };
@@ -34,8 +34,9 @@ const LengthSlider = (props) => {
                 </Grid>
                 <Grid item xs sx={_slider}>
                     <Slider
-                        value={typeof length === 'number' ? length : 0}
+                        value={typeof length === 'number' ? length : passwordMinLength}
                         onChange={onSliderChange}
+                        min={passwordMinLength}
                         max={passwordMaxLength}
                     />
                 </Grid>

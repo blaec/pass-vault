@@ -15,6 +15,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import PasswordStrength from "./components/PasswordStrength";
 
 
+const PASSWORD_MIN_LENGTH = 6;
 const PASSWORD_MAX_LENGTH = 60;
 const _body = {
     display: 'flex',
@@ -75,8 +76,8 @@ const PasswordGenerator = (props) => {
             : Number(event.target.value));
     };
     const handleInputBlur = () => {
-        if (length < 0) {
-            setLength(0);
+        if (length < PASSWORD_MIN_LENGTH) {
+            setLength(PASSWORD_MIN_LENGTH);
         } else if (length > PASSWORD_MAX_LENGTH) {
             setLength(PASSWORD_MAX_LENGTH);
         }
@@ -120,6 +121,7 @@ const PasswordGenerator = (props) => {
                 >
                     <LengthSlider
                         length={length}
+                        passwordMinLength={PASSWORD_MIN_LENGTH}
                         passwordMaxLength={PASSWORD_MAX_LENGTH}
                         onSliderChange={handleSliderChange}
                         onInputChange={handleInputChange}
