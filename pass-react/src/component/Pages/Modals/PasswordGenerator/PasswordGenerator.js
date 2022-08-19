@@ -32,6 +32,7 @@ const _passwordText = {
     fontWeight: 'bold',
     wordBreak: 'break-all',
 };
+const getWithinRange = (value) => Math.max(Math.min(value, PASSWORD_MAX_LENGTH), PASSWORD_MIN_LENGTH);
 
 
 const PasswordGenerator = (props) => {
@@ -79,16 +80,13 @@ const PasswordGenerator = (props) => {
         setLength(newValue);
     };
     const handleInputChange = (event) => {
-        setLength(event.target.value === ''
+        const value = event.target.value;
+        setLength(value === ''
             ? ''
-            : Number(event.target.value));
+            : getWithinRange(Number(value)));
     };
     const handleInputBlur = () => {
-        if (length < PASSWORD_MIN_LENGTH) {
-            setLength(PASSWORD_MIN_LENGTH);
-        } else if (length > PASSWORD_MAX_LENGTH) {
-            setLength(PASSWORD_MAX_LENGTH);
-        }
+        setLength(getWithinRange(length));
     };
 
 
