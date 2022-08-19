@@ -7,12 +7,12 @@ import IconCopy from "../../../../UI/IconButtons/IconCopy";
 import IconRefresh from "../../../../UI/IconButtons/IconRefresh";
 import SymbolSwitch from "./components/SymbolSwitch";
 import LengthSlider from "./components/LengthSlider";
+import PasswordStrength from "./components/PasswordStrength";
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import {Dialog, DialogActions, DialogContent, DialogTitle, Grid} from "@mui/material";
 import DialogContentText from "@mui/material/DialogContentText";
-import PasswordStrength from "./components/PasswordStrength";
 
 
 const PASSWORD_MIN_LENGTH = 6;
@@ -122,9 +122,9 @@ const PasswordGenerator = (props) => {
                     </Grid>
                 </DialogContentText>
                 <Box
-                    noValidate
-                    component="form"
                     sx={_body}
+                    component="form"
+                    noValidate
                 >
                     <LengthSlider
                         length={length}

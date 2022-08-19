@@ -35,18 +35,18 @@ const LengthSlider = (props) => {
                 <Grid item xs sx={_slider}>
                     <Slider
                         value={typeof length === 'number' ? length : passwordMinLength}
-                        onChange={onSliderChange}
                         min={passwordMinLength}
                         max={passwordMaxLength}
+                        onChange={onSliderChange}
                     />
                 </Grid>
                 <Grid item>
                     <Input
                         value={length}
                         size="small"
+                        inputProps={inputProps}
                         onChange={onInputChange}
                         onBlur={onInputBlur}
-                        inputProps={inputProps}
                     />
                 </Grid>
             </Grid>
