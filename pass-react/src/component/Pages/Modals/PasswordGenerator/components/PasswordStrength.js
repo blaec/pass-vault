@@ -35,7 +35,7 @@ const PasswordStrength = () => {
         <Typography
             sx={_wrapIcon}
             component={'div'}
-            variant="subtitle1"
+            variant="overline"
             color={color}
         >
             {value}

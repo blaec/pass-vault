@@ -14,6 +14,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import {passgenActions} from "../../../../store/state/passgen/passgen-slice";
 import PasswordGenerator from "../../Modals/PasswordGenerator/PasswordGenerator";
+import PasswordStrength from "../../Modals/PasswordGenerator/components/PasswordStrength";
 
 
 const NewPassword = () => {
@@ -31,7 +32,7 @@ const NewPassword = () => {
     const dispatch = useDispatch();
 
     const _root = {
-        width: 350,
+        width: 400,
         mt: 1
     };
     const _caption = {mt: 5};
@@ -182,10 +183,11 @@ const NewPassword = () => {
                     <Grid
                         container
                         direction="row"
-                        justifyContent="flex-end"
+                        justifyContent="space-between"
                         alignItems="flex-start"
                     >
-                        <Button onClick={handleGeneratePassword}>Generate password</Button>
+                        <PasswordStrength/>
+                        <Button size="small" onClick={handleGeneratePassword}>Generate password</Button>
                     </Grid>
                     {websiteElement}
                     <Box sx={_caption}>
