@@ -57,7 +57,7 @@ const PasswordGenerator = (props) => {
         }, 500)
 
         return () => clearTimeout(identifier)
-    }, [length])
+    }, [length, isDigits, isUpperCase, isSpecialChars])
 
     const handleClose = () => setIsOpen(false);
     const handleUpperCaseSwitch = () => setIsUpperCase(!isUpperCase);
