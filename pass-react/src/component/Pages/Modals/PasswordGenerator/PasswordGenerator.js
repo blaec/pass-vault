@@ -101,26 +101,27 @@ const PasswordGenerator = (props) => {
         >
             <DialogTitle>Password Generator</DialogTitle>
             <DialogContent>
-                <DialogContentText sx={_passwordDisplay}>
+                <DialogContentText
+                    sx={_passwordDisplay}
+                    component={'div'}
+                >
                     <Box sx={_passwordText}>
                         {passgen}
                     </Box>
-                    <Box>
-                        <Grid
-                            container
-                            direction="row"
-                            justifyContent="space-between"
-                            alignItems="center"
-                        >
-                            <Grid item>
-                                <PasswordStrength/>
-                            </Grid>
-                            <Grid item>
-                                <IconRefresh onGenerate={handlePasswordGenerate}/>
-                                <IconCopy copyValue={passgen}/>
-                            </Grid>
+                    <Grid
+                        container
+                        direction="row"
+                        justifyContent="space-between"
+                        alignItems="center"
+                    >
+                        <Grid item>
+                            <PasswordStrength/>
                         </Grid>
-                    </Box>
+                        <Grid item>
+                            <IconRefresh onGenerate={handlePasswordGenerate}/>
+                            <IconCopy copyValue={passgen}/>
+                        </Grid>
+                    </Grid>
                 </DialogContentText>
                 <Box
                     noValidate

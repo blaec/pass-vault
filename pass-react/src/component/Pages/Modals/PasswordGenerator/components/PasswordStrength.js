@@ -32,15 +32,14 @@ const PasswordStrength = () => {
     const {color, value} = message[id];
 
     return (
-        <div>
-            <Typography
-                sx={_wrapIcon}
-                variant="subtitle1"
-                color={color}
-            >
-                {value}
-            </Typography>
-        </div>
+        <Typography
+            component={'div'}
+            sx={_wrapIcon}
+            variant="subtitle1"
+            color={color}
+        >
+            {value}
+        </Typography>
     );
 };
 
