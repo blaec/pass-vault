@@ -52,7 +52,7 @@ const PasswordGenerator = (props) => {
 
     useEffect(() => {
         const identifier = setTimeout(() => {
-            handlePasswordGenerate(length);
+            handlePasswordGenerate();
         }, 500)
 
         return () => clearTimeout(identifier)
@@ -62,10 +62,9 @@ const PasswordGenerator = (props) => {
     const handleUpperCaseSwitch = () => setIsUpperCase(!isUpperCase);
     const handleDigitsSwitch = () => setIsDigits(!isDigits);
     const handleSpecialCharsSwitch = () => setIsSpecialChars(!isSpecialChars);
-    const handlePasswordGenerate = (len) => {
-        const lengthValue = len ? len : length;
+    const handlePasswordGenerate = () => {
         const settings = {
-            length: lengthValue,
+            length: length,
             isUseUpperCase: isUpperCase,
             isUseDigits: isDigits,
             isUseSpecialChars: isSpecialChars,
