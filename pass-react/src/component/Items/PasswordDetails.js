@@ -4,6 +4,7 @@ import {isObjectExist} from "../../utils/Utils";
 import PasswordDataRow from "./PasswordDataRow";
 import PasswordControls from "./PasswordControls";
 import IconVisibility from "../../UI/IconButtons/IconVisibility";
+import PasswordStrength from "../Pages/Modals/PasswordGenerator/components/PasswordStrength";
 
 import {Drawer, Table, TableContainer} from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
@@ -50,7 +51,14 @@ const PasswordDetails = (props) => {
                 />
                 <PasswordDataRow
                     id={selectedPassword.id}
+                    description={"Password security"}
+                    isHideIcons={true}
+                    value={<PasswordStrength/>}
+                />
+                <PasswordDataRow
+                    id={selectedPassword.id}
                     description={"Folder"}
+                    isHideIcons={true}
                     value={selectedPassword.folder.name}
                 />
                 <PasswordDataRow
