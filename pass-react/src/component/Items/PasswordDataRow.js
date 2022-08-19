@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {convertToPassword} from "../../utils/Utils";
-import IconCopy from "./IconCopy";
+import IconCopy from "../../UI/IconButtons/IconCopy";
 
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
