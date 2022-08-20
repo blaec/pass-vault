@@ -5,17 +5,18 @@ import lombok.Getter;
 import org.passay.CharacterData;
 import org.passay.CharacterRule;
 import org.passay.EnglishCharacterData;
+import org.passay.PasswordGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
 @Getter
-public class PassSettings {
+public class PasswordCreator {
     private final int length;
     private final List<CharacterRule> rules = new ArrayList<>();
 
-    private PassSettings(int length, boolean isUpperCase, boolean isDigits, boolean isSpecialChars) {
+    private PasswordCreator(int length, boolean isUpperCase, boolean isDigits, boolean isSpecialChars) {
         this.length = length;
         rules.add(new CharacterRule(EnglishCharacterData.LowerCase));
         useUpperCase.accept(isUpperCase);
@@ -23,8 +24,11 @@ public class PassSettings {
         useSpecialCharacters.accept(isSpecialChars);
     }
 
-    public static PassSettings create(PasswordConfigTo config) {
-        return new PassSettings(config.getLength(), config.isUseUpperCase(), config.isUseDigits(), config.isUseSpecialChars());
+    public static String from(PasswordConfigTo config) {
+        PasswordGenerator passwordGenerator = new PasswordGenerator();
+        PasswordCreator settings = new PasswordCreator(config.getLength(), config.isUseUpperCase(), config.isUseDigits(), config.isUseSpecialChars());
+
+        return passwordGenerator.generatePassword(settings.getLength(), settings.getRules());
     }
 
     private final Consumer<Boolean> useUpperCase = (isApply) -> {
