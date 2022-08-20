@@ -21,21 +21,6 @@ public class PasswordValidation {
             )
     );
 
-
-    public static void main(String[] args) {
-        PasswordValidation.getPasswordStrength("a");
-        PasswordValidation.getPasswordStrength("A3BC1#Da");
-        PasswordValidation.getPasswordStrength("abcdef");
-        PasswordValidation.getPasswordStrength("abcdefghi");
-        PasswordValidation.getPasswordStrength("12345679");
-        PasswordValidation.getPasswordStrength("qwertyu");
-        PasswordValidation.getPasswordStrength("abcdefghijklmnopqrstuvwxyz");
-        PasswordValidation.getPasswordStrength("jd28x9&f");
-        PasswordValidation.getPasswordStrength("tekwzrxd");
-        PasswordValidation.getPasswordStrength("peju765u");
-        PasswordValidation.getPasswordStrength("j5n&9!r8");
-        PasswordValidation.getPasswordStrength("j$5nDs&9!r8");
-    }
     public static String getPasswordStrength(String password) {
         List<Rule> rules = ValidationRule.stream()
                 .map(ValidationRule::create)
@@ -46,7 +31,7 @@ public class PasswordValidation {
                 .map(getRuleWeight(validator, passwordData))
                 .reduce(0, Integer::sum);
 
-        printRulesValidation(password, passwordWeight, validator, passwordData);
+//        printRulesValidation(password, passwordWeight, validator, passwordData);
         return passwordStrength.lowerEntry(passwordWeight).getValue();
     }
 
