@@ -1,6 +1,7 @@
 package com.blaec.passvault.controller;
 
 import com.blaec.passvault.model.passGenerator.PasswordCreator;
+import com.blaec.passvault.model.to.GeneratedPasswordTo;
 import com.blaec.passvault.model.to.PasswordConfigTo;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +17,7 @@ public class PassGeneratorController extends AbstractController{
     static final String URL = API_VERSION + "/pass-generator";
 
     @PostMapping("/create")
-    public String generatePassword(@RequestBody PasswordConfigTo passConfig) {
-        return PasswordCreator.from(passConfig);
+    public GeneratedPasswordTo generatePassword(@RequestBody PasswordConfigTo passConfig) {
+        return GeneratedPasswordTo.create(passConfig);
     }
 }

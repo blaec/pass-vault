@@ -1,5 +1,6 @@
 package com.blaec.passvault.model.passGenerator;
 
+import com.blaec.passvault.model.to.GeneratedPasswordTo;
 import com.blaec.passvault.model.to.PasswordConfigTo;
 import lombok.Getter;
 import org.passay.CharacterData;
