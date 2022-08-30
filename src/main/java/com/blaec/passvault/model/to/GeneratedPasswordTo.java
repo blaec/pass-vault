@@ -12,11 +12,11 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class GeneratedPasswordTo {
     private final String password;
-    private final String strength;
+    private final int strength;
 
     public static GeneratedPasswordTo create(PasswordConfigTo passConfig) {
         String password = PasswordCreator.from(passConfig);
-        String strength = PasswordValidation.getPasswordStrength(password);
+        int strength = PasswordValidation.getPasswordStrength(password);
 
         return new GeneratedPasswordTo(password, strength);
     }
