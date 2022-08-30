@@ -1,5 +1,6 @@
 package com.blaec.passvault.model.to;
 
+import com.blaec.passvault.enums.PasswordStrength;
 import com.blaec.passvault.model.passGenerator.PasswordCreator;
 import com.blaec.passvault.model.passGenerator.PasswordValidation;
 import lombok.AccessLevel;
@@ -16,8 +17,8 @@ public class GeneratedPasswordTo {
 
     public static GeneratedPasswordTo create(PasswordConfigTo passConfig) {
         String password = PasswordCreator.from(passConfig);
-        int strength = PasswordValidation.getPasswordStrength(password);
+        PasswordStrength strength = PasswordValidation.getPasswordStrength(password);
 
-        return new GeneratedPasswordTo(password, strength);
+        return new GeneratedPasswordTo(password, strength.ordinal());
     }
 }

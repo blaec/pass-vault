@@ -1,5 +1,6 @@
 package com.blaec.passvault.model.passGenerator;
 
+import com.blaec.passvault.enums.PasswordStrength;
 import org.passay.*;
 
 import java.util.List;
@@ -13,15 +14,15 @@ public class PasswordValidation {
     protected static final int MIN_MODERATE_PASSWORD_LENGTH = 8;
     protected static final int MIN_STRONG_PASSWORD_LENGTH = 11;
     protected static final int NUMBER_OF_CHARACTERISTICS_TO_ENFORCE = 3;
-    private static final TreeMap<Integer, Integer> passwordStrength = new TreeMap<>(
+    private static final TreeMap<Integer, PasswordStrength> passwordStrength = new TreeMap<>(
             Map.of(
-                    90, 0,  // strong password
-                    70, 1,  // moderate password
-                    0, 2    // weak password
+                    90, PasswordStrength.strong,
+                    70, PasswordStrength.moderate,
+                    0, PasswordStrength.weak
             )
     );
 
-    public static int getPasswordStrength(String password) {
+    public static PasswordStrength getPasswordStrength(String password) {
         List<Rule> rules = ValidationRule.stream()
                 .map(ValidationRule::create)
                 .collect(Collectors.toList());
