@@ -27,8 +27,11 @@ const message = [
 ]
 
 
-const PasswordStrength = () => {
-    const id = Math.floor(Math.random() * message.length);
+const PasswordStrength = (props) => {
+    const {strength} = props;
+    const id = strength === undefined
+        ? Math.floor(Math.random() * message.length)
+        : strength;
     const {color, value} = message[id];
 
     return (
