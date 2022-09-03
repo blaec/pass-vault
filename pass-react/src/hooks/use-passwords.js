@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {NavLink, useNavigate} from "react-router-dom";
 
@@ -12,6 +12,7 @@ import Box from "@mui/material/Box";
 import {Grid} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import {passgenActions} from "../store/state/passgen/passgen-slice";
 
 
 const columns = [
@@ -72,6 +73,10 @@ const usePasswords = (item, folderId) => {
     const handleAddNewPassword = () => {
         dispatch(passwordActions.resetEditablePassword());
     };
+
+    useEffect(() => {
+        dispatch(passgenActions.resetStrength());
+    }, []);
 
     let table = null;
     let folderName;

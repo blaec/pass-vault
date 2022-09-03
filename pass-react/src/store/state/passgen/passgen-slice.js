@@ -42,7 +42,7 @@ const passgenSlice = createSlice({
             };
         },
         resetStrength(state, action) {
-            state.passgen = {
+            state.strength = {
                 strength: passwordStrength.weak,
                 isStrengthLoaded: false
             };

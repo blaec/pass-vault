@@ -8,14 +8,25 @@ import {reactLinks} from "../../../../utils/UrlUtils";
 import TextInputElement from "./components/TextInputElement";
 import PasswordInputElement from "./components/PasswordInputElement";
 import {passwordActions} from "../../../../store/state/password/password-slice";
-import {passwordStrength} from "../../../../utils/Constants";
 import {passgenActions} from "../../../../store/state/passgen/passgen-slice";
 import PasswordGenerator from "../../Modals/PasswordGenerator/PasswordGenerator";
 import PasswordStrength from "../../Modals/PasswordGenerator/components/PasswordStrength";
 
-import {Card, CardActions, CardContent, FormControl, Grid, InputLabel, MenuItem, Select} from "@mui/material";
+import {
+    Card,
+    CardActions,
+    CardContent,
+    CircularProgress,
+    FormControl,
+    Grid,
+    InputLabel,
+    MenuItem,
+    Select
+} from "@mui/material";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
+
+const _loader = {mt: 1};
 
 
 const NewPassword = () => {
@@ -169,6 +180,10 @@ const NewPassword = () => {
         multiline={true}
     />;
 
+
+    const strengthElement = isStrengthLoaded
+        ? <PasswordStrength strength={strength}/>
+        : <CircularProgress size={'1rem'} sx={_loader}/>;
     return (
         <Grid container justifyContent="center">
             <Card
@@ -188,7 +203,7 @@ const NewPassword = () => {
                         justifyContent="space-between"
                         alignItems="flex-start"
                     >
-                        <PasswordStrength strength={isStrengthLoaded ? strength : passwordStrength.weak}/>
+                        {strengthElement}
                         <Button size="small" onClick={handleGeneratePassword}>Generate password</Button>
                     </Grid>
                     {websiteElement}
