@@ -74,6 +74,7 @@ const PasswordGenerator = (props) => {
     };
     const handlePasswordInsert = () => {
         dispatch(passgenActions.insertPassgen(passgen));
+        dispatch(passgenActions.setStrength(strength));
         setIsOpen(false);
     };
     const handleSliderChange = (event, newValue) => {
