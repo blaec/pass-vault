@@ -39,6 +39,7 @@ public class PasswordValidation {
     private static Function<ValidationRule, Integer> getRuleWeight(PasswordValidator validator, PasswordData passwordData) {
         return rule -> {
             boolean isRuleValid = validator.getRules().get(rule.ordinal()).validate(passwordData).isValid();
+            // System.out.printf("rule: %s | weight: %d%n", rule.name(), isRuleValid ? rule.getWeight() : 0);
             return isRuleValid
                     ? rule.getWeight()
                     : 0;

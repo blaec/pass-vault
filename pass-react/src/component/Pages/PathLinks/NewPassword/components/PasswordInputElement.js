@@ -1,16 +1,21 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from "react-redux";
+
+import {fetchPasswordStrength} from "../../../../../store/state/passgen/passgen-actions";
 
 import {FilledInput, FormControl, InputAdornment, InputLabel} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import VisibilityTwoToneIcon from "@mui/icons-material/VisibilityTwoTone";
 import VisibilityOffTwoToneIcon from "@mui/icons-material/VisibilityOffTwoTone";
-import {useSelector} from "react-redux";
 
 
 const PasswordInputElement = (props) => {
     const {style, value, elemRef, label} = props;
+    const [typedPassword, setTypedPassword] = React.useState('');
     const [showPassword, setShowPassword] = React.useState(false);
     const {passgen, isPassgenLoaded, isInsertPassword} = useSelector(state => state.passgen.passgen);
+
+    const dispatch = useDispatch();
 
     let isFocused = false;
     if (isInsertPassword && isPassgenLoaded && elemRef?.current) {
@@ -39,6 +44,16 @@ const PasswordInputElement = (props) => {
             </IconButton>
         </InputAdornment>
     );
+    const handleOnChange = () => {
+        setTypedPassword(elemRef?.current?.value);
+    };
+    useEffect(() => {
+        const identifier = setTimeout(() => {
+            dispatch(fetchPasswordStrength(elemRef?.current?.value));
+        }, 500);
+
+        return () => clearTimeout(identifier)
+    }, [typedPassword])
 
 
     return (
@@ -55,6 +70,7 @@ const PasswordInputElement = (props) => {
                 type={inputType}
                 endAdornment={inputEndAdornment}
                 label={label}
+                onChange={handleOnChange}
             />
         </FormControl>
     );

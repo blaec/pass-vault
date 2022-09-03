@@ -8,13 +8,14 @@ import {reactLinks} from "../../../../utils/UrlUtils";
 import TextInputElement from "./components/TextInputElement";
 import PasswordInputElement from "./components/PasswordInputElement";
 import {passwordActions} from "../../../../store/state/password/password-slice";
+import {passwordStrength} from "../../../../utils/Constants";
+import {passgenActions} from "../../../../store/state/passgen/passgen-slice";
+import PasswordGenerator from "../../Modals/PasswordGenerator/PasswordGenerator";
+import PasswordStrength from "../../Modals/PasswordGenerator/components/PasswordStrength";
 
 import {Card, CardActions, CardContent, FormControl, Grid, InputLabel, MenuItem, Select} from "@mui/material";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import {passgenActions} from "../../../../store/state/passgen/passgen-slice";
-import PasswordGenerator from "../../Modals/PasswordGenerator/PasswordGenerator";
-import PasswordStrength from "../../Modals/PasswordGenerator/components/PasswordStrength";
 
 
 const NewPassword = () => {
@@ -22,6 +23,7 @@ const NewPassword = () => {
     const [open, setOpen] = React.useState(false);
     const {folders, isFoldersLoaded} = useSelector(state => state.folder.folders);
     const {editablePassword} = useSelector(state => state.password.editablePassword);
+    const {strength, isStrengthLoaded} = useSelector(state => state.passgen.strength);
     const navigate = useNavigate();
     const titleRef = React.useRef();
     const userRef = React.useRef();
@@ -186,7 +188,7 @@ const NewPassword = () => {
                         justifyContent="space-between"
                         alignItems="flex-start"
                     >
-                        <PasswordStrength/>
+                        <PasswordStrength strength={isStrengthLoaded ? strength : passwordStrength.weak}/>
                         <Button size="small" onClick={handleGeneratePassword}>Generate password</Button>
                     </Grid>
                     {websiteElement}

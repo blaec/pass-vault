@@ -48,6 +48,7 @@ export const passwordApi = {
 let basePassGeneratorApi = "/pass-generator/";
 export const passgenApi = {
     post: {
+        strength: `${basePassGeneratorApi}get-strength`,
         create: `${basePassGeneratorApi}create/`,
     },
 };

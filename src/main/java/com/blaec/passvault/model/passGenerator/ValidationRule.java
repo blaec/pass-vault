@@ -4,6 +4,8 @@ import org.passay.*;
 
 import java.util.stream.Stream;
 
+import static org.passay.RepeatCharacterRegexRule.MINIMUM_SEQUENCE_LENGTH;
+
 public enum ValidationRule {
     moderateLengthRule{
         @Override
@@ -41,7 +43,7 @@ public enum ValidationRule {
             return new IllegalSequenceRule(EnglishSequenceData.Numerical);
         }
 
-        @Override int getWeight() {return 17;}
+        @Override int getWeight() {return 13;}
     },
     illegalAlphabeticalSequenceRule {
         @Override
@@ -49,7 +51,7 @@ public enum ValidationRule {
             return new IllegalSequenceRule(EnglishSequenceData.Alphabetical);
         }
 
-        @Override int getWeight() {return 17;}
+        @Override int getWeight() {return 13;}
     },
     illegalUSQwertySequenceRule {
         @Override
@@ -57,7 +59,15 @@ public enum ValidationRule {
             return new IllegalSequenceRule(EnglishSequenceData.USQwerty);
         }
 
-        @Override int getWeight() {return 17;}
+        @Override int getWeight() {return 13;}
+    },
+    repeatCharacterRegexRule {
+        @Override
+        Rule create() {
+                return new RepeatCharacterRegexRule(MINIMUM_SEQUENCE_LENGTH);
+        }
+
+        @Override int getWeight() {return 12;}
     };
 
     public static Stream<ValidationRule> stream() {

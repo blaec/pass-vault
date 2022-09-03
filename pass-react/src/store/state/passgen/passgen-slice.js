@@ -1,7 +1,10 @@
 import {createSlice} from '@reduxjs/toolkit';
 
+import {passwordStrength} from "../../../utils/Constants";
+
 const initialState = {
     passgen: {passgen: '', strength: '', isPassgenLoaded: false, isInsertPassword: false},
+    strength: {strength: passwordStrength.weak, isStrengthLoaded: false}
 };
 
 const passgenSlice = createSlice({
@@ -30,6 +33,18 @@ const passgenSlice = createSlice({
                 strength: '',
                 isPassgenLoaded: false,
                 isInsertPassword: false
+            };
+        },
+        setStrength(state, action) {
+            state.strength = {
+                strength: action.payload,
+                isStrengthLoaded: true
+            };
+        },
+        resetStrength(state, action) {
+            state.passgen = {
+                strength: passwordStrength.weak,
+                isStrengthLoaded: false
             };
         },
     }
