@@ -19,7 +19,7 @@ const PasswordDetails = (props) => {
     const {selectedPassword, showDetails, isShowPassword, onEdit, onShowHidePassword, onClose} = props;
 
     const _root = {width: 1250, m: 2};
-
+    console.log(selectedPassword);
 
     let details = null;
     if (isObjectExist(selectedPassword)) {
