@@ -16,12 +16,15 @@ import TableBody from "@mui/material/TableBody";
 import TableFooter from "@mui/material/TableFooter";
 
 
+const _root = {
+    width: 1250,
+    m: 2
+};
+
+
 const PasswordDetails = (props) => {
     const {selectedPassword, showDetails, isShowPassword, onEdit, onShowHidePassword, onClose} = props;
     const {strength, isStrengthLoaded} = useSelector(state => state.passgen.strength);
-
-    const _root = {width: 1250, m: 2};
-    console.log(selectedPassword);
 
     let details = null;
     if (isObjectExist(selectedPassword)) {

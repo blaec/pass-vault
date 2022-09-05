@@ -6,14 +6,14 @@ import {toolbarHeight} from "../utils/Constants";
 import {passwordActions} from "../store/state/password/password-slice";
 import PasswordDetails from "../component/Items/PasswordDetails";
 import {reactLinks} from "../utils/UrlUtils";
+import {passgenActions} from "../store/state/passgen/passgen-slice";
+import {fetchPasswordStrength} from "../store/state/passgen/passgen-actions";
 
 import {DataGrid} from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
 import {Grid} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import {passgenActions} from "../store/state/passgen/passgen-slice";
-import {fetchPasswordStrength} from "../store/state/passgen/passgen-actions";
 
 
 const columns = [

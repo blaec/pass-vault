@@ -26,7 +26,14 @@ import {
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 
+
 const _loader = {mt: 1};
+const _root = {
+    width: 400,
+    mt: 1
+};
+const _caption = {mt: 5};
+const _element = {mt: 1};
 
 
 const NewPassword = () => {
@@ -43,13 +50,6 @@ const NewPassword = () => {
     const noteRef = React.useRef();
 
     const dispatch = useDispatch();
-
-    const _root = {
-        width: 400,
-        mt: 1
-    };
-    const _caption = {mt: 5};
-    const _element = {mt: 1};
 
     const handleChange = (event) => {
         setFolderId(event.target.value);
@@ -204,7 +204,12 @@ const NewPassword = () => {
                         alignItems="flex-start"
                     >
                         {strengthElement}
-                        <Button size="small" onClick={handleGeneratePassword}>Generate password</Button>
+                        <Button
+                            size="small"
+                            onClick={handleGeneratePassword}
+                        >
+                            Generate password
+                        </Button>
                     </Grid>
                     {websiteElement}
                     <Box sx={_caption}>
