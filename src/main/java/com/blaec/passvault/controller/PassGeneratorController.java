@@ -1,10 +1,11 @@
 package com.blaec.passvault.controller;
 
-import com.blaec.passvault.model.passGenerator.PassSettings;
+import com.blaec.passvault.model.passGenerator.PasswordValidation;
+import com.blaec.passvault.model.to.GeneratedPasswordTo;
 import com.blaec.passvault.model.to.PasswordConfigTo;
+import com.blaec.passvault.model.to.PasswordTo;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.passay.PasswordGenerator;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -15,14 +16,13 @@ import org.springframework.web.bind.annotation.*;
 public class PassGeneratorController extends AbstractController{
     static final String URL = API_VERSION + "/pass-generator";
 
-    @PostMapping("/create")
-    public String generatePassword(@RequestBody PasswordConfigTo passConfig) {
-        return generatePassword(PassSettings.create(passConfig));
+    @PostMapping(value = "/get-strength")
+    public int getPasswordStrength(@RequestBody PasswordTo password) {
+        return PasswordValidation.getPasswordStrength(password.getPassword()).ordinal();
     }
 
-    private String generatePassword(PassSettings settings) {
-        PasswordGenerator passwordGenerator = new PasswordGenerator();
-
-        return passwordGenerator.generatePassword(settings.getLength(), settings.getRules());
+    @PostMapping("/create")
+    public GeneratedPasswordTo generatePassword(@RequestBody PasswordConfigTo passConfig) {
+        return GeneratedPasswordTo.create(passConfig);
     }
 }

@@ -8,12 +8,32 @@ import {reactLinks} from "../../../../utils/UrlUtils";
 import TextInputElement from "./components/TextInputElement";
 import PasswordInputElement from "./components/PasswordInputElement";
 import {passwordActions} from "../../../../store/state/password/password-slice";
-
-import {Card, CardActions, CardContent, FormControl, Grid, InputLabel, MenuItem, Select} from "@mui/material";
-import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
 import {passgenActions} from "../../../../store/state/passgen/passgen-slice";
 import PasswordGenerator from "../../Modals/PasswordGenerator/PasswordGenerator";
+import PasswordStrength from "../../Modals/PasswordGenerator/components/PasswordStrength";
+
+import {
+    Card,
+    CardActions,
+    CardContent,
+    CircularProgress,
+    FormControl,
+    Grid,
+    InputLabel,
+    MenuItem,
+    Select
+} from "@mui/material";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+
+
+const _loader = {mt: 1};
+const _root = {
+    width: 400,
+    mt: 1
+};
+const _caption = {mt: 5};
+const _element = {mt: 1};
 
 
 const NewPassword = () => {
@@ -21,6 +41,7 @@ const NewPassword = () => {
     const [open, setOpen] = React.useState(false);
     const {folders, isFoldersLoaded} = useSelector(state => state.folder.folders);
     const {editablePassword} = useSelector(state => state.password.editablePassword);
+    const {strength, isStrengthLoaded} = useSelector(state => state.passgen.strength);
     const navigate = useNavigate();
     const titleRef = React.useRef();
     const userRef = React.useRef();
@@ -29,13 +50,6 @@ const NewPassword = () => {
     const noteRef = React.useRef();
 
     const dispatch = useDispatch();
-
-    const _root = {
-        width: 350,
-        mt: 1
-    };
-    const _caption = {mt: 5};
-    const _element = {mt: 1};
 
     const handleChange = (event) => {
         setFolderId(event.target.value);
@@ -166,6 +180,10 @@ const NewPassword = () => {
         multiline={true}
     />;
 
+
+    const strengthElement = isStrengthLoaded
+        ? <PasswordStrength strength={strength}/>
+        : <CircularProgress size={'1rem'} sx={_loader}/>;
     return (
         <Grid container justifyContent="center">
             <Card
@@ -182,10 +200,16 @@ const NewPassword = () => {
                     <Grid
                         container
                         direction="row"
-                        justifyContent="flex-end"
+                        justifyContent="space-between"
                         alignItems="flex-start"
                     >
-                        <Button onClick={handleGeneratePassword}>Generate password</Button>
+                        {strengthElement}
+                        <Button
+                            size="small"
+                            onClick={handleGeneratePassword}
+                        >
+                            Generate password
+                        </Button>
                     </Grid>
                     {websiteElement}
                     <Box sx={_caption}>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {NavLink, useNavigate} from "react-router-dom";
 
@@ -6,6 +6,8 @@ import {toolbarHeight} from "../utils/Constants";
 import {passwordActions} from "../store/state/password/password-slice";
 import PasswordDetails from "../component/Items/PasswordDetails";
 import {reactLinks} from "../utils/UrlUtils";
+import {passgenActions} from "../store/state/passgen/passgen-slice";
+import {fetchPasswordStrength} from "../store/state/passgen/passgen-actions";
 
 import {DataGrid} from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
@@ -52,6 +54,7 @@ const usePasswords = (item, folderId) => {
         const selected = passwords.find(pass => pass.id === id);
         setSelectedPassword(selected);
         dispatch(passwordActions.setEditablePassword(selected));
+        dispatch(fetchPasswordStrength(selected.password));
         setShowDetails(true);
     };
 
@@ -72,6 +75,10 @@ const usePasswords = (item, folderId) => {
     const handleAddNewPassword = () => {
         dispatch(passwordActions.resetEditablePassword());
     };
+
+    useEffect(() => {
+        dispatch(passgenActions.resetStrength());
+    }, []);
 
     let table = null;
     let folderName;

@@ -27,15 +27,15 @@ const message = [
 ]
 
 
-const PasswordStrength = () => {
-    const id = Math.floor(Math.random() * message.length);
-    const {color, value} = message[id];
+const PasswordStrength = (props) => {
+    const {strength} = props;
+    const {color, value} = message[strength];
 
     return (
         <Typography
             sx={_wrapIcon}
             component={'div'}
-            variant="subtitle1"
+            variant="overline"
             color={color}
         >
             {value}

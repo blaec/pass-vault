@@ -43,7 +43,7 @@ const PasswordGenerator = (props) => {
     const [isSpecialChars, setIsSpecialChars] = React.useState(false);
     const [length, setLength] = React.useState(8);
 
-    const {passgen} = useSelector(state => state.passgen.passgen);
+    const {passgen, strength} = useSelector(state => state.passgen.passgen);
 
     const dispatch = useDispatch();
 
@@ -74,6 +74,7 @@ const PasswordGenerator = (props) => {
     };
     const handlePasswordInsert = () => {
         dispatch(passgenActions.insertPassgen(passgen));
+        dispatch(passgenActions.setStrength(strength));
         setIsOpen(false);
     };
     const handleSliderChange = (event, newValue) => {
@@ -113,7 +114,7 @@ const PasswordGenerator = (props) => {
                         alignItems="center"
                     >
                         <Grid item>
-                            <PasswordStrength/>
+                            <PasswordStrength strength={strength}/>
                         </Grid>
                         <Grid item>
                             <IconRefresh onGenerate={handlePasswordGenerate}/>
