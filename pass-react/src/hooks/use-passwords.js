@@ -13,6 +13,7 @@ import {Grid} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import {passgenActions} from "../store/state/passgen/passgen-slice";
+import {fetchPasswordStrength} from "../store/state/passgen/passgen-actions";
 
 
 const columns = [
@@ -53,6 +54,7 @@ const usePasswords = (item, folderId) => {
         const selected = passwords.find(pass => pass.id === id);
         setSelectedPassword(selected);
         dispatch(passwordActions.setEditablePassword(selected));
+        dispatch(fetchPasswordStrength(selected.password));
         setShowDetails(true);
     };
 

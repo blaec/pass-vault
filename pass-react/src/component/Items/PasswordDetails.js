@@ -1,4 +1,5 @@
 import React from 'react';
+import {useSelector} from "react-redux";
 
 import {isObjectExist} from "../../utils/Utils";
 import PasswordDataRow from "./PasswordDataRow";
@@ -6,7 +7,7 @@ import PasswordControls from "./PasswordControls";
 import IconVisibility from "../../UI/IconButtons/IconVisibility";
 import PasswordStrength from "../Pages/Modals/PasswordGenerator/components/PasswordStrength";
 
-import {Drawer, Table, TableContainer} from "@mui/material";
+import {CircularProgress, Drawer, Table, TableContainer} from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -17,6 +18,7 @@ import TableFooter from "@mui/material/TableFooter";
 
 const PasswordDetails = (props) => {
     const {selectedPassword, showDetails, isShowPassword, onEdit, onShowHidePassword, onClose} = props;
+    const {strength, isStrengthLoaded} = useSelector(state => state.passgen.strength);
 
     const _root = {width: 1250, m: 2};
     console.log(selectedPassword);
@@ -30,6 +32,9 @@ const PasswordDetails = (props) => {
             />
         );
 
+        const strengthElement = isStrengthLoaded
+            ? <PasswordStrength strength={strength}/>
+            : <CircularProgress size={'1rem'}/>;
         const passwordDetails = (
             <>
                 <PasswordDataRow
@@ -46,14 +51,14 @@ const PasswordDetails = (props) => {
                 />
                 <PasswordDataRow
                     id={selectedPassword.id}
-                    description={"Website Address"}
-                    value={selectedPassword.website}
+                    description={"Password security"}
+                    isHideIcons={true}
+                    value={strengthElement}
                 />
                 <PasswordDataRow
                     id={selectedPassword.id}
-                    description={"Password security"}
-                    isHideIcons={true}
-                    value={<PasswordStrength/>}
+                    description={"Website Address"}
+                    value={selectedPassword.website}
                 />
                 <PasswordDataRow
                     id={selectedPassword.id}
