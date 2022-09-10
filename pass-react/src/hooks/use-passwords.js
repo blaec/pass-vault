@@ -20,7 +20,7 @@ const columns = [
     {
         field: 'title',
         headerName: 'Title',
-        width: 150,
+        width: 260,
         description: 'password name',
 
     },
@@ -89,7 +89,6 @@ const usePasswords = (item, folderId) => {
                     rows={passwords}
                     columns={columns}
                     hideFooterPagination={true}
-                    checkboxSelection
                     disableSelectionOnClick={true}
                     onRowClick={handleRowClick}
                 />
