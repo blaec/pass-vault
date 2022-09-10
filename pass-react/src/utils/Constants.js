@@ -4,7 +4,11 @@ export const toolbarHeight = {
 };
 
 export const drawer = {
-    width: 240,
+    width: 200,
+};
+
+export const passwordSideBar = {
+    maxWidth: 1250,
 };
 
 // see PasswordStrength.java
