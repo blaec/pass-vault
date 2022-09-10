@@ -166,7 +166,7 @@ const NewPassword = () => {
     const folderSelect = <FormControl fullWidth>
         <InputLabel>{label}</InputLabel>
         <Select
-            value={passwordInput.folderValue}
+            value={folderId || passwordInput.folderValue}
             onChange={handleChange}
         >
             {menuItems}
