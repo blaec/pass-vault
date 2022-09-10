@@ -11,7 +11,7 @@ import StickyNote2TwoToneIcon from '@mui/icons-material/StickyNote2TwoTone';
 import CreditCardTwoToneIcon from '@mui/icons-material/CreditCardTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 
-export const GetMenuItemsBlock = (itemsData) => {
+export const GetMenuItemsBlock = (itemsData, path) => {
 
     return itemsData.map((item, index) => {
             const {text, link, icon} = item;
@@ -22,6 +22,7 @@ export const GetMenuItemsBlock = (itemsData) => {
                     caption={text}
                     link={link}
                     icon={icon}
+                    path={path}
                 />
             );
         }
