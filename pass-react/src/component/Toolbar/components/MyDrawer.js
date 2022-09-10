@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useLocation} from "react-router-dom";
 
 import {GetMenuItemsBlock, MainItemsData, SettingsItemsData} from "./MyMenu";
 import {drawer} from "../../../utils/Constants";
@@ -31,19 +32,21 @@ const MyDrawer = (props) => {
         ? () => window().document.body
         : undefined;
 
+    const {pathname} = useLocation();
     const menuItems = (
         <div>
             <Toolbar/>
             <Divider/>
             <List>
-                {GetMenuItemsBlock(MainItemsData)}
+                {GetMenuItemsBlock(MainItemsData, pathname)}
             </List>
             <Divider/>
             <List>
-                {GetMenuItemsBlock(SettingsItemsData)}
+                {GetMenuItemsBlock(SettingsItemsData, pathname)}
             </List>
         </div>
     );
+
 
     return (
         <Box
