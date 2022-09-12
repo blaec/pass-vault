@@ -53,6 +53,7 @@ const NewPassword = () => {
     const passwordRef = React.useRef();
     const websiteRef = React.useRef();
     const noteRef = React.useRef();
+    const creationDateRef = React.useRef();
 
     const dispatch = useDispatch();
 
@@ -73,7 +74,8 @@ const NewPassword = () => {
             user: userRef.current.value,
             password: passwordRef.current.value,
             website: websiteRef.current.value,
-            note: noteRef.current.value
+            note: noteRef.current.value,
+            creationDate: creationDateRef.current.value
         };
         dispatch(savePassword(password));
         dispatch(passgenActions.resetPassgen());
@@ -88,7 +90,8 @@ const NewPassword = () => {
             user: userRef.current.value,
             password: passwordRef.current.value,
             website: websiteRef.current.value,
-            note: noteRef.current.value
+            note: noteRef.current.value,
+            creationDate: creationDateRef.current.value
         };
         dispatch(updatePassword(password));
         navigate(reactLinks.passwords);
@@ -124,11 +127,12 @@ const NewPassword = () => {
         websiteValue: "",
         noteValue: "",
         folderValue: "",
+        creationDateValue: new Date(),
         actionHandler: handleSave,
         action: "Create"
     };
     if (isObjectExist(editablePassword)) {
-        const {title, user, password, website, note, folder} = editablePassword;
+        const {title, user, password, website, note, folder, creationDate} = editablePassword;
         passwordInput = {
             titleValue: title,
             userValue: user,
@@ -136,6 +140,7 @@ const NewPassword = () => {
             websiteValue: website,
             noteValue: note,
             folderValue: folderId || folder.id,
+            creationDateValue: creationDate,
             actionHandler: handleUpdate,
             action: "Update"
         };
@@ -185,7 +190,9 @@ const NewPassword = () => {
         multiline={true}
     />;
     const creationDateElement = <DatePickerElement
+        value={passwordInput.creationDateValue}
         style={_element}
+        elemRef={creationDateRef}
     />;
 
 

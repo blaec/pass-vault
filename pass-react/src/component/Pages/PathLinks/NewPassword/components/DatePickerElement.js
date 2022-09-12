@@ -1,17 +1,17 @@
 import React from 'react';
 
+import dayjs from "dayjs";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 import {Stack, TextField} from "@mui/material";
 import {DesktopDatePicker} from "@mui/x-date-pickers/DesktopDatePicker";
 import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
-import dayjs from "dayjs";
 
 
 const DatePickerElement = (props) => {
-    const {style} = props;
-    const [value, setValue] = React.useState(dayjs('2014-08-18T21:11:54'));
+    const {value, style, elemRef} = props;
+    const [currentValue, setCurrentValue] = React.useState(dayjs(value));
     const handleDateChange = (newValue) => {
-        setValue(newValue);
+        setCurrentValue(newValue);
     };
 
     return (
@@ -20,9 +20,10 @@ const DatePickerElement = (props) => {
                 <DesktopDatePicker
                     label="Creation date"
                     inputFormat="DD/MM/YYYY"
-                    value={value}
-                    onChange={handleDateChange}
+                    value={currentValue}
                     renderInput={(params) => <TextField {...params} />}
+                    inputRef={elemRef}
+                    onChange={handleDateChange}
                 />
             </Stack>
         </LocalizationProvider>
