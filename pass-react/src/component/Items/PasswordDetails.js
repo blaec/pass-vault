@@ -81,6 +81,12 @@ const PasswordDetails = (props) => {
                     description={"Note"}
                     value={selectedPassword.note}
                 />
+                <PasswordDataRow
+                    id={selectedPassword.creationDate}
+                    description={"Creation date"}
+                    isHideIcons={true}
+                    value={selectedPassword.creationDate}
+                />
             </>
         );
 

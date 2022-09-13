@@ -11,6 +11,9 @@ import {passwordActions} from "../../../../store/state/password/password-slice";
 import {passgenActions} from "../../../../store/state/passgen/passgen-slice";
 import PasswordGenerator from "../../Modals/PasswordGenerator/PasswordGenerator";
 import PasswordStrength from "../../Modals/PasswordGenerator/components/PasswordStrength";
+import dayjs from 'dayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 import {
     Card,
@@ -21,10 +24,12 @@ import {
     Grid,
     InputLabel,
     MenuItem,
-    Select
+    Select, Stack, TextField
 } from "@mui/material";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import DatePickerElement from "./components/DatePickerElement";
 
 
 const _loader = {mt: 1};
@@ -48,6 +53,7 @@ const NewPassword = () => {
     const passwordRef = React.useRef();
     const websiteRef = React.useRef();
     const noteRef = React.useRef();
+    const creationDateRef = React.useRef();
 
     const dispatch = useDispatch();
 
@@ -68,7 +74,8 @@ const NewPassword = () => {
             user: userRef.current.value,
             password: passwordRef.current.value,
             website: websiteRef.current.value,
-            note: noteRef.current.value
+            note: noteRef.current.value,
+            creationDate: creationDateRef.current.value
         };
         dispatch(savePassword(password));
         dispatch(passgenActions.resetPassgen());
@@ -83,7 +90,8 @@ const NewPassword = () => {
             user: userRef.current.value,
             password: passwordRef.current.value,
             website: websiteRef.current.value,
-            note: noteRef.current.value
+            note: noteRef.current.value,
+            creationDate: creationDateRef.current.value
         };
         dispatch(updatePassword(password));
         navigate(reactLinks.passwords);
@@ -119,11 +127,12 @@ const NewPassword = () => {
         websiteValue: "",
         noteValue: "",
         folderValue: "",
+        creationDateValue: new Date(),
         actionHandler: handleSave,
         action: "Create"
     };
     if (isObjectExist(editablePassword)) {
-        const {title, user, password, website, note, folder} = editablePassword;
+        const {title, user, password, website, note, folder, creationDate} = editablePassword;
         passwordInput = {
             titleValue: title,
             userValue: user,
@@ -131,6 +140,7 @@ const NewPassword = () => {
             websiteValue: website,
             noteValue: note,
             folderValue: folderId || folder.id,
+            creationDateValue: creationDate,
             actionHandler: handleUpdate,
             action: "Update"
         };
@@ -179,6 +189,11 @@ const NewPassword = () => {
         label={"Note"}
         multiline={true}
     />;
+    const creationDateElement = <DatePickerElement
+        value={passwordInput.creationDateValue}
+        style={_element}
+        elemRef={creationDateRef}
+    />;
 
 
     const strengthElement = isStrengthLoaded
@@ -217,6 +232,7 @@ const NewPassword = () => {
                     </Box>
                     {folderSelect}
                     {noteElement}
+                    {creationDateElement}
                 </CardContent>
                 <CardActions>
                     <Grid
