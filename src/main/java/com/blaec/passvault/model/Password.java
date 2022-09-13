@@ -15,24 +15,11 @@ import java.time.LocalDate;
 @Setter(AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "passwords")
-public class Password {
-
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Id
-    private Integer id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "folder_id", nullable = false)
-    private Folder folder;
-
-    @NonNull private String title;
+public class Password extends BaseItem {
     @NonNull private String user;
     @NonNull private String password;
     @NonNull private String website;
     private String note;
-
-    @Column(name="creation_date")
-    @NonNull private LocalDate creationDate;
 
     public static Password from(NewPasswordTo passwordTo, Folder folder) {
         Password created = new Password();
