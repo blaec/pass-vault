@@ -2,7 +2,6 @@ package com.blaec.passvault.model;
 
 import com.blaec.passvault.model.to.ExistingPasswordTo;
 import com.blaec.passvault.model.to.NewPasswordTo;
-import com.blaec.passvault.utils.DateTimeUtils;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
@@ -42,7 +41,7 @@ public class Password {
         created.password = passwordTo.getPassword();
         created.website = passwordTo.getWebsite();
         created.note = passwordTo.getNote();
-        created.creationDate = LocalDate.parse(passwordTo.getCreationDate(), DateTimeUtils.formatter);
+        created.creationDate = LocalDate.now();
 
         return created;
     }
@@ -56,7 +55,7 @@ public class Password {
         created.password = passwordTo.getPassword();
         created.website = passwordTo.getWebsite();
         created.note = passwordTo.getNote();
-        created.creationDate = LocalDate.parse(passwordTo.getCreationDate(), DateTimeUtils.formatter);
+        created.creationDate = LocalDate.now();
 
         return created;
     }

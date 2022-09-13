@@ -15,5 +15,4 @@ public abstract class BasePasswordTo {
     private final String password;
     private final String website;
     private final String note;
-    private final String creationDate;
 }

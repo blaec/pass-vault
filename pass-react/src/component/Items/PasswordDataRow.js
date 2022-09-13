@@ -8,7 +8,7 @@ import TableCell from "@mui/material/TableCell";
 
 
 const PasswordDataRow = (props) => {
-    const {id, description, value, isHideIcons, isHidden, icon} = props;
+    const {id, description, value, hideIcons, isHidden, icon} = props;
 
     const _description = {width: '25%'};
     const _value = {width: '65%'};
@@ -19,7 +19,7 @@ const PasswordDataRow = (props) => {
         : value;
 
 
-    const icons = isHideIcons
+    const icons = hideIcons
         ? null
         : (
             <>
