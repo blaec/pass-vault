@@ -45,6 +45,23 @@ export const passwordApi = {
     },
 };
 
+let baseSecretNoteApi = "/secret-note/";
+export const secretNoteApi = {
+    get: {
+        getAll: `${baseSecretNoteApi}get-all`,
+        getAllByFolder: `${baseSecretNoteApi}get-all-by-folder/`,
+    },
+    post: {
+        create: `${baseSecretNoteApi}create/`,
+    },
+    put: {
+        update: `${baseSecretNoteApi}update/`,
+    },
+    delete: {
+        delete: `${baseSecretNoteApi}delete/`,
+    },
+};
+
 let basePassGeneratorApi = "/pass-generator/";
 export const passgenApi = {
     post: {

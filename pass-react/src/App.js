@@ -15,6 +15,7 @@ import Layout from "./hoc/Layout";
 import {reactLinks} from "./utils/UrlUtils";
 import {fetchFolders} from "./store/state/folder/folder-actions";
 import {fetchPasswords} from "./store/state/password/password-actions";
+import SecretNote from "./component/Pages/MenuItems/SecretNote/SecretNote";
 
 function App() {
     const {
@@ -43,6 +44,7 @@ function App() {
 
                 {/* Menu items */}
                 <Route path={passwords} exact element={<Password/>}/>
+                <Route path={secureNotes} exact element={<SecretNote/>}/>
                 <Route path={folders} exact element={<Folder/>}/>
                 <Route path={settings} exact element={<Settings/>}/>
 

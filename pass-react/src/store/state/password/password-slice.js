@@ -3,7 +3,7 @@ import {createSlice} from '@reduxjs/toolkit';
 const initialState = {
     passwords: {passwords: '', isPasswordsLoaded: false},
     passwordsByFolder: {passwords: '', isPasswordsLoaded: false},
-    editablePassword: {password: ''}
+    editablePassword: {editablePassword: ''}
 };
 
 const passwordSlice = createSlice({
