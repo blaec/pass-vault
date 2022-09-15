@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(PasswordController.URL)
 @CrossOrigin(origins = "*")
 @RestController
-public class PasswordController extends AbstractController{
+public class PasswordController extends AbstractController {
     static final String URL = API_VERSION + "/password";
     private final PasswordService passwordService;
     private final FolderService folderService;
