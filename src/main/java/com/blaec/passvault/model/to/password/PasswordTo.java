@@ -21,8 +21,4 @@ public class PasswordTo {
     public static PasswordTo create(Integer passwordId, int folderId, String title, String user, String password, String website, String note, String creationDate) {
         return new PasswordTo(passwordId, folderId, title, user, password, website, note, creationDate);
     }
-
-    public boolean isNew() {
-        return passwordId == null;
-    }
 }

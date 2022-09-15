@@ -25,10 +25,7 @@ public class Password extends BaseItem {
     public static Password from(PasswordTo passwordTo, Folder folder) {
         Password created = new Password();
 
-        Integer passwordId = passwordTo.getPasswordId();
-        if (!passwordTo.isNew()) {
-            created.id = passwordId;
-        }
+        created.id = passwordTo.getPasswordId();
         created.folder = folder;
         created.title = passwordTo.getTitle();
         created.user = passwordTo.getUser();
