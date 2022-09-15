@@ -1,6 +1,5 @@
 package com.blaec.passvault.model;
 
-import com.blaec.passvault.model.to.password.PasswordTo;
 import com.blaec.passvault.model.to.secretNote.SecretNoteTo;
 import com.blaec.passvault.utils.DateTimeUtils;
 import lombok.*;
