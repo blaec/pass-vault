@@ -11,9 +11,6 @@ import {passwordActions} from "../../../../store/state/password/password-slice";
 import {passgenActions} from "../../../../store/state/passgen/passgen-slice";
 import PasswordGenerator from "../../Modals/PasswordGenerator/PasswordGenerator";
 import PasswordStrength from "../../Modals/PasswordGenerator/components/PasswordStrength";
-import dayjs from 'dayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 import {
     Card,
@@ -24,11 +21,10 @@ import {
     Grid,
     InputLabel,
     MenuItem,
-    Select, Stack, TextField
+    Select
 } from "@mui/material";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import DatePickerElement from "./components/DatePickerElement";
 
 
