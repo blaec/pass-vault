@@ -1,13 +1,14 @@
 package com.blaec.passvault.model;
 
-import com.blaec.passvault.model.to.ExistingPasswordTo;
-import com.blaec.passvault.model.to.NewPasswordTo;
+import com.blaec.passvault.model.to.password.PasswordTo;
 import com.blaec.passvault.utils.DateTimeUtils;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Slf4j
 @Entity
@@ -21,22 +22,13 @@ public class Password extends BaseItem {
     @NonNull private String website;
     private String note;
 
-    public static Password from(NewPasswordTo passwordTo, Folder folder) {
+    public static Password from(PasswordTo passwordTo, Folder folder) {
         Password created = new Password();
-        created.folder = folder;
-        created.title = passwordTo.getTitle();
-        created.user = passwordTo.getUser();
-        created.password = passwordTo.getPassword();
-        created.website = passwordTo.getWebsite();
-        created.note = passwordTo.getNote();
-        created.creationDate = LocalDate.parse(passwordTo.getCreationDate(), DateTimeUtils.formatter);
 
-        return created;
-    }
-
-    public static Password from(ExistingPasswordTo passwordTo, Folder folder) {
-        Password created = new Password();
-        created.id = passwordTo.getPasswordId();
+        Integer passwordId = passwordTo.getPasswordId();
+        if (!passwordTo.isNew()) {
+            created.id = passwordId;
+        }
         created.folder = folder;
         created.title = passwordTo.getTitle();
         created.user = passwordTo.getUser();

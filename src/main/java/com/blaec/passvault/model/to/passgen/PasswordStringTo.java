@@ -1,4 +1,4 @@
-package com.blaec.passvault.model.to;
+package com.blaec.passvault.model.to.passgen;
 
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
@@ -7,6 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PasswordTo {
+public class PasswordStringTo {
     String password;
 }

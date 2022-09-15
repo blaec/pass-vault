@@ -1,6 +1,6 @@
 package com.blaec.passvault.controller;
 
-import com.blaec.passvault.model.to.NewPasswordTo;
+import com.blaec.passvault.model.to.password.PasswordTo;
 import com.blaec.passvault.service.FolderService;
 import com.blaec.passvault.service.PasswordService;
 import org.junit.jupiter.api.Order;
@@ -39,7 +39,7 @@ public class PasswordControllerTest extends AbstractControllerTest {
     @Test
     @Order(50)
     void savePassword() throws Exception {
-        NewPasswordTo passwordTo = NewPasswordTo.create(1, "title", "user", "password", "www.website.com", "", "10/10/2020");
+        PasswordTo passwordTo = PasswordTo.create(null, 1, "title", "user", "password", "www.website.com", "", "10/10/2020");
         final String url = String.format("%s/create/%s", PasswordController.URL, passwordTo);
 
         ResultActions resultActions = perform(MockMvcRequestBuilders.post(url));

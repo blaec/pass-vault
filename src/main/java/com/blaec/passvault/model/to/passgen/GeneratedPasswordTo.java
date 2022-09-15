@@ -1,4 +1,4 @@
-package com.blaec.passvault.model.to;
+package com.blaec.passvault.model.to.passgen;
 
 import com.blaec.passvault.enums.PasswordStrength;
 import com.blaec.passvault.model.passGenerator.PasswordCreator;

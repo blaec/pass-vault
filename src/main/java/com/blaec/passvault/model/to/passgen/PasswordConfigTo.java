@@ -1,4 +1,4 @@
-package com.blaec.passvault.model.to;
+package com.blaec.passvault.model.to.passgen;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

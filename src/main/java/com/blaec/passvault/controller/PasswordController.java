@@ -3,8 +3,7 @@ package com.blaec.passvault.controller;
 import com.blaec.passvault.model.Folder;
 import com.blaec.passvault.model.Password;
 import com.blaec.passvault.model.response.Response;
-import com.blaec.passvault.model.to.ExistingPasswordTo;
-import com.blaec.passvault.model.to.NewPasswordTo;
+import com.blaec.passvault.model.to.password.PasswordTo;
 import com.blaec.passvault.service.FolderService;
 import com.blaec.passvault.service.PasswordService;
 import lombok.AllArgsConstructor;
@@ -32,7 +31,7 @@ public class PasswordController extends AbstractController{
     }
 
     @PostMapping("/create")
-    public Response savePassword(@RequestBody NewPasswordTo passwordTo) {
+    public Response savePassword(@RequestBody PasswordTo passwordTo) {
         log.info("saving password | {}", passwordTo.getTitle());
         Folder folder = folderService.getById(passwordTo.getFolderId())
                 .orElse(null);
@@ -41,7 +40,7 @@ public class PasswordController extends AbstractController{
     }
 
     @PutMapping("/update")
-    public Response updatePassword(@RequestBody ExistingPasswordTo passwordTo) {
+    public Response updatePassword(@RequestBody PasswordTo passwordTo) {
         log.info("updating password | {}", passwordTo.getTitle());
         Folder folder = folderService.getById(passwordTo.getFolderId())
                 .orElse(null);
