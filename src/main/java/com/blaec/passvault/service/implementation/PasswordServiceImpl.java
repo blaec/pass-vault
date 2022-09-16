@@ -4,6 +4,7 @@ import com.blaec.passvault.model.Folder;
 import com.blaec.passvault.model.Password;
 import com.blaec.passvault.model.response.Response;
 import com.blaec.passvault.model.to.password.PasswordTo;
+import com.blaec.passvault.repository.FolderRepository;
 import com.blaec.passvault.repository.PasswordRepository;
 import com.blaec.passvault.service.PasswordService;
 import lombok.AllArgsConstructor;
@@ -17,6 +18,7 @@ import java.util.Objects;
 @Service
 public class PasswordServiceImpl implements PasswordService {
     private final PasswordRepository passwordRepository;
+    private final FolderRepository folderRepository;
 
     @Override
     public Iterable<Password> getAll() {
@@ -29,15 +31,18 @@ public class PasswordServiceImpl implements PasswordService {
     }
 
     @Override
-    public Response.Builder create(PasswordTo passwordTo, Folder folder) {
-        Password password = Password.from(passwordTo, Objects.requireNonNull(folder, "folder not supplied"));
-        return save(password, "Password for {} successfully saved");
+    public Response.Builder create(PasswordTo passwordTo) {
+        return save(getPassword(passwordTo), "Password for {} successfully saved");
     }
 
     @Override
-    public Response.Builder update(PasswordTo passwordTo, Folder folder) {
-        Password password = Password.from(passwordTo, Objects.requireNonNull(folder, "folder not supplied"));
-        return save(password, "Password for {} successfully updated");
+    public Response.Builder update(PasswordTo passwordTo) {
+        return save(getPassword(passwordTo), "Password for {} successfully updated");
+    }
+
+    private Password getPassword(PasswordTo passwordTo) {
+        Folder folder = folderRepository.getById(passwordTo.getFolderId()).orElse(null);
+        return Password.from(passwordTo, Objects.requireNonNull(folder, "folder not supplied"));
     }
 
     private Response.Builder save(Password password, String message) {

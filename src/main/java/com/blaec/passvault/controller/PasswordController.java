@@ -1,10 +1,8 @@
 package com.blaec.passvault.controller;
 
-import com.blaec.passvault.model.Folder;
 import com.blaec.passvault.model.Password;
 import com.blaec.passvault.model.response.Response;
 import com.blaec.passvault.model.to.password.PasswordTo;
-import com.blaec.passvault.service.FolderService;
 import com.blaec.passvault.service.PasswordService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 public class PasswordController extends AbstractController {
     static final String URL = API_VERSION + "/password";
     private final PasswordService passwordService;
-    private final FolderService folderService;
 
     @GetMapping("/get-all")
     public Iterable<Password> getAll() {
@@ -33,19 +30,13 @@ public class PasswordController extends AbstractController {
     @PostMapping("/create")
     public Response savePassword(@RequestBody PasswordTo passwordTo) {
         log.info("saving password | {}", passwordTo.getTitle());
-        Folder folder = folderService.getById(passwordTo.getFolderId())
-                .orElse(null);
-
-        return passwordService.create(passwordTo, folder).build();
+        return passwordService.create(passwordTo).build();
     }
 
     @PutMapping("/update")
     public Response updatePassword(@RequestBody PasswordTo passwordTo) {
         log.info("updating password | {}", passwordTo.getTitle());
-        Folder folder = folderService.getById(passwordTo.getFolderId())
-                .orElse(null);
-
-        return passwordService.update(passwordTo, folder).build();
+        return passwordService.update(passwordTo).build();
     }
 
     @DeleteMapping("/delete/{id}")

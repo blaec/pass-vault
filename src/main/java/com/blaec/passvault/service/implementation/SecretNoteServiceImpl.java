@@ -4,6 +4,7 @@ import com.blaec.passvault.model.Folder;
 import com.blaec.passvault.model.SecretNote;
 import com.blaec.passvault.model.response.Response;
 import com.blaec.passvault.model.to.secretNote.SecretNoteTo;
+import com.blaec.passvault.repository.FolderRepository;
 import com.blaec.passvault.repository.SecretNoteRepository;
 import com.blaec.passvault.service.SecretNoteService;
 import lombok.AllArgsConstructor;
@@ -17,6 +18,7 @@ import java.util.Objects;
 @Service
 public class SecretNoteServiceImpl implements SecretNoteService {
     private final SecretNoteRepository secretNoteRepository;
+    private final FolderRepository folderRepository;
 
     @Override
     public Iterable<SecretNote> getAll() {
@@ -29,15 +31,18 @@ public class SecretNoteServiceImpl implements SecretNoteService {
     }
 
     @Override
-    public Response.Builder create(SecretNoteTo secretNoteTo, Folder folder) {
-        SecretNote secretNote = SecretNote.from(secretNoteTo, Objects.requireNonNull(folder, "folder not supplied"));
-        return save(secretNote, "Secret note for {} successfully saved");
+    public Response.Builder create(SecretNoteTo secretNoteTo) {
+        return save(getSecretNote(secretNoteTo), "Secret note for {} successfully saved");
     }
 
     @Override
-    public Response.Builder update(SecretNoteTo secretNoteTo, Folder folder) {
-        SecretNote secretNote = SecretNote.from(secretNoteTo, Objects.requireNonNull(folder, "folder not supplied"));
-        return save(secretNote, "Password for {} successfully updated");
+    public Response.Builder update(SecretNoteTo secretNoteTo) {
+        return save(getSecretNote(secretNoteTo), "Password for {} successfully updated");
+    }
+
+    private SecretNote getSecretNote(SecretNoteTo secretNoteTo) {
+        Folder folder = folderRepository.getById(secretNoteTo.getFolderId()).orElse(null);
+        return SecretNote.from(secretNoteTo, Objects.requireNonNull(folder, "folder not supplied"));
     }
 
     private Response.Builder save(SecretNote secretNote, String message) {

@@ -1,10 +1,8 @@
 package com.blaec.passvault.controller;
 
-import com.blaec.passvault.model.Folder;
 import com.blaec.passvault.model.SecretNote;
 import com.blaec.passvault.model.response.Response;
 import com.blaec.passvault.model.to.secretNote.SecretNoteTo;
-import com.blaec.passvault.service.FolderService;
 import com.blaec.passvault.service.SecretNoteService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 public class SecretNoteController extends AbstractController {
     static final String URL = API_VERSION + "/secret-note";
     private final SecretNoteService secretNoteService;
-    private final FolderService folderService;
 
     @GetMapping("/get-all")
     public Iterable<SecretNote> getAll() {
@@ -33,19 +30,13 @@ public class SecretNoteController extends AbstractController {
     @PostMapping("/create")
     public Response saveSecretNote(@RequestBody SecretNoteTo secretNoteTo) {
         log.info("saving secret note | {}", secretNoteTo.getTitle());
-        Folder folder = folderService.getById(secretNoteTo.getFolderId())
-                .orElse(null);
-
-        return secretNoteService.create(secretNoteTo, folder).build();
+        return secretNoteService.create(secretNoteTo).build();
     }
 
     @PutMapping("/update")
     public Response updateSecretNote(@RequestBody SecretNoteTo secretNoteTo) {
         log.info("updating secret note | {}", secretNoteTo.getTitle());
-        Folder folder = folderService.getById(secretNoteTo.getFolderId())
-                .orElse(null);
-
-        return secretNoteService.update(secretNoteTo, folder).build();
+        return secretNoteService.update(secretNoteTo).build();
     }
 
     @DeleteMapping("/delete/{id}")
