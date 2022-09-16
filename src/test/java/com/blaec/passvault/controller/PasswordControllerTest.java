@@ -1,8 +1,9 @@
 package com.blaec.passvault.controller;
 
+import com.blaec.passvault.model.Password;
 import com.blaec.passvault.model.to.password.PasswordTo;
 import com.blaec.passvault.service.FolderService;
-import com.blaec.passvault.service.PasswordService;
+import com.blaec.passvault.service.ItemService;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class PasswordControllerTest extends AbstractControllerTest {
     @Autowired private FolderService folderService;
-    @Autowired private PasswordService passwordService;
+    @Autowired private ItemService<Password, PasswordTo> passwordService;
 
     @Test
     @Order(10)

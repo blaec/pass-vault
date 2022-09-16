@@ -3,7 +3,7 @@ package com.blaec.passvault.controller;
 import com.blaec.passvault.model.SecretNote;
 import com.blaec.passvault.model.response.Response;
 import com.blaec.passvault.model.to.secretNote.SecretNoteTo;
-import com.blaec.passvault.service.SecretNoteService;
+import com.blaec.passvault.service.ItemService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class SecretNoteController extends AbstractController {
     static final String URL = API_VERSION + "/secret-note";
-    private final SecretNoteService secretNoteService;
+    private final ItemService<SecretNote, SecretNoteTo> secretNoteService;
 
     @GetMapping("/get-all")
     public Iterable<SecretNote> getAll() {

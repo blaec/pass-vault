@@ -6,17 +6,19 @@ import com.blaec.passvault.model.response.Response;
 import com.blaec.passvault.model.to.secretNote.SecretNoteTo;
 import com.blaec.passvault.repository.FolderRepository;
 import com.blaec.passvault.repository.SecretNoteRepository;
-import com.blaec.passvault.service.SecretNoteService;
+import com.blaec.passvault.service.ItemService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
+import java.util.function.BooleanSupplier;
+import java.util.function.Supplier;
 
 @Slf4j
 @AllArgsConstructor
 @Service
-public class SecretNoteServiceImpl implements SecretNoteService {
+public class SecretNoteServiceImpl implements ItemService<SecretNote, SecretNoteTo> {
     private final SecretNoteRepository secretNoteRepository;
     private final FolderRepository folderRepository;
 
@@ -31,45 +33,37 @@ public class SecretNoteServiceImpl implements SecretNoteService {
     }
 
     @Override
-    public Response.Builder create(SecretNoteTo secretNoteTo) {
-        return save(getSecretNote(secretNoteTo), "Secret note for {} successfully saved");
+    public Response.Builder create(SecretNoteTo to) {
+        return save(createSecretNoteFrom(to), "Secret note for {} successfully saved");
     }
 
     @Override
-    public Response.Builder update(SecretNoteTo secretNoteTo) {
-        return save(getSecretNote(secretNoteTo), "Password for {} successfully updated");
+    public Response.Builder update(SecretNoteTo to) {
+        return save(createSecretNoteFrom(to), "Password for {} successfully updated");
     }
 
-    private SecretNote getSecretNote(SecretNoteTo secretNoteTo) {
-        Folder folder = folderRepository.getById(secretNoteTo.getFolderId()).orElse(null);
-        return SecretNote.from(secretNoteTo, Objects.requireNonNull(folder, "folder not supplied"));
+    private SecretNote createSecretNoteFrom(SecretNoteTo to) {
+        Folder folder = folderRepository.getById(to.getFolderId()).orElse(null);
+        return SecretNote.from(to, Objects.requireNonNull(folder, "folder not supplied"));
     }
 
     private Response.Builder save(SecretNote secretNote, String message) {
-        Response.Builder response = Response.Builder.create();
-        try {
+        return ItemServiceUtils.save(() -> {
             SecretNote saved = secretNoteRepository.save(secretNote);
             log.info(message, saved.getTitle());
-            response.setSuccess("success");
-        } catch (Exception e) {
-            response.setFailure("failure");
-        }
-
-        return response;
+        });
     }
 
-   @Override
+    @Override
     public Response.Builder delete(int id) {
-       Response.Builder response = Response.Builder.create();
+        BooleanSupplier idDeleted = () -> secretNoteRepository.isDeleted(id);
+        Supplier<String> logSuccess = () -> {
+            String message = String.format("deleted | secret note with id %d", id);
+            log.info(message);
 
-       if (secretNoteRepository.isDeleted(id)) {
-           String message = String.format("deleted | secret note with id %d", id);
-           log.info(message);
-           response.setSuccess(message);
-       } else {
-           throw new IllegalStateException();
-       }
+            return message;
+        };
 
-       return response;
+        return ItemServiceUtils.delete(idDeleted, logSuccess);
     }
 }
