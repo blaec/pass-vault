@@ -1,7 +1,7 @@
 package com.blaec.passvault.repository.implementations;
 
 import com.blaec.passvault.model.SecretNote;
-import com.blaec.passvault.repository.SecretNoteRepository;
+import com.blaec.passvault.repository.ItemRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Slf4j
 @AllArgsConstructor
 @Repository
-public class SecretNoteRepositoryImpl implements SecretNoteRepository {
+public class SecretNoteRepositoryImpl implements ItemRepository<SecretNote> {
     private final CrudSecretNoteRepository crudSecretNoteRepository;
 
     @Override

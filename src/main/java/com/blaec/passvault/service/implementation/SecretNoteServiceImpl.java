@@ -5,7 +5,7 @@ import com.blaec.passvault.model.SecretNote;
 import com.blaec.passvault.model.response.Response;
 import com.blaec.passvault.model.to.secretNote.SecretNoteTo;
 import com.blaec.passvault.repository.FolderRepository;
-import com.blaec.passvault.repository.SecretNoteRepository;
+import com.blaec.passvault.repository.ItemRepository;
 import com.blaec.passvault.service.ItemService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +19,7 @@ import java.util.function.Supplier;
 @AllArgsConstructor
 @Service
 public class SecretNoteServiceImpl implements ItemService<SecretNote, SecretNoteTo> {
-    private final SecretNoteRepository secretNoteRepository;
+    private final ItemRepository<SecretNote> secretNoteRepository;
     private final FolderRepository folderRepository;
 
     @Override
