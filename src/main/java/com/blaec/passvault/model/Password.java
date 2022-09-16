@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.time.LocalDate;
-import java.util.Objects;
 
 @Slf4j
 @Entity
@@ -20,7 +19,6 @@ public class Password extends BaseItem {
     @NonNull private String user;
     @NonNull private String password;
     @NonNull private String website;
-    private String note;
 
     public static Password from(PasswordTo passwordTo, Folder folder) {
         Password created = new Password();

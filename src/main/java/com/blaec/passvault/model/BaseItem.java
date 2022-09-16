@@ -1,7 +1,6 @@
 package com.blaec.passvault.model;
 
 import lombok.*;
-import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -13,16 +12,16 @@ import java.time.LocalDate;
 public abstract class BaseItem {
 
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Id
-    protected Integer id;
+    @Id protected Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "folder_id", nullable = false)
     protected Folder folder;
 
-    @NonNull
-    protected String title;
+    @NonNull protected String title;
 
     @Column(name="creation_date")
     @NonNull protected LocalDate creationDate;
+
+    protected String note;
 }

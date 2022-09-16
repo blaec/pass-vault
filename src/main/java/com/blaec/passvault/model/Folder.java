@@ -14,8 +14,7 @@ import javax.persistence.*;
 public class Folder {
 
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Id
-    private Integer id;
+    @Id private Integer id;
 
     @NonNull private String name;
 

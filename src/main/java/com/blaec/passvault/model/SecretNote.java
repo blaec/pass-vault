@@ -16,7 +16,6 @@ import java.time.LocalDate;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "secret_notes")
 public class SecretNote extends BaseItem {
-    @NonNull private String note;
 
     public static SecretNote from(SecretNoteTo secretNoteTo, Folder folder) {
         SecretNote created = new SecretNote();
