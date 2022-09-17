@@ -34,24 +34,24 @@ public class ItemController extends AbstractController {
         );
     }
 
-    @GetMapping("/get-all-by-folder/{folderId}")
-    public Map<ItemType, List<ItemTo>> getAll(@PathVariable int folderId) {
+    @GetMapping("/get-all-in-folder/{folderId}")
+    public Map<ItemType, List<ItemTo>> getAllInFolder(@PathVariable int folderId) {
         return Map.of(
                 ItemType.passwords, mappedPasswords(passwordService.getAllByFolderId(folderId)),
                 ItemType.secretNotes, mappedSecretNotes(secretNoteService.getAllByFolderId(folderId))
         );
     }
 
-    @GetMapping("/get-all/{itemType}")
-    public List<ItemTo> getAllByType(@PathVariable ItemType itemType) {
-        if (itemType == ItemType.passwords) {
-            return mappedPasswords(passwordService.getAll());
-        } else if (itemType == ItemType.secretNotes) {
-            return mappedSecretNotes(secretNoteService.getAll());
-        } else {
-            throw new IllegalArgumentException();
-        }
-    }
+//    @GetMapping("/get-all-by-type/{itemType}")
+//    public List<ItemTo> getAllByType(@PathVariable ItemType itemType) {
+//        if (itemType == ItemType.passwords) {
+//            return mappedPasswords(passwordService.getAll());
+//        } else if (itemType == ItemType.secretNotes) {
+//            return mappedSecretNotes(secretNoteService.getAll());
+//        } else {
+//            throw new IllegalArgumentException();
+//        }
+//    }
 
     @PostMapping("/create")
     public Response saveItem(@RequestBody FullItemTo to) {

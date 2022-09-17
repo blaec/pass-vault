@@ -29,6 +29,24 @@ export const folderApi = {
     },
 };
 
+let baseItemApi = "/items/";
+export const itemApi = {
+    get: {
+        getAll: `${baseItemApi}get-all`,
+        getAllInFolder: `${baseItemApi}get-all-in-folder/`,
+        // getAllByType: `${baseItemApi}get-all-by-type/`,
+    },
+    post: {
+        create: `${baseItemApi}create/`,
+    },
+    put: {
+        update: `${baseItemApi}update/`,
+    },
+    delete: {
+        delete: `${baseItemApi}delete/`,
+    },
+};
+
 let basePasswordApi = "/password/";
 export const passwordApi = {
     get: {
