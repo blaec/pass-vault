@@ -3,7 +3,7 @@ package com.blaec.passvault.service.implementation;
 import com.blaec.passvault.model.Folder;
 import com.blaec.passvault.model.Password;
 import com.blaec.passvault.model.response.Response;
-import com.blaec.passvault.model.to.password.PasswordTo;
+import com.blaec.passvault.model.to.item.FullItemTo;
 import com.blaec.passvault.repository.FolderRepository;
 import com.blaec.passvault.repository.ItemRepository;
 import com.blaec.passvault.service.ItemService;
@@ -18,7 +18,7 @@ import java.util.function.Supplier;
 @Slf4j
 @AllArgsConstructor
 @Service
-public class PasswordServiceImpl implements ItemService<Password, PasswordTo> {
+public class PasswordServiceImpl implements ItemService<Password> {
     private final ItemRepository<Password> passwordRepository;
     private final FolderRepository folderRepository;
 
@@ -33,16 +33,16 @@ public class PasswordServiceImpl implements ItemService<Password, PasswordTo> {
     }
 
     @Override
-    public Response.Builder create(PasswordTo to) {
+    public Response.Builder create(FullItemTo to) {
         return save(createPasswordFrom(to), "Password for {} successfully saved");
     }
 
     @Override
-    public Response.Builder update(PasswordTo to) {
+    public Response.Builder update(FullItemTo to) {
         return save(createPasswordFrom(to), "Password for {} successfully updated");
     }
 
-    private Password createPasswordFrom(PasswordTo to) {
+    private Password createPasswordFrom(FullItemTo to) {
         Folder folder = folderRepository.getById(to.getFolderId()).orElse(null);
         return Password.from(to, Objects.requireNonNull(folder, "folder not supplied"));
     }

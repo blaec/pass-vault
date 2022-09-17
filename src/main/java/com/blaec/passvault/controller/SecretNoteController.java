@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class SecretNoteController extends AbstractController {
     static final String URL = API_VERSION + "/secret-note";
-    private final ItemService<SecretNote, SecretNoteTo> secretNoteService;
+    private final ItemService<SecretNote> secretNoteService;
 
     @GetMapping("/get-all")
     public Iterable<SecretNote> getAll() {
@@ -30,13 +30,15 @@ public class SecretNoteController extends AbstractController {
     @PostMapping("/create")
     public Response saveSecretNote(@RequestBody SecretNoteTo secretNoteTo) {
         log.info("saving secret note | {}", secretNoteTo.getTitle());
-        return secretNoteService.create(secretNoteTo).build();
+//        return secretNoteService.create(secretNoteTo).build();
+        return Response.Builder.create().setFailure("old version").build();
     }
 
     @PutMapping("/update")
     public Response updateSecretNote(@RequestBody SecretNoteTo secretNoteTo) {
         log.info("updating secret note | {}", secretNoteTo.getTitle());
-        return secretNoteService.update(secretNoteTo).build();
+//        return secretNoteService.update(secretNoteTo).build();
+        return Response.Builder.create().setFailure("old version").build();
     }
 
     @DeleteMapping("/delete/{id}")

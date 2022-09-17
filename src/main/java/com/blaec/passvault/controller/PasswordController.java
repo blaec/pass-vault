@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class PasswordController extends AbstractController {
     static final String URL = API_VERSION + "/password";
-    private final ItemService<Password, PasswordTo> passwordService;
+    private final ItemService<Password> passwordService;
 
     @GetMapping("/get-all")
     public Iterable<Password> getAll() {
@@ -30,13 +30,15 @@ public class PasswordController extends AbstractController {
     @PostMapping("/create")
     public Response savePassword(@RequestBody PasswordTo passwordTo) {
         log.info("saving password | {}", passwordTo.getTitle());
-        return passwordService.create(passwordTo).build();
+//        return passwordService.create(passwordTo).build();
+        return Response.Builder.create().setFailure("old version").build();
     }
 
     @PutMapping("/update")
     public Response updatePassword(@RequestBody PasswordTo passwordTo) {
         log.info("updating password | {}", passwordTo.getTitle());
-        return passwordService.update(passwordTo).build();
+//        return passwordService.update(passwordTo).build();
+        return Response.Builder.create().setFailure("old version").build();
     }
 
     @DeleteMapping("/delete/{id}")

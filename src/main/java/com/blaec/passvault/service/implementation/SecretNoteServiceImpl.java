@@ -3,6 +3,7 @@ package com.blaec.passvault.service.implementation;
 import com.blaec.passvault.model.Folder;
 import com.blaec.passvault.model.SecretNote;
 import com.blaec.passvault.model.response.Response;
+import com.blaec.passvault.model.to.item.FullItemTo;
 import com.blaec.passvault.model.to.secretNote.SecretNoteTo;
 import com.blaec.passvault.repository.FolderRepository;
 import com.blaec.passvault.repository.ItemRepository;
@@ -18,7 +19,7 @@ import java.util.function.Supplier;
 @Slf4j
 @AllArgsConstructor
 @Service
-public class SecretNoteServiceImpl implements ItemService<SecretNote, SecretNoteTo> {
+public class SecretNoteServiceImpl implements ItemService<SecretNote> {
     private final ItemRepository<SecretNote> secretNoteRepository;
     private final FolderRepository folderRepository;
 
@@ -33,16 +34,16 @@ public class SecretNoteServiceImpl implements ItemService<SecretNote, SecretNote
     }
 
     @Override
-    public Response.Builder create(SecretNoteTo to) {
+    public Response.Builder create(FullItemTo to) {
         return save(createSecretNoteFrom(to), "Secret note for {} successfully saved");
     }
 
     @Override
-    public Response.Builder update(SecretNoteTo to) {
+    public Response.Builder update(FullItemTo to) {
         return save(createSecretNoteFrom(to), "Password for {} successfully updated");
     }
 
-    private SecretNote createSecretNoteFrom(SecretNoteTo to) {
+    private SecretNote createSecretNoteFrom(FullItemTo to) {
         Folder folder = folderRepository.getById(to.getFolderId()).orElse(null);
         return SecretNote.from(to, Objects.requireNonNull(folder, "folder not supplied"));
     }
