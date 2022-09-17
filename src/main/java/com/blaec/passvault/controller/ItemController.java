@@ -4,22 +4,15 @@ import com.blaec.passvault.enums.ItemType;
 import com.blaec.passvault.model.Password;
 import com.blaec.passvault.model.SecretNote;
 import com.blaec.passvault.model.to.item.ItemTo;
-import com.blaec.passvault.model.to.item.PasswordItemTo;
-import com.blaec.passvault.model.to.item.SecretNoteItemTo;
 import com.blaec.passvault.model.to.password.PasswordTo;
 import com.blaec.passvault.model.to.secretNote.SecretNoteTo;
 import com.blaec.passvault.service.ItemService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Slf4j
 @AllArgsConstructor
@@ -34,9 +27,29 @@ public class ItemController extends AbstractController {
 
     @GetMapping("/get-all")
     public Map<ItemType, List<ItemTo>> getAll() {
-        List<ItemTo> passwords = StreamSupport.stream(passwordService.getAll().spliterator(), false).map(PasswordItemTo::from).collect(Collectors.toList());
-        List<ItemTo> secretNotes = StreamSupport.stream(secretNoteService.getAll().spliterator(), false).map(SecretNoteItemTo::from).collect(Collectors.toList());
+        return Map.of(
+                ItemType.passwords,  mappedPasswords(passwordService.getAll()),
+                ItemType.secretNotes, mappedSecretNotes(secretNoteService.getAll())
+        );
+    }
 
-        return Map.of(ItemType.passwords, passwords, ItemType.secretNotes, secretNotes);
+
+    @GetMapping("/get-all-by-folder/{folderId}")
+    public Map<ItemType, List<ItemTo>> getAll(@PathVariable int folderId) {
+        return Map.of(
+                ItemType.passwords, mappedPasswords(passwordService.getAllByFolderId(folderId)),
+                ItemType.secretNotes, mappedSecretNotes(secretNoteService.getAllByFolderId(folderId))
+        );
+    }
+
+    @GetMapping("/get-all/{itemType}")
+    public List<ItemTo> getAllByType(@PathVariable ItemType itemType) {
+        if (itemType == ItemType.passwords) {
+            return mappedPasswords(passwordService.getAll());
+        } else if (itemType == ItemType.secretNotes) {
+            return mappedSecretNotes(secretNoteService.getAll());
+        } else {
+            throw new IllegalArgumentException();
+        }
     }
 }
