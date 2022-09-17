@@ -24,4 +24,9 @@ public abstract class BaseItem {
     @NonNull protected LocalDate creationDate;
 
     protected String note;
+
+
+    public Integer getFolderId() {
+        return folder.getId();
+    }
 }

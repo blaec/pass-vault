@@ -12,4 +12,4 @@ CREATE TABLE secret_notes
     PRIMARY KEY     (id)
 );
 
-ALTER TABLE passwords AUTO_INCREMENT = 100000;
+ALTER TABLE secret_notes AUTO_INCREMENT = 100000;

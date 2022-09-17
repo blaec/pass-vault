@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 @Getter
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class SecretNoteTo implements BaseItemTo {
-    private final Integer secretNodeId;
+    private final Integer secretNoteId;
     private final int folderId;
     private final String title;
     private final String note;

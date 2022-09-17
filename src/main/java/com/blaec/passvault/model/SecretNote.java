@@ -20,7 +20,7 @@ public class SecretNote extends BaseItem {
     public static SecretNote from(SecretNoteTo secretNoteTo, Folder folder) {
         SecretNote created = new SecretNote();
 
-        created.id = secretNoteTo.getSecretNodeId();
+        created.id = secretNoteTo.getSecretNoteId();
         created.folder = folder;
         created.title = secretNoteTo.getTitle();
         created.note = secretNoteTo.getNote();
