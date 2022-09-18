@@ -17,23 +17,25 @@ const initialState = {
     editableItem: {editableItem: ''}
 };
 
+const {passwords, secretNotes, creditCards} = itemType;
+
 const itemSlice = createSlice({
     name: 'item',
     initialState,
     reducers: {
         setItems(state, action) {
-            state.passwords = {
-                passwords: action.payload[itemType.passwords],
-                secretNotes: action.payload[itemType.secretNotes],
-                creditCards: action.payload[itemType.creditCards],
+            state.items = {
+                passwords: action.payload[passwords],
+                secretNotes: action.payload[secretNotes],
+                creditCards: action.payload[creditCards],
                 isLoaded: true
             };
         },
         setItemsInFolder(state, action) {
             state.itemsInFolder = {
-                passwords: action.payload[itemType.passwords],
-                secretNotes: action.payload[itemType.secretNotes],
-                creditCards: action.payload[itemType.creditCards],
+                passwords: action.payload[passwords],
+                secretNotes: action.payload[secretNotes],
+                creditCards: action.payload[creditCards],
                 isPasswordsLoaded: true
             };
         },

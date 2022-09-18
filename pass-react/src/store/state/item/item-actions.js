@@ -1,13 +1,13 @@
 import axios from "../../../axios-pass";
-import {itemApi} from "../../../utils/UrlUtils";
 import {itemActions} from "./item-slice";
+import {itemApi} from "../../../utils/UrlUtils";
 
 export const fetchItems = () => {
     return async (dispatch) => {
-        axios.get(itemActions.get.getAll)
+        axios.get(itemApi.get.getAll)
             .then(response => {
                 const {data} = response;
-                dispatch(itemActions.setPasswords(data));
+                dispatch(itemActions.setItems(data));
             })
             .catch(error => {
                 console.log(error);
@@ -15,12 +15,12 @@ export const fetchItems = () => {
     };
 };
 
-export const fetchPasswordsByFolder = (folderId) => {
+export const fetchItemsInFolder = (folderId) => {
     return async (dispatch) => {
-        axios.get(`${itemActions.get.getAllByFolder}${folderId}`)
+        axios.get(`${itemApi.get.getAllInFolder}${folderId}`)
             .then(response => {
                 const {data} = response;
-                dispatch(itemActions.setPasswordsByFolder(data));
+                dispatch(itemActions.setItemsInFolder(data));
             })
             .catch(error => {
                 console.log(error);
@@ -28,13 +28,13 @@ export const fetchPasswordsByFolder = (folderId) => {
     };
 };
 
-export const savePassword = (password) => {
+export const saveItem = (password) => {
     return async (dispatch) => {
-        axios.post(`${itemActions.post.create}`, password)
+        axios.post(`${itemApi.post.create}`, password)
             .then(response => {
                 const {data} = response;
-                dispatch(fetchPasswords());
-                dispatch(itemActions.resetEditablePassword());
+                dispatch(fetchItems());
+                dispatch(itemActions.resetEditableItem());
             })
             .catch(error => {
                 console.log(error);
@@ -42,12 +42,12 @@ export const savePassword = (password) => {
     };
 };
 
-export const updatePassword = (password) => {
+export const updateItem = (password) => {
     return async (dispatch) => {
-        axios.put(`${itemActions.put.update}`, password)
+        axios.put(`${itemApi.put.update}`, password)
             .then(response => {
                 const {data} = response;
-                dispatch(fetchPasswords());
+                dispatch(fetchItems());
             })
             .catch(error => {
                 console.log(error);
@@ -55,12 +55,12 @@ export const updatePassword = (password) => {
     };
 };
 
-export const deletePassword = (id) => {
+export const deleteItem = (id) => {
     return async (dispatch) => {
-        axios.delete(`${itemActions.delete.delete}${id}`)
+        axios.delete(`${itemApi.delete.delete}${id}`)
             .then(response => {
                 const {data} = response;
-                dispatch(fetchPasswords());
+                dispatch(fetchItems());
             })
             .catch(error => {
                 console.log(error);

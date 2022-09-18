@@ -18,6 +18,7 @@ import {fetchPasswords} from "./store/state/password/password-actions";
 import SecretNote from "./component/Pages/MenuItems/SecretNote/SecretNote";
 import {fetchSecretNotes} from "./store/state/secretNote/secret-note-actions";
 import NewSecretNote from "./component/Pages/PathLinks/NewSecretNote/NewSecretNote";
+import {fetchItems} from "./store/state/item/item-actions";
 
 function App() {
     const {
@@ -38,6 +39,7 @@ function App() {
 
     useEffect(() => {
         dispatch(fetchFolders());
+        dispatch(fetchItems());
         dispatch(fetchPasswords());
         dispatch(fetchSecretNotes());
     }, []);
