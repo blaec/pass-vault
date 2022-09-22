@@ -18,6 +18,7 @@ public class SecretNoteItemTo extends ItemTo {
 
         secretNoteItemTo.setId(secretNote.getId());
         secretNoteItemTo.setFolderId(secretNote.getFolderId());
+        secretNoteItemTo.setFolderName(secretNote.getFolderName());
         secretNoteItemTo.setTitle(secretNote.getTitle());
         secretNoteItemTo.setNote(secretNote.getNote());
         secretNoteItemTo.setCreationDate(String.valueOf(secretNote.getCreationDate()));

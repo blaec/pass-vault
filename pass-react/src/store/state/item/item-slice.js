@@ -36,7 +36,7 @@ const itemSlice = createSlice({
                 passwords: action.payload[passwords],
                 secretNotes: action.payload[secretNotes],
                 creditCards: action.payload[creditCards],
-                isPasswordsLoaded: true
+                isLoaded: true
             };
         },
         setEditableItem(state, action) {

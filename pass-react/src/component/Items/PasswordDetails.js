@@ -74,7 +74,7 @@ const PasswordDetails = (props) => {
                     id={selectedPassword.id}
                     description={"Folder"}
                     isHideIcons={true}
-                    value={selectedPassword.folder.name}
+                    value={selectedPassword.folderName}
                 />
                 <PasswordDataRow
                     id={selectedPassword.id}

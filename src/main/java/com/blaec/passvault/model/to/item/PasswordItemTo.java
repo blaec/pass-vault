@@ -21,6 +21,7 @@ public class PasswordItemTo extends ItemTo {
 
         passwordItemTo.setId(password.getId());
         passwordItemTo.setFolderId(password.getFolderId());
+        passwordItemTo.setFolderName(password.getFolderName());
         passwordItemTo.setTitle(password.getTitle());
         passwordItemTo.setNote(password.getNote());
         passwordItemTo.setCreationDate(String.valueOf(password.getCreationDate()));

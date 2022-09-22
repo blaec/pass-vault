@@ -7,7 +7,6 @@ import {savePassword, updatePassword} from "../../../../store/state/password/pas
 import {reactLinks} from "../../../../utils/UrlUtils";
 import TextInputElement from "./components/TextInputElement";
 import PasswordInputElement from "./components/PasswordInputElement";
-import {passwordActions} from "../../../../store/state/password/password-slice";
 import {passgenActions} from "../../../../store/state/passgen/passgen-slice";
 import PasswordGenerator from "../../Modals/PasswordGenerator/PasswordGenerator";
 import PasswordStrength from "../../Modals/PasswordGenerator/components/PasswordStrength";
@@ -26,6 +25,7 @@ import {
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import DatePickerElement from "./components/DatePickerElement";
+import {itemActions} from "../../../../store/state/item/item-slice";
 
 
 const _loader = {mt: 1};
@@ -38,10 +38,10 @@ const _element = {mt: 1};
 
 
 const NewPassword = () => {
-    const [folderId, setFolderId] = React.useState(undefined);
+    const [selectedFolderId, setSelectedFolderId] = React.useState(undefined);
     const [open, setOpen] = React.useState(false);
     const {folders, isFoldersLoaded} = useSelector(state => state.folder.folders);
-    const {editablePassword} = useSelector(state => state.password.editablePassword);
+    const {editableItem} = useSelector(state => state.item.editableItem);
     const {strength, isStrengthLoaded} = useSelector(state => state.passgen.strength);
     const navigate = useNavigate();
     const titleRef = React.useRef();
@@ -54,18 +54,18 @@ const NewPassword = () => {
     const dispatch = useDispatch();
 
     const handleChange = (event) => {
-        setFolderId(event.target.value);
+        setSelectedFolderId(event.target.value);
     };
 
     const handleCancel = () => {
         navigate(reactLinks.passwords);
-        dispatch(passwordActions.resetEditablePassword());
+        dispatch(itemActions.resetEditableItem());
         dispatch(passgenActions.resetPassgen());
     };
 
     const handleSave = () => {
         const password = {
-            folderId: folderId,
+            folderId: selectedFolderId,
             title: titleRef.current.value,
             user: userRef.current.value,
             password: passwordRef.current.value,
@@ -80,8 +80,8 @@ const NewPassword = () => {
 
     const handleUpdate = () => {
         const password = {
-            passwordId: editablePassword.id,
-            folderId: folderId,
+            passwordId: editableItem.id,
+            folderId: selectedFolderId,
             title: titleRef.current.value,
             user: userRef.current.value,
             password: passwordRef.current.value,
@@ -102,11 +102,11 @@ const NewPassword = () => {
     }
 
     useEffect(() => {
-        if (isObjectExist(editablePassword)) {
-            const {folder} = editablePassword;
-            setFolderId(folder.id);
+        if (isObjectExist(editableItem)) {
+            const {folderId} = editableItem;
+            setSelectedFolderId(folderId);
         }
-    }, [editablePassword]);
+    }, [editableItem]);
 
     let label = "Create folders";
     let folderItems = [];
@@ -127,15 +127,15 @@ const NewPassword = () => {
         actionHandler: handleSave,
         action: "Create"
     };
-    if (isObjectExist(editablePassword)) {
-        const {title, user, password, website, note, folder, creationDate} = editablePassword;
+    if (isObjectExist(editableItem)) {
+        const {title, user, password, website, note, folderId, creationDate} = editableItem;
         passwordInput = {
             titleValue: title,
             userValue: user,
             passwordValue: password,
             websiteValue: website,
             noteValue: note,
-            folderValue: folderId || folder.id,
+            folderValue: selectedFolderId || folderId,
             creationDateValue: creationDate,
             actionHandler: handleUpdate,
             action: "Update"
@@ -172,7 +172,7 @@ const NewPassword = () => {
     const folderSelect = <FormControl fullWidth>
         <InputLabel>{label}</InputLabel>
         <Select
-            value={folderId || passwordInput.folderValue}
+            value={selectedFolderId || passwordInput.folderValue}
             onChange={handleChange}
         >
             {menuItems}

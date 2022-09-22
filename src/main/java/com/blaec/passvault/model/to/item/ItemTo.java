@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 public abstract class ItemTo {
     private Integer id;
     private int folderId;
+    private String folderName;
     private String title;
     private String note;
     private String creationDate;

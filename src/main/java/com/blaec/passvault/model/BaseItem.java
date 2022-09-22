@@ -29,4 +29,8 @@ public abstract class BaseItem {
     public Integer getFolderId() {
         return folder.getId();
     }
+
+    public String getFolderName() {
+        return folder.getName();
+    }
 }

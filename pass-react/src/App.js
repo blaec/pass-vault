@@ -1,8 +1,5 @@
 import React, {useEffect} from 'react';
-import {
-    Routes,
-    Route
-} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import {useDispatch} from "react-redux";
 
 import NewPassword from "./component/Pages/PathLinks/NewPassword/NewPassword";
@@ -14,7 +11,6 @@ import ItemsInFolder from "./component/Pages/PathLinks/ItemsInFolder/ItemsInFold
 import Layout from "./hoc/Layout";
 import {reactLinks} from "./utils/UrlUtils";
 import {fetchFolders} from "./store/state/folder/folder-actions";
-import {fetchPasswords} from "./store/state/password/password-actions";
 import SecretNote from "./component/Pages/MenuItems/SecretNote/SecretNote";
 import {fetchSecretNotes} from "./store/state/secretNote/secret-note-actions";
 import NewSecretNote from "./component/Pages/PathLinks/NewSecretNote/NewSecretNote";
@@ -40,7 +36,6 @@ function App() {
     useEffect(() => {
         dispatch(fetchFolders());
         dispatch(fetchItems());
-        dispatch(fetchPasswords());
         dispatch(fetchSecretNotes());
     }, []);
 
