@@ -43,7 +43,7 @@ const itemSlice = createSlice({
             state.editableItem = {editableItem: action.payload};
         },
         resetEditableItem(state, action) {
-            state.editableItem = {editableItem: ''};
+            state.editableItem = initialState.editableItem;
         },
     }
 });

@@ -20,7 +20,7 @@ const passwordSlice = createSlice({
             state.editablePassword = {editablePassword: action.payload};
         },
         resetEditablePassword(state, action) {
-            state.editablePassword = {editablePassword: ''};
+            state.editablePassword = initialState.editablePassword;
         },
     }
 });
