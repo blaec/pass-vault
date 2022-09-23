@@ -29,10 +29,14 @@ const passgenSlice = createSlice({
         },
         insertPassgen(state, action) {
             state.passgen = {
-                passgen: action.payload,
+                passgen: action.payload.passgen,
                 strength: action.payload.strength,
                 isPassgenLoaded: true,
                 isInsertPassword: true
+            };
+            state.strength = {
+                strength: action.payload.strength,
+                isStrengthLoaded: true
             };
         },
         resetPassgen(state, action) {
