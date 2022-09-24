@@ -55,9 +55,9 @@ export const updateItem = (password) => {
     };
 };
 
-export const deleteItem = (id) => {
+export const deleteItem = (type, id) => {
     return async (dispatch) => {
-        axios.delete(`${itemApi.delete.delete}${id}`)
+        axios.delete(`${itemApi.delete.delete}${type}/${id}`)
             .then(response => {
                 const {data} = response;
                 dispatch(fetchItems());

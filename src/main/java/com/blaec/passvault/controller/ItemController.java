@@ -29,7 +29,7 @@ public class ItemController extends AbstractController {
     @GetMapping("/get-all")
     public Map<ItemType, List<ItemTo>> getAll() {
         return Map.of(
-                ItemType.passwords,  mappedPasswords(passwordService.getAll()),
+                ItemType.passwords, mappedPasswords(passwordService.getAll()),
                 ItemType.secretNotes, mappedSecretNotes(secretNoteService.getAll())
         );
     }
@@ -66,13 +66,16 @@ public class ItemController extends AbstractController {
     }
 
     @DeleteMapping("/delete/{itemType}/{id}")
-    public Response delete(@PathVariable ItemType itemType, @PathVariable int id) {
+    public Response delete(
+            @PathVariable ItemType itemType,
+            @PathVariable int id
+    ) {
         log.info("deleting from {} | #{}", itemType, id);
         return serviceFactory(itemType).delete(id).build();
     }
 
     @SuppressWarnings("unchecked")
-    private  <T extends BaseItem> ItemService<T> serviceFactory(ItemType itemType) {
+    private <T extends BaseItem> ItemService<T> serviceFactory(ItemType itemType) {
         if (itemType == ItemType.passwords) {
             return (ItemService<T>) passwordService;
         } else if (itemType == ItemType.secretNotes) {

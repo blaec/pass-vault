@@ -3,13 +3,15 @@ import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from 'react-router-dom';
 
 import {isArrayExist, isObjectExist} from "../../../../utils/Utils";
-import {savePassword, updatePassword} from "../../../../store/state/password/password-actions";
 import {reactLinks} from "../../../../utils/UrlUtils";
 import TextInputElement from "./components/TextInputElement";
 import PasswordInputElement from "./components/PasswordInputElement";
 import {passgenActions} from "../../../../store/state/passgen/passgen-slice";
 import PasswordGenerator from "../../Modals/PasswordGenerator/PasswordGenerator";
 import PasswordStrength from "../../Modals/PasswordGenerator/components/PasswordStrength";
+import DatePickerElement from "./components/DatePickerElement";
+import {itemActions} from "../../../../store/state/item/item-slice";
+import {saveItem, updateItem} from "../../../../store/state/item/item-actions";
 
 import {
     Card,
@@ -24,8 +26,8 @@ import {
 } from "@mui/material";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import DatePickerElement from "./components/DatePickerElement";
-import {itemActions} from "../../../../store/state/item/item-slice";
+import {itemType} from "../../../../utils/Constants";
+
 
 
 const _loader = {mt: 1};
@@ -65,6 +67,7 @@ const NewPassword = () => {
 
     const handleSave = () => {
         const password = {
+            itemType: itemType.passwords,
             folderId: selectedFolderId,
             title: titleRef.current.value,
             user: userRef.current.value,
@@ -73,13 +76,14 @@ const NewPassword = () => {
             note: noteRef.current.value,
             creationDate: creationDateRef.current.value
         };
-        dispatch(savePassword(password));
+        dispatch(saveItem(password));
         dispatch(passgenActions.resetPassgen());
         navigate(reactLinks.passwords);
     };
 
     const handleUpdate = () => {
         const password = {
+            itemType: itemType.passwords,
             passwordId: editableItem.id,
             folderId: selectedFolderId,
             title: titleRef.current.value,
@@ -89,7 +93,7 @@ const NewPassword = () => {
             note: noteRef.current.value,
             creationDate: creationDateRef.current.value
         };
-        dispatch(updatePassword(password));
+        dispatch(updateItem(password));
         navigate(reactLinks.passwords);
     };
 

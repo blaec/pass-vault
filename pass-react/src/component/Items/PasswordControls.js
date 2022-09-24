@@ -1,7 +1,8 @@
 import React from 'react';
 import {useDispatch} from "react-redux";
 
-import {deletePassword} from "../../store/state/password/password-actions";
+import {deleteItem} from "../../store/state/item/item-actions";
+import {itemType} from "../../utils/Constants";
 
 import {Grid} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
@@ -26,7 +27,7 @@ const PasswordControls = (props) => {
     };
 
     const handleDelete = () => {
-        dispatch(deletePassword(id));
+        dispatch(deleteItem(itemType.passwords, id));
         onClose();
     };
 
