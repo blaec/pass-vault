@@ -3,7 +3,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {NavLink, useNavigate} from "react-router-dom";
 
 import {itemType, toolbarHeight} from "../utils/Constants";
-import PasswordDetails from "../component/Items/PasswordDetails";
 import {reactLinks} from "../utils/UrlUtils";
 import {passgenActions} from "../store/state/passgen/passgen-slice";
 import {fetchPasswordStrength} from "../store/state/passgen/passgen-actions";
@@ -14,6 +13,7 @@ import Box from "@mui/material/Box";
 import {Grid} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import ItemDetails from "../component/Items/ItemDetails";
 
 
 const columns = [
@@ -119,12 +119,13 @@ const useItems = (type, itemKey, folderId) => {
                     disableSelectionOnClick={true}
                     onRowClick={handleRowClick}
                 />
-                <PasswordDetails
-                    selectedPassword={selectedItem}
+                <ItemDetails
+                    type={type}
+                    selectedItem={selectedItem}
                     showDetails={isShowDetails}
-                    isShowPassword={isShowSecretInput}
+                    isShowSecretInput={isShowSecretInput}
                     onEdit={handleEditItem}
-                    onShowHidePassword={handleShowSecretInput}
+                    handleShowSecretInput={handleShowSecretInput}
                     onClose={handleCloseDetails}
                 />
             </>
