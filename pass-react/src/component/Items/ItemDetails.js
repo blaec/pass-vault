@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {drawer, passwordSideBar} from "../../utils/Constants";
-import PasswordControls from "./PasswordControls";
+import ItemControls from "./component/ItemControls";
 
 import {styled} from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -46,7 +46,7 @@ const ItemDetails = (props) => {
             onClose={onClose}
         >
             <Toolbar/>
-            <PasswordControls
+            <ItemControls
                 id={itemId}
                 onEdit={onEdit}
                 onClose={onClose}

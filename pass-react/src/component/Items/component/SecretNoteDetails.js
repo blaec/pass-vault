@@ -1,6 +1,6 @@
 import React from 'react';
 
-import PasswordDataRow from "../PasswordDataRow";
+import ItemDataRow from "./ItemDataRow";
 import ItemDetails from "../ItemDetails";
 
 
@@ -10,18 +10,18 @@ const SecretNoteDetails = (props) => {
     const {id, folderName, note, creationDate} = selectedSecretNote;
     const secretNoteDetails = (
         <>
-            <PasswordDataRow
+            <ItemDataRow
                 id={id}
                 description={"Folder"}
                 isHideIcons={true}
                 value={folderName}
             />
-            <PasswordDataRow
+            <ItemDataRow
                 id={id}
                 description={"Note"}
                 value={note}
             />
-            <PasswordDataRow
+            <ItemDataRow
                 id={creationDate}
                 description={"Creation date"}
                 isHideIcons={true}

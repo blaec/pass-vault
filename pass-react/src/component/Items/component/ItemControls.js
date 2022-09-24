@@ -1,8 +1,8 @@
 import React from 'react';
 import {useDispatch} from "react-redux";
 
-import {deleteItem} from "../../store/state/item/item-actions";
-import {itemType} from "../../utils/Constants";
+import {deleteItem} from "../../../store/state/item/item-actions";
+import {itemType} from "../../../utils/Constants";
 
 import {Grid} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
@@ -13,7 +13,7 @@ import DriveFileMoveTwoToneIcon from "@mui/icons-material/DriveFileMoveTwoTone";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 
 
-const PasswordControls = (props) => {
+const ItemControls = (props) => {
     const {id, onEdit, onClose} = props;
 
     const dispatch = useDispatch();
@@ -69,4 +69,4 @@ const PasswordControls = (props) => {
     );
 };
 
-export default PasswordControls;
+export default ItemControls;
