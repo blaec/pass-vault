@@ -1,10 +1,10 @@
 import React from 'react';
 import {useSelector} from "react-redux";
 
-import PasswordDataRow from "./PasswordDataRow";
-import IconVisibility from "../../UI/IconButtons/IconVisibility";
-import PasswordStrength from "../Pages/Modals/PasswordGenerator/components/PasswordStrength";
-import IDetails from "./IDetails";
+import PasswordDataRow from "../PasswordDataRow";
+import IconVisibility from "../../../UI/IconButtons/IconVisibility";
+import PasswordStrength from "../../Pages/Modals/PasswordGenerator/components/PasswordStrength";
+import ItemDetails from "../ItemDetails";
 
 import {CircularProgress} from "@mui/material";
 
@@ -70,7 +70,7 @@ const PasswordDetails = (props) => {
 
 
     return (
-        <IDetails
+        <ItemDetails
             itemId={selectedPassword.id}
             itemTitle={selectedPassword.title}
             itemDetails={passwordDetails}

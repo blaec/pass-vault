@@ -7,13 +7,13 @@ import {reactLinks} from "../utils/UrlUtils";
 import {passgenActions} from "../store/state/passgen/passgen-slice";
 import {fetchPasswordStrength} from "../store/state/passgen/passgen-actions";
 import {itemActions} from "../store/state/item/item-slice";
+import DetailsFactory from "../component/Items/DetailsFactory";
 
 import {DataGrid} from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
 import {Grid} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import ItemDetails from "../component/Items/ItemDetails";
 
 
 const columns = [
@@ -119,7 +119,7 @@ const useItems = (type, itemKey, folderId) => {
                     disableSelectionOnClick={true}
                     onRowClick={handleRowClick}
                 />
-                <ItemDetails
+                <DetailsFactory
                     type={type}
                     selectedItem={selectedItem}
                     showDetails={isShowDetails}

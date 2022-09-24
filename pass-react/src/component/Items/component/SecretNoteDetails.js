@@ -1,7 +1,7 @@
 import React from 'react';
 
-import PasswordDataRow from "./PasswordDataRow";
-import IDetails from "./IDetails";
+import PasswordDataRow from "../PasswordDataRow";
+import ItemDetails from "../ItemDetails";
 
 
 const SecretNoteDetails = (props) => {
@@ -32,7 +32,7 @@ const SecretNoteDetails = (props) => {
 
 
     return (
-        <IDetails
+        <ItemDetails
             itemId={selectedSecretNote.id}
             itemTitle={selectedSecretNote.title}
             itemDetails={secretNoteDetails}
