@@ -2,18 +2,18 @@ import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {NavLink, useNavigate} from "react-router-dom";
 
-import {toolbarHeight} from "../utils/Constants";
+import {itemType, toolbarHeight} from "../utils/Constants";
 import PasswordDetails from "../component/Items/PasswordDetails";
 import {reactLinks} from "../utils/UrlUtils";
 import {passgenActions} from "../store/state/passgen/passgen-slice";
 import {fetchPasswordStrength} from "../store/state/passgen/passgen-actions";
+import {itemActions} from "../store/state/item/item-slice";
 
 import {DataGrid} from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
 import {Grid} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import {itemActions} from "../store/state/item/item-slice";
 
 
 const columns = [
@@ -21,27 +21,48 @@ const columns = [
         field: 'title',
         headerName: 'Title',
         width: 260,
-        description: 'password name',
+        description: 'item name',
 
     },
     {
         field: 'creationDate',
         headerName: 'Creation date',
         width: 130,
-        description: 'password creation date',
+        description: 'item creation date',
     },
 ];
 
-const usePasswords = (item, folderId) => {
-    const [showDetails, setShowDetails] = React.useState(false);
-    const [selectedPassword, setSelectedPassword] = React.useState({});
-    const [isShowPassword, setIsShowPassword] = React.useState(false);
+const useItems = (type, itemKey, folderId) => {
+    const [isShowDetails, setIsShowDetails] = React.useState(false);
+    const [selectedItem, setSelectedItem] = React.useState({});
+    const [isShowSecretInput, setIsShowSecretInput] = React.useState(false);
 
-    const {passwords, isLoaded} = useSelector(state => state.item[item]);
+    const {passwords, secretNotes, creditCards, isLoaded} = useSelector(state => state.item[itemKey]);
     const {folders, isFoldersLoaded} = useSelector(state => state.folder.folders);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    const store = {
+        [itemType.passwords]: {
+            items: passwords,
+            active: type === itemType.passwords,
+            newItemLink: reactLinks.newPassword,
+            title: 'Passwords',
+        },
+        [itemType.secretNotes]: {
+            items: secretNotes,
+            active: type === itemType.secretNotes,
+            newItemLink: reactLinks.newSecretNote,
+            title: 'Secret Notes',
+        },
+        [itemType.creditCards]: {
+            items: creditCards,
+            active: type === itemType.creditCards,
+            newItemLink: reactLinks.newPassword,
+            title: 'Credit Cards',
+        }
+    };
 
     const _root = {
         height: window.innerHeight - toolbarHeight.desktop,
@@ -51,33 +72,39 @@ const usePasswords = (item, folderId) => {
 
     const handleRowClick = (params) => {
         const {row: {id}} = params;
-        const selected = passwords.find(pass => pass.id === id);
-        setSelectedPassword(selected);
+        const {items, active} = store[type];
+
+        const selected = items.find(item => item.id === id);
+        setIsShowDetails(true);
+        setSelectedItem(selected);
         dispatch(itemActions.setEditableItem(selected));
-        dispatch(fetchPasswordStrength(selected.password));
-        setShowDetails(true);
+        if (active) {
+            dispatch(fetchPasswordStrength(selected.password));
+        }
     };
 
-    const handleEditPassword = () => {
-        navigate(reactLinks.newPassword);
+    const handleEditItem = () => {
+        navigate(store[type].newItemLink);
     };
 
     const handleCloseDetails = () => {
-        setShowDetails(false);
+        setIsShowDetails(false);
         dispatch(itemActions.resetEditableItem());
-        setIsShowPassword(false);
+        setIsShowSecretInput(false);
     };
 
-    const handleShowPassword = () => {
-        setIsShowPassword(!isShowPassword);
+    const handleShowSecretInput = () => {
+        setIsShowSecretInput(!isShowSecretInput);
     };
 
-    const handleAddNewPassword = () => {
+    const handleAddNewItem = () => {
         dispatch(itemActions.resetEditableItem());
     };
 
     useEffect(() => {
-        dispatch(passgenActions.resetStrength());
+        if (store[type].active) {
+            dispatch(passgenActions.resetStrength());
+        }
     }, []);
 
     let table = null;
@@ -86,18 +113,18 @@ const usePasswords = (item, folderId) => {
         table = (
             <>
                 <DataGrid
-                    rows={passwords}
+                    rows={store[type].items}
                     columns={columns}
                     hideFooterPagination={true}
                     disableSelectionOnClick={true}
                     onRowClick={handleRowClick}
                 />
                 <PasswordDetails
-                    selectedPassword={selectedPassword}
-                    showDetails={showDetails}
-                    isShowPassword={isShowPassword}
-                    onEdit={handleEditPassword}
-                    onShowHidePassword={handleShowPassword}
+                    selectedPassword={selectedItem}
+                    showDetails={isShowDetails}
+                    isShowPassword={isShowSecretInput}
+                    onEdit={handleEditItem}
+                    onShowHidePassword={handleShowSecretInput}
                     onClose={handleCloseDetails}
                 />
             </>
@@ -118,12 +145,12 @@ const usePasswords = (item, folderId) => {
                 <Typography
                     variant={"h5"}
                 >
-                    {folderName ?? "Passwords"}
+                    {folderName ?? store[type].title}
                 </Typography>
                 <Button
                     variant="outlined"
                     component={NavLink}
-                    onClick={handleAddNewPassword}
+                    onClick={handleAddNewItem}
                     to={`${reactLinks.newPassword}`}
                 >
                     Add Password
@@ -134,4 +161,4 @@ const usePasswords = (item, folderId) => {
     );
 };
 
-export default usePasswords;
+export default useItems;

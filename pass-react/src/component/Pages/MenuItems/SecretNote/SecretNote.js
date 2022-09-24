@@ -1,8 +1,11 @@
 import React from 'react';
-import useSecretNotes from "../../../../hooks/use-secretNotes";
+
+import useItems from "../../../../hooks/use-items";
+import {itemType} from "../../../../utils/Constants";
+
 
 const SecretNote = () => {
-    return useSecretNotes('secretNotes');
+    return useItems(itemType.secretNotes, 'items');
 };
 
 export default SecretNote;
