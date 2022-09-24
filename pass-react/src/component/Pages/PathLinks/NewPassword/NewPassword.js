@@ -84,7 +84,7 @@ const NewPassword = () => {
     const handleUpdate = () => {
         const password = {
             itemType: itemType.passwords,
-            passwordId: editableItem.id,
+            id: editableItem.id,
             folderId: selectedFolderId,
             title: titleRef.current.value,
             user: userRef.current.value,
