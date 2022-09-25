@@ -3,11 +3,11 @@ import React from 'react';
 import PasswordDetails from "./component/PasswordDetails";
 import {itemType} from "../../utils/Constants";
 import SecretNoteDetails from "./component/SecretNoteDetails";
+import {isObjectExist} from "../../utils/Utils";
 
 
 const DetailsFactory = (props) => {
     const {
-        type,
         selectedItem,
         showDetails,
         isShowSecretInput,
@@ -37,11 +37,13 @@ const DetailsFactory = (props) => {
         ),
         [itemType.creditCards]: (
             <></>
-        )
+        ),
     };
 
 
-    return details[type];
+    return isObjectExist(selectedItem)
+        ? details[selectedItem.type]
+        : <></>;
 };
 
 export default DetailsFactory;

@@ -27,7 +27,7 @@ const itemSlice = createSlice({
             state.items = {
                 passwords: action.payload[passwords],
                 secretNotes: action.payload[secretNotes],
-                creditCards: action.payload[creditCards],
+                creditCards: action.payload[creditCards] || initialState.items.creditCards,
                 isLoaded: true
             };
         },
@@ -35,7 +35,7 @@ const itemSlice = createSlice({
             state.itemsInFolder = {
                 passwords: action.payload[passwords],
                 secretNotes: action.payload[secretNotes],
-                creditCards: action.payload[creditCards],
+                creditCards: action.payload[creditCards] || initialState.items.creditCards,
                 isLoaded: true
             };
         },

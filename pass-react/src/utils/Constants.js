@@ -23,4 +23,5 @@ export const itemType = {
     passwords: 'passwords',
     secretNotes: 'secretNotes',
     creditCards: 'creditCards',
+    all: 'all',
 };

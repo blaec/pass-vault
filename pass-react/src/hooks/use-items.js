@@ -43,25 +43,34 @@ const useItems = (type, itemKey, folderId) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    const typedPasswords = passwords.map(p => ({...p, type: itemType.passwords}));
+    const typedSecretNotes = secretNotes.map(p => ({...p, type: itemType.secretNotes}));
+    const typedCreditCards = creditCards.map(p => ({...p, type: itemType.creditCards}));
     const store = {
         [itemType.passwords]: {
-            items: passwords,
+            items: typedPasswords,
             active: type === itemType.passwords,
             newItemLink: reactLinks.newPassword,
             title: 'Passwords',
         },
         [itemType.secretNotes]: {
-            items: secretNotes,
+            items: typedSecretNotes,
             active: type === itemType.secretNotes,
             newItemLink: reactLinks.newSecretNote,
             title: 'Secret Notes',
         },
         [itemType.creditCards]: {
-            items: creditCards,
+            items: typedCreditCards,
             active: type === itemType.creditCards,
             newItemLink: reactLinks.newPassword,
             title: 'Credit Cards',
-        }
+        },
+        [itemType.all]: {
+            items: typedPasswords.concat(typedSecretNotes, typedCreditCards),
+            active: type === itemType.all,
+            newItemLink: reactLinks.newPassword,
+            title: 'All items',
+        },
     };
 
     const _root = {
@@ -152,9 +161,9 @@ const useItems = (type, itemKey, folderId) => {
                     variant="outlined"
                     component={NavLink}
                     onClick={handleAddNewItem}
-                    to={`${reactLinks.newPassword}`}
+                    to={`${store[type].newItemLink}`}
                 >
-                    Add Password
+                    Add Item
                 </Button>
             </Grid>
             {table}
