@@ -1,8 +1,6 @@
 import React, {useEffect} from 'react';
 import {Route, Routes} from "react-router-dom";
 import {useDispatch} from "react-redux";
-
-import NewPassword from "./component/Pages/PathLinks/NewPassword/NewPassword";
 import Password from "./component/Pages/MenuItems/Password/Passwords";
 import Folder from "./component/Pages/MenuItems/Folder/Folder";
 import Settings from "./component/Pages/Settings/Settings";
@@ -12,9 +10,9 @@ import Layout from "./hoc/Layout";
 import {reactLinks} from "./utils/UrlUtils";
 import {fetchFolders} from "./store/state/folder/folder-actions";
 import SecretNote from "./component/Pages/MenuItems/SecretNote/SecretNote";
-import {fetchSecretNotes} from "./store/state/secretNote/secret-note-actions";
 import NewSecretNote from "./component/Pages/PathLinks/NewSecretNote/NewSecretNote";
 import {fetchItems} from "./store/state/item/item-actions";
+import NewItemFactory from "./component/Pages/PathLinks/NewPassword/NewItemFactory";
 
 function App() {
     const {
@@ -36,7 +34,6 @@ function App() {
     useEffect(() => {
         dispatch(fetchFolders());
         dispatch(fetchItems());
-        dispatch(fetchSecretNotes());
     }, []);
 
     const layout = (
@@ -50,7 +47,7 @@ function App() {
                 <Route path={settings} exact element={<Settings/>}/>
 
                 {/* Path links */}
-                <Route path={newPassword} exact element={<NewPassword/>}/>
+                <Route path={newPassword} exact element={<NewItemFactory/>}/>
                 <Route path={newSecretNote} exact element={<NewSecretNote/>}/>
                 <Route path={folderItems} exact element={<ItemsInFolder/>}/>
             </Routes>

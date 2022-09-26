@@ -47,23 +47,6 @@ export const itemApi = {
     },
 };
 
-let basePasswordApi = "/password/";
-export const passwordApi = {
-    get: {
-        getAll: `${basePasswordApi}get-all`,
-        getAllByFolder: `${basePasswordApi}get-all-by-folder/`,
-    },
-    post: {
-        create: `${basePasswordApi}create/`,
-    },
-    put: {
-        update: `${basePasswordApi}update/`,
-    },
-    delete: {
-        delete: `${basePasswordApi}delete/`,
-    },
-};
-
 let baseSecretNoteApi = "/secret-note/";
 export const secretNoteApi = {
     get: {

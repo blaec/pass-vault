@@ -14,7 +14,7 @@ const initialState = {
         creditCards: [],
         isLoaded: false
     },
-    editableItem: {editableItem: ''}
+    editableItem: {editableItem: {}}
 };
 
 const {passwords, secretNotes, creditCards} = itemType;
@@ -27,7 +27,7 @@ const itemSlice = createSlice({
             state.items = {
                 passwords: action.payload[passwords],
                 secretNotes: action.payload[secretNotes],
-                creditCards: action.payload[creditCards] || initialState.items.creditCards,
+                creditCards: action.payload[creditCards] || initialState.items.creditCards, // todo remove initialState
                 isLoaded: true
             };
         },
@@ -35,7 +35,7 @@ const itemSlice = createSlice({
             state.itemsInFolder = {
                 passwords: action.payload[passwords],
                 secretNotes: action.payload[secretNotes],
-                creditCards: action.payload[creditCards] || initialState.items.creditCards,
+                creditCards: action.payload[creditCards] || initialState.items.creditCards, // todo remove initialState
                 isLoaded: true
             };
         },
