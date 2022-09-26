@@ -51,24 +51,28 @@ const useItems = (type, itemKey, folderId) => {
             items: typedPasswords,
             active: type === itemType.passwords,
             newItemLink: reactLinks.newPassword,
+            editItemLink: reactLinks.updatePassword,
             title: 'Passwords',
         },
         [itemType.secretNotes]: {
             items: typedSecretNotes,
             active: type === itemType.secretNotes,
             newItemLink: reactLinks.newSecretNote,
+            editItemLink: reactLinks.updateSecretNote,
             title: 'Secret Notes',
         },
         [itemType.creditCards]: {
             items: typedCreditCards,
             active: type === itemType.creditCards,
-            newItemLink: reactLinks.newPassword,
+            newItemLink: reactLinks.newCreditCard,
+            editItemLink: reactLinks.updateCreditCard,
             title: 'Credit Cards',
         },
         [itemType.all]: {
             items: typedPasswords.concat(typedSecretNotes, typedCreditCards),
             active: type === itemType.all,
             newItemLink: reactLinks.newPassword,
+            editItemLink: reactLinks.updateCreditCard,
             title: 'All items',
         },
     };
@@ -93,7 +97,7 @@ const useItems = (type, itemKey, folderId) => {
     };
 
     const handleEditItem = () => {
-        navigate(store[type].newItemLink);
+        navigate(store[type].editItemLink);
     };
 
     const handleCloseDetails = () => {

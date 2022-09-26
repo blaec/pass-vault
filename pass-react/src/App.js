@@ -1,18 +1,18 @@
 import React, {useEffect} from 'react';
 import {Route, Routes} from "react-router-dom";
 import {useDispatch} from "react-redux";
+
 import Password from "./component/Pages/MenuItems/Password/Passwords";
 import Folder from "./component/Pages/MenuItems/Folder/Folder";
 import Settings from "./component/Pages/Settings/Settings";
 import ItemsInFolder from "./component/Pages/PathLinks/ItemsInFolder/ItemsInFolder";
-
+import SecretNote from "./component/Pages/MenuItems/SecretNote/SecretNote";
+import NewItemFactory from "./component/Pages/PathLinks/NewPassword/NewItemFactory";
 import Layout from "./hoc/Layout";
 import {reactLinks} from "./utils/UrlUtils";
 import {fetchFolders} from "./store/state/folder/folder-actions";
-import SecretNote from "./component/Pages/MenuItems/SecretNote/SecretNote";
-import NewSecretNote from "./component/Pages/PathLinks/NewSecretNote/NewSecretNote";
 import {fetchItems} from "./store/state/item/item-actions";
-import NewItemFactory from "./component/Pages/PathLinks/NewPassword/NewItemFactory";
+import {itemType} from "./utils/Constants";
 
 function App() {
     const {
@@ -24,7 +24,11 @@ function App() {
         creditCards,
         trash,
         newPassword,
+        updatePassword,
         newSecretNote,
+        updateSecretNote,
+        newCreditCard,
+        updateCreditCard,
         folders,
         settings,
     } = reactLinks;
@@ -47,8 +51,12 @@ function App() {
                 <Route path={settings} exact element={<Settings/>}/>
 
                 {/* Path links */}
-                <Route path={newPassword} exact element={<NewItemFactory/>}/>
-                <Route path={newSecretNote} exact element={<NewSecretNote/>}/>
+                <Route path={newPassword} exact element={<NewItemFactory type={itemType.passwords}/>}/>
+                <Route path={updatePassword} exact element={<NewItemFactory type={itemType.passwords}/>}/>
+                <Route path={newSecretNote} exact element={<NewItemFactory type={itemType.secretNotes}/>}/>
+                <Route path={updateSecretNote} exact element={<NewItemFactory type={itemType.secretNotes}/>}/>
+                <Route path={newCreditCard} exact element={<NewItemFactory type={itemType.creditCards}/>}/>
+                <Route path={updateCreditCard} exact element={<NewItemFactory type={itemType.creditCards}/>}/>
                 <Route path={folderItems} exact element={<ItemsInFolder/>}/>
             </Routes>
         </Layout>

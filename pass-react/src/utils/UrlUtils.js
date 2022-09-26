@@ -8,7 +8,11 @@ export const reactLinks = {
     creditCards: "/credit-cards",
     trash: "/trash",
     newPassword: "/new-password",
+    updatePassword: "/update-password",
     newSecretNote: "/new-secret-note",
+    updateSecretNote: "/update-secret-note",
+    newCreditCard: "/new-credit-card",
+    updateCreditCard: "/update-credit-card",
     folders: "/folders",
     settings: "/settings",
 };

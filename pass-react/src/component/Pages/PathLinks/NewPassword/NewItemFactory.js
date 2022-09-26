@@ -95,10 +95,7 @@ const NewItemFactory = (props) => {
     };
 
 
-    const currentType = type
-        ? type
-        : editableItem.type;
-    return item[currentType];
+    return item[type];
 };
 
 export default NewItemFactory;
