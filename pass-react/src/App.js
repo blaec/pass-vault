@@ -24,11 +24,11 @@ function App() {
         creditCards,
         trash,
         newPassword,
-        updatePassword,
+        editPassword,
         newSecretNote,
-        updateSecretNote,
+        editSecretNote,
         newCreditCard,
-        updateCreditCard,
+        editCreditCard,
         folders,
         settings,
     } = reactLinks;
@@ -52,11 +52,11 @@ function App() {
 
                 {/* Path links */}
                 <Route path={newPassword} exact element={<NewItemFactory type={itemType.passwords}/>}/>
-                <Route path={updatePassword} exact element={<NewItemFactory type={itemType.passwords}/>}/>
+                <Route path={editPassword} exact element={<NewItemFactory type={itemType.passwords}/>}/>
                 <Route path={newSecretNote} exact element={<NewItemFactory type={itemType.secretNotes}/>}/>
-                <Route path={updateSecretNote} exact element={<NewItemFactory type={itemType.secretNotes}/>}/>
+                <Route path={editSecretNote} exact element={<NewItemFactory type={itemType.secretNotes}/>}/>
                 <Route path={newCreditCard} exact element={<NewItemFactory type={itemType.creditCards}/>}/>
-                <Route path={updateCreditCard} exact element={<NewItemFactory type={itemType.creditCards}/>}/>
+                <Route path={editCreditCard} exact element={<NewItemFactory type={itemType.creditCards}/>}/>
                 <Route path={folderItems} exact element={<ItemsInFolder/>}/>
             </Routes>
         </Layout>

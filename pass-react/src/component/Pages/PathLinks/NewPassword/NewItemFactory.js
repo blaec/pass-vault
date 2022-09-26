@@ -7,7 +7,7 @@ import {saveItem, updateItem} from "../../../../store/state/item/item-actions";
 import {passgenActions} from "../../../../store/state/passgen/passgen-slice";
 import {itemType} from "../../../../utils/Constants";
 import NewSecretNote from "../NewSecretNote/NewSecretNote";
-import NewPasswordTemp from "./NewPasswordTemp";
+import NewPassword from "./NewPassword";
 import {itemActions} from "../../../../store/state/item/item-slice";
 
 
@@ -62,7 +62,7 @@ const NewItemFactory = (props) => {
 
     const item = {
         [itemType.passwords]: (
-            <NewPasswordTemp
+            <NewPassword
                 item={editableItem}
                 titleRef={titleRef}
                 noteRef={noteRef}
