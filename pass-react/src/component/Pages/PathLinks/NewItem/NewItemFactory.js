@@ -87,6 +87,7 @@ const NewItemFactory = (props) => {
                 onFolderChange={handleFolderChange}
                 onSave={handleSaveItem}
                 onUpdate={handleUpdateItem}
+                onCancel={handleCancel}
             />
         ),
         [itemType.creditCards]: (

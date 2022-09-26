@@ -20,7 +20,7 @@ function App() {
         allItems,
         passwords,
         folderItems,
-        secureNotes,
+        secretNotes,
         creditCards,
         trash,
         newPassword,
@@ -46,7 +46,7 @@ function App() {
 
                 {/* Menu items */}
                 <Route path={passwords} exact element={<Password/>}/>
-                <Route path={secureNotes} exact element={<SecretNote/>}/>
+                <Route path={secretNotes} exact element={<SecretNote/>}/>
                 <Route path={folders} exact element={<Folder/>}/>
                 <Route path={settings} exact element={<Settings/>}/>
 

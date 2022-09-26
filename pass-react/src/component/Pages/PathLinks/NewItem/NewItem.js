@@ -1,7 +1,5 @@
 import React from 'react';
 
-import {reactLinks} from "../../../../utils/UrlUtils";
-
 import {Card, CardActions, Grid} from "@mui/material";
 import Button from "@mui/material/Button";
 
@@ -12,7 +10,7 @@ const _root = {
 
 
 const NewItem = (props) => {
-    const{item, actionName, action, onCancel, cardContent} = props;
+    const{item, actionName, action, redirect, onCancel, cardContent} = props;
 
 
     return (
@@ -27,10 +25,10 @@ const NewItem = (props) => {
                         direction="row"
                         justifyContent="flex-end"
                     >
-                        <Button onClick={() => onCancel(reactLinks.passwords)}>
+                        <Button onClick={() => onCancel(redirect)}>
                             Cancel
                         </Button>
-                        <Button onClick={() => action(item, reactLinks.passwords)}>
+                        <Button onClick={() => action(item, redirect)}>
                             {actionName}
                         </Button>
                     </Grid>

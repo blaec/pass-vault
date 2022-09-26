@@ -9,6 +9,7 @@ import TextInputElement from "./elements/TextInputElement";
 import PasswordInputElement from "./elements/PasswordInputElement";
 import DatePickerElement from "./elements/DatePickerElement";
 import PasswordStrength from "../../../Modals/PasswordGenerator/components/PasswordStrength";
+import {reactLinks} from "../../../../../utils/UrlUtils";
 
 import {CardContent, CircularProgress, FormControl, Grid, InputLabel, MenuItem, Select} from "@mui/material";
 import Box from "@mui/material/Box";
@@ -36,14 +37,14 @@ const NewPassword = (props) => {
     } = props;
     const {folders, isFoldersLoaded} = useSelector(state => state.folder.folders);
     const {strength, isStrengthLoaded} = useSelector(state => state.passgen.strength);
-    const [open, setOpen] = React.useState(false);
+    const [isGeneratorOpen, setIsGeneratorOpen] = React.useState(false);
 
 
     const handleGeneratePassword = () => {
-        setOpen(true);
+        setIsGeneratorOpen(true);
     };
-    const handleOpen = (value) => {
-        setOpen(value);
+    const handleGeneratorOpen = (value) => {
+        setIsGeneratorOpen(value);
     }
 
     let passwordInput = {
@@ -191,10 +192,11 @@ const NewPassword = (props) => {
                 item={passwordItem}
                 actionName={passwordInput.actionName}
                 action={passwordInput.actionHandler}
+                redirect={reactLinks.passwords}
                 cardContent={cardContent}
                 onCancel={onCancel}
             />
-            <PasswordGenerator isOpen={open} setIsOpen={handleOpen}/>
+            <PasswordGenerator isOpen={isGeneratorOpen} setIsOpen={handleGeneratorOpen}/>
         </Grid>
     );
 };
