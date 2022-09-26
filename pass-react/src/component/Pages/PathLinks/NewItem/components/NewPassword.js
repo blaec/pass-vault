@@ -1,14 +1,14 @@
 import React from 'react';
 import {useSelector} from "react-redux";
 
-import PasswordGenerator from "../../Modals/PasswordGenerator/PasswordGenerator";
-import {itemType} from "../../../../utils/Constants";
-import NewItem from "./NewItem";
-import {isArrayExist, isObjectExist} from "../../../../utils/Utils";
-import TextInputElement from "./components/TextInputElement";
-import PasswordInputElement from "./components/PasswordInputElement";
-import DatePickerElement from "./components/DatePickerElement";
-import PasswordStrength from "../../Modals/PasswordGenerator/components/PasswordStrength";
+import PasswordGenerator from "../../../Modals/PasswordGenerator/PasswordGenerator";
+import {itemType} from "../../../../../utils/Constants";
+import NewItem from "../NewItem";
+import {isArrayExist, isObjectExist} from "../../../../../utils/Utils";
+import TextInputElement from "./elements/TextInputElement";
+import PasswordInputElement from "./elements/PasswordInputElement";
+import DatePickerElement from "./elements/DatePickerElement";
+import PasswordStrength from "../../../Modals/PasswordGenerator/components/PasswordStrength";
 
 import {CardContent, CircularProgress, FormControl, Grid, InputLabel, MenuItem, Select} from "@mui/material";
 import Box from "@mui/material/Box";

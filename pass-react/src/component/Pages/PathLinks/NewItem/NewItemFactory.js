@@ -6,8 +6,8 @@ import {isObjectExist} from "../../../../utils/Utils";
 import {saveItem, updateItem} from "../../../../store/state/item/item-actions";
 import {passgenActions} from "../../../../store/state/passgen/passgen-slice";
 import {itemType} from "../../../../utils/Constants";
-import NewSecretNote from "../NewSecretNote/NewSecretNote";
-import NewPassword from "./NewPassword";
+import NewSecretNote from "./components/NewSecretNote";
+import NewPassword from "./components/NewPassword";
 import {itemActions} from "../../../../store/state/item/item-slice";
 
 

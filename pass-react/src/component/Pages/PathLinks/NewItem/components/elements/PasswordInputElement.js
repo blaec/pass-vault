@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 
-import {fetchPasswordStrength} from "../../../../../store/state/passgen/passgen-actions";
+import {fetchPasswordStrength} from "../../../../../../store/state/passgen/passgen-actions";
 
 import {FilledInput, FormControl, InputAdornment, InputLabel} from "@mui/material";
 import IconButton from "@mui/material/IconButton";

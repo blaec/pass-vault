@@ -7,7 +7,7 @@ import Folder from "./component/Pages/MenuItems/Folder/Folder";
 import Settings from "./component/Pages/Settings/Settings";
 import ItemsInFolder from "./component/Pages/PathLinks/ItemsInFolder/ItemsInFolder";
 import SecretNote from "./component/Pages/MenuItems/SecretNote/SecretNote";
-import NewItemFactory from "./component/Pages/PathLinks/NewPassword/NewItemFactory";
+import NewItemFactory from "./component/Pages/PathLinks/NewItem/NewItemFactory";
 import Layout from "./hoc/Layout";
 import {reactLinks} from "./utils/UrlUtils";
 import {fetchFolders} from "./store/state/folder/folder-actions";

@@ -2,16 +2,15 @@ import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from 'react-router-dom';
 
-import {isArrayExist, isObjectExist} from "../../../../utils/Utils";
-import {reactLinks} from "../../../../utils/UrlUtils";
+import {isArrayExist, isObjectExist} from "../../../../../utils/Utils";
+import {reactLinks} from "../../../../../utils/UrlUtils";
+import {secretNoteActions} from "../../../../../store/state/secretNote/secret-note-slice";
+import {saveSecretNote, updateSecretNote} from "../../../../../store/state/secretNote/secret-note-actions";
+import DatePickerElement from "./elements/DatePickerElement";
+import TextInputElement from "./elements/TextInputElement";
 
 import {Card, CardActions, CardContent, FormControl, Grid, InputLabel, MenuItem, Select} from "@mui/material";
 import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
-import {secretNoteActions} from "../../../../store/state/secretNote/secret-note-slice";
-import {saveSecretNote, updateSecretNote} from "../../../../store/state/secretNote/secret-note-actions";
-import DatePickerElement from "../NewPassword/components/DatePickerElement";
-import TextInputElement from "../NewPassword/components/TextInputElement";
 
 
 const _loader = {mt: 1};
