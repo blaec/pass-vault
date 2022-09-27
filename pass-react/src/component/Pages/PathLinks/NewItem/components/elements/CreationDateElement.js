@@ -7,7 +7,7 @@ import {DesktopDatePicker} from "@mui/x-date-pickers/DesktopDatePicker";
 import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
 
 
-const DatePickerElement = (props) => {
+const CreationDateElement = (props) => {
     const {value, style, elemRef} = props;
     const [currentValue, setCurrentValue] = React.useState(dayjs(value));
     const handleDateChange = (newValue) => {
@@ -30,4 +30,4 @@ const DatePickerElement = (props) => {
     );
 };
 
-export default DatePickerElement;
+export default CreationDateElement;

@@ -5,9 +5,9 @@ import PasswordGenerator from "../../../Modals/PasswordGenerator/PasswordGenerat
 import {itemType} from "../../../../../utils/Constants";
 import NewItem from "../NewItem";
 import {isArrayExist, isObjectExist} from "../../../../../utils/Utils";
-import TextInputElement from "./elements/TextInputElement";
-import PasswordInputElement from "./elements/PasswordInputElement";
-import DatePickerElement from "./elements/DatePickerElement";
+import TextInputElement from "./elements/templates/TextInputElement";
+import PasswordInputElement from "./elements/templates/PasswordInputElement";
+import CreationDateElement from "./elements/CreationDateElement";
 import PasswordStrength from "../../../Modals/PasswordGenerator/components/PasswordStrength";
 import {reactLinks} from "../../../../../utils/UrlUtils";
 
@@ -128,7 +128,7 @@ const NewPassword = (props) => {
         label={"Note"}
         multiline={true}
     />;
-    const creationDateElement = <DatePickerElement
+    const creationDateElement = <CreationDateElement
         value={passwordInput.creationDateValue}
         style={_element}
         elemRef={creationDateRef}

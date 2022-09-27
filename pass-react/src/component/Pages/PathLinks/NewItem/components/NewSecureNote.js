@@ -1,14 +1,15 @@
 import React from 'react';
-import {useSelector} from "react-redux";
 
-import {isArrayExist, isObjectExist} from "../../../../../utils/Utils";
-import DatePickerElement from "./elements/DatePickerElement";
-import TextInputElement from "./elements/TextInputElement";
+import {isObjectExist} from "../../../../../utils/Utils";
+import CreationDateElement from "./elements/CreationDateElement";
 import {itemType} from "../../../../../utils/Constants";
 import NewItem from "../NewItem";
 import {reactLinks} from "../../../../../utils/UrlUtils";
 
-import {CardContent, FormControl, Grid, InputLabel, MenuItem, Select} from "@mui/material";
+import {CardContent, Grid} from "@mui/material";
+import TitleElement from "./elements/TitleElement";
+import NoteElement from "./elements/NoteElement";
+import FolderElement from "./elements/FolderElement";
 
 const _element = {mt: 1};
 
@@ -25,7 +26,6 @@ const NewSecureNote = (props) => {
         onUpdate,
         onCancel
     } = props;
-    const {folders, isFoldersLoaded} = useSelector(state => state.folder.folders);
 
 
     let secureNoteInput = {
@@ -63,43 +63,32 @@ const NewSecureNote = (props) => {
         });
     }
 
-    const titleElement = <TextInputElement
-        value={secureNoteInput.titleValue}
-        elemRef={titleRef}
-        label={"Title"}
-        type={"text"}
-        autofocus={true}
-    />;
-    const noteElement = <TextInputElement
-        style={_element}
-        value={secureNoteInput.noteValue}
-        elemRef={noteRef}
-        label={"Note"}
-        multiline={true}
-    />;
-    const creationDateElement = <DatePickerElement
-        value={secureNoteInput.creationDateValue}
-        style={_element}
-        elemRef={creationDateRef}
-    />;
-
-    let label = "Create folders";
-    let folderItems = [];
-    if (isFoldersLoaded && isArrayExist(folders)) {
-        label = "Folder";
-        folderItems = folders;
-    }
-    const menuItems = folderItems.map(fi => <MenuItem key={fi.id} value={fi.id}>{fi.name}</MenuItem>)
-    const folderSelect = <FormControl fullWidth>
-        <InputLabel>{label}</InputLabel>
-        <Select
+    const titleElement = (
+        <TitleElement
+            value={secureNoteInput.titleValue}
+            elemRef={titleRef}
+        />
+    );
+    const noteElement = (
+        <NoteElement
+            style={_element}
+            value={secureNoteInput.noteValue}
+            elemRef={noteRef}
+        />
+    );
+    const creationDateElement = (
+        <CreationDateElement
+            style={_element}
+            value={secureNoteInput.creationDateValue}
+            elemRef={creationDateRef}
+        />
+    );
+    const folderSelect = (
+        <FolderElement
             value={selectedFolderId || secureNoteInput.folderValue}
             onChange={onFolderChange}
-        >
-            {menuItems}
-        </Select>
-    </FormControl>;
-
+        />
+    );
     const cardContent = (
         <CardContent>
             {titleElement}
