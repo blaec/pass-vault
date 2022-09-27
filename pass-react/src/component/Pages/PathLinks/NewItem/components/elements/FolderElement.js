@@ -7,7 +7,7 @@ import {FormControl, InputLabel, MenuItem, Select} from "@mui/material";
 
 
 const FolderElement = (props) => {
-    const {value, onChange} = props;
+    const {style, value, onChange} = props;
     const {folders, isFoldersLoaded} = useSelector(state => state.folder.folders);
 
     let label = "Create folders";
@@ -20,7 +20,10 @@ const FolderElement = (props) => {
 
 
     return (
-        <FormControl fullWidth>
+        <FormControl
+            sx={style}
+            fullWidth
+        >
             <InputLabel>{label}</InputLabel>
             <Select
                 value={value}

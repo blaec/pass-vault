@@ -4,18 +4,21 @@ import {useSelector} from "react-redux";
 import PasswordGenerator from "../../../Modals/PasswordGenerator/PasswordGenerator";
 import {itemType} from "../../../../../utils/Constants";
 import NewItem from "../NewItem";
-import {isArrayExist, isObjectExist} from "../../../../../utils/Utils";
-import TextInputElement from "./elements/templates/TextInputElement";
-import PasswordInputElement from "./elements/templates/PasswordInputElement";
+import {isObjectExist} from "../../../../../utils/Utils";
+import PasswordElement from "./elements/PasswordElement";
 import CreationDateElement from "./elements/CreationDateElement";
 import PasswordStrength from "../../../Modals/PasswordGenerator/components/PasswordStrength";
 import {reactLinks} from "../../../../../utils/UrlUtils";
+import TitleElement from "./elements/TitleElement";
+import NoteElement from "./elements/NoteElement";
+import FolderElement from "./elements/FolderElement";
+import UserElement from "./elements/UserElement";
+import WebsiteElement from "./elements/WebsiteElement";
 
-import {CardContent, CircularProgress, FormControl, Grid, InputLabel, MenuItem, Select} from "@mui/material";
+import {CardContent, CircularProgress, Grid} from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 
-const _element = {mt: 1};
 const _loader = {mt: 1};
 const _caption = {mt: 5};
 
@@ -23,6 +26,7 @@ const _caption = {mt: 5};
 const NewPassword = (props) => {
     const {
         item,
+        elementStyle,
         titleRef,
         noteRef,
         creationDateRef,
@@ -35,7 +39,6 @@ const NewPassword = (props) => {
         onUpdate,
         onCancel
     } = props;
-    const {folders, isFoldersLoaded} = useSelector(state => state.folder.folders);
     const {strength, isStrengthLoaded} = useSelector(state => state.passgen.strength);
     const [isGeneratorOpen, setIsGeneratorOpen] = React.useState(false);
 
@@ -94,62 +97,53 @@ const NewPassword = (props) => {
         });
     }
 
-    const titleElement = <TextInputElement
-        value={passwordInput.titleValue}
-        elemRef={titleRef}
-        label={"Title"}
-        type={"text"}
-        autofocus={true}
-    />;
-    const userElement = <TextInputElement
-        style={_element}
-        value={passwordInput.userValue}
-        elemRef={userRef}
-        label={"User"}
-        type={"text"}
-    />;
-    const passwordElement = <PasswordInputElement
-        style={_element}
-        value={passwordInput.passwordValue}
-        elemRef={passwordRef}
-        label={"Password"}
-    />;
-    const websiteElement = <TextInputElement
-        style={_element}
-        value={passwordInput.websiteValue}
-        elemRef={websiteRef}
-        label={"Website"}
-        type={"text"}
-    />;
-    const noteElement = <TextInputElement
-        style={_element}
-        value={passwordInput.noteValue}
-        elemRef={noteRef}
-        label={"Note"}
-        multiline={true}
-    />;
-    const creationDateElement = <CreationDateElement
-        value={passwordInput.creationDateValue}
-        style={_element}
-        elemRef={creationDateRef}
-    />;
-
-    let label = "Create folders";
-    let folderItems = [];
-    if (isFoldersLoaded && isArrayExist(folders)) {
-        label = "Folder";
-        folderItems = folders;
-    }
-    const menuItems = folderItems.map(fi => <MenuItem key={fi.id} value={fi.id}>{fi.name}</MenuItem>)
-    const folderSelect = <FormControl fullWidth>
-        <InputLabel>{label}</InputLabel>
-        <Select
+    const titleElement = (
+        <TitleElement
+            value={passwordInput.titleValue}
+            elemRef={titleRef}
+        />
+    );
+    const userElement = (
+        <UserElement
+            style={elementStyle}
+            value={passwordInput.userValue}
+            elemRef={userRef}
+        />
+    );
+    const passwordElement = (
+        <PasswordElement
+            style={elementStyle}
+            value={passwordInput.passwordValue}
+            elemRef={passwordRef}
+        />
+    );
+    const websiteElement = (
+        <WebsiteElement
+            style={elementStyle}
+            value={passwordInput.websiteValue}
+            elemRef={websiteRef}
+        />
+    );
+    const noteElement = (
+        <NoteElement
+            style={elementStyle}
+            value={passwordInput.noteValue}
+            elemRef={noteRef}
+        />
+    );
+    const creationDateElement = (
+        <CreationDateElement
+            style={elementStyle}
+            value={passwordInput.creationDateValue}
+            elemRef={creationDateRef}
+        />
+    );
+    const folderSelect = (
+        <FolderElement
             value={selectedFolderId || passwordInput.folderValue}
             onChange={onFolderChange}
-        >
-            {menuItems}
-        </Select>
-    </FormControl>;
+        />
+    );
 
     const strengthElement = isStrengthLoaded
         ? <PasswordStrength strength={strength}/>

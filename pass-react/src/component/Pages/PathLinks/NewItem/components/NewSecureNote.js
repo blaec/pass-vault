@@ -11,12 +11,11 @@ import TitleElement from "./elements/TitleElement";
 import NoteElement from "./elements/NoteElement";
 import FolderElement from "./elements/FolderElement";
 
-const _element = {mt: 1};
-
 
 const NewSecureNote = (props) => {
     const {
         item,
+        elementStyle,
         titleRef,
         noteRef,
         creationDateRef,
@@ -71,20 +70,21 @@ const NewSecureNote = (props) => {
     );
     const noteElement = (
         <NoteElement
-            style={_element}
+            style={elementStyle}
             value={secureNoteInput.noteValue}
             elemRef={noteRef}
         />
     );
     const creationDateElement = (
         <CreationDateElement
-            style={_element}
+            style={elementStyle}
             value={secureNoteInput.creationDateValue}
             elemRef={creationDateRef}
         />
     );
     const folderSelect = (
         <FolderElement
+            style={elementStyle}
             value={selectedFolderId || secureNoteInput.folderValue}
             onChange={onFolderChange}
         />

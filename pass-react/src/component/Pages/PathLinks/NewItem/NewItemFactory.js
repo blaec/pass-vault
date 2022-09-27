@@ -10,6 +10,8 @@ import NewSecureNote from "./components/NewSecureNote";
 import NewPassword from "./components/NewPassword";
 import {itemActions} from "../../../../store/state/item/item-slice";
 
+const _element = {mt: 1};
+
 
 const NewItemFactory = (props) => {
     const {type} = props;
@@ -64,6 +66,7 @@ const NewItemFactory = (props) => {
         [itemType.passwords]: (
             <NewPassword
                 item={editableItem}
+                elementStyle={_element}
                 titleRef={titleRef}
                 noteRef={noteRef}
                 creationDateRef={creationDateRef}
@@ -80,6 +83,7 @@ const NewItemFactory = (props) => {
         [itemType.secureNotes]: (
             <NewSecureNote
                 item={editableItem}
+                elementStyle={_element}
                 titleRef={titleRef}
                 noteRef={noteRef}
                 creationDateRef={creationDateRef}
