@@ -10,6 +10,7 @@ const myListItem = (props) => {
     const {caption, icon, link, path} = props;
 
     const isSelected = stripString(path).includes(stripString(caption));
+    const activeColor = isSelected ? {color: 'primary.main'} : null;
 
 
     return (
@@ -18,8 +19,13 @@ const myListItem = (props) => {
             selected={isSelected}
             to={link}
         >
-            <ListItemIcon>{icon}</ListItemIcon>
-            <ListItemText primary={caption}/>
+            <ListItemIcon sx={activeColor}>
+                {icon}
+            </ListItemIcon>
+            <ListItemText
+                sx={activeColor}
+                primary={caption}
+            />
         </ListItemButton>
     );
 };
