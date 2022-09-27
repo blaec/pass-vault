@@ -71,8 +71,8 @@ const useItems = (type, itemKey, folderId) => {
         [itemType.all]: {
             items: typedPasswords.concat(typedSecureNotes, typedCreditCards),
             active: type === itemType.all,
-            newItemLink: reactLinks.newPassword,
-            editItemLink: reactLinks.editCreditCard,
+            // newItemLink: reactLinks.newPassword,     // todo find solution for this
+            // editItemLink: reactLinks.editPassword,   // todo find solution for this
             title: 'All items',
         },
     };
@@ -97,7 +97,8 @@ const useItems = (type, itemKey, folderId) => {
     };
 
     const handleEditItem = () => {
-        navigate(store[type].editItemLink);
+        const selectedType = selectedItem?.type || type;
+        navigate(store[selectedType].editItemLink);
     };
 
     const handleCloseDetails = () => {
