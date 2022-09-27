@@ -28,7 +28,7 @@ const NewSecureNote = (props) => {
     const {folders, isFoldersLoaded} = useSelector(state => state.folder.folders);
 
 
-    let passwordInput = {
+    let secureNoteInput = {
         titleValue: "",
         noteValue: "",
         folderValue: "",
@@ -36,8 +36,8 @@ const NewSecureNote = (props) => {
         actionHandler: onSave,
         actionName: "Create"
     };
-    let passwordItem = () => ({
-        itemType: itemType.passwords,
+    let secureNoteItem = () => ({
+        itemType: itemType.secureNotes,
         folderId: selectedFolderId,
         title: titleRef?.current?.value,
         note: noteRef?.current?.value,
@@ -45,7 +45,7 @@ const NewSecureNote = (props) => {
     });
     if (isObjectExist(item)) {
         const {id, title, note, folderId, creationDate} = item;
-        passwordInput = {
+        secureNoteInput = {
             titleValue: title,
             noteValue: note,
             folderValue: selectedFolderId || folderId,
@@ -53,8 +53,8 @@ const NewSecureNote = (props) => {
             actionHandler: onUpdate,
             actionName: "Update"
         };
-        passwordItem = () => ({
-            itemType: itemType.passwords,
+        secureNoteItem = () => ({
+            itemType: itemType.secureNotes,
             title: titleRef?.current?.value,
             note: noteRef?.current?.value,
             creationDate: creationDateRef?.current?.value,
@@ -64,7 +64,7 @@ const NewSecureNote = (props) => {
     }
 
     const titleElement = <TextInputElement
-        value={passwordInput.titleValue}
+        value={secureNoteInput.titleValue}
         elemRef={titleRef}
         label={"Title"}
         type={"text"}
@@ -72,13 +72,13 @@ const NewSecureNote = (props) => {
     />;
     const noteElement = <TextInputElement
         style={_element}
-        value={passwordInput.noteValue}
+        value={secureNoteInput.noteValue}
         elemRef={noteRef}
         label={"Note"}
         multiline={true}
     />;
     const creationDateElement = <DatePickerElement
-        value={passwordInput.creationDateValue}
+        value={secureNoteInput.creationDateValue}
         style={_element}
         elemRef={creationDateRef}
     />;
@@ -93,7 +93,7 @@ const NewSecureNote = (props) => {
     const folderSelect = <FormControl fullWidth>
         <InputLabel>{label}</InputLabel>
         <Select
-            value={selectedFolderId || passwordInput.folderValue}
+            value={selectedFolderId || secureNoteInput.folderValue}
             onChange={onFolderChange}
         >
             {menuItems}
@@ -113,9 +113,9 @@ const NewSecureNote = (props) => {
     return (
         <Grid container justifyContent="center">
             <NewItem
-                item={passwordItem}
-                actionName={passwordInput.actionName}
-                action={passwordInput.actionHandler}
+                item={secureNoteItem}
+                actionName={secureNoteInput.actionName}
+                action={secureNoteInput.actionHandler}
                 redirect={reactLinks.secureNotes}
                 cardContent={cardContent}
                 onCancel={onCancel}
