@@ -71,28 +71,24 @@ const useItems = (type, itemKey, folderId) => {
     const store = {
         [itemType.passwords]: {
             items: typedPasswords,
-            useStrength: true,
             newItemLink: reactLinks.newPassword,
             editItemLink: reactLinks.editPassword,
             title: 'Passwords',
         },
         [itemType.secureNotes]: {
             items: typedSecureNotes,
-            useStrength: false,
             newItemLink: reactLinks.newSecureNote,
             editItemLink: reactLinks.editSecureNote,
             title: 'Secure Notes',
         },
         [itemType.creditCards]: {
             items: typedCreditCards,
-            useStrength: false,
             newItemLink: reactLinks.newCreditCard,
             editItemLink: reactLinks.editCreditCard,
             title: 'Credit Cards',
         },
         [itemType.all]: {
             items: typedPasswords.concat(typedSecureNotes, typedCreditCards),
-            useStrength: type === itemType.passwords,
             // newItemLink: reactLinks.newPassword,     // todo find solution for this
             // editItemLink: reactLinks.editPassword,   // todo find solution for this
             title: 'All items',
@@ -107,13 +103,13 @@ const useItems = (type, itemKey, folderId) => {
 
     const handleRowClick = (params) => {
         const {row: {id}} = params;
-        const {items, useStrength} = store[type];
+        const {items} = store[type];
 
         const selected = items.find(item => item.id === id);
         setIsShowDetails(true);
         setSelectedItem(selected);
         dispatch(itemActions.setEditableItem(selected));
-        if (useStrength) {
+        if (selected.type === itemType.passwords) {
             dispatch(fetchPasswordStrength(selected.password));
         }
     };
