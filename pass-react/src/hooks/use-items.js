@@ -71,28 +71,28 @@ const useItems = (type, itemKey, folderId) => {
     const store = {
         [itemType.passwords]: {
             items: typedPasswords,
-            active: type === itemType.passwords,
+            useStrength: true,
             newItemLink: reactLinks.newPassword,
             editItemLink: reactLinks.editPassword,
             title: 'Passwords',
         },
         [itemType.secureNotes]: {
             items: typedSecureNotes,
-            active: type === itemType.secureNotes,
+            useStrength: false,
             newItemLink: reactLinks.newSecureNote,
             editItemLink: reactLinks.editSecureNote,
             title: 'Secure Notes',
         },
         [itemType.creditCards]: {
             items: typedCreditCards,
-            active: type === itemType.creditCards,
+            useStrength: false,
             newItemLink: reactLinks.newCreditCard,
             editItemLink: reactLinks.editCreditCard,
             title: 'Credit Cards',
         },
         [itemType.all]: {
             items: typedPasswords.concat(typedSecureNotes, typedCreditCards),
-            active: type === itemType.all,
+            useStrength: type === itemType.passwords,
             // newItemLink: reactLinks.newPassword,     // todo find solution for this
             // editItemLink: reactLinks.editPassword,   // todo find solution for this
             title: 'All items',
@@ -107,13 +107,13 @@ const useItems = (type, itemKey, folderId) => {
 
     const handleRowClick = (params) => {
         const {row: {id}} = params;
-        const {items, active} = store[type];
+        const {items, useStrength} = store[type];
 
         const selected = items.find(item => item.id === id);
         setIsShowDetails(true);
         setSelectedItem(selected);
         dispatch(itemActions.setEditableItem(selected));
-        if (active) {
+        if (useStrength) {
             dispatch(fetchPasswordStrength(selected.password));
         }
     };
@@ -138,7 +138,7 @@ const useItems = (type, itemKey, folderId) => {
     };
 
     useEffect(() => {
-        if (store[type].active) {
+        if (store[type].useStrength) {
             dispatch(passgenActions.resetStrength());
         }
     }, []);
