@@ -6,7 +6,7 @@ import com.blaec.passvault.model.Password;
 import com.blaec.passvault.model.SecureNote;
 import com.blaec.passvault.model.response.Response;
 import com.blaec.passvault.model.to.item.FullItemTo;
-import com.blaec.passvault.model.to.item.ItemTo;
+import com.blaec.passvault.model.to.item.BaseItemTo;
 import com.blaec.passvault.service.ItemService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +27,7 @@ public class ItemController extends AbstractController {
     private final ItemService<SecureNote> secureNoteService;
 
     @GetMapping("/get-all")
-    public Map<ItemType, List<ItemTo>> getAll() {
+    public Map<ItemType, List<BaseItemTo>> getAll() {
         return Map.of(
                 ItemType.passwords, mappedPasswords(passwordService.getAll()),
                 ItemType.secureNotes, mappedSecureNotes(secureNoteService.getAll())
@@ -35,23 +35,12 @@ public class ItemController extends AbstractController {
     }
 
     @GetMapping("/get-all-in-folder/{folderId}")
-    public Map<ItemType, List<ItemTo>> getAllInFolder(@PathVariable int folderId) {
+    public Map<ItemType, List<BaseItemTo>> getAllInFolder(@PathVariable int folderId) {
         return Map.of(
                 ItemType.passwords, mappedPasswords(passwordService.getAllByFolderId(folderId)),
                 ItemType.secureNotes, mappedSecureNotes(secureNoteService.getAllByFolderId(folderId))
         );
     }
-
-//    @GetMapping("/get-all-by-type/{itemType}")
-//    public List<ItemTo> getAllByType(@PathVariable ItemType itemType) {
-//        if (itemType == ItemType.passwords) {
-//            return mappedPasswords(passwordService.getAll());
-//        } else if (itemType == ItemType.secureNotes) {
-//            return mappedSecureNotes(secureNoteService.getAll());
-//        } else {
-//            throw new IllegalArgumentException();
-//        }
-//    }
 
     @PostMapping("/create")
     public Response saveItem(@RequestBody FullItemTo to) {

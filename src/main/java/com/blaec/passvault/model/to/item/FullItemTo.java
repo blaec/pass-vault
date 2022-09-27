@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class FullItemTo extends ItemTo {
+public class FullItemTo extends BaseItemTo {
     private ItemType itemType;
 
     // password fields

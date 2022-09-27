@@ -38,7 +38,6 @@ export const itemApi = {
     get: {
         getAll: `${baseItemApi}get-all`,
         getAllInFolder: `${baseItemApi}get-all-in-folder/`,
-        // getAllByType: `${baseItemApi}get-all-by-type/`,
     },
     post: {
         create: `${baseItemApi}create/`,
@@ -48,23 +47,6 @@ export const itemApi = {
     },
     delete: {
         delete: `${baseItemApi}delete/`,
-    },
-};
-
-let baseSecureNoteApi = "/secure-note/";
-export const secureNoteApi = {
-    get: {
-        getAll: `${baseSecureNoteApi}get-all`,
-        getAllByFolder: `${baseSecureNoteApi}get-all-by-folder/`,
-    },
-    post: {
-        create: `${baseSecureNoteApi}create/`,
-    },
-    put: {
-        update: `${baseSecureNoteApi}update/`,
-    },
-    delete: {
-        delete: `${baseSecureNoteApi}delete/`,
     },
 };
 
