@@ -1,9 +1,11 @@
 import React from 'react';
-import usePasswords from "../../../../hooks/use-passwords";
+
+import useItems from "../../../../hooks/use-items";
+import {itemType} from "../../../../utils/Constants";
 
 
 const Passwords = () => {
-    return usePasswords('passwords');
+    return useItems(itemType.passwords, 'items');
 };
 
 export default Passwords;

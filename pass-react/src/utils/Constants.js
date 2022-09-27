@@ -17,3 +17,11 @@ export const passwordStrength = {
     moderate: 1,
     weak: 2,
 };
+
+// see enum ItemType
+export const itemType = {
+    passwords: 'passwords',
+    secureNotes: 'secureNotes',
+    creditCards: 'creditCards',
+    all: 'all',
+};

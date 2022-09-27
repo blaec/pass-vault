@@ -1,12 +1,12 @@
 package com.blaec.passvault.model;
 
-import com.blaec.passvault.model.to.ExistingPasswordTo;
-import com.blaec.passvault.model.to.NewPasswordTo;
+import com.blaec.passvault.model.to.item.FullItemTo;
 import com.blaec.passvault.utils.DateTimeUtils;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.time.LocalDate;
 
 @Slf4j
@@ -15,41 +15,15 @@ import java.time.LocalDate;
 @Setter(AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "passwords")
-public class Password {
-
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Id
-    private Integer id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "folder_id", nullable = false)
-    private Folder folder;
-
-    @NonNull private String title;
+public class Password extends BaseItem {
     @NonNull private String user;
     @NonNull private String password;
     @NonNull private String website;
-    private String note;
 
-    @Column(name="creation_date")
-    @NonNull private LocalDate creationDate;
-
-    public static Password from(NewPasswordTo passwordTo, Folder folder) {
+    public static Password from(FullItemTo passwordTo, Folder folder) {
         Password created = new Password();
-        created.folder = folder;
-        created.title = passwordTo.getTitle();
-        created.user = passwordTo.getUser();
-        created.password = passwordTo.getPassword();
-        created.website = passwordTo.getWebsite();
-        created.note = passwordTo.getNote();
-        created.creationDate = LocalDate.parse(passwordTo.getCreationDate(), DateTimeUtils.formatter);
 
-        return created;
-    }
-
-    public static Password from(ExistingPasswordTo passwordTo, Folder folder) {
-        Password created = new Password();
-        created.id = passwordTo.getPasswordId();
+        created.id = passwordTo.getId();
         created.folder = folder;
         created.title = passwordTo.getTitle();
         created.user = passwordTo.getUser();

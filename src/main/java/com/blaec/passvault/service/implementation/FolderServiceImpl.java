@@ -6,11 +6,7 @@ import com.blaec.passvault.repository.FolderRepository;
 import com.blaec.passvault.service.FolderService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
-
-import javax.persistence.EntityNotFoundException;
-import java.util.Optional;
 
 @Slf4j
 @AllArgsConstructor
@@ -22,11 +18,6 @@ public class FolderServiceImpl implements FolderService {
     @Override
     public Iterable<Folder> getAll() {
         return folderRepository.getAll();
-    }
-
-    @Override
-    public Optional<Folder> getById(int folderId) {
-        return folderRepository.getById(folderId);
     }
 
     @Override

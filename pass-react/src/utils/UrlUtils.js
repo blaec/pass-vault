@@ -8,6 +8,11 @@ export const reactLinks = {
     creditCards: "/credit-cards",
     trash: "/trash",
     newPassword: "/new-password",
+    editPassword: "/update-password",
+    newSecureNote: "/new-secure-note",
+    editSecureNote: "/update-secure-note",
+    newCreditCard: "/new-credit-card",
+    editCreditCard: "/update-credit-card",
     folders: "/folders",
     settings: "/settings",
 };
@@ -28,20 +33,20 @@ export const folderApi = {
     },
 };
 
-let basePasswordApi = "/password/";
-export const passwordApi = {
+let baseItemApi = "/items/";
+export const itemApi = {
     get: {
-        getAll: `${basePasswordApi}get-all`,
-        getAllByFolder: `${basePasswordApi}get-all-by-folder/`,
+        getAll: `${baseItemApi}get-all`,
+        getAllInFolder: `${baseItemApi}get-all-in-folder/`,
     },
     post: {
-        create: `${basePasswordApi}create/`,
+        create: `${baseItemApi}create/`,
     },
     put: {
-        update: `${basePasswordApi}update/`,
+        update: `${baseItemApi}update/`,
     },
     delete: {
-        delete: `${basePasswordApi}delete/`,
+        delete: `${baseItemApi}delete/`,
     },
 };
 

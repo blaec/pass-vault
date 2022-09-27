@@ -1,20 +1,18 @@
 import React, {useEffect} from 'react';
-import {
-    Routes,
-    Route
-} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import {useDispatch} from "react-redux";
 
-import NewPassword from "./component/Pages/PathLinks/NewPassword/NewPassword";
 import Password from "./component/Pages/MenuItems/Password/Passwords";
 import Folder from "./component/Pages/MenuItems/Folder/Folder";
 import Settings from "./component/Pages/Settings/Settings";
 import ItemsInFolder from "./component/Pages/PathLinks/ItemsInFolder/ItemsInFolder";
-
+import SecureNote from "./component/Pages/MenuItems/SecureNote/SecureNote";
+import NewItemFactory from "./component/Pages/PathLinks/NewItem/NewItemFactory";
 import Layout from "./hoc/Layout";
 import {reactLinks} from "./utils/UrlUtils";
 import {fetchFolders} from "./store/state/folder/folder-actions";
-import {fetchPasswords} from "./store/state/password/password-actions";
+import {fetchItems} from "./store/state/item/item-actions";
+import {itemType} from "./utils/Constants";
 
 function App() {
     const {
@@ -26,6 +24,11 @@ function App() {
         creditCards,
         trash,
         newPassword,
+        editPassword,
+        newSecureNote,
+        editSecureNote,
+        newCreditCard,
+        editCreditCard,
         folders,
         settings,
     } = reactLinks;
@@ -34,7 +37,7 @@ function App() {
 
     useEffect(() => {
         dispatch(fetchFolders());
-        dispatch(fetchPasswords());
+        dispatch(fetchItems());
     }, []);
 
     const layout = (
@@ -43,11 +46,17 @@ function App() {
 
                 {/* Menu items */}
                 <Route path={passwords} exact element={<Password/>}/>
+                <Route path={secureNotes} exact element={<SecureNote/>}/>
                 <Route path={folders} exact element={<Folder/>}/>
                 <Route path={settings} exact element={<Settings/>}/>
 
                 {/* Path links */}
-                <Route path={newPassword} exact element={<NewPassword/>}/>
+                <Route path={newPassword} exact element={<NewItemFactory type={itemType.passwords}/>}/>
+                <Route path={editPassword} exact element={<NewItemFactory type={itemType.passwords}/>}/>
+                <Route path={newSecureNote} exact element={<NewItemFactory type={itemType.secureNotes}/>}/>
+                <Route path={editSecureNote} exact element={<NewItemFactory type={itemType.secureNotes}/>}/>
+                <Route path={newCreditCard} exact element={<NewItemFactory type={itemType.creditCards}/>}/>
+                <Route path={editCreditCard} exact element={<NewItemFactory type={itemType.creditCards}/>}/>
                 <Route path={folderItems} exact element={<ItemsInFolder/>}/>
             </Routes>
         </Layout>
