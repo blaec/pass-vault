@@ -3,7 +3,7 @@ package com.blaec.passvault.controller;
 import com.blaec.passvault.enums.ItemType;
 import com.blaec.passvault.model.BaseItem;
 import com.blaec.passvault.model.Password;
-import com.blaec.passvault.model.SecretNote;
+import com.blaec.passvault.model.SecureNote;
 import com.blaec.passvault.model.response.Response;
 import com.blaec.passvault.model.to.item.FullItemTo;
 import com.blaec.passvault.model.to.item.ItemTo;
@@ -24,13 +24,13 @@ public class ItemController extends AbstractController {
     static final String URL = API_VERSION + "/items";
 
     private final ItemService<Password> passwordService;
-    private final ItemService<SecretNote> secretNoteService;
+    private final ItemService<SecureNote> secureNoteService;
 
     @GetMapping("/get-all")
     public Map<ItemType, List<ItemTo>> getAll() {
         return Map.of(
                 ItemType.passwords, mappedPasswords(passwordService.getAll()),
-                ItemType.secretNotes, mappedSecretNotes(secretNoteService.getAll())
+                ItemType.secureNotes, mappedSecureNotes(secureNoteService.getAll())
         );
     }
 
@@ -38,7 +38,7 @@ public class ItemController extends AbstractController {
     public Map<ItemType, List<ItemTo>> getAllInFolder(@PathVariable int folderId) {
         return Map.of(
                 ItemType.passwords, mappedPasswords(passwordService.getAllByFolderId(folderId)),
-                ItemType.secretNotes, mappedSecretNotes(secretNoteService.getAllByFolderId(folderId))
+                ItemType.secureNotes, mappedSecureNotes(secureNoteService.getAllByFolderId(folderId))
         );
     }
 
@@ -46,8 +46,8 @@ public class ItemController extends AbstractController {
 //    public List<ItemTo> getAllByType(@PathVariable ItemType itemType) {
 //        if (itemType == ItemType.passwords) {
 //            return mappedPasswords(passwordService.getAll());
-//        } else if (itemType == ItemType.secretNotes) {
-//            return mappedSecretNotes(secretNoteService.getAll());
+//        } else if (itemType == ItemType.secureNotes) {
+//            return mappedSecureNotes(secureNoteService.getAll());
 //        } else {
 //            throw new IllegalArgumentException();
 //        }
@@ -78,8 +78,8 @@ public class ItemController extends AbstractController {
     private <T extends BaseItem> ItemService<T> serviceFactory(ItemType itemType) {
         if (itemType == ItemType.passwords) {
             return (ItemService<T>) passwordService;
-        } else if (itemType == ItemType.secretNotes) {
-            return (ItemService<T>) secretNoteService;
+        } else if (itemType == ItemType.secureNotes) {
+            return (ItemService<T>) secureNoteService;
         } else {
             throw new IllegalArgumentException();
         }

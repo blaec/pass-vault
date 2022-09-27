@@ -1,13 +1,13 @@
 import axios from "../../../axios-pass";
-import {secretNoteApi} from "../../../utils/UrlUtils";
-import {secretNoteActions} from "./secret-note-slice";
+import {secureNoteApi} from "../../../utils/UrlUtils";
+import {secureNoteActions} from "./secure-note-slice";
 
-export const fetchSecretNotes = () => {
+export const fetchSecureNotes = () => {
     return async (dispatch) => {
-        axios.get(secretNoteApi.get.getAll)
+        axios.get(secureNoteApi.get.getAll)
             .then(response => {
                 const {data} = response;
-                dispatch(secretNoteActions.setSecretNotes(data));
+                dispatch(secureNoteActions.setSecureNotes(data));
             })
             .catch(error => {
                 console.log(error);
@@ -15,12 +15,12 @@ export const fetchSecretNotes = () => {
     };
 };
 
-export const fetchSecretNotesByFolder = (folderId) => {
+export const fetchSecureNotesByFolder = (folderId) => {
     return async (dispatch) => {
-        axios.get(`${secretNoteApi.get.getAllByFolder}${folderId}`)
+        axios.get(`${secureNoteApi.get.getAllByFolder}${folderId}`)
             .then(response => {
                 const {data} = response;
-                dispatch(secretNoteActions.setSecretNotesByFolder(data));
+                dispatch(secureNoteActions.setSecureNotesByFolder(data));
             })
             .catch(error => {
                 console.log(error);
@@ -28,13 +28,13 @@ export const fetchSecretNotesByFolder = (folderId) => {
     };
 };
 
-export const saveSecretNote = (secretNote) => {
+export const saveSecureNote = (secureNote) => {
     return async (dispatch) => {
-        axios.post(`${secretNoteApi.post.create}`, secretNote)
+        axios.post(`${secureNoteApi.post.create}`, secureNote)
             .then(response => {
                 const {data} = response;
-                dispatch(fetchSecretNotes());
-                dispatch(secretNoteActions.resetEditableSecretNote());
+                dispatch(fetchSecureNotes());
+                dispatch(secureNoteActions.resetEditableSecureNote());
             })
             .catch(error => {
                 console.log(error);
@@ -42,12 +42,12 @@ export const saveSecretNote = (secretNote) => {
     };
 };
 
-export const updateSecretNote = (secretNote) => {
+export const updateSecureNote = (secureNote) => {
     return async (dispatch) => {
-        axios.put(`${secretNoteApi.put.update}`, secretNote)
+        axios.put(`${secureNoteApi.put.update}`, secureNote)
             .then(response => {
                 const {data} = response;
-                dispatch(fetchSecretNotes());
+                dispatch(fetchSecureNotes());
             })
             .catch(error => {
                 console.log(error);
@@ -55,12 +55,12 @@ export const updateSecretNote = (secretNote) => {
     };
 };
 
-export const deleteSecretNote = (id) => {
+export const deleteSecureNote = (id) => {
     return async (dispatch) => {
-        axios.delete(`${secretNoteApi.delete.delete}${id}`)
+        axios.delete(`${secureNoteApi.delete.delete}${id}`)
             .then(response => {
                 const {data} = response;
-                dispatch(fetchSecretNotes());
+                dispatch(fetchSecureNotes());
             })
             .catch(error => {
                 console.log(error);

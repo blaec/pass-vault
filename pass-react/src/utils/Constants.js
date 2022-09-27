@@ -21,7 +21,7 @@ export const passwordStrength = {
 // see enum ItemType
 export const itemType = {
     passwords: 'passwords',
-    secretNotes: 'secretNotes',
+    secureNotes: 'secureNotes',
     creditCards: 'creditCards',
     all: 'all',
 };

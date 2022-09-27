@@ -42,7 +42,7 @@ export const MainItemsData = [
     },
     {
         text: "Secure Notes",
-        link: reactLinks.secretNotes,
+        link: reactLinks.secureNotes,
         icon: <StickyNote2TwoToneIcon/>
     },
     {

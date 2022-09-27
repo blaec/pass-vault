@@ -6,7 +6,7 @@ import Password from "./component/Pages/MenuItems/Password/Passwords";
 import Folder from "./component/Pages/MenuItems/Folder/Folder";
 import Settings from "./component/Pages/Settings/Settings";
 import ItemsInFolder from "./component/Pages/PathLinks/ItemsInFolder/ItemsInFolder";
-import SecretNote from "./component/Pages/MenuItems/SecretNote/SecretNote";
+import SecureNote from "./component/Pages/MenuItems/SecureNote/SecureNote";
 import NewItemFactory from "./component/Pages/PathLinks/NewItem/NewItemFactory";
 import Layout from "./hoc/Layout";
 import {reactLinks} from "./utils/UrlUtils";
@@ -20,13 +20,13 @@ function App() {
         allItems,
         passwords,
         folderItems,
-        secretNotes,
+        secureNotes,
         creditCards,
         trash,
         newPassword,
         editPassword,
-        newSecretNote,
-        editSecretNote,
+        newSecureNote,
+        editSecureNote,
         newCreditCard,
         editCreditCard,
         folders,
@@ -46,15 +46,15 @@ function App() {
 
                 {/* Menu items */}
                 <Route path={passwords} exact element={<Password/>}/>
-                <Route path={secretNotes} exact element={<SecretNote/>}/>
+                <Route path={secureNotes} exact element={<SecureNote/>}/>
                 <Route path={folders} exact element={<Folder/>}/>
                 <Route path={settings} exact element={<Settings/>}/>
 
                 {/* Path links */}
                 <Route path={newPassword} exact element={<NewItemFactory type={itemType.passwords}/>}/>
                 <Route path={editPassword} exact element={<NewItemFactory type={itemType.passwords}/>}/>
-                <Route path={newSecretNote} exact element={<NewItemFactory type={itemType.secretNotes}/>}/>
-                <Route path={editSecretNote} exact element={<NewItemFactory type={itemType.secretNotes}/>}/>
+                <Route path={newSecureNote} exact element={<NewItemFactory type={itemType.secureNotes}/>}/>
+                <Route path={editSecureNote} exact element={<NewItemFactory type={itemType.secureNotes}/>}/>
                 <Route path={newCreditCard} exact element={<NewItemFactory type={itemType.creditCards}/>}/>
                 <Route path={editCreditCard} exact element={<NewItemFactory type={itemType.creditCards}/>}/>
                 <Route path={folderItems} exact element={<ItemsInFolder/>}/>

@@ -1,7 +1,7 @@
 # changelist №45
-DROP TABLE IF EXISTS secret_notes;
+DROP TABLE IF EXISTS secure_notes;
 
-CREATE TABLE secret_notes
+CREATE TABLE secure_notes
 (
     id              INT auto_increment,
     folder_id       INT 			            NULL,
@@ -12,4 +12,4 @@ CREATE TABLE secret_notes
     PRIMARY KEY     (id)
 );
 
-ALTER TABLE secret_notes AUTO_INCREMENT = 100000;
+ALTER TABLE secure_notes AUTO_INCREMENT = 100000;

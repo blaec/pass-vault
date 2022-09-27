@@ -1,10 +1,10 @@
 package com.blaec.passvault.controller;
 
 import com.blaec.passvault.model.Password;
-import com.blaec.passvault.model.SecretNote;
+import com.blaec.passvault.model.SecureNote;
 import com.blaec.passvault.model.to.item.ItemTo;
 import com.blaec.passvault.model.to.item.PasswordItemTo;
-import com.blaec.passvault.model.to.item.SecretNoteItemTo;
+import com.blaec.passvault.model.to.item.SecureNoteItemTo;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,9 +19,9 @@ public abstract class AbstractController {
                 .collect(Collectors.toList());
     }
 
-    protected List<ItemTo> mappedSecretNotes(Iterable<SecretNote> secretNotes) {
-        return StreamSupport.stream(secretNotes.spliterator(), false)
-                .map(SecretNoteItemTo::from)
+    protected List<ItemTo> mappedSecureNotes(Iterable<SecureNote> secureNotes) {
+        return StreamSupport.stream(secureNotes.spliterator(), false)
+                .map(SecureNoteItemTo::from)
                 .collect(Collectors.toList());
     }
 }

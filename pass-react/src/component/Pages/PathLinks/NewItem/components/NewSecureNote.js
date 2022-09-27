@@ -13,7 +13,7 @@ import {CardContent, FormControl, Grid, InputLabel, MenuItem, Select} from "@mui
 const _element = {mt: 1};
 
 
-const NewSecretNote = (props) => {
+const NewSecureNote = (props) => {
     const {
         item,
         titleRef,
@@ -116,7 +116,7 @@ const NewSecretNote = (props) => {
                 item={passwordItem}
                 actionName={passwordInput.actionName}
                 action={passwordInput.actionHandler}
-                redirect={reactLinks.secretNotes}
+                redirect={reactLinks.secureNotes}
                 cardContent={cardContent}
                 onCancel={onCancel}
             />
@@ -124,4 +124,4 @@ const NewSecretNote = (props) => {
     );
 };
 
-export default NewSecretNote;
+export default NewSecureNote;

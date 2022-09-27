@@ -4,13 +4,13 @@ export const reactLinks = {
     passwords: "/passwords",
     folderItemsEndpoint: "/folder-items/",
     folderItems: "/folder-items/:folderId",
-    secretNotes: "/secret-notes",
+    secureNotes: "/secure-notes",
     creditCards: "/credit-cards",
     trash: "/trash",
     newPassword: "/new-password",
     editPassword: "/update-password",
-    newSecretNote: "/new-secret-note",
-    editSecretNote: "/update-secret-note",
+    newSecureNote: "/new-secure-note",
+    editSecureNote: "/update-secure-note",
     newCreditCard: "/new-credit-card",
     editCreditCard: "/update-credit-card",
     folders: "/folders",
@@ -51,20 +51,20 @@ export const itemApi = {
     },
 };
 
-let baseSecretNoteApi = "/secret-note/";
-export const secretNoteApi = {
+let baseSecureNoteApi = "/secure-note/";
+export const secureNoteApi = {
     get: {
-        getAll: `${baseSecretNoteApi}get-all`,
-        getAllByFolder: `${baseSecretNoteApi}get-all-by-folder/`,
+        getAll: `${baseSecureNoteApi}get-all`,
+        getAllByFolder: `${baseSecureNoteApi}get-all-by-folder/`,
     },
     post: {
-        create: `${baseSecretNoteApi}create/`,
+        create: `${baseSecureNoteApi}create/`,
     },
     put: {
-        update: `${baseSecretNoteApi}update/`,
+        update: `${baseSecureNoteApi}update/`,
     },
     delete: {
-        delete: `${baseSecretNoteApi}delete/`,
+        delete: `${baseSecureNoteApi}delete/`,
     },
 };
 

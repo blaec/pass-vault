@@ -1,10 +1,9 @@
 package com.blaec.passvault.service.implementation;
 
 import com.blaec.passvault.model.Folder;
-import com.blaec.passvault.model.SecretNote;
+import com.blaec.passvault.model.SecureNote;
 import com.blaec.passvault.model.response.Response;
 import com.blaec.passvault.model.to.item.FullItemTo;
-import com.blaec.passvault.model.to.secretNote.SecretNoteTo;
 import com.blaec.passvault.repository.FolderRepository;
 import com.blaec.passvault.repository.ItemRepository;
 import com.blaec.passvault.service.ItemService;
@@ -19,47 +18,47 @@ import java.util.function.Supplier;
 @Slf4j
 @AllArgsConstructor
 @Service
-public class SecretNoteServiceImpl implements ItemService<SecretNote> {
-    private final ItemRepository<SecretNote> secretNoteRepository;
+public class SecureNoteServiceImpl implements ItemService<SecureNote> {
+    private final ItemRepository<SecureNote> secureNoteRepository;
     private final FolderRepository folderRepository;
 
     @Override
-    public Iterable<SecretNote> getAll() {
-        return secretNoteRepository.getAll();
+    public Iterable<SecureNote> getAll() {
+        return secureNoteRepository.getAll();
     }
 
     @Override
-    public Iterable<SecretNote> getAllByFolderId(int folderId) {
-        return secretNoteRepository.getAllByFolderId(folderId);
+    public Iterable<SecureNote> getAllByFolderId(int folderId) {
+        return secureNoteRepository.getAllByFolderId(folderId);
     }
 
     @Override
     public Response.Builder create(FullItemTo to) {
-        return save(createSecretNoteFrom(to), "Secret note for {} successfully saved");
+        return save(createSecureNoteFrom(to), "Secure note for {} successfully saved");
     }
 
     @Override
     public Response.Builder update(FullItemTo to) {
-        return save(createSecretNoteFrom(to), "Password for {} successfully updated");
+        return save(createSecureNoteFrom(to), "Password for {} successfully updated");
     }
 
-    private SecretNote createSecretNoteFrom(FullItemTo to) {
+    private SecureNote createSecureNoteFrom(FullItemTo to) {
         Folder folder = folderRepository.getById(to.getFolderId()).orElse(null);
-        return SecretNote.from(to, Objects.requireNonNull(folder, "folder not supplied"));
+        return SecureNote.from(to, Objects.requireNonNull(folder, "folder not supplied"));
     }
 
-    private Response.Builder save(SecretNote secretNote, String message) {
+    private Response.Builder save(SecureNote secureNote, String message) {
         return ItemServiceUtils.save(() -> {
-            SecretNote saved = secretNoteRepository.save(secretNote);
+            SecureNote saved = secureNoteRepository.save(secureNote);
             log.info(message, saved.getTitle());
         });
     }
 
     @Override
     public Response.Builder delete(int id) {
-        BooleanSupplier idDeleted = () -> secretNoteRepository.isDeleted(id);
+        BooleanSupplier idDeleted = () -> secureNoteRepository.isDeleted(id);
         Supplier<String> logSuccess = () -> {
-            String message = String.format("deleted | secret note with id %d", id);
+            String message = String.format("deleted | secure note with id %d", id);
             log.info(message);
 
             return message;

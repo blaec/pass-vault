@@ -35,16 +35,16 @@ const columns = [
 const useItems = (type, itemKey, folderId) => {
     const [isShowDetails, setIsShowDetails] = React.useState(false);
     const [selectedItem, setSelectedItem] = React.useState({});
-    const [isShowSecretInput, setIsShowSecretInput] = React.useState(false);
+    const [isShowSecureInput, setIsShowSecureInput] = React.useState(false);
 
-    const {passwords, secretNotes, creditCards, isLoaded} = useSelector(state => state.item[itemKey]);
+    const {passwords, secureNotes, creditCards, isLoaded} = useSelector(state => state.item[itemKey]);
     const {folders, isFoldersLoaded} = useSelector(state => state.folder.folders);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const typedPasswords = passwords.map(p => ({...p, type: itemType.passwords}));
-    const typedSecretNotes = secretNotes.map(p => ({...p, type: itemType.secretNotes}));
+    const typedSecureNotes = secureNotes.map(p => ({...p, type: itemType.secureNotes}));
     const typedCreditCards = creditCards.map(p => ({...p, type: itemType.creditCards}));
     const store = {
         [itemType.passwords]: {
@@ -54,12 +54,12 @@ const useItems = (type, itemKey, folderId) => {
             editItemLink: reactLinks.editPassword,
             title: 'Passwords',
         },
-        [itemType.secretNotes]: {
-            items: typedSecretNotes,
-            active: type === itemType.secretNotes,
-            newItemLink: reactLinks.newSecretNote,
-            editItemLink: reactLinks.editSecretNote,
-            title: 'Secret Notes',
+        [itemType.secureNotes]: {
+            items: typedSecureNotes,
+            active: type === itemType.secureNotes,
+            newItemLink: reactLinks.newSecureNote,
+            editItemLink: reactLinks.editSecureNote,
+            title: 'Secure Notes',
         },
         [itemType.creditCards]: {
             items: typedCreditCards,
@@ -69,7 +69,7 @@ const useItems = (type, itemKey, folderId) => {
             title: 'Credit Cards',
         },
         [itemType.all]: {
-            items: typedPasswords.concat(typedSecretNotes, typedCreditCards),
+            items: typedPasswords.concat(typedSecureNotes, typedCreditCards),
             active: type === itemType.all,
             newItemLink: reactLinks.newPassword,
             editItemLink: reactLinks.editCreditCard,
@@ -103,11 +103,11 @@ const useItems = (type, itemKey, folderId) => {
     const handleCloseDetails = () => {
         setIsShowDetails(false);
         dispatch(itemActions.resetEditableItem());
-        setIsShowSecretInput(false);
+        setIsShowSecureInput(false);
     };
 
-    const handleShowSecretInput = () => {
-        setIsShowSecretInput(!isShowSecretInput);
+    const handleShowSecureInput = () => {
+        setIsShowSecureInput(!isShowSecureInput);
     };
 
     const handleAddNewItem = () => {
@@ -136,9 +136,9 @@ const useItems = (type, itemKey, folderId) => {
                     type={type}
                     selectedItem={selectedItem}
                     showDetails={isShowDetails}
-                    isShowSecretInput={isShowSecretInput}
+                    isShowSecureInput={isShowSecureInput}
                     onEdit={handleEditItem}
-                    handleShowSecretInput={handleShowSecretInput}
+                    handleShowSecureInput={handleShowSecureInput}
                     onClose={handleCloseDetails}
                 />
             </>

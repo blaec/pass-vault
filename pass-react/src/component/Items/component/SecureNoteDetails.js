@@ -4,11 +4,11 @@ import ItemDataRow from "./ItemDataRow";
 import ItemDetails from "../ItemDetails";
 
 
-const SecretNoteDetails = (props) => {
-    const {selectedSecretNote, showDetails, onEdit, onClose} = props;
+const SecureNoteDetails = (props) => {
+    const {selectedSecureNote, showDetails, onEdit, onClose} = props;
 
-    const {id, folderName, note, creationDate} = selectedSecretNote;
-    const secretNoteDetails = (
+    const {id, folderName, note, creationDate} = selectedSecureNote;
+    const secureNoteDetails = (
         <>
             <ItemDataRow
                 id={id}
@@ -33,9 +33,9 @@ const SecretNoteDetails = (props) => {
 
     return (
         <ItemDetails
-            itemId={selectedSecretNote.id}
-            itemTitle={selectedSecretNote.title}
-            itemDetails={secretNoteDetails}
+            itemId={selectedSecureNote.id}
+            itemTitle={selectedSecureNote.title}
+            itemDetails={secureNoteDetails}
             showDetails={showDetails}
             onEdit={onEdit}
             onClose={onClose}
@@ -43,4 +43,4 @@ const SecretNoteDetails = (props) => {
     );
 };
 
-export default SecretNoteDetails;
+export default SecureNoteDetails;

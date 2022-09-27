@@ -17,17 +17,17 @@ import java.time.LocalDate;
 @Getter
 @Setter(AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "secret_notes")
-public class SecretNote extends BaseItem {
+@Table(name = "secure_notes")
+public class SecureNote extends BaseItem {
 
-    public static SecretNote from(FullItemTo secretNoteTo, Folder folder) {
-        SecretNote created = new SecretNote();
+    public static SecureNote from(FullItemTo secureNoteTo, Folder folder) {
+        SecureNote created = new SecureNote();
 
-        created.id = secretNoteTo.getId();
+        created.id = secureNoteTo.getId();
         created.folder = folder;
-        created.title = secretNoteTo.getTitle();
-        created.note = secretNoteTo.getNote();
-        created.creationDate = LocalDate.parse(secretNoteTo.getCreationDate(), DateTimeUtils.formatter);
+        created.title = secureNoteTo.getTitle();
+        created.note = secureNoteTo.getNote();
+        created.creationDate = LocalDate.parse(secureNoteTo.getCreationDate(), DateTimeUtils.formatter);
 
         return created;
     }

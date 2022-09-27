@@ -4,8 +4,8 @@ import useItems from "../../../../hooks/use-items";
 import {itemType} from "../../../../utils/Constants";
 
 
-const SecretNote = () => {
-    return useItems(itemType.secretNotes, 'items');
+const SecureNote = () => {
+    return useItems(itemType.secureNotes, 'items');
 };
 
-export default SecretNote;
+export default SecureNote;

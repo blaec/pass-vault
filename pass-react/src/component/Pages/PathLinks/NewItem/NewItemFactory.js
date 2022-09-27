@@ -6,7 +6,7 @@ import {isObjectExist} from "../../../../utils/Utils";
 import {saveItem, updateItem} from "../../../../store/state/item/item-actions";
 import {passgenActions} from "../../../../store/state/passgen/passgen-slice";
 import {itemType} from "../../../../utils/Constants";
-import NewSecretNote from "./components/NewSecretNote";
+import NewSecureNote from "./components/NewSecureNote";
 import NewPassword from "./components/NewPassword";
 import {itemActions} from "../../../../store/state/item/item-slice";
 
@@ -77,8 +77,8 @@ const NewItemFactory = (props) => {
                 onCancel={handleCancel}
             />
         ),
-        [itemType.secretNotes]: (
-            <NewSecretNote
+        [itemType.secureNotes]: (
+            <NewSecureNote
                 item={editableItem}
                 titleRef={titleRef}
                 noteRef={noteRef}

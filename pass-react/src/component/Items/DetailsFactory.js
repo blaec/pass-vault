@@ -2,7 +2,7 @@ import React from 'react';
 
 import PasswordDetails from "./component/PasswordDetails";
 import {itemType} from "../../utils/Constants";
-import SecretNoteDetails from "./component/SecretNoteDetails";
+import SecureNoteDetails from "./component/SecureNoteDetails";
 import {isObjectExist} from "../../utils/Utils";
 
 
@@ -10,9 +10,9 @@ const DetailsFactory = (props) => {
     const {
         selectedItem,
         showDetails,
-        isShowSecretInput,
+        isShowSecureInput,
         onEdit,
-        handleShowSecretInput,
+        handleShowSecureInput,
         onClose
     } = props;
 
@@ -21,15 +21,15 @@ const DetailsFactory = (props) => {
             <PasswordDetails
                 selectedPassword={selectedItem}
                 showDetails={showDetails}
-                isShowPassword={isShowSecretInput}
+                isShowPassword={isShowSecureInput}
                 onEdit={onEdit}
-                onShowHidePassword={handleShowSecretInput}
+                onShowHidePassword={handleShowSecureInput}
                 onClose={onClose}
             />
         ),
-        [itemType.secretNotes]: (
-            <SecretNoteDetails
-                selectedSecretNote={selectedItem}
+        [itemType.secureNotes]: (
+            <SecureNoteDetails
+                selectedSecureNote={selectedItem}
                 showDetails={showDetails}
                 onEdit={onEdit}
                 onClose={onClose}

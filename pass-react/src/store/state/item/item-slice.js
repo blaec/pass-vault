@@ -4,20 +4,20 @@ import {itemType} from "../../../utils/Constants";
 const initialState = {
     items: {
         passwords: [],
-        secretNotes: [],
+        secureNotes: [],
         creditCards: [],
         isLoaded: false
     },
     itemsInFolder: {
         passwords: [],
-        secretNotes: [],
+        secureNotes: [],
         creditCards: [],
         isLoaded: false
     },
     editableItem: {editableItem: {}}
 };
 
-const {passwords, secretNotes, creditCards} = itemType;
+const {passwords, secureNotes, creditCards} = itemType;
 
 const itemSlice = createSlice({
     name: 'item',
@@ -26,7 +26,7 @@ const itemSlice = createSlice({
         setItems(state, action) {
             state.items = {
                 passwords: action.payload[passwords],
-                secretNotes: action.payload[secretNotes],
+                secureNotes: action.payload[secureNotes],
                 creditCards: action.payload[creditCards] || initialState.items.creditCards, // todo remove initialState
                 isLoaded: true
             };
@@ -34,7 +34,7 @@ const itemSlice = createSlice({
         setItemsInFolder(state, action) {
             state.itemsInFolder = {
                 passwords: action.payload[passwords],
-                secretNotes: action.payload[secretNotes],
+                secureNotes: action.payload[secureNotes],
                 creditCards: action.payload[creditCards] || initialState.items.creditCards, // todo remove initialState
                 isLoaded: true
             };
