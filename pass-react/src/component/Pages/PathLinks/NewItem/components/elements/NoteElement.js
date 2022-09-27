@@ -14,6 +14,7 @@ const NoteElement = (props) => {
             elemRef={elemRef}
             label={"Note"}
             multiline={true}
+            limit={300}
         />
     );
 };
