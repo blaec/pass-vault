@@ -14,13 +14,34 @@ import Box from "@mui/material/Box";
 import {Grid} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import VpnKeyTwoToneIcon from "@mui/icons-material/VpnKeyTwoTone";
+import StickyNote2TwoToneIcon from '@mui/icons-material/StickyNote2TwoTone';
+import CreditCardTwoToneIcon from '@mui/icons-material/CreditCardTwoTone';
+import AppsTwoToneIcon from '@mui/icons-material/AppsTwoTone';
 
-
+const _iconStyle = {opacity: .5};
+const icons = {
+    [itemType.passwords]: <VpnKeyTwoToneIcon sx={_iconStyle}/>,
+    [itemType.secureNotes]: <StickyNote2TwoToneIcon sx={_iconStyle}/>,
+    [itemType.creditCards]: <CreditCardTwoToneIcon sx={_iconStyle}/>,
+    [itemType.all]: <AppsTwoToneIcon sx={_iconStyle}/>,
+};
 const columns = [
+    {
+        field: 'avatar',
+        headerName: 'Type',
+        width: 60,
+        description: 'item type',
+        renderCell: (params) => {
+            return (
+                icons[params.row.type]
+            );
+        }
+    },
     {
         field: 'title',
         headerName: 'Title',
-        width: 260,
+        width: 200,
         description: 'item name',
 
     },
@@ -31,6 +52,7 @@ const columns = [
         description: 'item creation date',
     },
 ];
+
 
 const useItems = (type, itemKey, folderId) => {
     const [isShowDetails, setIsShowDetails] = React.useState(false);
