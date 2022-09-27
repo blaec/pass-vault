@@ -8,6 +8,7 @@ import Settings from "./component/Pages/Settings/Settings";
 import ItemsInFolder from "./component/Pages/PathLinks/ItemsInFolder/ItemsInFolder";
 import SecureNote from "./component/Pages/MenuItems/SecureNote/SecureNote";
 import NewItemFactory from "./component/Pages/PathLinks/NewItem/NewItemFactory";
+import AllItems from "./component/Pages/MenuItems/allItems/AllItems";
 import Layout from "./hoc/Layout";
 import {reactLinks} from "./utils/UrlUtils";
 import {fetchFolders} from "./store/state/folder/folder-actions";
@@ -45,6 +46,7 @@ function App() {
             <Routes>
 
                 {/* Menu items */}
+                <Route path={allItems} exact element={<AllItems/>}/>
                 <Route path={passwords} exact element={<Password/>}/>
                 <Route path={secureNotes} exact element={<SecureNote/>}/>
                 <Route path={folders} exact element={<Folder/>}/>
