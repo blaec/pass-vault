@@ -7,7 +7,7 @@ import ItemDetails from "../ItemDetails";
 const SecureNoteDetails = (props) => {
     const {selectedSecureNote, showDetails, onEdit, onClose} = props;
 
-    const {id, folderName, note, creationDate} = selectedSecureNote;
+    const {id, title, folderName, note, creationDate, type} = selectedSecureNote;
     const secureNoteDetails = (
         <>
             <ItemDataRow
@@ -33,10 +33,11 @@ const SecureNoteDetails = (props) => {
 
     return (
         <ItemDetails
-            itemId={selectedSecureNote.id}
-            itemTitle={selectedSecureNote.title}
+            itemId={id}
+            itemTitle={title}
             itemDetails={secureNoteDetails}
             showDetails={showDetails}
+            type={type}
             onEdit={onEdit}
             onClose={onClose}
         />

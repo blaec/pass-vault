@@ -24,7 +24,7 @@ const _RootBox = styled(Box)(({theme}) => ({
 
 
 const ItemDetails = (props) => {
-    const {itemId, itemTitle, itemDetails, showDetails, onEdit, onClose} = props;
+    const {itemId, itemTitle, itemDetails, showDetails, type, onEdit, onClose} = props;
 
     const details = (
         <TableContainer component={Paper}>
@@ -48,6 +48,7 @@ const ItemDetails = (props) => {
             <Toolbar/>
             <ItemControls
                 id={itemId}
+                type={type}
                 onEdit={onEdit}
                 onClose={onClose}
             />

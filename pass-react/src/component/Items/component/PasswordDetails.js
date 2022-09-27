@@ -23,47 +23,48 @@ const PasswordDetails = (props) => {
     const strengthElement = isStrengthLoaded
         ? <PasswordStrength strength={strength}/>
         : <CircularProgress size={'1rem'}/>;
+    const {id, title, folderName, note, creationDate, user, password, website, type} = selectedPassword;
     const passwordDetails = (
         <>
             <ItemDataRow
-                id={selectedPassword.id}
+                id={id}
                 description={"Email or User"}
-                value={selectedPassword.user}
+                value={user}
             />
             <ItemDataRow
-                id={selectedPassword.id}
+                id={id}
                 description={"Password"}
-                value={selectedPassword.password}
+                value={password}
                 isHidden={!isShowPassword}
                 icon={showHidePasswordIcon}
             />
             <ItemDataRow
-                id={selectedPassword.id}
+                id={id}
                 description={"Password security"}
                 isHideIcons={true}
                 value={strengthElement}
             />
             <ItemDataRow
-                id={selectedPassword.id}
+                id={id}
                 description={"Website Address"}
-                value={selectedPassword.website}
+                value={website}
             />
             <ItemDataRow
-                id={selectedPassword.id}
+                id={id}
                 description={"Folder"}
                 isHideIcons={true}
-                value={selectedPassword.folderName}
+                value={folderName}
             />
             <ItemDataRow
-                id={selectedPassword.id}
+                id={id}
                 description={"Note"}
-                value={selectedPassword.note}
+                value={note}
             />
             <ItemDataRow
-                id={selectedPassword.creationDate}
+                id={creationDate}
                 description={"Creation date"}
                 isHideIcons={true}
-                value={selectedPassword.creationDate}
+                value={creationDate}
             />
         </>
     );
@@ -71,10 +72,11 @@ const PasswordDetails = (props) => {
 
     return (
         <ItemDetails
-            itemId={selectedPassword.id}
-            itemTitle={selectedPassword.title}
+            itemId={id}
+            itemTitle={title}
             itemDetails={passwordDetails}
             showDetails={showDetails}
+            type={type}
             onEdit={onEdit}
             onClose={onClose}
         />

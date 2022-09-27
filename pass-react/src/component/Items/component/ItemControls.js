@@ -2,7 +2,6 @@ import React from 'react';
 import {useDispatch} from "react-redux";
 
 import {deleteItem} from "../../../store/state/item/item-actions";
-import {itemType} from "../../../utils/Constants";
 
 import {Grid} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
@@ -14,7 +13,7 @@ import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 
 
 const ItemControls = (props) => {
-    const {id, onEdit, onClose} = props;
+    const {id, type, onEdit, onClose} = props;
 
     const dispatch = useDispatch();
 
@@ -27,7 +26,7 @@ const ItemControls = (props) => {
     };
 
     const handleDelete = () => {
-        dispatch(deleteItem(itemType.passwords, id));
+        dispatch(deleteItem(type, id));
         onClose();
     };
 
