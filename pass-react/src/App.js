@@ -7,6 +7,7 @@ import Folder from "./component/Pages/MenuItems/Folder/Folder";
 import Settings from "./component/Pages/Settings/Settings";
 import ItemsInFolder from "./component/Pages/PathLinks/ItemsInFolder/ItemsInFolder";
 import SecureNote from "./component/Pages/MenuItems/SecureNote/SecureNote";
+import CreditCard from "./component/Pages/MenuItems/CreditCard/CreditCard";
 import NewItemFactory from "./component/Pages/PathLinks/NewItem/NewItemFactory";
 import AllItems from "./component/Pages/MenuItems/allItems/AllItems";
 import Layout from "./hoc/Layout";
@@ -49,6 +50,7 @@ function App() {
                 <Route path={allItems} exact element={<AllItems/>}/>
                 <Route path={passwords} exact element={<Password/>}/>
                 <Route path={secureNotes} exact element={<SecureNote/>}/>
+                <Route path={creditCards} exact element={<CreditCard/>}/>
                 <Route path={folders} exact element={<Folder/>}/>
                 <Route path={settings} exact element={<Settings/>}/>
 
