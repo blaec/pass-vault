@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 @Setter(AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CreditCardTo extends BaseItemTo {
-    private String cardHolderName;
+    private String cardholderName;
     private long cardNumber;
     private String expirationDate;
     private int cvv;
@@ -27,10 +27,10 @@ public class CreditCardTo extends BaseItemTo {
         creditCardTo.setTitle(creditCard.getTitle());
         creditCardTo.setNote(creditCard.getNote());
         creditCardTo.setCreationDate(String.valueOf(creditCard.getCreationDate()));
-        creditCardTo.setCardHolderName(creditCard.getCardHolderName());
+        creditCardTo.setCardholderName(creditCard.getCardholderName());
         creditCardTo.setCardNumber(creditCard.getCardNumber());
         creditCardTo.setCvv(creditCard.getCvv());
-        creditCardTo.setExpirationDate(creditCard.getExpirationDate());
+        creditCardTo.setExpirationDate(String.valueOf(creditCard.getExpirationDate()));
         creditCardTo.setCardPin(creditCard.getCardPin());
 
         return creditCardTo;

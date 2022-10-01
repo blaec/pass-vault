@@ -9,6 +9,7 @@ import {itemType} from "../../../../utils/Constants";
 import NewSecureNote from "./components/NewSecureNote";
 import NewPassword from "./components/NewPassword";
 import {itemActions} from "../../../../store/state/item/item-slice";
+import NewCreditCard from "./components/NewCreditCard";
 
 const _element = {mt: 1};
 
@@ -32,6 +33,11 @@ const NewItemFactory = (props) => {
     const websiteRef = React.useRef();
 
     // credit card fields
+    const cardholderNameRef = React.useRef();
+    const cardNumberRef = React.useRef();
+    const expirationDateRef = React.useRef();
+    const cvvRef = React.useRef();
+    const cardPinRef = React.useRef();
 
     useEffect(() => {
         if (isObjectExist(editableItem)) {
@@ -95,7 +101,23 @@ const NewItemFactory = (props) => {
             />
         ),
         [itemType.creditCards]: (
-            <></>
+            <NewCreditCard
+                item={editableItem}
+                elementStyle={_element}
+                titleRef={titleRef}
+                noteRef={noteRef}
+                creationDateRef={creationDateRef}
+                cardholderNameRef={cardholderNameRef}
+                cardNumberRef={cardNumberRef}
+                expirationDateRef={expirationDateRef}
+                cvvRef={cvvRef}
+                cardPinRef={cardPinRef}
+                selectedFolderId={selectedFolderId}
+                onFolderChange={handleFolderChange}
+                onSave={handleSaveItem}
+                onUpdate={handleUpdateItem}
+                onCancel={handleCancel}
+            />
         ),
     };
 

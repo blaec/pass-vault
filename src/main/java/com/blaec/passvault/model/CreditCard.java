@@ -16,25 +16,25 @@ import java.time.LocalDate;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "credit_cards")
 public class CreditCard extends BaseItem {
-    @NonNull private String cardHolderName;
+    @NonNull private String cardholderName;
     private long cardNumber;
-    @NonNull private String expirationDate;
+    @NonNull private LocalDate expirationDate;
     private int cvv;
     private int cardPin;
 
-    public static CreditCard from(FullItemTo passwordTo, Folder folder) {
+    public static CreditCard from(FullItemTo creditCardTo, Folder folder) {
         CreditCard created = new CreditCard();
 
-        created.id = passwordTo.getId();
+        created.id = creditCardTo.getId();
         created.folder = folder;
-        created.title = passwordTo.getTitle();
-        created.cardHolderName = passwordTo.getCardHolderName();
-        created.cardNumber = passwordTo.getCardNumber();
-        created.expirationDate = passwordTo.getExpirationDate();
-        created.cvv = passwordTo.getCvv();
-        created.cardPin = passwordTo.getCardPin();
-        created.note = passwordTo.getNote();
-        created.creationDate = LocalDate.parse(passwordTo.getCreationDate(), DateTimeUtils.formatter);
+        created.title = creditCardTo.getTitle();
+        created.cardholderName = creditCardTo.getCardholderName();
+        created.cardNumber = creditCardTo.getCardNumber();
+        created.expirationDate = LocalDate.parse(creditCardTo.getExpirationDate(), DateTimeUtils.formatter);
+        created.cvv = creditCardTo.getCvv();
+        created.cardPin = creditCardTo.getCardPin();
+        created.note = creditCardTo.getNote();
+        created.creationDate = LocalDate.parse(creditCardTo.getCreationDate(), DateTimeUtils.formatter);
 
         return created;
     }

@@ -18,7 +18,7 @@ public class FullItemTo extends BaseItemTo {
     private String website;
 
     // credit card fields
-    private String cardHolderName;
+    private String cardholderName;
     private long cardNumber;
     private String expirationDate;
     private int cvv;

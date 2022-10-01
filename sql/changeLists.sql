@@ -24,7 +24,7 @@ CREATE TABLE credit_cards
     title               VARCHAR(100) 			    NOT NULL,
     note                VARCHAR(300) 			    NULL,
     creation_date       DATE     					NOT NULL,
-    card_holder_name    VARCHAR(100) 			    NOT NULL,
+    cardholder_name    VARCHAR(100) 			    NOT NULL,
     card_number         VARCHAR(19)			        NOT NULL,
     expiration_date     DATE     					NOT NULL,
     cvv                 SMALLINT    			    NOT NULL,
