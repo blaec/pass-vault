@@ -5,6 +5,6 @@ import com.blaec.passvault.model.BaseItem;
 public interface ItemRepository<T extends BaseItem> {
     Iterable<T> getAll();
     Iterable<T> getAllByFolderId(int folderId);
-    T save(T password);
+    T save(T item);
     boolean isDeleted(int id);
 }
