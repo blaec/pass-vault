@@ -1,6 +1,8 @@
 package com.blaec.passvault.model.to.item;
 
+import com.blaec.passvault.enums.ItemType;
 import com.blaec.passvault.model.Password;
+import com.blaec.passvault.utils.IdUtils;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +21,7 @@ public class PasswordTo extends BaseItemTo {
     public static BaseItemTo from(Password password) {
         PasswordTo passwordTo = new PasswordTo();
 
-        passwordTo.setId(password.getId());
+        passwordTo.setId(IdUtils.fromModel(ItemType.passwords, password.getId()));
         passwordTo.setFolderId(password.getFolderId());
         passwordTo.setFolderName(password.getFolderName());
         passwordTo.setTitle(password.getTitle());

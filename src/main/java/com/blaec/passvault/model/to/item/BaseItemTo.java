@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 @Getter
 @Setter(AccessLevel.PROTECTED)
 public abstract class BaseItemTo {
-    private Integer id;
+    private String id;
     private int folderId;
     private String folderName;
     private String title;

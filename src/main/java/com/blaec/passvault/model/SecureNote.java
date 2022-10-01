@@ -2,6 +2,7 @@ package com.blaec.passvault.model;
 
 import com.blaec.passvault.model.to.item.FullItemTo;
 import com.blaec.passvault.utils.DateTimeUtils;
+import com.blaec.passvault.utils.IdUtils;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +24,7 @@ public class SecureNote extends BaseItem {
     public static SecureNote from(FullItemTo secureNoteTo, Folder folder) {
         SecureNote created = new SecureNote();
 
-        created.id = secureNoteTo.getId();
+        created.id = IdUtils.toModel(secureNoteTo.getId());
         created.folder = folder;
         created.title = secureNoteTo.getTitle();
         created.note = secureNoteTo.getNote();

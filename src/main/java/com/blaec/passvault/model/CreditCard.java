@@ -2,6 +2,7 @@ package com.blaec.passvault.model;
 
 import com.blaec.passvault.model.to.item.FullItemTo;
 import com.blaec.passvault.utils.DateTimeUtils;
+import com.blaec.passvault.utils.IdUtils;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,7 +26,7 @@ public class CreditCard extends BaseItem {
     public static CreditCard from(FullItemTo creditCardTo, Folder folder) {
         CreditCard created = new CreditCard();
 
-        created.id = creditCardTo.getId();
+        created.id = IdUtils.toModel(creditCardTo.getId());
         created.folder = folder;
         created.title = creditCardTo.getTitle();
         created.cardholderName = creditCardTo.getCardholderName();

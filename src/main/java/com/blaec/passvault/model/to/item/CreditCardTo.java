@@ -1,6 +1,8 @@
 package com.blaec.passvault.model.to.item;
 
+import com.blaec.passvault.enums.ItemType;
 import com.blaec.passvault.model.CreditCard;
+import com.blaec.passvault.utils.IdUtils;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +23,7 @@ public class CreditCardTo extends BaseItemTo {
     public static BaseItemTo from(CreditCard creditCard) {
         CreditCardTo creditCardTo = new CreditCardTo();
 
-        creditCardTo.setId(creditCard.getId());
+        creditCardTo.setId(IdUtils.fromModel(ItemType.creditCards, creditCard.getId()));
         creditCardTo.setFolderId(creditCard.getFolderId());
         creditCardTo.setFolderName(creditCard.getFolderName());
         creditCardTo.setTitle(creditCard.getTitle());

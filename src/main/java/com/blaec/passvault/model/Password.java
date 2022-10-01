@@ -2,6 +2,7 @@ package com.blaec.passvault.model;
 
 import com.blaec.passvault.model.to.item.FullItemTo;
 import com.blaec.passvault.utils.DateTimeUtils;
+import com.blaec.passvault.utils.IdUtils;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,7 +24,7 @@ public class Password extends BaseItem {
     public static Password from(FullItemTo passwordTo, Folder folder) {
         Password created = new Password();
 
-        created.id = passwordTo.getId();
+        created.id = IdUtils.toModel(passwordTo.getId());
         created.folder = folder;
         created.title = passwordTo.getTitle();
         created.user = passwordTo.getUser();
