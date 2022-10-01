@@ -2,6 +2,7 @@ package com.blaec.passvault.controller;
 
 import com.blaec.passvault.enums.ItemType;
 import com.blaec.passvault.model.BaseItem;
+import com.blaec.passvault.model.CreditCard;
 import com.blaec.passvault.model.Password;
 import com.blaec.passvault.model.SecureNote;
 import com.blaec.passvault.model.response.Response;
@@ -25,12 +26,14 @@ public class ItemController extends AbstractController {
 
     private final ItemService<Password> passwordService;
     private final ItemService<SecureNote> secureNoteService;
+    private final ItemService<CreditCard> creditCardService;
 
     @GetMapping("/get-all")
     public Map<ItemType, List<BaseItemTo>> getAll() {
         return Map.of(
                 ItemType.passwords, mappedPasswords(passwordService.getAll()),
-                ItemType.secureNotes, mappedSecureNotes(secureNoteService.getAll())
+                ItemType.secureNotes, mappedSecureNotes(secureNoteService.getAll()),
+                ItemType.creditCards, mappedCreditCards(creditCardService.getAll())
         );
     }
 
@@ -38,7 +41,8 @@ public class ItemController extends AbstractController {
     public Map<ItemType, List<BaseItemTo>> getAllInFolder(@PathVariable int folderId) {
         return Map.of(
                 ItemType.passwords, mappedPasswords(passwordService.getAllByFolderId(folderId)),
-                ItemType.secureNotes, mappedSecureNotes(secureNoteService.getAllByFolderId(folderId))
+                ItemType.secureNotes, mappedSecureNotes(secureNoteService.getAllByFolderId(folderId)),
+                ItemType.creditCards, mappedCreditCards(creditCardService.getAllByFolderId(folderId))
         );
     }
 
@@ -69,6 +73,8 @@ public class ItemController extends AbstractController {
             return (ItemService<T>) passwordService;
         } else if (itemType == ItemType.secureNotes) {
             return (ItemService<T>) secureNoteService;
+        } else if (itemType == ItemType.creditCards) {
+            return (ItemService<T>) creditCardService;
         } else {
             throw new IllegalArgumentException();
         }
