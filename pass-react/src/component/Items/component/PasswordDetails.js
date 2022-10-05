@@ -61,7 +61,7 @@ const PasswordDetails = (props) => {
                 value={note}
             />
             <ItemDataRow
-                id={creationDate}
+                id={id}
                 description={"Creation date"}
                 isHideIcons={true}
                 value={creationDate}
