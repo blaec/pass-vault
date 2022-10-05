@@ -10,6 +10,8 @@ public class IdUtils {
     }
 
     public static Integer toModel(String id) {
-        return Integer.valueOf(id.split("-")[1]);
+        return id == null
+                ? null
+                : Integer.valueOf(id.split("-")[1]);
     }
 }
