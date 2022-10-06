@@ -8,7 +8,7 @@ export const isObjectExist = (object) => {
 
 export const convertToPassword = (string) => {
     const passBullet = String.fromCharCode(9679);
-    const passLen = isObjectExist(string) ? string.length : 0;
+    const passLen = isObjectExist(string) ? string.toString().length : 0;
 
     return passBullet.repeat(passLen);
 };
