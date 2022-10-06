@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useSelector} from "react-redux";
 
 import ItemDataRow from "./ItemDataRow";
@@ -10,15 +10,22 @@ import {CircularProgress} from "@mui/material";
 
 
 const PasswordDetails = (props) => {
-    const {selectedPassword, showDetails, isShowPassword, onEdit, onShowHidePassword, onClose} = props;
+    const {selectedPassword, showDetails, onEdit, onClose} = props;
     const {strength, isStrengthLoaded} = useSelector(state => state.passgen.strength);
+    const [isShowSecureInput, setIsShowSecureInput] = React.useState(false);
 
+    const onShowHidePassword = () => {
+        setIsShowSecureInput(!isShowSecureInput);
+    };
     const showHidePasswordIcon = (
         <IconVisibility
-            isShowPassword={isShowPassword}
+            isShowPassword={isShowSecureInput}
             onShowHidePassword={onShowHidePassword}
         />
     );
+    useEffect(() => {
+        setIsShowSecureInput(false);
+    }, [showDetails])
 
     const strengthElement = isStrengthLoaded
         ? <PasswordStrength strength={strength}/>
@@ -35,7 +42,7 @@ const PasswordDetails = (props) => {
                 id={id}
                 description={"Password"}
                 value={password}
-                isHidden={!isShowPassword}
+                isHidden={!isShowSecureInput}
                 icon={showHidePasswordIcon}
             />
             <ItemDataRow

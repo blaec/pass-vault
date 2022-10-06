@@ -11,9 +11,7 @@ const DetailsFactory = (props) => {
     const {
         selectedItem,
         showDetails,
-        isShowSecureInput,
         onEdit,
-        handleShowSecureInput,
         onClose
     } = props;
 
@@ -22,9 +20,7 @@ const DetailsFactory = (props) => {
             <PasswordDetails
                 selectedPassword={selectedItem}
                 showDetails={showDetails}
-                isShowPassword={isShowSecureInput}
                 onEdit={onEdit}
-                onShowHidePassword={handleShowSecureInput}
                 onClose={onClose}
             />
         ),
