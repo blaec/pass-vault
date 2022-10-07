@@ -11,8 +11,7 @@ import {reactLinks} from "../../../../../utils/UrlUtils";
 import CardholderNameElement from "./elements/CardholderNameElement";
 import CardNumberElement from "./elements/CardNumberElement";
 import ExpirationDateElement from "./elements/ExpirationDateElement";
-import CvvElement from "./elements/CvvElement";
-import CardPinElement from "./elements/CardPinElement";
+import SecretElement from "./elements/SecretElement";
 
 import {CardContent, Grid} from "@mui/material";
 import Box from "@mui/material/Box";
@@ -123,15 +122,17 @@ const NewCreditCard = (props) => {
         />
     );
     const cvvElement = (
-        <CvvElement
+        <SecretElement
             style={elementStyle}
+            label={"CVV"}
             value={creditCardInput.cvvValue}
             elemRef={cvvRef}
         />
     );
     const cardPinElement = (
-        <CardPinElement
+        <SecretElement
             style={elementStyle}
+            label={"Card PIN"}
             value={creditCardInput.cardPinValue}
             elemRef={cardPinRef}
         />
