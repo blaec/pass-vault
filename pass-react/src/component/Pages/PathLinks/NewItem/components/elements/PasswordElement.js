@@ -4,9 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {fetchPasswordStrength} from "../../../../../../store/state/passgen/passgen-actions";
 
 import {FilledInput, FormControl, InputAdornment, InputLabel} from "@mui/material";
-import IconButton from "@mui/material/IconButton";
-import VisibilityTwoToneIcon from "@mui/icons-material/VisibilityTwoTone";
-import VisibilityOffTwoToneIcon from "@mui/icons-material/VisibilityOffTwoTone";
+import IconVisibility from "../../../../../../UI/IconButtons/IconVisibility";
 
 
 const PasswordElement = (props) => {
@@ -27,21 +25,15 @@ const PasswordElement = (props) => {
         setShowPassword(!showPassword)
     }
 
-    const visibilityElement = showPassword
-        ? <VisibilityOffTwoToneIcon/>
-        : <VisibilityTwoToneIcon/>;
     const inputType = showPassword
         ? 'text'
         : 'password';
     const inputEndAdornment = (
         <InputAdornment position="end">
-            <IconButton
-                edge="end"
-                onClick={handleShowPassword}
-                onMouseDown={handleShowPassword}
-            >
-                {visibilityElement}
-            </IconButton>
+            <IconVisibility
+                isShow={showPassword}
+                onAction={handleShowPassword}
+            />
         </InputAdornment>
     );
     const handleOnChange = () => {
