@@ -9,6 +9,7 @@ import com.blaec.passvault.model.response.Response;
 import com.blaec.passvault.model.to.item.FullItemTo;
 import com.blaec.passvault.model.to.item.BaseItemTo;
 import com.blaec.passvault.service.ItemService;
+import com.blaec.passvault.utils.IdUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -61,10 +62,11 @@ public class ItemController extends AbstractController {
     @DeleteMapping("/delete/{itemType}/{id}")
     public Response delete(
             @PathVariable ItemType itemType,
-            @PathVariable int id
+            @PathVariable String id
     ) {
-        log.info("deleting from {} | #{}", itemType, id);
-        return serviceFactory(itemType).delete(id).build();
+        Integer itemId = IdUtils.toModel(id);
+        log.info("deleting from {} | #{}", itemType, itemId);
+        return serviceFactory(itemType).delete(itemId).build();
     }
 
     @SuppressWarnings("unchecked")
