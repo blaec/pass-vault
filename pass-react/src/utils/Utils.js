@@ -30,10 +30,18 @@ export const stripString = (str) => {
     return str.replace(/\s/g, '').replace(/-/g, '').toLowerCase();
 };
 
-export const toExpirationDate = (date) => {
+export const dateToExpirationDate = (date) => {
     const formatDate = (option) => new Intl.DateTimeFormat('en', option).format(new Date(date));
-    const month = formatDate({ month: 'numeric' });
+    const month = formatDate({ month: '2-digit' });
     const year = formatDate({ year: '2-digit' });
 
     return `${month}/${year}`
 };
+
+export const expirationDateToDate = (exp) => {
+    if (exp === undefined) return undefined;
+
+    const dateParts = exp.split("/");
+
+    return `01/${dateParts[0]}/20${dateParts[1]}`;
+}

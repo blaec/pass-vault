@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {itemType} from "../../../../../utils/Constants";
-import {isObjectExist} from "../../../../../utils/Utils";
+import {expirationDateToDate, isObjectExist} from "../../../../../utils/Utils";
 import TitleElement from "./elements/TitleElement";
 import NoteElement from "./elements/NoteElement";
 import CreationDateElement from "./elements/CreationDateElement";
@@ -58,7 +58,7 @@ const NewCreditCard = (props) => {
         title: titleRef?.current?.value,
         cardholderName: cardholderNameRef?.current?.value,
         cardNumber: cardNumberRef?.current?.value,
-        expirationDate: expirationDateRef?.current?.value,
+        expirationDate: expirationDateToDate(expirationDateRef?.current?.value),
         cvv: cvvRef?.current?.value,
         cardPin: cardPinRef?.current?.value,
         note: noteRef?.current?.value,
@@ -84,7 +84,7 @@ const NewCreditCard = (props) => {
             title: titleRef?.current?.value,
             cardholderName: cardholderNameRef?.current?.value,
             cardNumber: cardNumberRef?.current?.value,
-            expirationDate: expirationDateRef?.current?.value,
+            expirationDate: expirationDateToDate(expirationDateRef?.current?.value),
             cvv: cvvRef?.current?.value,
             cardPin: cardPinRef?.current?.value,
             note: noteRef?.current?.value,

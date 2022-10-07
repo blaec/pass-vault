@@ -18,8 +18,9 @@ const ExpirationDateElement = (props) => {
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <Stack sx={style}>
                 <DesktopDatePicker
+                    views={['month', 'year']}
                     label="Creation date"
-                    inputFormat="DD/MM/YYYY"
+                    inputFormat="MM/YY"
                     value={currentValue}
                     renderInput={(params) => <TextField {...params} />}
                     inputRef={elemRef}

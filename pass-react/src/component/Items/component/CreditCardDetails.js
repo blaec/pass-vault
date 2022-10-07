@@ -3,7 +3,7 @@ import React from 'react';
 import ItemDetails from "../ItemDetails";
 import ItemDataRow from "./ItemDataRow";
 import SecretItemDataRow from "./SecretItemDataRow";
-import {toExpirationDate} from "../../../utils/Utils";
+import {dateToExpirationDate} from "../../../utils/Utils";
 
 
 const CreditCardDetails = (props) => {
@@ -37,7 +37,7 @@ const CreditCardDetails = (props) => {
             <ItemDataRow
                 id={id}
                 description={"Expiration Date"}
-                value={toExpirationDate(expirationDate)}
+                value={dateToExpirationDate(expirationDate)}
             />
             <SecretItemDataRow
                 id={id}
