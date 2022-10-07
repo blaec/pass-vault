@@ -1,6 +1,8 @@
 package com.blaec.passvault.model.to.item;
 
+import com.blaec.passvault.enums.ItemType;
 import com.blaec.passvault.model.SecureNote;
+import com.blaec.passvault.utils.IdUtils;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +18,7 @@ public class SecureNoteTo extends BaseItemTo {
     public static BaseItemTo from(SecureNote secureNote) {
         SecureNoteTo secureNoteTo = new SecureNoteTo();
 
-        secureNoteTo.setId(secureNote.getId());
+        secureNoteTo.setId(IdUtils.fromModel(ItemType.secureNotes, secureNote.getId()));
         secureNoteTo.setFolderId(secureNote.getFolderId());
         secureNoteTo.setFolderName(secureNote.getFolderName());
         secureNoteTo.setTitle(secureNote.getTitle());

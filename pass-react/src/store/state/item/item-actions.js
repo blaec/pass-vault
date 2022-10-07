@@ -28,9 +28,9 @@ export const fetchItemsInFolder = (folderId) => {
     };
 };
 
-export const saveItem = (password) => {
+export const saveItem = (item) => {
     return async (dispatch) => {
-        axios.post(`${itemApi.post.create}`, password)
+        axios.post(`${itemApi.post.create}`, item)
             .then(response => {
                 const {data} = response;
                 dispatch(fetchItems());
@@ -42,9 +42,9 @@ export const saveItem = (password) => {
     };
 };
 
-export const updateItem = (password) => {
+export const updateItem = (item) => {
     return async (dispatch) => {
-        axios.put(`${itemApi.put.update}`, password)
+        axios.put(`${itemApi.put.update}`, item)
             .then(response => {
                 const {data} = response;
                 dispatch(fetchItems());

@@ -1,8 +1,10 @@
 package com.blaec.passvault.controller;
 
+import com.blaec.passvault.model.CreditCard;
 import com.blaec.passvault.model.Password;
 import com.blaec.passvault.model.SecureNote;
 import com.blaec.passvault.model.to.item.BaseItemTo;
+import com.blaec.passvault.model.to.item.CreditCardTo;
 import com.blaec.passvault.model.to.item.PasswordTo;
 import com.blaec.passvault.model.to.item.SecureNoteTo;
 
@@ -22,6 +24,12 @@ public abstract class AbstractController {
     protected List<BaseItemTo> mappedSecureNotes(Iterable<SecureNote> secureNotes) {
         return StreamSupport.stream(secureNotes.spliterator(), false)
                 .map(SecureNoteTo::from)
+                .collect(Collectors.toList());
+    }
+
+    protected List<BaseItemTo> mappedCreditCards(Iterable<CreditCard> creditCards) {
+        return StreamSupport.stream(creditCards.spliterator(), false)
+                .map(CreditCardTo::from)
                 .collect(Collectors.toList());
     }
 }

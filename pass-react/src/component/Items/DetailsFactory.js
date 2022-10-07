@@ -4,15 +4,14 @@ import PasswordDetails from "./component/PasswordDetails";
 import {itemType} from "../../utils/Constants";
 import SecureNoteDetails from "./component/SecureNoteDetails";
 import {isObjectExist} from "../../utils/Utils";
+import CreditCardDetails from "./component/CreditCardDetails";
 
 
 const DetailsFactory = (props) => {
     const {
         selectedItem,
         showDetails,
-        isShowSecureInput,
         onEdit,
-        handleShowSecureInput,
         onClose
     } = props;
 
@@ -21,9 +20,7 @@ const DetailsFactory = (props) => {
             <PasswordDetails
                 selectedPassword={selectedItem}
                 showDetails={showDetails}
-                isShowPassword={isShowSecureInput}
                 onEdit={onEdit}
-                onShowHidePassword={handleShowSecureInput}
                 onClose={onClose}
             />
         ),
@@ -36,7 +33,12 @@ const DetailsFactory = (props) => {
             />
         ),
         [itemType.creditCards]: (
-            <></>
+            <CreditCardDetails
+                selectedCreditCard={selectedItem}
+                showDetails={showDetails}
+                onEdit={onEdit}
+                onClose={onClose}
+            />
         ),
     };
 

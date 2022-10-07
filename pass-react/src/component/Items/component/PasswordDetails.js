@@ -2,23 +2,16 @@ import React from 'react';
 import {useSelector} from "react-redux";
 
 import ItemDataRow from "./ItemDataRow";
-import IconVisibility from "../../../UI/IconButtons/IconVisibility";
 import PasswordStrength from "../../Pages/Modals/PasswordGenerator/components/PasswordStrength";
 import ItemDetails from "../ItemDetails";
+import SecretItemDataRow from "./SecretItemDataRow";
 
 import {CircularProgress} from "@mui/material";
 
 
 const PasswordDetails = (props) => {
-    const {selectedPassword, showDetails, isShowPassword, onEdit, onShowHidePassword, onClose} = props;
+    const {selectedPassword, showDetails, onEdit, onClose} = props;
     const {strength, isStrengthLoaded} = useSelector(state => state.passgen.strength);
-
-    const showHidePasswordIcon = (
-        <IconVisibility
-            isShowPassword={isShowPassword}
-            onShowHidePassword={onShowHidePassword}
-        />
-    );
 
     const strengthElement = isStrengthLoaded
         ? <PasswordStrength strength={strength}/>
@@ -31,12 +24,11 @@ const PasswordDetails = (props) => {
                 description={"Email or User"}
                 value={user}
             />
-            <ItemDataRow
+            <SecretItemDataRow
                 id={id}
                 description={"Password"}
                 value={password}
-                isHidden={!isShowPassword}
-                icon={showHidePasswordIcon}
+                showDetails={showDetails}
             />
             <ItemDataRow
                 id={id}
@@ -61,7 +53,7 @@ const PasswordDetails = (props) => {
                 value={note}
             />
             <ItemDataRow
-                id={creationDate}
+                id={id}
                 description={"Creation date"}
                 isHideIcons={true}
                 value={creationDate}

@@ -57,7 +57,6 @@ const columns = [
 const useItems = (type, itemKey, folderId) => {
     const [isShowDetails, setIsShowDetails] = React.useState(false);
     const [selectedItem, setSelectedItem] = React.useState({});
-    const [isShowSecureInput, setIsShowSecureInput] = React.useState(false);
 
     const {passwords, secureNotes, creditCards, isLoaded} = useSelector(state => state.item[itemKey]);
     const {folders, isFoldersLoaded} = useSelector(state => state.folder.folders);
@@ -122,11 +121,6 @@ const useItems = (type, itemKey, folderId) => {
     const handleCloseDetails = () => {
         setIsShowDetails(false);
         dispatch(itemActions.resetEditableItem());
-        setIsShowSecureInput(false);
-    };
-
-    const handleShowSecureInput = () => {
-        setIsShowSecureInput(!isShowSecureInput);
     };
 
     const handleAddNewItem = () => {
@@ -155,9 +149,7 @@ const useItems = (type, itemKey, folderId) => {
                     type={type}
                     selectedItem={selectedItem}
                     showDetails={isShowDetails}
-                    isShowSecureInput={isShowSecureInput}
                     onEdit={handleEditItem}
-                    handleShowSecureInput={handleShowSecureInput}
                     onClose={handleCloseDetails}
                 />
             </>

@@ -6,16 +6,16 @@ import IconButton from "@mui/material/IconButton";
 
 
 const IconVisibility = (props) => {
-    const {isShowPassword, onShowHidePassword} = props;
+    const {isShow, onAction} = props;
 
-    const visibilityIcon = isShowPassword
+    const visibilityIcon = isShow
         ? <VisibilityOffTwoToneIcon/>
         : <VisibilityTwoToneIcon/>;
 
     return (
         <IconButton
-            onClick={onShowHidePassword}
-            onMouseDown={onShowHidePassword}
+            onClick={onAction}
+            onMouseDown={onAction}
         >
             {visibilityIcon}
         </IconButton>
