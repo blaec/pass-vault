@@ -1,35 +1,12 @@
-import React, {useEffect} from 'react';
+import React from 'react';
+
 import ItemDetails from "../ItemDetails";
 import ItemDataRow from "./ItemDataRow";
-import IconVisibility from "../../../UI/IconButtons/IconVisibility";
+import SecretItemDataRow from "./SecretItemDataRow";
+
 
 const CreditCardDetails = (props) => {
     const {selectedCreditCard, showDetails, onEdit, onClose} = props;
-    const [isShowCvv, setIsShowCvv] = React.useState(false);
-    const [isShowCardPin, setIsShowCardPin] = React.useState(false);
-
-    const onShowHideCvv = () => {
-        setIsShowCvv(!isShowCvv);
-    }
-    const showHideCvv = (
-        <IconVisibility
-            isShowPassword={isShowCvv}
-            onShowHidePassword={onShowHideCvv}
-        />
-    );
-    const onShowHideCardPin = () => {
-        setIsShowCardPin(!isShowCardPin);
-    }
-    const showHideCardPin = (
-        <IconVisibility
-            isShowPassword={isShowCardPin}
-            onShowHidePassword={onShowHideCardPin}
-        />
-    );
-    useEffect(() => {
-        setIsShowCvv(false);
-        setIsShowCardPin(false);
-    }, [showDetails])
 
     const {
         id,
@@ -61,19 +38,17 @@ const CreditCardDetails = (props) => {
                 description={"Expiration Date"}
                 value={expirationDate}
             />
-            <ItemDataRow
+            <SecretItemDataRow
                 id={id}
                 description={"CVV"}
                 value={cvv}
-                isHidden={!isShowCvv}
-                icon={showHideCvv}
+                showDetails={showDetails}
             />
-            <ItemDataRow
+            <SecretItemDataRow
                 id={id}
                 description={"Card PIN"}
                 value={cardPin}
-                isHidden={!isShowCardPin}
-                icon={showHideCardPin}
+                showDetails={showDetails}
             />
             <ItemDataRow
                 id={id}
