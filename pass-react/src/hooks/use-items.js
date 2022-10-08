@@ -73,24 +73,28 @@ const useItems = (type, itemKey, folderId) => {
             newItemLink: reactLinks.newPassword,
             editItemLink: reactLinks.editPassword,
             title: 'Passwords',
+            addItem: 'Add Password',
         },
         [itemType.secureNotes]: {
             items: typedSecureNotes,
             newItemLink: reactLinks.newSecureNote,
             editItemLink: reactLinks.editSecureNote,
             title: 'Secure Notes',
+            addItem: 'Add Secure Note',
         },
         [itemType.creditCards]: {
             items: typedCreditCards,
             newItemLink: reactLinks.newCreditCard,
             editItemLink: reactLinks.editCreditCard,
             title: 'Credit Cards',
+            addItem: 'Add Credit Card',
         },
         [itemType.all]: {
             items: typedPasswords.concat(typedSecureNotes, typedCreditCards),
             // newItemLink: reactLinks.newPassword,     // todo find solution for this
             // editItemLink: reactLinks.editPassword,   // todo find solution for this
             title: 'All items',
+            addItem: 'Add Item',
         },
     };
 
@@ -178,7 +182,7 @@ const useItems = (type, itemKey, folderId) => {
                     onClick={handleAddNewItem}
                     to={`${store[type].newItemLink}`}
                 >
-                    Add Item
+                    {store[type].addItem}
                 </Button>
             </Grid>
             {table}
