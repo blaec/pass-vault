@@ -121,10 +121,22 @@ const useItems = (type, itemKey, folderId) => {
     };
 
     const _root = {
-        height: window.innerHeight - toolbarHeight.desktop,
+        height: {
+            xs: window.innerHeight - toolbarHeight.mobile - 20,  // TODO fix hardcoding
+            sm: window.innerHeight - toolbarHeight.desktop - 88, // TODO fix hardcoding
+        },
         width: '100%',
     };
     const _title = {p: 1};
+    const _speedDial = {
+        position: 'relative',
+        mt:1,
+        height: {
+            xs: toolbarHeight.mobile,
+            sm: toolbarHeight.desktop,
+        }
+    };
+
 
     const handleRowClick = (params) => {
         const {row: {id}} = params;
@@ -198,7 +210,7 @@ const useItems = (type, itemKey, folderId) => {
                 >
                     {folderName ?? store[type].title}
                 </Typography>
-                <Box sx={{ position: 'relative', mt:1, height: toolbarHeight.desktop }}>
+                <Box sx={_speedDial}>
                     <StyledSpeedDial
                         ariaLabel="new items SpeedDial"
                         icon={<SpeedDialIcon />}
