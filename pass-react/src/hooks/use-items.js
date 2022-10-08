@@ -11,13 +11,15 @@ import DetailsFactory from "../component/Items/DetailsFactory";
 
 import {DataGrid} from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
-import {Grid} from "@mui/material";
+import {Grid, SpeedDial, SpeedDialAction} from "@mui/material";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import VpnKeyTwoToneIcon from "@mui/icons-material/VpnKeyTwoTone";
 import StickyNote2TwoToneIcon from '@mui/icons-material/StickyNote2TwoTone';
 import CreditCardTwoToneIcon from '@mui/icons-material/CreditCardTwoTone';
 import AppsTwoToneIcon from '@mui/icons-material/AppsTwoTone';
+import SpeedDialIcon from '@mui/material/SpeedDialIcon';
+import {styled} from "@mui/material/styles";
+
 
 const _iconStyle = {opacity: .5};
 const icons = {
@@ -52,6 +54,34 @@ const columns = [
         description: 'item creation date',
     },
 ];
+const actions = [
+    {
+        icon: <VpnKeyTwoToneIcon/>,
+        name: 'New Password',
+        newItemLink: reactLinks.newPassword,
+    },
+    {
+        icon: <StickyNote2TwoToneIcon/>,
+        name: 'New Secure Note',
+        newItemLink: reactLinks.newSecureNote,
+    },
+    {
+        icon: <CreditCardTwoToneIcon/>,
+        name: 'New Credit Card',
+        newItemLink: reactLinks.newCreditCard,
+    },
+];
+const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
+    position: 'absolute',
+    '&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft': {
+        bottom: theme.spacing(1),
+        right: theme.spacing(1),
+    },
+    '&.MuiSpeedDial-directionDown, &.MuiSpeedDial-directionRight': {
+        top: theme.spacing(1),
+        left: theme.spacing(1),
+    },
+}));
 
 
 const useItems = (type, itemKey, folderId) => {
@@ -70,35 +100,43 @@ const useItems = (type, itemKey, folderId) => {
     const store = {
         [itemType.passwords]: {
             items: typedPasswords,
-            newItemLink: reactLinks.newPassword,
             editItemLink: reactLinks.editPassword,
             title: 'Passwords',
         },
         [itemType.secureNotes]: {
             items: typedSecureNotes,
-            newItemLink: reactLinks.newSecureNote,
             editItemLink: reactLinks.editSecureNote,
             title: 'Secure Notes',
         },
         [itemType.creditCards]: {
             items: typedCreditCards,
-            newItemLink: reactLinks.newCreditCard,
             editItemLink: reactLinks.editCreditCard,
             title: 'Credit Cards',
         },
         [itemType.all]: {
             items: typedPasswords.concat(typedSecureNotes, typedCreditCards),
-            // newItemLink: reactLinks.newPassword,     // todo find solution for this
             // editItemLink: reactLinks.editPassword,   // todo find solution for this
             title: 'All items',
         },
     };
 
     const _root = {
-        height: window.innerHeight - toolbarHeight.desktop,
+        height: {
+            xs: window.innerHeight - toolbarHeight.mobile - 20,  // TODO fix hardcoding
+            sm: window.innerHeight - toolbarHeight.desktop - 88, // TODO fix hardcoding
+        },
         width: '100%',
     };
-    const _title = {p: 2};
+    const _title = {p: 1};
+    const _speedDial = {
+        position: 'relative',
+        mt:1,
+        height: {
+            xs: toolbarHeight.mobile,
+            sm: toolbarHeight.desktop,
+        }
+    };
+
 
     const handleRowClick = (params) => {
         const {row: {id}} = params;
@@ -172,14 +210,24 @@ const useItems = (type, itemKey, folderId) => {
                 >
                     {folderName ?? store[type].title}
                 </Typography>
-                <Button
-                    variant="outlined"
-                    component={NavLink}
-                    onClick={handleAddNewItem}
-                    to={`${store[type].newItemLink}`}
-                >
-                    Add Item
-                </Button>
+                <Box sx={_speedDial}>
+                    <StyledSpeedDial
+                        ariaLabel="new items SpeedDial"
+                        icon={<SpeedDialIcon />}
+                        direction={'left'}
+                    >
+                        {actions.map((action) => (
+                            <SpeedDialAction
+                                key={action.name}
+                                icon={action.icon}
+                                tooltipTitle={action.name}
+                                component={NavLink}
+                                onClick={handleAddNewItem}
+                                to={action.newItemLink}
+                            />
+                        ))}
+                    </StyledSpeedDial>
+                </Box>
             </Grid>
             {table}
         </Box>
