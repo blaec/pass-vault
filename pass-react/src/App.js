@@ -4,7 +4,7 @@ import {useDispatch} from "react-redux";
 
 import Password from "./component/Pages/MenuItems/Password/Passwords";
 import Folder from "./component/Pages/MenuItems/Folder/Folder";
-import Settings from "./component/Pages/Settings/Settings";
+import PasswordHealth from "./component/Pages/PasswordHealth/PasswordHealth";
 import ItemsInFolder from "./component/Pages/PathLinks/ItemsInFolder/ItemsInFolder";
 import SecureNote from "./component/Pages/MenuItems/SecureNote/SecureNote";
 import CreditCard from "./component/Pages/MenuItems/CreditCard/CreditCard";
@@ -32,7 +32,7 @@ function App() {
         newCreditCard,
         editCreditCard,
         folders,
-        settings,
+        passwordHealth,
     } = reactLinks;
 
     const dispatch = useDispatch();
@@ -52,7 +52,7 @@ function App() {
                 <Route path={secureNotes} exact element={<SecureNote/>}/>
                 <Route path={creditCards} exact element={<CreditCard/>}/>
                 <Route path={folders} exact element={<Folder/>}/>
-                <Route path={settings} exact element={<Settings/>}/>
+                <Route path={passwordHealth} exact element={<PasswordHealth/>}/>
 
                 {/* Path links */}
                 <Route path={newPassword} exact element={<NewItemFactory type={itemType.passwords}/>}/>

@@ -1,5 +1,5 @@
 export const reactLinks = {
-    home: "/passwords",
+    home: "/all-items",
     allItems: "/all-items",
     passwords: "/passwords",
     newPassword: "/new-password",
@@ -14,7 +14,7 @@ export const reactLinks = {
     folders: "/folders",
     folderItemsEndpoint: "/folder-items/",
     folderItems: "/folder-items/:folderId",
-    settings: "/settings",
+    passwordHealth: "/password-health",
 };
 
 let baseFolderApi = "/folder/";
