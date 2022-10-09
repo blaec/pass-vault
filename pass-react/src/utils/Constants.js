@@ -7,6 +7,10 @@ export const drawer = {
     width: 220,
 };
 
+export const actionScreen = {
+    width: 400,
+};
+
 export const passwordSideBar = {
     maxWidth: 1250,
 };
