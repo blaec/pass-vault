@@ -28,6 +28,19 @@ export const fetchItemsInFolder = (folderId) => {
     };
 };
 
+export const fetchHealthItems = () => {
+    return async (dispatch) => {
+        axios.get(itemApi.get.getAllHealthItems)
+            .then(response => {
+                const {data} = response;
+                dispatch(itemActions.setHealthItems(data));
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    };
+};
+
 export const saveItem = (item) => {
     return async (dispatch) => {
         axios.post(`${itemApi.post.create}`, item)

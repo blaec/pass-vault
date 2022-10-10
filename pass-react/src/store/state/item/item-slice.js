@@ -14,6 +14,18 @@ const initialState = {
         creditCards: [],
         isLoaded: false
     },
+    weakPasswords: {
+        passwords: [],
+        isWeakLoaded: false
+    },
+    reusedPasswords: {
+        passwords: [],
+        isReusedLoaded: false
+    },
+    oldPasswords: {
+        passwords: [],
+        isOldLoaded: false
+    },
     editableItem: {editableItem: {}}
 };
 
@@ -27,7 +39,7 @@ const itemSlice = createSlice({
             state.items = {
                 passwords: action.payload[passwords],
                 secureNotes: action.payload[secureNotes],
-                creditCards: action.payload[creditCards] || initialState.items.creditCards, // todo remove initialState
+                creditCards: action.payload[creditCards],
                 isLoaded: true
             };
         },
@@ -35,7 +47,21 @@ const itemSlice = createSlice({
             state.itemsInFolder = {
                 passwords: action.payload[passwords],
                 secureNotes: action.payload[secureNotes],
-                creditCards: action.payload[creditCards] || initialState.items.creditCards, // todo remove initialState
+                creditCards: action.payload[creditCards],
+                isLoaded: true
+            };
+        },
+        setHealthItems(state, action) {
+            state.weakPasswords = {
+                passwords: action.payload.weak,
+                isWeakLoaded: true
+            };
+            state.reusedPasswords = {
+                passwords: action.payload.reused,
+                isReusedLoaded: true
+            };
+            state.oldPasswords = {
+                passwords: action.payload.old,
                 isLoaded: true
             };
         },

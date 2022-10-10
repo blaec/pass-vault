@@ -38,6 +38,7 @@ export const itemApi = {
     get: {
         getAll: `${baseItemApi}get-all`,
         getAllInFolder: `${baseItemApi}get-all-in-folder/`,
+        getAllHealthItems: `${baseItemApi}get-all-health-items/`,
     },
     post: {
         create: `${baseItemApi}create/`,
