@@ -18,25 +18,17 @@ const HealthCard = (props) => {
     const {color, icon, title, subtitle, count} = props;
 
     const _avatar = {bgcolor: color};
-    const account = ` account${count !== 1 ? 's' : ''}`;
+    const accountText = ` account${count !== 1 ? 's' : ''}`;
     const action = count === 0 ?
         null :
-        (
-            <IconButton aria-label="settings">
-                <NavigateNextTwoToneIcon/>
-            </IconButton>
-        );
-
+        <IconButton><NavigateNextTwoToneIcon/></IconButton>;
 
     return (
         <Grid item>
             <Card>
                 <CardHeader
                     avatar={
-                        <Avatar
-                            sx={_avatar}
-                            aria-label="recipe"
-                        >
+                        <Avatar sx={_avatar}>
                             {icon}
                         </Avatar>
                     }
@@ -51,7 +43,7 @@ const HealthCard = (props) => {
                         color="text.secondary"
                     >
                         <Box sx={[_inline, _bold]}>{count}</Box>
-                        <Box sx={_inline}>{account}</Box>
+                        <Box sx={_inline}>{accountText}</Box>
                     </Typography>
                 </CardContent>
             </Card>
