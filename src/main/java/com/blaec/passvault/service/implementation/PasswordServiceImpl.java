@@ -1,26 +1,37 @@
 package com.blaec.passvault.service.implementation;
 
+import com.blaec.passvault.enums.HealthType;
+import com.blaec.passvault.enums.PasswordStrength;
 import com.blaec.passvault.model.Folder;
 import com.blaec.passvault.model.Password;
+import com.blaec.passvault.model.passGenerator.PasswordValidation;
 import com.blaec.passvault.model.response.Response;
 import com.blaec.passvault.model.to.item.FullItemTo;
 import com.blaec.passvault.repository.FolderRepository;
 import com.blaec.passvault.repository.ItemRepository;
 import com.blaec.passvault.service.ItemService;
+import com.blaec.passvault.service.PasswordService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.*;
 import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
+import static java.util.stream.Collectors.groupingBy;
 
 @Slf4j
 @AllArgsConstructor
 @Service
-public class PasswordServiceImpl implements ItemService<Password> {
+public class PasswordServiceImpl implements ItemService<Password>, PasswordService {
     private final ItemRepository<Password> passwordRepository;
     private final FolderRepository folderRepository;
+    public static final int MAX_RECOMMENDED_AGE = 180;
 
     @Override
     public Iterable<Password> getAll() {
@@ -65,5 +76,31 @@ public class PasswordServiceImpl implements ItemService<Password> {
         };
 
         return ItemServiceUtils.delete(idDeleted, logSuccess);
+    }
+
+    @Override
+    public Map<HealthType, Iterable<Password>> getAllHealthPasswords() {
+        Iterable<Password> allPasswords = passwordRepository.getAll();
+        List<Password> weakPasswords = StreamSupport.stream(allPasswords.spliterator(), false)
+                .filter(p -> PasswordValidation.getPasswordStrength(p.getPassword()) == PasswordStrength.weak)
+                .collect(Collectors.toList());
+
+        List<Password> reusedPasswords = StreamSupport.stream(allPasswords.spliterator(), false)
+                .collect(groupingBy(Password::getPassword)).values().stream()
+                .filter(list -> list.size() > 1)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
+
+        final LocalDate now = LocalDate.now();
+        List<Password> oldPasswords = StreamSupport.stream(allPasswords.spliterator(), false)
+                .filter(p -> Period.between(p.getCreationDate(), now).getDays() >= MAX_RECOMMENDED_AGE)
+                .collect(Collectors.toList());
+
+
+        return Map.of(
+                HealthType.weak, weakPasswords,
+                HealthType.reused, reusedPasswords,
+                HealthType.old, oldPasswords
+        );
     }
 }

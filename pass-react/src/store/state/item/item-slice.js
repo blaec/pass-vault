@@ -62,7 +62,7 @@ const itemSlice = createSlice({
             };
             state.oldPasswords = {
                 passwords: action.payload.old,
-                isLoaded: true
+                isOldLoaded: true
             };
         },
         setEditableItem(state, action) {

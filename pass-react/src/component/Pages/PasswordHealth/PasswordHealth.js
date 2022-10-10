@@ -20,9 +20,9 @@ const _root = {
 
 
 const PasswordHealth = () => {
-    const {passwords : {weakPasswords}, isWeakLoaded} = useSelector(state => state.item.weakPasswords);
-    const {passwords : {reusedPasswords}, isReusedLoaded} = useSelector(state => state.item.reusedPasswords);
-    const {passwords : {oldPasswords}, isOldLoaded} = useSelector(state => state.item.oldPasswords);
+    const {passwords: weakPasswords, isWeakLoaded} = useSelector(state => state.item.weakPasswords);
+    const {passwords: reusedPasswords, isReusedLoaded} = useSelector(state => state.item.reusedPasswords);
+    const {passwords: oldPasswords, isOldLoaded} = useSelector(state => state.item.oldPasswords);
 
     const dispatch = useDispatch();
 
