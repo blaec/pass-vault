@@ -1,10 +1,12 @@
 import React from 'react';
 
+import {actionScreen} from "../../../../utils/Constants";
+
 import {Card, CardActions, Grid} from "@mui/material";
 import Button from "@mui/material/Button";
 
 const _root = {
-    width: 400,
+    width: actionScreen.width,
     mt: 1
 };
 

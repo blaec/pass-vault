@@ -4,7 +4,11 @@ export const toolbarHeight = {
 };
 
 export const drawer = {
-    width: 200,
+    width: 220,
+};
+
+export const actionScreen = {
+    width: 400,
 };
 
 export const passwordSideBar = {

@@ -4,12 +4,12 @@ import MyListItem from "../../../UI/MyListItem";
 import {reactLinks} from "../../../utils/UrlUtils";
 
 import VpnKeyTwoToneIcon from '@mui/icons-material/VpnKeyTwoTone';
-import SettingsApplicationsTwoToneIcon from '@mui/icons-material/SettingsApplicationsTwoTone';
 import CreateNewFolderTwoToneIcon from '@mui/icons-material/CreateNewFolderTwoTone';
 import AppsTwoToneIcon from '@mui/icons-material/AppsTwoTone';
 import StickyNote2TwoToneIcon from '@mui/icons-material/StickyNote2TwoTone';
 import CreditCardTwoToneIcon from '@mui/icons-material/CreditCardTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
+import MonitorHeartTwoToneIcon from '@mui/icons-material/MonitorHeartTwoTone';
 
 export const GetMenuItemsBlock = (itemsData, path) => {
 
@@ -64,8 +64,8 @@ export const SettingsItemsData = [
         icon: <CreateNewFolderTwoToneIcon/>
     },
     {
-        text: "Settings",
-        link: reactLinks.settings,
-        icon: <SettingsApplicationsTwoToneIcon/>
+        text: "Password Health",
+        link: reactLinks.passwordHealth,
+        icon: <MonitorHeartTwoToneIcon/>
     },
 ];
