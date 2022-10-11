@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {actionScreen} from "../../../utils/Constants";
 import HealthCard from "./HealthCard";
 import {fetchHealthItems} from "../../../store/state/item/item-actions";
+import {reactLinks} from "../../../utils/UrlUtils";
 
 import GppBadTwoToneIcon from '@mui/icons-material/GppBadTwoTone';
 import Box from "@mui/material/Box";
@@ -39,6 +40,7 @@ const PasswordHealth = () => {
                 title="Weak Passwords"
                 subtitle="Easy to guess"
                 count={weakPasswords.length}
+                link={reactLinks.weakPassword}
             />
         );
     }
@@ -51,6 +53,7 @@ const PasswordHealth = () => {
                 title="Reused Passwords"
                 subtitle="Used for multiple accounts"
                 count={reusedPasswords.length}
+                link={reactLinks.reusedPassword}
             />
         );
     }
@@ -63,6 +66,7 @@ const PasswordHealth = () => {
                 title="Old Passwords"
                 subtitle="Over 180 days old"
                 count={oldPasswords.length}
+                link={reactLinks.oldPassword}
             />
         );
     }

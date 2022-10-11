@@ -10,6 +10,9 @@ import SecureNote from "./component/Pages/MenuItems/SecureNote/SecureNote";
 import CreditCard from "./component/Pages/MenuItems/CreditCard/CreditCard";
 import NewItemFactory from "./component/Pages/PathLinks/NewItem/NewItemFactory";
 import AllItems from "./component/Pages/MenuItems/allItems/AllItems";
+import WeakPasswords from "./component/Pages/PathLinks/PasswordHealth/WeakPasswords";
+import ReusedPasswords from "./component/Pages/PathLinks/PasswordHealth/ReusedPasswords";
+import OldPasswords from "./component/Pages/PathLinks/PasswordHealth/OldPasswords";
 import Layout from "./hoc/Layout";
 import {reactLinks} from "./utils/UrlUtils";
 import {fetchFolders} from "./store/state/folder/folder-actions";
@@ -33,6 +36,9 @@ function App() {
         editCreditCard,
         folders,
         passwordHealth,
+        weakPassword,
+        reusedPassword,
+        oldPassword,
     } = reactLinks;
 
     const dispatch = useDispatch();
@@ -62,6 +68,9 @@ function App() {
                 <Route path={newCreditCard} exact element={<NewItemFactory type={itemType.creditCards}/>}/>
                 <Route path={editCreditCard} exact element={<NewItemFactory type={itemType.creditCards}/>}/>
                 <Route path={folderItems} exact element={<ItemsInFolder/>}/>
+                <Route path={weakPassword} exact element={<WeakPasswords/>}/>
+                <Route path={reusedPassword} exact element={<ReusedPasswords/>}/>
+                <Route path={oldPassword} exact element={<OldPasswords/>}/>
             </Routes>
         </Layout>
     );

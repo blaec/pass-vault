@@ -16,14 +16,23 @@ const initialState = {
     },
     weakPasswords: {
         passwords: [],
+        secureNotes: [],
+        creditCards: [],
+        isLoaded: false,
         isWeakLoaded: false
     },
     reusedPasswords: {
         passwords: [],
+        secureNotes: [],
+        creditCards: [],
+        isLoaded: false,
         isReusedLoaded: false
     },
     oldPasswords: {
         passwords: [],
+        secureNotes: [],
+        creditCards: [],
+        isLoaded: false,
         isOldLoaded: false
     },
     editableItem: {editableItem: {}}
@@ -53,16 +62,22 @@ const itemSlice = createSlice({
         },
         setHealthItems(state, action) {
             state.weakPasswords = {
+                ...state.weakPasswords,
                 passwords: action.payload.weak,
-                isWeakLoaded: true
+                isWeakLoaded: true,
+                isLoaded: true
             };
             state.reusedPasswords = {
+                ...state.reusedPasswords,
                 passwords: action.payload.reused,
-                isReusedLoaded: true
+                isReusedLoaded: true,
+                isLoaded: true
             };
             state.oldPasswords = {
+                ...state.oldPasswords,
                 passwords: action.payload.old,
-                isOldLoaded: true
+                isOldLoaded: true,
+                isLoaded: true
             };
         },
         setEditableItem(state, action) {

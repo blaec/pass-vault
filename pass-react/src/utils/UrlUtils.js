@@ -15,6 +15,9 @@ export const reactLinks = {
     folderItemsEndpoint: "/folder-items/",
     folderItems: "/folder-items/:folderId",
     passwordHealth: "/password-health",
+    weakPassword: "/password-health/weak",
+    reusedPassword: "/password-health/reused",
+    oldPassword: "/password-health/old",
 };
 
 let baseFolderApi = "/folder/";

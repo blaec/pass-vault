@@ -1,4 +1,5 @@
 import React from 'react';
+import {NavLink} from "react-router-dom";
 
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -15,13 +16,20 @@ const _bold = {fontWeight: 800};
 
 
 const HealthCard = (props) => {
-    const {color, icon, title, subtitle, count} = props;
+    const {color, icon, title, subtitle, count, link} = props;
 
     const _avatar = {bgcolor: color};
     const accountText = ` account${count !== 1 ? 's' : ''}`;
     const action = count === 0 ?
         null :
-        <IconButton><NavigateNextTwoToneIcon/></IconButton>;
+        (
+            <IconButton
+                component={NavLink}
+                to={link}
+            >
+                <NavigateNextTwoToneIcon/>
+            </IconButton>
+        );
 
     return (
         <Grid item>
