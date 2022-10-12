@@ -119,6 +119,23 @@ const useItems = (type, itemKey, folderId) => {
             title: 'All items',
         },
     };
+    const title = {
+        ["items"]: {
+            title: () => store[type].title,
+        },
+        ['itemsInFolder']: {
+            title: () => `Folder: ${folders.find(folder => folder.id === parseInt(folderId))?.name}`,
+        },
+        ['weakPasswords']: {
+            title: () => "Weak Passwords",
+        },
+        ['reusedPasswords']: {
+            title: () => "Reused Passwords",
+        },
+        ['oldPasswords']: {
+            title: () => "Old Passwords",
+        },
+    };
 
     const _root = {
         height: {
@@ -172,7 +189,6 @@ const useItems = (type, itemKey, folderId) => {
     }, []);
 
     let table = null;
-    let folderName;
     if (isLoaded && isFoldersLoaded) {
         table = (
             <>
@@ -192,7 +208,6 @@ const useItems = (type, itemKey, folderId) => {
                 />
             </>
         );
-        folderName = folders.find(folder => folder.id === parseInt(folderId))?.name;
     }
 
 
@@ -208,7 +223,7 @@ const useItems = (type, itemKey, folderId) => {
                 <Typography
                     variant={"h5"}
                 >
-                    {folderName ?? store[type].title}
+                    {title[itemKey].title()}
                 </Typography>
                 <Box sx={_speedDial}>
                     <StyledSpeedDial

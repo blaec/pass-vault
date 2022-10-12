@@ -16,8 +16,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.Period;
-import java.util.*;
+import java.time.temporal.ChronoUnit;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -93,7 +96,7 @@ public class PasswordServiceImpl implements ItemService<Password>, PasswordServi
 
         final LocalDate now = LocalDate.now();
         List<Password> oldPasswords = StreamSupport.stream(allPasswords.spliterator(), false)
-                .filter(p -> Period.between(p.getCreationDate(), now).getDays() >= MAX_RECOMMENDED_AGE)
+                .filter(p -> ChronoUnit.DAYS.between(p.getCreationDate(), now) >= MAX_RECOMMENDED_AGE)
                 .collect(Collectors.toList());
 
 
