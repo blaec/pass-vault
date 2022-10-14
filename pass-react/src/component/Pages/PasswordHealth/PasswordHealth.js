@@ -1,7 +1,11 @@
 import * as React from 'react';
+import {useEffect} from 'react';
+import {useDispatch, useSelector} from "react-redux";
 
 import {actionScreen} from "../../../utils/Constants";
 import HealthCard from "./HealthCard";
+import {fetchHealthItems} from "../../../store/state/item/item-actions";
+import {reactLinks} from "../../../utils/UrlUtils";
 
 import GppBadTwoToneIcon from '@mui/icons-material/GppBadTwoTone';
 import Box from "@mui/material/Box";
@@ -17,6 +21,56 @@ const _root = {
 
 
 const PasswordHealth = () => {
+    const {passwords: weakPasswords, isLoaded: isWeakLoaded} = useSelector(state => state.item.weakPasswords);
+    const {passwords: reusedPasswords, isLoaded: isReusedLoaded} = useSelector(state => state.item.reusedPasswords);
+    const {passwords: oldPasswords, isLoaded: isOldLoaded} = useSelector(state => state.item.oldPasswords);
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchHealthItems());
+    }, []);
+
+    let weakCard = null;
+    if (isWeakLoaded) {
+        weakCard = (
+            <HealthCard
+                color="error.light"
+                icon={<GppBadTwoToneIcon/>}
+                title="Weak Passwords"
+                subtitle="Easy to guess"
+                count={weakPasswords.length}
+                link={reactLinks.weakPassword}
+            />
+        );
+    }
+    let reusedCard = null;
+    if (isReusedLoaded) {
+        reusedCard = (
+            <HealthCard
+                color="warning.light"
+                icon={<ContentCopyTwoToneIcon/>}
+                title="Reused Passwords"
+                subtitle="Used for multiple accounts"
+                count={reusedPasswords.length}
+                link={reactLinks.reusedPassword}
+            />
+        );
+    }
+    let oldCard = null;
+    if (isOldLoaded) {
+        oldCard = (
+            <HealthCard
+                color="secondary.main"
+                icon={<WatchLaterTwoToneIcon/>}
+                title="Old Passwords"
+                subtitle="Over 180 days old"
+                count={oldPasswords.length}
+                link={reactLinks.oldPassword}
+            />
+        );
+    }
+
 
     return (
         <Box sx={_root}>
@@ -25,27 +79,9 @@ const PasswordHealth = () => {
                 direction="column"
                 spacing={2}
             >
-                <HealthCard
-                    color="error.light"
-                    icon={<GppBadTwoToneIcon/>}
-                    title="Weak Passwords"
-                    subtitle="Easy to guess"
-                    count={1}
-                />
-                <HealthCard
-                    color="warning.light"
-                    icon={<ContentCopyTwoToneIcon/>}
-                    title="Reused Passwords"
-                    subtitle="Used for multiple accounts"
-                    count={5}
-                />
-                <HealthCard
-                    color="secondary.main"
-                    icon={<WatchLaterTwoToneIcon/>}
-                    title="Old Passwords"
-                    subtitle="Over 180 days old"
-                    count={0}
-                />
+                {weakCard}
+                {reusedCard}
+                {oldCard}
             </Grid>
         </Box>
     );

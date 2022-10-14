@@ -88,7 +88,7 @@ const useItems = (type, itemKey, folderId) => {
     const [isShowDetails, setIsShowDetails] = React.useState(false);
     const [selectedItem, setSelectedItem] = React.useState({});
 
-    const {passwords, secureNotes, creditCards, isLoaded} = useSelector(state => state.item[itemKey]);
+    const {passwords, secureNotes = [], creditCards = [], isLoaded} = useSelector(state => state.item[itemKey]);
     const {folders, isFoldersLoaded} = useSelector(state => state.folder.folders);
 
     const navigate = useNavigate();
@@ -117,6 +117,23 @@ const useItems = (type, itemKey, folderId) => {
             items: typedPasswords.concat(typedSecureNotes, typedCreditCards),
             // editItemLink: reactLinks.editPassword,   // todo find solution for this
             title: 'All items',
+        },
+    };
+    const title = {
+        ["items"]: {
+            title: () => store[type].title,
+        },
+        ['itemsInFolder']: {
+            title: () => `Folder: ${folders.find(folder => folder.id === parseInt(folderId))?.name}`,
+        },
+        ['weakPasswords']: {
+            title: () => "Weak Passwords",
+        },
+        ['reusedPasswords']: {
+            title: () => "Reused Passwords",
+        },
+        ['oldPasswords']: {
+            title: () => "Old Passwords",
         },
     };
 
@@ -172,7 +189,6 @@ const useItems = (type, itemKey, folderId) => {
     }, []);
 
     let table = null;
-    let folderName;
     if (isLoaded && isFoldersLoaded) {
         table = (
             <>
@@ -192,7 +208,6 @@ const useItems = (type, itemKey, folderId) => {
                 />
             </>
         );
-        folderName = folders.find(folder => folder.id === parseInt(folderId))?.name;
     }
 
 
@@ -208,7 +223,7 @@ const useItems = (type, itemKey, folderId) => {
                 <Typography
                     variant={"h5"}
                 >
-                    {folderName ?? store[type].title}
+                    {title[itemKey].title()}
                 </Typography>
                 <Box sx={_speedDial}>
                     <StyledSpeedDial

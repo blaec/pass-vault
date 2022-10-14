@@ -15,6 +15,9 @@ export const reactLinks = {
     folderItemsEndpoint: "/folder-items/",
     folderItems: "/folder-items/:folderId",
     passwordHealth: "/password-health",
+    weakPassword: "/password-health/weak",
+    reusedPassword: "/password-health/reused",
+    oldPassword: "/password-health/old",
 };
 
 let baseFolderApi = "/folder/";
@@ -38,6 +41,7 @@ export const itemApi = {
     get: {
         getAll: `${baseItemApi}get-all`,
         getAllInFolder: `${baseItemApi}get-all-in-folder/`,
+        getAllHealthItems: `${baseItemApi}get-all-health-items/`,
     },
     post: {
         create: `${baseItemApi}create/`,
