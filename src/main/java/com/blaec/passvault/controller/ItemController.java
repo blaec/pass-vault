@@ -51,7 +51,7 @@ public class ItemController extends AbstractController {
     }
 
     @GetMapping("/get-all-health-items")
-    public Map<HealthType, Iterable<Password>> getAllHealthItems() {
+    public Map<HealthType, Iterable<BaseItemTo>> getAllHealthItems() {
         return healthService.getAllHealthPasswords();
     }
 

@@ -47,6 +47,7 @@ export const saveItem = (item) => {
             .then(response => {
                 const {data} = response;
                 dispatch(fetchItems());
+                dispatch(fetchHealthItems());
                 dispatch(itemActions.resetEditableItem());
             })
             .catch(error => {
@@ -61,6 +62,7 @@ export const updateItem = (item) => {
             .then(response => {
                 const {data} = response;
                 dispatch(fetchItems());
+                dispatch(fetchHealthItems());
             })
             .catch(error => {
                 console.log(error);
@@ -74,6 +76,7 @@ export const deleteItem = (type, id) => {
             .then(response => {
                 const {data} = response;
                 dispatch(fetchItems());
+                dispatch(fetchHealthItems());
             })
             .catch(error => {
                 console.log(error);

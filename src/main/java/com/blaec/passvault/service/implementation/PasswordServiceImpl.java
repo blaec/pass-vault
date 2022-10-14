@@ -6,7 +6,9 @@ import com.blaec.passvault.model.Folder;
 import com.blaec.passvault.model.Password;
 import com.blaec.passvault.model.passGenerator.PasswordValidation;
 import com.blaec.passvault.model.response.Response;
+import com.blaec.passvault.model.to.item.BaseItemTo;
 import com.blaec.passvault.model.to.item.FullItemTo;
+import com.blaec.passvault.model.to.item.PasswordTo;
 import com.blaec.passvault.repository.FolderRepository;
 import com.blaec.passvault.repository.ItemRepository;
 import com.blaec.passvault.service.ItemService;
@@ -82,21 +84,24 @@ public class PasswordServiceImpl implements ItemService<Password>, PasswordServi
     }
 
     @Override
-    public Map<HealthType, Iterable<Password>> getAllHealthPasswords() {
+    public Map<HealthType, Iterable<BaseItemTo>> getAllHealthPasswords() {
         Iterable<Password> allPasswords = passwordRepository.getAll();
-        List<Password> weakPasswords = StreamSupport.stream(allPasswords.spliterator(), false)
+        List<BaseItemTo> weakPasswords = StreamSupport.stream(allPasswords.spliterator(), false)
                 .filter(p -> PasswordValidation.getPasswordStrength(p.getPassword()) == PasswordStrength.weak)
+                .map(PasswordTo::from)
                 .collect(Collectors.toList());
 
-        List<Password> reusedPasswords = StreamSupport.stream(allPasswords.spliterator(), false)
+        List<BaseItemTo> reusedPasswords = StreamSupport.stream(allPasswords.spliterator(), false)
                 .collect(groupingBy(Password::getPassword)).values().stream()
                 .filter(list -> list.size() > 1)
                 .flatMap(Collection::stream)
+                .map(PasswordTo::from)
                 .collect(Collectors.toList());
 
         final LocalDate now = LocalDate.now();
-        List<Password> oldPasswords = StreamSupport.stream(allPasswords.spliterator(), false)
+        List<BaseItemTo> oldPasswords = StreamSupport.stream(allPasswords.spliterator(), false)
                 .filter(p -> ChronoUnit.DAYS.between(p.getCreationDate(), now) >= MAX_RECOMMENDED_AGE)
+                .map(PasswordTo::from)
                 .collect(Collectors.toList());
 
 
