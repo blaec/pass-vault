@@ -88,7 +88,7 @@ const useItems = (type, itemKey, folderId) => {
     const [isShowDetails, setIsShowDetails] = React.useState(false);
     const [selectedItem, setSelectedItem] = React.useState({});
 
-    const {passwords, secureNotes, creditCards, isLoaded} = useSelector(state => state.item[itemKey]);
+    const {passwords, secureNotes = [], creditCards = [], isLoaded} = useSelector(state => state.item[itemKey]);
     const {folders, isFoldersLoaded} = useSelector(state => state.folder.folders);
 
     const navigate = useNavigate();
