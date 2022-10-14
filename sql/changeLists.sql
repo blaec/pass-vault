@@ -24,7 +24,7 @@ CREATE TABLE credit_cards
     title               VARCHAR(100) 			    NOT NULL,
     note                VARCHAR(300) 			    NULL,
     creation_date       DATE     					NOT NULL,
-    cardholder_name    VARCHAR(100) 			    NOT NULL,
+    cardholder_name     VARCHAR(100) 			    NOT NULL,
     card_number         VARCHAR(19)			        NOT NULL,
     expiration_date     DATE     					NOT NULL,
     cvv                 SMALLINT    			    NOT NULL,
@@ -34,3 +34,11 @@ CREATE TABLE credit_cards
 );
 
 ALTER TABLE credit_cards AUTO_INCREMENT = 100000;
+
+# changelist #51
+ALTER TABLE passwords DROP COLUMN deleted;
+ALTER TABLE passwords ADD COLUMN deleted BOOLEAN NOT NULL DEFAULT false;
+ALTER TABLE secure_notes DROP COLUMN deleted;
+ALTER TABLE secure_notes ADD COLUMN deleted BOOLEAN NOT NULL DEFAULT false;
+ALTER TABLE credit_cards DROP COLUMN deleted;
+ALTER TABLE credit_cards ADD COLUMN deleted BOOLEAN NOT NULL DEFAULT false;
