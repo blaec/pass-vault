@@ -40,6 +40,7 @@ let baseItemApi = "/items/";
 export const itemApi = {
     get: {
         getAllActive: `${baseItemApi}get-all-active`,
+        getAllDeleted: `${baseItemApi}get-all-deleted`,
         getAllInFolder: `${baseItemApi}get-all-in-folder/`,
         getAllHealthItems: `${baseItemApi}get-all-health-items/`,
     },

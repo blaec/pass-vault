@@ -44,6 +44,11 @@ public class PasswordServiceImpl implements ItemService<Password>, PasswordServi
     }
 
     @Override
+    public Iterable<Password> getAllDeleted() {
+        return passwordRepository.getAllDeleted();
+    }
+
+    @Override
     public Iterable<Password> getAllByFolderId(int folderId) {
         return passwordRepository.getAllByFolderId(folderId);
     }

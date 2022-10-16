@@ -28,6 +28,11 @@ public class CreditCardServiceImpl implements ItemService<CreditCard> {
     }
 
     @Override
+    public Iterable<CreditCard> getAllDeleted() {
+        return creditCardRepository.getAllDeleted();
+    }
+
+    @Override
     public Iterable<CreditCard> getAllByFolderId(int folderId) {
         return creditCardRepository.getAllByFolderId(folderId);
     }

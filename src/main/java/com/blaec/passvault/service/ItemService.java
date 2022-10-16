@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface ItemService<T extends BaseItem> {
     Iterable<T> getAllActive();
+    Iterable<T> getAllDeleted();
     Iterable<T> getAllByFolderId(int folderId);
     @Transactional Response.Builder create(FullItemTo to);
     @Transactional Response.Builder update(FullItemTo to);

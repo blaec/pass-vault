@@ -18,6 +18,11 @@ public class CreditCardRepositoryImpl implements ItemRepository<CreditCard> {
     }
 
     @Override
+    public Iterable<CreditCard> getAllDeleted() {
+        return crudCreditCardRepository.findAllDeleted();
+    }
+
+    @Override
     public Iterable<CreditCard> getAllByFolderId(int folderId) {
         return crudCreditCardRepository.findAllByFolderId(folderId);
     }

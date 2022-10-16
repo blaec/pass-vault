@@ -11,7 +11,10 @@ public interface CrudPasswordRepository extends CrudRepository<Password, Integer
     @Query("SELECT p FROM Password p WHERE p.deleted=false")
     Iterable<Password> findAllActive();
 
-    @Query("SELECT p FROM Password p WHERE p.folder.id=:folderId")
+    @Query("SELECT p FROM Password p WHERE p.deleted=true")
+    Iterable<Password> findAllDeleted();
+
+    @Query("SELECT p FROM Password p WHERE p.folder.id=:folderId and p.deleted=false")
     Iterable<Password> findAllByFolderId(int folderId);
 
     @Transactional

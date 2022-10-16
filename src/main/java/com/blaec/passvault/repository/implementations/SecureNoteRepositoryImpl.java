@@ -18,6 +18,11 @@ public class SecureNoteRepositoryImpl implements ItemRepository<SecureNote> {
     }
 
     @Override
+    public Iterable<SecureNote> getAllDeleted() {
+        return crudSecureNoteRepository.findAllDeleted();
+    }
+
+    @Override
     public Iterable<SecureNote> getAllByFolderId(int folderId) {
         return crudSecureNoteRepository.findAllByFolderId(folderId);
     }

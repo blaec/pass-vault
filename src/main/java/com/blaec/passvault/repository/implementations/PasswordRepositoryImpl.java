@@ -18,6 +18,11 @@ public class PasswordRepositoryImpl implements ItemRepository<Password> {
     }
 
     @Override
+    public Iterable<Password> getAllDeleted() {
+        return crudPasswordRepository.findAllDeleted();
+    }
+
+    @Override
     public Iterable<Password> getAllByFolderId(int folderId) {
         return crudPasswordRepository.findAllByFolderId(folderId);
     }

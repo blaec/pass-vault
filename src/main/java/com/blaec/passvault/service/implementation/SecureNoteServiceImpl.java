@@ -28,6 +28,11 @@ public class SecureNoteServiceImpl implements ItemService<SecureNote> {
     }
 
     @Override
+    public Iterable<SecureNote> getAllDeleted() {
+        return secureNoteRepository.getAllDeleted();
+    }
+
+    @Override
     public Iterable<SecureNote> getAllByFolderId(int folderId) {
         return secureNoteRepository.getAllByFolderId(folderId);
     }

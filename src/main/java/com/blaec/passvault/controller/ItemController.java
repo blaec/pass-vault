@@ -41,6 +41,15 @@ public class ItemController extends AbstractController {
         );
     }
 
+    @GetMapping("/get-all-deleted")
+    public Map<ItemType, List<BaseItemTo>> getAllDeleted() {
+        return Map.of(
+                ItemType.passwords, mappedPasswords(passwordService.getAllDeleted()),
+                ItemType.secureNotes, mappedSecureNotes(secureNoteService.getAllDeleted()),
+                ItemType.creditCards, mappedCreditCards(creditCardService.getAllDeleted())
+        );
+    }
+
     @GetMapping("/get-all-in-folder/{folderId}")
     public Map<ItemType, List<BaseItemTo>> getAllInFolder(@PathVariable int folderId) {
         return Map.of(
