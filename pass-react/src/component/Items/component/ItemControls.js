@@ -1,7 +1,7 @@
 import React from 'react';
 import {useDispatch} from "react-redux";
 
-import {deleteItem} from "../../../store/state/item/item-actions";
+import {moveItemToTrash} from "../../../store/state/item/item-actions";
 
 import {Grid} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
@@ -26,7 +26,7 @@ const ItemControls = (props) => {
     };
 
     const handleDelete = () => {
-        dispatch(deleteItem(type, id));
+        dispatch(moveItemToTrash(type, id));
         onClose();
     };
 
