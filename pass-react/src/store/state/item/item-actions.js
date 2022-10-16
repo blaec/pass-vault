@@ -59,9 +59,7 @@ export const saveItem = (item) => {
         axios.post(`${itemApi.post.create}`, item)
             .then(response => {
                 const {data} = response;
-                dispatch(fetchActiveItems());
-                dispatch(fetchDeletedItems());
-                dispatch(fetchHealthItems());
+                reload(dispatch);
                 dispatch(itemActions.resetEditableItem());
             })
             .catch(error => {
@@ -75,9 +73,20 @@ export const updateItem = (item) => {
         axios.put(`${itemApi.put.update}`, item)
             .then(response => {
                 const {data} = response;
-                dispatch(fetchActiveItems());
-                dispatch(fetchDeletedItems());
-                dispatch(fetchHealthItems());
+                reload(dispatch);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    };
+};
+
+export const moveItemToTrash = (item) => {
+    return async (dispatch) => {
+        axios.put(`${itemApi.put.moveToTrash}`, item)
+            .then(response => {
+                const {data} = response;
+                reload(dispatch);
             })
             .catch(error => {
                 console.log(error);
@@ -90,12 +99,16 @@ export const deleteItem = (type, id) => {
         axios.delete(`${itemApi.delete.delete}${type}/${id}`)
             .then(response => {
                 const {data} = response;
-                dispatch(fetchActiveItems());
-                dispatch(fetchDeletedItems());
-                dispatch(fetchHealthItems());
+                reload(dispatch);
             })
             .catch(error => {
                 console.log(error);
             });
     };
+};
+
+const reload = (dispatch) => {
+    dispatch(fetchActiveItems());
+    dispatch(fetchDeletedItems());
+    dispatch(fetchHealthItems());
 };
