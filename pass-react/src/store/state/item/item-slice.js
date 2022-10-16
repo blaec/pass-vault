@@ -8,6 +8,12 @@ const initialState = {
         creditCards: [],
         isLoaded: false
     },
+    deletedItems: {
+        passwords: [],
+        secureNotes: [],
+        creditCards: [],
+        isLoaded: false
+    },
     itemsInFolder: {
         passwords: [],
         secureNotes: [],
@@ -37,6 +43,14 @@ const itemSlice = createSlice({
     reducers: {
         setItems(state, action) {
             state.items = {
+                passwords: action.payload[passwords],
+                secureNotes: action.payload[secureNotes],
+                creditCards: action.payload[creditCards],
+                isLoaded: true
+            };
+        },
+        setDeletedItems(state, action) {
+            state.deletedItems = {
                 passwords: action.payload[passwords],
                 secureNotes: action.payload[secureNotes],
                 creditCards: action.payload[creditCards],

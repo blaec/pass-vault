@@ -15,6 +15,19 @@ export const fetchActiveItems = () => {
     };
 };
 
+export const fetchDeletedItems = () => {
+    return async (dispatch) => {
+        axios.get(itemApi.get.getAllDeleted)
+            .then(response => {
+                const {data} = response;
+                dispatch(itemActions.setDeletedItems(data));
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    };
+};
+
 export const fetchItemsInFolder = (folderId) => {
     return async (dispatch) => {
         axios.get(`${itemApi.get.getAllInFolder}${folderId}`)
@@ -47,6 +60,7 @@ export const saveItem = (item) => {
             .then(response => {
                 const {data} = response;
                 dispatch(fetchActiveItems());
+                dispatch(fetchDeletedItems());
                 dispatch(fetchHealthItems());
                 dispatch(itemActions.resetEditableItem());
             })
@@ -62,6 +76,7 @@ export const updateItem = (item) => {
             .then(response => {
                 const {data} = response;
                 dispatch(fetchActiveItems());
+                dispatch(fetchDeletedItems());
                 dispatch(fetchHealthItems());
             })
             .catch(error => {
@@ -76,6 +91,7 @@ export const deleteItem = (type, id) => {
             .then(response => {
                 const {data} = response;
                 dispatch(fetchActiveItems());
+                dispatch(fetchDeletedItems());
                 dispatch(fetchHealthItems());
             })
             .catch(error => {

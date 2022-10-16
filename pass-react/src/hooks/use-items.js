@@ -123,6 +123,9 @@ const useItems = (type, itemKey, folderId) => {
         ["items"]: {
             title: () => store[type].title,
         },
+        ["deletedItems"]: {
+            title: () => "Trash",
+        },
         ['itemsInFolder']: {
             title: () => `Folder: ${folders.find(folder => folder.id === parseInt(folderId))?.name}`,
         },
