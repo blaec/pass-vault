@@ -7,11 +7,10 @@ import com.blaec.passvault.model.CreditCard;
 import com.blaec.passvault.model.Password;
 import com.blaec.passvault.model.SecureNote;
 import com.blaec.passvault.model.response.Response;
-import com.blaec.passvault.model.to.item.FullItemTo;
 import com.blaec.passvault.model.to.item.BaseItemTo;
+import com.blaec.passvault.model.to.item.FullItemTo;
 import com.blaec.passvault.service.ItemService;
 import com.blaec.passvault.service.PasswordService;
-import com.blaec.passvault.utils.IdUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -81,9 +80,9 @@ public class ItemController extends AbstractController {
             @PathVariable ItemType itemType,
             @PathVariable String id
     ) {
-        Integer itemId = IdUtils.toModel(id);
-        log.info("restoring from {} trash | #{}", itemType, itemId);
-        return serviceFactory(itemType).restore(itemId).build();
+        return serviceFactory(itemType)
+                .restore(extractIdAndLogAction(itemType, id, "restoring from {} trash | #{}"))
+                .build();
     }
 
     @PutMapping("/move-to-trash/{itemType}/{id}")
@@ -91,9 +90,9 @@ public class ItemController extends AbstractController {
             @PathVariable ItemType itemType,
             @PathVariable String id
     ) {
-        Integer itemId = IdUtils.toModel(id);
-        log.info("moving {} to trash | #{}", itemType, itemId);
-        return serviceFactory(itemType).moveToTrash(itemId).build();
+        return serviceFactory(itemType)
+                .moveToTrash(extractIdAndLogAction(itemType, id, "moving {} to trash | #{}"))
+                .build();
     }
 
     @DeleteMapping("/delete/{itemType}/{id}")
@@ -101,9 +100,9 @@ public class ItemController extends AbstractController {
             @PathVariable ItemType itemType,
             @PathVariable String id
     ) {
-        Integer itemId = IdUtils.toModel(id);
-        log.info("deleting from {} | #{}", itemType, itemId);
-        return serviceFactory(itemType).delete(itemId).build();
+        return serviceFactory(itemType)
+                .delete(extractIdAndLogAction(itemType, id, "deleting from {} | #{}"))
+                .build();
     }
 
     @SuppressWarnings("unchecked")

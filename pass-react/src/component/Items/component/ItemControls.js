@@ -35,7 +35,7 @@ const ItemControls = (props) => {
         onClose();
     };
 
-    const restoreItem = () => {
+    const handleRestoreFromTrash = () => {
         dispatch(restoreItemFromTrash(type, id));
         onClose();
     };
@@ -50,7 +50,7 @@ const ItemControls = (props) => {
             <>
                 <IconButton
                     color="success"
-                    onClick={restoreItem}
+                    onClick={handleRestoreFromTrash}
                 >
                     <RestoreFromTrashTwoToneIcon/>
                 </IconButton>

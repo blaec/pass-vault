@@ -1,5 +1,6 @@
 package com.blaec.passvault.controller;
 
+import com.blaec.passvault.enums.ItemType;
 import com.blaec.passvault.model.CreditCard;
 import com.blaec.passvault.model.Password;
 import com.blaec.passvault.model.SecureNote;
@@ -7,11 +8,14 @@ import com.blaec.passvault.model.to.item.BaseItemTo;
 import com.blaec.passvault.model.to.item.CreditCardTo;
 import com.blaec.passvault.model.to.item.PasswordTo;
 import com.blaec.passvault.model.to.item.SecureNoteTo;
+import com.blaec.passvault.utils.IdUtils;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+@Slf4j
 public abstract class AbstractController {
     protected static final String API_VERSION = "/api/v1";
 
@@ -31,5 +35,12 @@ public abstract class AbstractController {
         return StreamSupport.stream(creditCards.spliterator(), false)
                 .map(CreditCardTo::from)
                 .collect(Collectors.toList());
+    }
+
+    protected Integer extractIdAndLogAction(ItemType itemType, String id, String message) {
+        Integer itemId = IdUtils.toModel(id);
+        log.info(message, itemType, itemId);
+
+        return itemId;
     }
 }
