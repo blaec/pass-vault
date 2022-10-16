@@ -23,8 +23,8 @@ public class SecureNoteServiceImpl implements ItemService<SecureNote> {
     private final FolderRepository folderRepository;
 
     @Override
-    public Iterable<SecureNote> getAll() {
-        return secureNoteRepository.getAll();
+    public Iterable<SecureNote> getAllActive() {
+        return secureNoteRepository.getAllActive();
     }
 
     @Override
@@ -52,6 +52,19 @@ public class SecureNoteServiceImpl implements ItemService<SecureNote> {
             SecureNote saved = secureNoteRepository.save(secureNote);
             log.info(message, saved.getTitle());
         });
+    }
+
+    @Override
+    public Response.Builder moveToTrash(int id) {
+        BooleanSupplier idDeleted = () -> secureNoteRepository.isMovedToTrash(id);
+        Supplier<String> logSuccess = () -> {
+            String message = String.format("moved to trash | secure note with id %d", id);
+            log.info(message);
+
+            return message;
+        };
+
+        return ItemServiceUtils.delete(idDeleted, logSuccess);
     }
 
     @Override

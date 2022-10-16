@@ -32,12 +32,12 @@ public class ItemController extends AbstractController {
     private final ItemService<SecureNote> secureNoteService;
     private final ItemService<CreditCard> creditCardService;
 
-    @GetMapping("/get-all")
-    public Map<ItemType, List<BaseItemTo>> getAll() {
+    @GetMapping("/get-all-active")
+    public Map<ItemType, List<BaseItemTo>> getAllActive() {
         return Map.of(
-                ItemType.passwords, mappedPasswords(passwordService.getAll()),
-                ItemType.secureNotes, mappedSecureNotes(secureNoteService.getAll()),
-                ItemType.creditCards, mappedCreditCards(creditCardService.getAll())
+                ItemType.passwords, mappedPasswords(passwordService.getAllActive()),
+                ItemType.secureNotes, mappedSecureNotes(secureNoteService.getAllActive()),
+                ItemType.creditCards, mappedCreditCards(creditCardService.getAllActive())
         );
     }
 
@@ -65,6 +65,16 @@ public class ItemController extends AbstractController {
     public Response updateItem(@RequestBody FullItemTo to) {
         log.info("updating in {} | {}", to.getItemType(), to.getTitle());
         return serviceFactory(to.getItemType()).update(to).build();
+    }
+
+    @PutMapping("/move-to-trash/{itemType}/{id}")
+    public Response moveToTrash(
+            @PathVariable ItemType itemType,
+            @PathVariable String id
+    ) {
+        Integer itemId = IdUtils.toModel(id);
+        log.info("moving from {} to trash | #{}", itemType, itemId);
+        return serviceFactory(itemType).moveToTrash(itemId).build();
     }
 
     @DeleteMapping("/delete/{itemType}/{id}")

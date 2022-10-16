@@ -39,8 +39,8 @@ public class PasswordServiceImpl implements ItemService<Password>, PasswordServi
     public static final int MAX_RECOMMENDED_AGE = 180;
 
     @Override
-    public Iterable<Password> getAll() {
-        return passwordRepository.getAll();
+    public Iterable<Password> getAllActive() {
+        return passwordRepository.getAllActive();
     }
 
     @Override
@@ -71,6 +71,19 @@ public class PasswordServiceImpl implements ItemService<Password>, PasswordServi
     }
 
     @Override
+    public Response.Builder moveToTrash(int id) {
+        BooleanSupplier idDeleted = () -> passwordRepository.isMovedToTrash(id);
+        Supplier<String> logSuccess = () -> {
+            String message = String.format("moved to trash | password with id %d", id);
+            log.info(message);
+
+            return message;
+        };
+
+        return ItemServiceUtils.delete(idDeleted, logSuccess);
+    }
+
+    @Override
     public Response.Builder delete(int id) {
         BooleanSupplier idDeleted = () -> passwordRepository.isDeleted(id);
         Supplier<String> logSuccess = () -> {
@@ -85,7 +98,7 @@ public class PasswordServiceImpl implements ItemService<Password>, PasswordServi
 
     @Override
     public Map<HealthType, Iterable<BaseItemTo>> getAllHealthPasswords() {
-        Iterable<Password> allPasswords = passwordRepository.getAll();
+        Iterable<Password> allPasswords = passwordRepository.getAllActive();
         List<BaseItemTo> weakPasswords = StreamSupport.stream(allPasswords.spliterator(), false)
                 .filter(p -> PasswordValidation.getPasswordStrength(p.getPassword()) == PasswordStrength.weak)
                 .map(PasswordTo::from)

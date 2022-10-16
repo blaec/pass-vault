@@ -13,8 +13,8 @@ public class SecureNoteRepositoryImpl implements ItemRepository<SecureNote> {
     private final CrudSecureNoteRepository crudSecureNoteRepository;
 
     @Override
-    public Iterable<SecureNote> getAll() {
-        return crudSecureNoteRepository.findAll();
+    public Iterable<SecureNote> getAllActive() {
+        return crudSecureNoteRepository.findAllActive();
     }
 
     @Override
@@ -25,6 +25,11 @@ public class SecureNoteRepositoryImpl implements ItemRepository<SecureNote> {
     @Override
     public SecureNote save(SecureNote secureNote) {
         return crudSecureNoteRepository.save(secureNote);
+    }
+
+    @Override
+    public boolean isMovedToTrash(int id) {
+        return crudSecureNoteRepository.setDeleted(id) == 1;
     }
 
     @Override

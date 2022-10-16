@@ -39,7 +39,7 @@ export const folderApi = {
 let baseItemApi = "/items/";
 export const itemApi = {
     get: {
-        getAll: `${baseItemApi}get-all`,
+        getAllActive: `${baseItemApi}get-all-active`,
         getAllInFolder: `${baseItemApi}get-all-in-folder/`,
         getAllHealthItems: `${baseItemApi}get-all-health-items/`,
     },
@@ -48,6 +48,7 @@ export const itemApi = {
     },
     put: {
         update: `${baseItemApi}update/`,
+        moveToTrash: `${baseItemApi}move-to-trash/`,
     },
     delete: {
         delete: `${baseItemApi}delete/`,

@@ -2,9 +2,9 @@ import axios from "../../../axios-pass";
 import {itemActions} from "./item-slice";
 import {itemApi} from "../../../utils/UrlUtils";
 
-export const fetchItems = () => {
+export const fetchActiveItems = () => {
     return async (dispatch) => {
-        axios.get(itemApi.get.getAll)
+        axios.get(itemApi.get.getAllActive)
             .then(response => {
                 const {data} = response;
                 dispatch(itemActions.setItems(data));
@@ -46,7 +46,7 @@ export const saveItem = (item) => {
         axios.post(`${itemApi.post.create}`, item)
             .then(response => {
                 const {data} = response;
-                dispatch(fetchItems());
+                dispatch(fetchActiveItems());
                 dispatch(fetchHealthItems());
                 dispatch(itemActions.resetEditableItem());
             })
@@ -61,7 +61,7 @@ export const updateItem = (item) => {
         axios.put(`${itemApi.put.update}`, item)
             .then(response => {
                 const {data} = response;
-                dispatch(fetchItems());
+                dispatch(fetchActiveItems());
                 dispatch(fetchHealthItems());
             })
             .catch(error => {
@@ -75,7 +75,7 @@ export const deleteItem = (type, id) => {
         axios.delete(`${itemApi.delete.delete}${type}/${id}`)
             .then(response => {
                 const {data} = response;
-                dispatch(fetchItems());
+                dispatch(fetchActiveItems());
                 dispatch(fetchHealthItems());
             })
             .catch(error => {

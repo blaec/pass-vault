@@ -23,8 +23,8 @@ public class CreditCardServiceImpl implements ItemService<CreditCard> {
     private final FolderRepository folderRepository;
 
     @Override
-    public Iterable<CreditCard> getAll() {
-        return creditCardRepository.getAll();
+    public Iterable<CreditCard> getAllActive() {
+        return creditCardRepository.getAllActive();
     }
 
     @Override
@@ -52,6 +52,19 @@ public class CreditCardServiceImpl implements ItemService<CreditCard> {
             CreditCard saved = creditCardRepository.save(creditCard);
             log.info(message, saved.getTitle());
         });
+    }
+
+    @Override
+    public Response.Builder moveToTrash(int id) {
+        BooleanSupplier idDeleted = () -> creditCardRepository.isMovedToTrash(id);
+        Supplier<String> logSuccess = () -> {
+            String message = String.format("moved to trash | credit card with id %d", id);
+            log.info(message);
+
+            return message;
+        };
+
+        return ItemServiceUtils.delete(idDeleted, logSuccess);
     }
 
     @Override
