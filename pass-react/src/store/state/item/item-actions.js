@@ -81,6 +81,19 @@ export const updateItem = (item) => {
     };
 };
 
+export const restoreItemFromTrash = (type, id) => {
+    return async (dispatch) => {
+        axios.put(`${itemApi.put.restore}${type}/${id}`)
+            .then(response => {
+                const {data} = response;
+                reload(dispatch);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    };
+};
+
 export const moveItemToTrash = (type, id) => {
     return async (dispatch) => {
         axios.put(`${itemApi.put.moveToTrash}${type}/${id}`)

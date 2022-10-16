@@ -34,7 +34,12 @@ public class PasswordRepositoryImpl implements ItemRepository<Password> {
 
     @Override
     public boolean isMovedToTrash(int id) {
-        return crudPasswordRepository.setDeleted(id) == 1;
+        return crudPasswordRepository.moveToTrash(id) == 1;
+    }
+
+    @Override
+    public boolean isRestored(int id) {
+        return crudPasswordRepository.restore(id) == 1;
     }
 
     @Override

@@ -76,13 +76,23 @@ public class ItemController extends AbstractController {
         return serviceFactory(to.getItemType()).update(to).build();
     }
 
+    @PutMapping("/restore/{itemType}/{id}")
+    public Response restore(
+            @PathVariable ItemType itemType,
+            @PathVariable String id
+    ) {
+        Integer itemId = IdUtils.toModel(id);
+        log.info("restoring from {} trash | #{}", itemType, itemId);
+        return serviceFactory(itemType).restore(itemId).build();
+    }
+
     @PutMapping("/move-to-trash/{itemType}/{id}")
     public Response moveToTrash(
             @PathVariable ItemType itemType,
             @PathVariable String id
     ) {
         Integer itemId = IdUtils.toModel(id);
-        log.info("moving from {} to trash | #{}", itemType, itemId);
+        log.info("moving {} to trash | #{}", itemType, itemId);
         return serviceFactory(itemType).moveToTrash(itemId).build();
     }
 

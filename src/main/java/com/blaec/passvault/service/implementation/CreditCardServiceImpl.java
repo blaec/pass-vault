@@ -60,6 +60,19 @@ public class CreditCardServiceImpl implements ItemService<CreditCard> {
     }
 
     @Override
+    public Response.Builder restore(int id) {
+        BooleanSupplier idDeleted = () -> creditCardRepository.isRestored(id);
+        Supplier<String> logSuccess = () -> {
+            String message = String.format("restored | credit card with id %d", id);
+            log.info(message);
+
+            return message;
+        };
+
+        return ItemServiceUtils.delete(idDeleted, logSuccess);
+    }
+
+    @Override
     public Response.Builder moveToTrash(int id) {
         BooleanSupplier idDeleted = () -> creditCardRepository.isMovedToTrash(id);
         Supplier<String> logSuccess = () -> {

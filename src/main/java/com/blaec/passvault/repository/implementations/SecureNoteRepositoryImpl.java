@@ -34,7 +34,12 @@ public class SecureNoteRepositoryImpl implements ItemRepository<SecureNote> {
 
     @Override
     public boolean isMovedToTrash(int id) {
-        return crudSecureNoteRepository.setDeleted(id) == 1;
+        return crudSecureNoteRepository.moveToTrash(id) == 1;
+    }
+
+    @Override
+    public boolean isRestored(int id) {
+        return crudSecureNoteRepository.restore(id) == 1;
     }
 
     @Override

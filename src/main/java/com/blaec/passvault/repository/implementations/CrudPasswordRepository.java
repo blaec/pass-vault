@@ -25,5 +25,10 @@ public interface CrudPasswordRepository extends CrudRepository<Password, Integer
     @Transactional
     @Modifying
     @Query("UPDATE Password p SET p.deleted=true WHERE p.id=:id")
-    int setDeleted(int id);
+    int moveToTrash(int id);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE Password p SET p.deleted=false WHERE p.id=:id")
+    int restore(int id);
 }

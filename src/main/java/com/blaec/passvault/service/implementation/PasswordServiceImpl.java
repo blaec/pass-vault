@@ -76,6 +76,19 @@ public class PasswordServiceImpl implements ItemService<Password>, PasswordServi
     }
 
     @Override
+    public Response.Builder restore(int id) {
+        BooleanSupplier idDeleted = () -> passwordRepository.isRestored(id);
+        Supplier<String> logSuccess = () -> {
+            String message = String.format("restored | password with id %d", id);
+            log.info(message);
+
+            return message;
+        };
+
+        return ItemServiceUtils.delete(idDeleted, logSuccess);
+    }
+
+    @Override
     public Response.Builder moveToTrash(int id) {
         BooleanSupplier idDeleted = () -> passwordRepository.isMovedToTrash(id);
         Supplier<String> logSuccess = () -> {

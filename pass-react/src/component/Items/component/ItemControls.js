@@ -2,7 +2,7 @@ import React from 'react';
 import {useDispatch} from "react-redux";
 import {useLocation} from "react-router";
 
-import {deleteItem, moveItemToTrash} from "../../../store/state/item/item-actions";
+import {deleteItem, moveItemToTrash, restoreItemFromTrash} from "../../../store/state/item/item-actions";
 import {reactLinks} from "../../../utils/UrlUtils";
 
 import {Grid} from "@mui/material";
@@ -36,8 +36,7 @@ const ItemControls = (props) => {
     };
 
     const restoreItem = () => {
-        alert("restore item");
-        // dispatch(moveItemToTrash(type, id));
+        dispatch(restoreItemFromTrash(type, id));
         onClose();
     };
 

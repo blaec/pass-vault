@@ -49,6 +49,7 @@ export const itemApi = {
     },
     put: {
         update: `${baseItemApi}update/`,
+        restore: `${baseItemApi}restore/`,
         moveToTrash: `${baseItemApi}move-to-trash/`,
     },
     delete: {

@@ -34,7 +34,12 @@ public class CreditCardRepositoryImpl implements ItemRepository<CreditCard> {
 
     @Override
     public boolean isMovedToTrash(int id) {
-        return crudCreditCardRepository.setDeleted(id) == 1;
+        return crudCreditCardRepository.moveToTrash(id) == 1;
+    }
+
+    @Override
+    public boolean isRestored(int id) {
+        return crudCreditCardRepository.restore(id) == 1;
     }
 
     @Override

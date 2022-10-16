@@ -60,6 +60,19 @@ public class SecureNoteServiceImpl implements ItemService<SecureNote> {
     }
 
     @Override
+    public Response.Builder restore(int id) {
+        BooleanSupplier idDeleted = () -> secureNoteRepository.isRestored(id);
+        Supplier<String> logSuccess = () -> {
+            String message = String.format("restored | secure note with id %d", id);
+            log.info(message);
+
+            return message;
+        };
+
+        return ItemServiceUtils.delete(idDeleted, logSuccess);
+    }
+
+    @Override
     public Response.Builder moveToTrash(int id) {
         BooleanSupplier idDeleted = () -> secureNoteRepository.isMovedToTrash(id);
         Supplier<String> logSuccess = () -> {
