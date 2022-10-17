@@ -13,8 +13,13 @@ public class PasswordRepositoryImpl implements ItemRepository<Password> {
     private final CrudPasswordRepository crudPasswordRepository;
 
     @Override
-    public Iterable<Password> getAll() {
-        return crudPasswordRepository.findAll();
+    public Iterable<Password> getAllActive() {
+        return crudPasswordRepository.findAllActive();
+    }
+
+    @Override
+    public Iterable<Password> getAllDeleted() {
+        return crudPasswordRepository.findAllDeleted();
     }
 
     @Override
@@ -25,6 +30,16 @@ public class PasswordRepositoryImpl implements ItemRepository<Password> {
     @Override
     public Password save(Password password) {
         return crudPasswordRepository.save(password);
+    }
+
+    @Override
+    public boolean isMovedToTrash(int id) {
+        return crudPasswordRepository.moveToTrash(id) == 1;
+    }
+
+    @Override
+    public boolean isRestoredFromTrash(int id) {
+        return crudPasswordRepository.restoreFromTrash(id) == 1;
     }
 
     @Override

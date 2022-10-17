@@ -8,10 +8,27 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface CrudCreditCardRepository extends CrudRepository<CreditCard, Integer> {
 
+    @Query("SELECT c FROM CreditCard c WHERE c.deleted=false")
+    Iterable<CreditCard> findAllActive();
+
+    @Query("SELECT c FROM CreditCard c WHERE c.deleted=true")
+    Iterable<CreditCard> findAllDeleted();
+
+    @Query("SELECT c FROM CreditCard c WHERE c.folder.id=:folderId and c.deleted=false")
+    Iterable<CreditCard> findAllByFolderId(int folderId);
+
     @Transactional
     @Modifying
-    @Query("DELETE FROM CreditCard p WHERE p.id=:id")
+    @Query("DELETE FROM CreditCard c WHERE c.id=:id")
     int deleteById(int id);
 
-    @Query("SELECT p FROM CreditCard p WHERE p.folder.id=:folderId")
-    Iterable<CreditCard> findAllByFolderId(int folderId);}
+    @Transactional
+    @Modifying
+    @Query("UPDATE CreditCard c SET c.deleted=true WHERE c.id=:id")
+    int moveToTrash(int id);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE CreditCard c SET c.deleted=false WHERE c.id=:id")
+    int restoreFromTrash(int id);
+}

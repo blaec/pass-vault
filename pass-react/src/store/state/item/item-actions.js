@@ -2,12 +2,25 @@ import axios from "../../../axios-pass";
 import {itemActions} from "./item-slice";
 import {itemApi} from "../../../utils/UrlUtils";
 
-export const fetchItems = () => {
+export const fetchActiveItems = () => {
     return async (dispatch) => {
-        axios.get(itemApi.get.getAll)
+        axios.get(itemApi.get.getAllActive)
             .then(response => {
                 const {data} = response;
                 dispatch(itemActions.setItems(data));
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    };
+};
+
+export const fetchDeletedItems = () => {
+    return async (dispatch) => {
+        axios.get(itemApi.get.getAllDeleted)
+            .then(response => {
+                const {data} = response;
+                dispatch(itemActions.setDeletedItems(data));
             })
             .catch(error => {
                 console.log(error);
@@ -46,8 +59,7 @@ export const saveItem = (item) => {
         axios.post(`${itemApi.post.create}`, item)
             .then(response => {
                 const {data} = response;
-                dispatch(fetchItems());
-                dispatch(fetchHealthItems());
+                reload(dispatch);
                 dispatch(itemActions.resetEditableItem());
             })
             .catch(error => {
@@ -61,8 +73,33 @@ export const updateItem = (item) => {
         axios.put(`${itemApi.put.update}`, item)
             .then(response => {
                 const {data} = response;
-                dispatch(fetchItems());
-                dispatch(fetchHealthItems());
+                reload(dispatch);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    };
+};
+
+export const restoreItemFromTrash = (type, id) => {
+    return async (dispatch) => {
+        axios.put(`${itemApi.put.restore}${type}/${id}`)
+            .then(response => {
+                const {data} = response;
+                reload(dispatch);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    };
+};
+
+export const moveItemToTrash = (type, id) => {
+    return async (dispatch) => {
+        axios.put(`${itemApi.put.moveToTrash}${type}/${id}`)
+            .then(response => {
+                const {data} = response;
+                reload(dispatch);
             })
             .catch(error => {
                 console.log(error);
@@ -75,11 +112,17 @@ export const deleteItem = (type, id) => {
         axios.delete(`${itemApi.delete.delete}${type}/${id}`)
             .then(response => {
                 const {data} = response;
-                dispatch(fetchItems());
-                dispatch(fetchHealthItems());
+                reload(dispatch);
             })
             .catch(error => {
                 console.log(error);
             });
     };
+};
+
+const reload = (dispatch) => {
+    dispatch(fetchActiveItems());
+    dispatch(fetchDeletedItems());
+    dispatch(fetchHealthItems());
+    // dispatch(fetchItemsInFolder());  // TODO reload in folder as well
 };

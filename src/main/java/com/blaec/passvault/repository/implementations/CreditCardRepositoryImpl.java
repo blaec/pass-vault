@@ -13,8 +13,13 @@ public class CreditCardRepositoryImpl implements ItemRepository<CreditCard> {
     private final CrudCreditCardRepository crudCreditCardRepository;
 
     @Override
-    public Iterable<CreditCard> getAll() {
-        return crudCreditCardRepository.findAll();
+    public Iterable<CreditCard> getAllActive() {
+        return crudCreditCardRepository.findAllActive();
+    }
+
+    @Override
+    public Iterable<CreditCard> getAllDeleted() {
+        return crudCreditCardRepository.findAllDeleted();
     }
 
     @Override
@@ -25,6 +30,16 @@ public class CreditCardRepositoryImpl implements ItemRepository<CreditCard> {
     @Override
     public CreditCard save(CreditCard creditCard) {
         return crudCreditCardRepository.save(creditCard);
+    }
+
+    @Override
+    public boolean isMovedToTrash(int id) {
+        return crudCreditCardRepository.moveToTrash(id) == 1;
+    }
+
+    @Override
+    public boolean isRestoredFromTrash(int id) {
+        return crudCreditCardRepository.restoreFromTrash(id) == 1;
     }
 
     @Override

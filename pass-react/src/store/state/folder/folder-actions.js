@@ -1,7 +1,7 @@
 import axios from "../../../axios-pass";
 import {folderActions} from "./folder-slice";
 import {folderApi} from "../../../utils/UrlUtils";
-import {fetchItems} from "../item/item-actions";
+import {fetchActiveItems} from "../item/item-actions";
 
 export const fetchFolders = () => {
     return async (dispatch) => {
@@ -35,7 +35,7 @@ export const updateFolder = (folder) => {
             .then(response => {
                 const {data} = response;
                 dispatch(fetchFolders());
-                dispatch(fetchItems());
+                dispatch(fetchActiveItems());
             })
             .catch(error => {
                 console.log(error);

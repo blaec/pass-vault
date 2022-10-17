@@ -6,9 +6,12 @@ import com.blaec.passvault.model.to.item.FullItemTo;
 import org.springframework.transaction.annotation.Transactional;
 
 public interface ItemService<T extends BaseItem> {
-    Iterable<T> getAll();
+    Iterable<T> getAllActive();
+    Iterable<T> getAllDeleted();
     Iterable<T> getAllByFolderId(int folderId);
     @Transactional Response.Builder create(FullItemTo to);
     @Transactional Response.Builder update(FullItemTo to);
+    @Transactional Response.Builder restoreFromTrash(int id);
+    @Transactional Response.Builder moveToTrash(int id);
     @Transactional Response.Builder delete(int id);
 }

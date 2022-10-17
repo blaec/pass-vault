@@ -10,13 +10,14 @@ import SecureNote from "./component/Pages/MenuItems/SecureNote/SecureNote";
 import CreditCard from "./component/Pages/MenuItems/CreditCard/CreditCard";
 import NewItemFactory from "./component/Pages/PathLinks/NewItem/NewItemFactory";
 import AllItems from "./component/Pages/MenuItems/allItems/AllItems";
+import Trash from "./component/Pages/MenuItems/Trash/Trash";
 import WeakPasswords from "./component/Pages/PathLinks/PasswordHealth/WeakPasswords";
 import ReusedPasswords from "./component/Pages/PathLinks/PasswordHealth/ReusedPasswords";
 import OldPasswords from "./component/Pages/PathLinks/PasswordHealth/OldPasswords";
 import Layout from "./hoc/Layout";
 import {reactLinks} from "./utils/UrlUtils";
 import {fetchFolders} from "./store/state/folder/folder-actions";
-import {fetchItems} from "./store/state/item/item-actions";
+import {fetchActiveItems, fetchDeletedItems} from "./store/state/item/item-actions";
 import {itemType} from "./utils/Constants";
 
 function App() {
@@ -45,7 +46,8 @@ function App() {
 
     useEffect(() => {
         dispatch(fetchFolders());
-        dispatch(fetchItems());
+        dispatch(fetchActiveItems());
+        dispatch(fetchDeletedItems());
     }, []);
 
     const layout = (
@@ -58,6 +60,7 @@ function App() {
                 <Route path={secureNotes} exact element={<SecureNote/>}/>
                 <Route path={creditCards} exact element={<CreditCard/>}/>
                 <Route path={folders} exact element={<Folder/>}/>
+                <Route path={trash} exact element={<Trash/>}/>
                 <Route path={passwordHealth} exact element={<PasswordHealth/>}/>
 
                 {/* Path links */}

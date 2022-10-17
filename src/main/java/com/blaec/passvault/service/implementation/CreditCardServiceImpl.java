@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 import java.util.function.BooleanSupplier;
-import java.util.function.Supplier;
 
 @Slf4j
 @AllArgsConstructor
@@ -23,8 +22,13 @@ public class CreditCardServiceImpl implements ItemService<CreditCard> {
     private final FolderRepository folderRepository;
 
     @Override
-    public Iterable<CreditCard> getAll() {
-        return creditCardRepository.getAll();
+    public Iterable<CreditCard> getAllActive() {
+        return creditCardRepository.getAllActive();
+    }
+
+    @Override
+    public Iterable<CreditCard> getAllDeleted() {
+        return creditCardRepository.getAllDeleted();
     }
 
     @Override
@@ -55,15 +59,26 @@ public class CreditCardServiceImpl implements ItemService<CreditCard> {
     }
 
     @Override
+    public Response.Builder restoreFromTrash(int id) {
+        BooleanSupplier isRestoredFromTrash = () -> creditCardRepository.isRestoredFromTrash(id);
+        String message = String.format("restored | credit card with id %d", id);
+
+        return ItemServiceUtils.handleExistingItem(isRestoredFromTrash, message);
+    }
+
+    @Override
+    public Response.Builder moveToTrash(int id) {
+        BooleanSupplier isMovedToTrash = () -> creditCardRepository.isMovedToTrash(id);
+        String message = String.format("moved to trash | credit card with id %d", id);
+
+        return ItemServiceUtils.handleExistingItem(isMovedToTrash, message);
+    }
+
+    @Override
     public Response.Builder delete(int id) {
-        BooleanSupplier idDeleted = () -> creditCardRepository.isDeleted(id);
-        Supplier<String> logSuccess = () -> {
-            String message = String.format("deleted | credit card with id %d", id);
-            log.info(message);
+        BooleanSupplier isDeleted = () -> creditCardRepository.isDeleted(id);
+        String message = String.format("deleted | credit card with id %d", id);
 
-            return message;
-        };
-
-        return ItemServiceUtils.delete(idDeleted, logSuccess);
+        return ItemServiceUtils.handleExistingItem(isDeleted, message);
     }
 }

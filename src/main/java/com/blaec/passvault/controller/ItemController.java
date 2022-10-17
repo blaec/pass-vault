@@ -7,11 +7,10 @@ import com.blaec.passvault.model.CreditCard;
 import com.blaec.passvault.model.Password;
 import com.blaec.passvault.model.SecureNote;
 import com.blaec.passvault.model.response.Response;
-import com.blaec.passvault.model.to.item.FullItemTo;
 import com.blaec.passvault.model.to.item.BaseItemTo;
+import com.blaec.passvault.model.to.item.FullItemTo;
 import com.blaec.passvault.service.ItemService;
 import com.blaec.passvault.service.PasswordService;
-import com.blaec.passvault.utils.IdUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -32,12 +31,21 @@ public class ItemController extends AbstractController {
     private final ItemService<SecureNote> secureNoteService;
     private final ItemService<CreditCard> creditCardService;
 
-    @GetMapping("/get-all")
-    public Map<ItemType, List<BaseItemTo>> getAll() {
+    @GetMapping("/get-all-active")
+    public Map<ItemType, List<BaseItemTo>> getAllActive() {
         return Map.of(
-                ItemType.passwords, mappedPasswords(passwordService.getAll()),
-                ItemType.secureNotes, mappedSecureNotes(secureNoteService.getAll()),
-                ItemType.creditCards, mappedCreditCards(creditCardService.getAll())
+                ItemType.passwords, mappedPasswords(passwordService.getAllActive()),
+                ItemType.secureNotes, mappedSecureNotes(secureNoteService.getAllActive()),
+                ItemType.creditCards, mappedCreditCards(creditCardService.getAllActive())
+        );
+    }
+
+    @GetMapping("/get-all-deleted")
+    public Map<ItemType, List<BaseItemTo>> getAllDeleted() {
+        return Map.of(
+                ItemType.passwords, mappedPasswords(passwordService.getAllDeleted()),
+                ItemType.secureNotes, mappedSecureNotes(secureNoteService.getAllDeleted()),
+                ItemType.creditCards, mappedCreditCards(creditCardService.getAllDeleted())
         );
     }
 
@@ -67,14 +75,34 @@ public class ItemController extends AbstractController {
         return serviceFactory(to.getItemType()).update(to).build();
     }
 
+    @PutMapping("/restore/{itemType}/{id}")
+    public Response restore(
+            @PathVariable ItemType itemType,
+            @PathVariable String id
+    ) {
+        return serviceFactory(itemType)
+                .restoreFromTrash(extractIdAndLogAction(itemType, id, "restoring from {} trash | #{}"))
+                .build();
+    }
+
+    @PutMapping("/move-to-trash/{itemType}/{id}")
+    public Response moveToTrash(
+            @PathVariable ItemType itemType,
+            @PathVariable String id
+    ) {
+        return serviceFactory(itemType)
+                .moveToTrash(extractIdAndLogAction(itemType, id, "moving {} to trash | #{}"))
+                .build();
+    }
+
     @DeleteMapping("/delete/{itemType}/{id}")
     public Response delete(
             @PathVariable ItemType itemType,
             @PathVariable String id
     ) {
-        Integer itemId = IdUtils.toModel(id);
-        log.info("deleting from {} | #{}", itemType, itemId);
-        return serviceFactory(itemType).delete(itemId).build();
+        return serviceFactory(itemType)
+                .delete(extractIdAndLogAction(itemType, id, "deleting from {} | #{}"))
+                .build();
     }
 
     @SuppressWarnings("unchecked")

@@ -23,6 +23,9 @@ public abstract class BaseItem {
     @Column(name="creation_date")
     @NonNull protected LocalDate creationDate;
 
+    @Column(columnDefinition = "boolean default false")
+    protected boolean deleted;
+
     protected String note;
 
 

@@ -1,7 +1,9 @@
 import React from 'react';
 import {useDispatch} from "react-redux";
+import {useLocation} from "react-router";
 
-import {deleteItem} from "../../../store/state/item/item-actions";
+import {deleteItem, moveItemToTrash, restoreItemFromTrash} from "../../../store/state/item/item-actions";
+import {reactLinks} from "../../../utils/UrlUtils";
 
 import {Grid} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
@@ -10,10 +12,13 @@ import Box from "@mui/material/Box";
 import EditTwoToneIcon from "@mui/icons-material/EditTwoTone";
 import DriveFileMoveTwoToneIcon from "@mui/icons-material/DriveFileMoveTwoTone";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
+import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
+import RestoreFromTrashTwoToneIcon from '@mui/icons-material/RestoreFromTrashTwoTone';
 
 
 const ItemControls = (props) => {
     const {id, type, onEdit, onClose} = props;
+    const {pathname} = useLocation();
 
     const dispatch = useDispatch();
 
@@ -25,10 +30,60 @@ const ItemControls = (props) => {
         alert("move to folder");
     };
 
+    const handleMoveToTrash = () => {
+        dispatch(moveItemToTrash(type, id));
+        onClose();
+    };
+
+    const handleRestoreFromTrash = () => {
+        dispatch(restoreItemFromTrash(type, id));
+        onClose();
+    };
+
     const handleDelete = () => {
         dispatch(deleteItem(type, id));
         onClose();
     };
+
+    const actionIcons = pathname.includes(reactLinks.trash)
+        ? (
+            <>
+                <IconButton
+                    color="success"
+                    onClick={handleRestoreFromTrash}
+                >
+                    <RestoreFromTrashTwoToneIcon/>
+                </IconButton>
+                <IconButton
+                    color="warning"
+                    onClick={handleDelete}
+                >
+                    <DeleteForeverTwoToneIcon/>
+                </IconButton>
+            </>
+        )
+        : (
+            <>
+                <IconButton
+                    color="primary"
+                    onClick={handleEdit}
+                >
+                    <EditTwoToneIcon/>
+                </IconButton>
+                <IconButton
+                    color="primary"
+                    onClick={handleMoveToFolder}
+                >
+                    <DriveFileMoveTwoToneIcon/>
+                </IconButton>
+                <IconButton
+                    color="primary"
+                    onClick={handleMoveToTrash}
+                >
+                    <DeleteTwoToneIcon/>
+                </IconButton>
+            </>
+        );
 
 
     return (
@@ -45,24 +100,7 @@ const ItemControls = (props) => {
                 <CancelTwoToneIcon/>
             </IconButton>
             <Box>
-                <IconButton
-                    color="primary"
-                    onClick={handleEdit}
-                >
-                    <EditTwoToneIcon/>
-                </IconButton>
-                <IconButton
-                    color="primary"
-                    onClick={handleMoveToFolder}
-                >
-                    <DriveFileMoveTwoToneIcon/>
-                </IconButton>
-                <IconButton
-                    color="primary"
-                    onClick={handleDelete}
-                >
-                    <DeleteTwoToneIcon/>
-                </IconButton>
+                {actionIcons}
             </Box>
         </Grid>
     );
