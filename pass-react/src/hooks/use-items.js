@@ -213,6 +213,45 @@ const useItems = (type, itemKey, folderId) => {
             </>
         );
     }
+    const titleElement = (
+        <Grid
+            item
+            container
+            direction="row"
+            spacing={1}
+        >
+            <Grid item>
+                <Typography variant={"h5"}>
+                    {title[itemKey].title()}
+                </Typography>
+            </Grid>
+            <Grid item>
+                <Avatar>
+                    {store[type].items.length}
+                </Avatar>
+            </Grid>
+        </Grid>
+    );
+    const speedDialElement = (
+        <Box sx={_speedDial}>
+            <StyledSpeedDial
+                ariaLabel="new items SpeedDial"
+                icon={<SpeedDialIcon/>}
+                direction={'left'}
+            >
+                {actions.map((action) => (
+                    <SpeedDialAction
+                        key={action.name}
+                        icon={action.icon}
+                        tooltipTitle={action.name}
+                        component={NavLink}
+                        onClick={handleAddNewItem}
+                        to={action.newItemLink}
+                    />
+                ))}
+            </StyledSpeedDial>
+        </Box>
+    );
 
 
     return (
@@ -224,41 +263,8 @@ const useItems = (type, itemKey, folderId) => {
                 justifyContent="space-between"
                 alignItems="center"
             >
-                <Grid
-                    item
-                    container
-                    direction="row"
-                    spacing={1}
-                >
-                    <Grid item>
-                        <Typography variant={"h5"}>
-                            {title[itemKey].title()}
-                        </Typography>
-                    </Grid>
-                    <Grid item>
-                        <Avatar>
-                            {store[type].items.length}
-                        </Avatar>
-                    </Grid>
-                </Grid>
-                <Box sx={_speedDial}>
-                    <StyledSpeedDial
-                        ariaLabel="new items SpeedDial"
-                        icon={<SpeedDialIcon/>}
-                        direction={'left'}
-                    >
-                        {actions.map((action) => (
-                            <SpeedDialAction
-                                key={action.name}
-                                icon={action.icon}
-                                tooltipTitle={action.name}
-                                component={NavLink}
-                                onClick={handleAddNewItem}
-                                to={action.newItemLink}
-                            />
-                        ))}
-                    </StyledSpeedDial>
-                </Box>
+                {titleElement}
+                {speedDialElement}
             </Grid>
             {table}
         </Box>
