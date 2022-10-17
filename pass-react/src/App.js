@@ -20,6 +20,7 @@ import {reactLinks} from "./utils/UrlUtils";
 import {fetchFolders} from "./store/state/folder/folder-actions";
 import {fetchActiveItems, fetchDeletedItems} from "./store/state/item/item-actions";
 import {itemType} from "./utils/Constants";
+import {currentFolder} from "./store/localStorage/actions";
 
 function App() {
     const {
@@ -55,9 +56,9 @@ function App() {
     useEffect(() => {
         if (pathname.includes(reactLinks.folderItemsEndpoint)) {
             const folderId = pathname.replace(reactLinks.folderItemsEndpoint, '');
-            localStorage.setItem("currentFolder", folderId);
+            currentFolder.set(folderId);
         } else {
-            localStorage.removeItem("currentFolder");
+            currentFolder.remove();
         }
     }, [pathname])
 
