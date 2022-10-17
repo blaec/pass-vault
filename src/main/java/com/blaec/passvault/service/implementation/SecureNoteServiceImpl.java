@@ -59,7 +59,7 @@ public class SecureNoteServiceImpl implements ItemService<SecureNote> {
     }
 
     @Override
-    public Response.Builder restore(int id) {
+    public Response.Builder restoreFromTrash(int id) {
         BooleanSupplier isRestoredFromTrash = () -> secureNoteRepository.isRestoredFromTrash(id);
         String message = String.format("restored | secure note with id %d", id);
 

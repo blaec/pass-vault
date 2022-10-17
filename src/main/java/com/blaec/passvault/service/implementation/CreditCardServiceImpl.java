@@ -59,7 +59,7 @@ public class CreditCardServiceImpl implements ItemService<CreditCard> {
     }
 
     @Override
-    public Response.Builder restore(int id) {
+    public Response.Builder restoreFromTrash(int id) {
         BooleanSupplier isRestoredFromTrash = () -> creditCardRepository.isRestoredFromTrash(id);
         String message = String.format("restored | credit card with id %d", id);
 

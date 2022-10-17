@@ -11,7 +11,7 @@ public interface ItemService<T extends BaseItem> {
     Iterable<T> getAllByFolderId(int folderId);
     @Transactional Response.Builder create(FullItemTo to);
     @Transactional Response.Builder update(FullItemTo to);
-    @Transactional Response.Builder restore(int id);
+    @Transactional Response.Builder restoreFromTrash(int id);
     @Transactional Response.Builder moveToTrash(int id);
     @Transactional Response.Builder delete(int id);
 }

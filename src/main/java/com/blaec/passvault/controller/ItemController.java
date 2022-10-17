@@ -81,7 +81,7 @@ public class ItemController extends AbstractController {
             @PathVariable String id
     ) {
         return serviceFactory(itemType)
-                .restore(extractIdAndLogAction(itemType, id, "restoring from {} trash | #{}"))
+                .restoreFromTrash(extractIdAndLogAction(itemType, id, "restoring from {} trash | #{}"))
                 .build();
     }
 

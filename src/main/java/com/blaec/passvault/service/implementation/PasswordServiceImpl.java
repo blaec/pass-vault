@@ -75,7 +75,7 @@ public class PasswordServiceImpl implements ItemService<Password>, PasswordServi
     }
 
     @Override
-    public Response.Builder restore(int id) {
+    public Response.Builder restoreFromTrash(int id) {
         BooleanSupplier isRestoredFromTrash = () -> passwordRepository.isRestoredFromTrash(id);
         String message = String.format("restored | password with id %d", id);
 
