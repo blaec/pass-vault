@@ -1,6 +1,7 @@
 import axios from "../../../axios-pass";
 import {itemActions} from "./item-slice";
 import {itemApi} from "../../../utils/UrlUtils";
+import {currentFolder} from "../../localStorage/actions";
 
 export const fetchActiveItems = () => {
     return async (dispatch) => {
@@ -124,5 +125,8 @@ const reload = (dispatch) => {
     dispatch(fetchActiveItems());
     dispatch(fetchDeletedItems());
     dispatch(fetchHealthItems());
-    // dispatch(fetchItemsInFolder());  // TODO reload in folder as well
+    const folderId = currentFolder.get();
+    if (folderId !== null) {
+        dispatch(fetchItemsInFolder(folderId));
+    }
 };

@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import {Route, Routes} from "react-router-dom";
 import {useDispatch} from "react-redux";
+import {useLocation} from "react-router";
 
 import Password from "./component/Pages/MenuItems/Password/Passwords";
 import Folder from "./component/Pages/MenuItems/Folder/Folder";
@@ -19,6 +20,7 @@ import {reactLinks} from "./utils/UrlUtils";
 import {fetchFolders} from "./store/state/folder/folder-actions";
 import {fetchActiveItems, fetchDeletedItems} from "./store/state/item/item-actions";
 import {itemType} from "./utils/Constants";
+import {currentFolder} from "./store/localStorage/actions";
 
 function App() {
     const {
@@ -41,6 +43,7 @@ function App() {
         reusedPassword,
         oldPassword,
     } = reactLinks;
+    const { pathname } = useLocation();
 
     const dispatch = useDispatch();
 
@@ -49,6 +52,15 @@ function App() {
         dispatch(fetchActiveItems());
         dispatch(fetchDeletedItems());
     }, []);
+
+    useEffect(() => {
+        if (pathname.includes(reactLinks.folderItemsEndpoint)) {
+            const folderId = pathname.replace(reactLinks.folderItemsEndpoint, '');
+            currentFolder.set(folderId);
+        } else {
+            currentFolder.remove();
+        }
+    }, [pathname])
 
     const layout = (
         <Layout>
