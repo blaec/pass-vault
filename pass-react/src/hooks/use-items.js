@@ -19,6 +19,7 @@ import CreditCardTwoToneIcon from '@mui/icons-material/CreditCardTwoTone';
 import AppsTwoToneIcon from '@mui/icons-material/AppsTwoTone';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import {styled} from "@mui/material/styles";
+import Avatar from "@mui/material/Avatar";
 
 
 const _iconStyle = {opacity: .5};
@@ -71,7 +72,7 @@ const actions = [
         newItemLink: reactLinks.newCreditCard,
     },
 ];
-const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
+const StyledSpeedDial = styled(SpeedDial)(({theme}) => ({
     position: 'absolute',
     '&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft': {
         bottom: theme.spacing(1),
@@ -150,7 +151,7 @@ const useItems = (type, itemKey, folderId) => {
     const _title = {p: 1};
     const _speedDial = {
         position: 'relative',
-        mt:1,
+        mt: 1,
         height: {
             xs: toolbarHeight.mobile,
             sm: toolbarHeight.desktop,
@@ -212,6 +213,45 @@ const useItems = (type, itemKey, folderId) => {
             </>
         );
     }
+    const titleElement = (
+        <Grid
+            item
+            container
+            direction="row"
+            spacing={1}
+        >
+            <Grid item>
+                <Typography variant={"h5"}>
+                    {title[itemKey].title()}
+                </Typography>
+            </Grid>
+            <Grid item>
+                <Avatar>
+                    {store[type].items.length}
+                </Avatar>
+            </Grid>
+        </Grid>
+    );
+    const speedDialElement = (
+        <Box sx={_speedDial}>
+            <StyledSpeedDial
+                ariaLabel="new items SpeedDial"
+                icon={<SpeedDialIcon/>}
+                direction={'left'}
+            >
+                {actions.map((action) => (
+                    <SpeedDialAction
+                        key={action.name}
+                        icon={action.icon}
+                        tooltipTitle={action.name}
+                        component={NavLink}
+                        onClick={handleAddNewItem}
+                        to={action.newItemLink}
+                    />
+                ))}
+            </StyledSpeedDial>
+        </Box>
+    );
 
 
     return (
@@ -223,29 +263,8 @@ const useItems = (type, itemKey, folderId) => {
                 justifyContent="space-between"
                 alignItems="center"
             >
-                <Typography
-                    variant={"h5"}
-                >
-                    {title[itemKey].title()}
-                </Typography>
-                <Box sx={_speedDial}>
-                    <StyledSpeedDial
-                        ariaLabel="new items SpeedDial"
-                        icon={<SpeedDialIcon />}
-                        direction={'left'}
-                    >
-                        {actions.map((action) => (
-                            <SpeedDialAction
-                                key={action.name}
-                                icon={action.icon}
-                                tooltipTitle={action.name}
-                                component={NavLink}
-                                onClick={handleAddNewItem}
-                                to={action.newItemLink}
-                            />
-                        ))}
-                    </StyledSpeedDial>
-                </Box>
+                {titleElement}
+                {speedDialElement}
             </Grid>
             {table}
         </Box>
