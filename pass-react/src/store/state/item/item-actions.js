@@ -124,4 +124,5 @@ const reload = (dispatch) => {
     dispatch(fetchActiveItems());
     dispatch(fetchDeletedItems());
     dispatch(fetchHealthItems());
+    // dispatch(fetchItemsInFolder());  // TODO reload in folder as well
 };
