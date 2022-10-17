@@ -24,7 +24,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.BooleanSupplier;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -77,41 +76,26 @@ public class PasswordServiceImpl implements ItemService<Password>, PasswordServi
 
     @Override
     public Response.Builder restore(int id) {
-        BooleanSupplier idDeleted = () -> passwordRepository.isRestored(id);
-        Supplier<String> logSuccess = () -> {
-            String message = String.format("restored | password with id %d", id);
-            log.info(message);
+        BooleanSupplier isRestoredFromTrash = () -> passwordRepository.isRestoredFromTrash(id);
+        String message = String.format("restored | password with id %d", id);
 
-            return message;
-        };
-
-        return ItemServiceUtils.delete(idDeleted, logSuccess);
+        return ItemServiceUtils.handleExistingItem(isRestoredFromTrash, message);
     }
 
     @Override
     public Response.Builder moveToTrash(int id) {
-        BooleanSupplier idDeleted = () -> passwordRepository.isMovedToTrash(id);
-        Supplier<String> logSuccess = () -> {
-            String message = String.format("moved to trash | password with id %d", id);
-            log.info(message);
+        BooleanSupplier isMovedToTrash = () -> passwordRepository.isMovedToTrash(id);
+        String message = String.format("moved to trash | password with id %d", id);
 
-            return message;
-        };
-
-        return ItemServiceUtils.delete(idDeleted, logSuccess);
+        return ItemServiceUtils.handleExistingItem(isMovedToTrash, message);
     }
 
     @Override
     public Response.Builder delete(int id) {
-        BooleanSupplier idDeleted = () -> passwordRepository.isDeleted(id);
-        Supplier<String> logSuccess = () -> {
-            String message = String.format("deleted | password with id %d", id);
-            log.info(message);
+        BooleanSupplier isDeleted = () -> passwordRepository.isDeleted(id);
+        String message = String.format("deleted | password with id %d", id);
 
-            return message;
-        };
-
-        return ItemServiceUtils.delete(idDeleted, logSuccess);
+        return ItemServiceUtils.handleExistingItem(isDeleted, message);
     }
 
     @Override

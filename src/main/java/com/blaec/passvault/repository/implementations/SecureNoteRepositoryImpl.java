@@ -38,8 +38,8 @@ public class SecureNoteRepositoryImpl implements ItemRepository<SecureNote> {
     }
 
     @Override
-    public boolean isRestored(int id) {
-        return crudSecureNoteRepository.restore(id) == 1;
+    public boolean isRestoredFromTrash(int id) {
+        return crudSecureNoteRepository.restoreFromTrash(id) == 1;
     }
 
     @Override

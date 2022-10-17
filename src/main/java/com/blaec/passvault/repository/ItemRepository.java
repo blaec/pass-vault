@@ -8,6 +8,6 @@ public interface ItemRepository<T extends BaseItem> {
     Iterable<T> getAllByFolderId(int folderId);
     T save(T item);
     boolean isMovedToTrash(int id);
-    boolean isRestored(int id);
+    boolean isRestoredFromTrash(int id);
     boolean isDeleted(int id);
 }

@@ -1,10 +1,11 @@
 package com.blaec.passvault.service.implementation;
 
 import com.blaec.passvault.model.response.Response;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.function.BooleanSupplier;
-import java.util.function.Supplier;
 
+@Slf4j
 public class ItemServiceUtils {
 
     public static Response.Builder save(Runnable saveAction) {
@@ -19,11 +20,12 @@ public class ItemServiceUtils {
         return response;
     }
 
-    public static Response.Builder delete(BooleanSupplier isDeleted, Supplier<String> logSuccess) {
+    public static Response.Builder handleExistingItem(BooleanSupplier isSuccessfullyHandled, String message) {
         Response.Builder response = Response.Builder.create();
 
-        if (isDeleted.getAsBoolean()) {
-            response.setSuccess(logSuccess.get());
+        if (isSuccessfullyHandled.getAsBoolean()) {
+            log.info(message);
+            response.setSuccess(message);
         } else {
             throw new IllegalStateException();
         }

@@ -38,8 +38,8 @@ public class CreditCardRepositoryImpl implements ItemRepository<CreditCard> {
     }
 
     @Override
-    public boolean isRestored(int id) {
-        return crudCreditCardRepository.restore(id) == 1;
+    public boolean isRestoredFromTrash(int id) {
+        return crudCreditCardRepository.restoreFromTrash(id) == 1;
     }
 
     @Override

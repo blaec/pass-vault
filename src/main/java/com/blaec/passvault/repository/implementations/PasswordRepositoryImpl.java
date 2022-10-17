@@ -38,8 +38,8 @@ public class PasswordRepositoryImpl implements ItemRepository<Password> {
     }
 
     @Override
-    public boolean isRestored(int id) {
-        return crudPasswordRepository.restore(id) == 1;
+    public boolean isRestoredFromTrash(int id) {
+        return crudPasswordRepository.restoreFromTrash(id) == 1;
     }
 
     @Override
