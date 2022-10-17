@@ -20,7 +20,6 @@ import AppsTwoToneIcon from '@mui/icons-material/AppsTwoTone';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import {styled} from "@mui/material/styles";
 import Avatar from "@mui/material/Avatar";
-import {green} from "@mui/material/colors";
 
 
 const _iconStyle = {opacity: .5};
@@ -73,7 +72,7 @@ const actions = [
         newItemLink: reactLinks.newCreditCard,
     },
 ];
-const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
+const StyledSpeedDial = styled(SpeedDial)(({theme}) => ({
     position: 'absolute',
     '&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft': {
         bottom: theme.spacing(1),
@@ -152,7 +151,7 @@ const useItems = (type, itemKey, folderId) => {
     const _title = {p: 1};
     const _speedDial = {
         position: 'relative',
-        mt:1,
+        mt: 1,
         height: {
             xs: toolbarHeight.mobile,
             sm: toolbarHeight.desktop,
@@ -225,19 +224,27 @@ const useItems = (type, itemKey, folderId) => {
                 justifyContent="space-between"
                 alignItems="center"
             >
-                <Typography
-                    variant={"h5"}
-                    sx={{ mr:1 }}
+                <Grid
+                    item
+                    container
+                    direction="row"
+                    spacing={1}
                 >
-                    {title[itemKey].title()}
-                </Typography>
-                <Avatar sx={{ p:0.5, bgcolor: green[500]}} >
-                    {store[type].items.length}
-                </Avatar>
+                    <Grid item>
+                        <Typography variant={"h5"}>
+                            {title[itemKey].title()}
+                        </Typography>
+                    </Grid>
+                    <Grid item>
+                        <Avatar>
+                            {store[type].items.length}
+                        </Avatar>
+                    </Grid>
+                </Grid>
                 <Box sx={_speedDial}>
                     <StyledSpeedDial
                         ariaLabel="new items SpeedDial"
-                        icon={<SpeedDialIcon />}
+                        icon={<SpeedDialIcon/>}
                         direction={'left'}
                     >
                         {actions.map((action) => (
