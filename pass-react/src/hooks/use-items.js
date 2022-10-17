@@ -19,6 +19,8 @@ import CreditCardTwoToneIcon from '@mui/icons-material/CreditCardTwoTone';
 import AppsTwoToneIcon from '@mui/icons-material/AppsTwoTone';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import {styled} from "@mui/material/styles";
+import Avatar from "@mui/material/Avatar";
+import {green} from "@mui/material/colors";
 
 
 const _iconStyle = {opacity: .5};
@@ -225,9 +227,13 @@ const useItems = (type, itemKey, folderId) => {
             >
                 <Typography
                     variant={"h5"}
+                    sx={{ mr:1 }}
                 >
                     {title[itemKey].title()}
                 </Typography>
+                <Avatar sx={{ p:0.5, bgcolor: green[500]}} >
+                    {store[type].items.length}
+                </Avatar>
                 <Box sx={_speedDial}>
                     <StyledSpeedDial
                         ariaLabel="new items SpeedDial"
