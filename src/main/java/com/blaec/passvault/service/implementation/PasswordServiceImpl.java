@@ -71,14 +71,7 @@ public class PasswordServiceImpl implements ItemService<Password>, PasswordServi
     }
 
     private Response.Builder save(Password password, String message) {
-        Password oldPassword = passwordRepository.getById(password.getId()).orElse(null);
-        if (!Objects.isNull(oldPassword)) {
-            try {
-                oldPassword = (Password) oldPassword.clone();
-            } catch (CloneNotSupportedException e) {
-                e.printStackTrace();
-            }
-        }
+        Password oldPassword = fetchOldPassword(password);
 
         Response.Builder savedPassword = ItemServiceUtils.save(() -> {
             Password saved = globalPasswordRepository.save(password);
@@ -87,6 +80,21 @@ public class PasswordServiceImpl implements ItemService<Password>, PasswordServi
         savePasswordHistory(password, oldPassword).accept(savedPassword);
 
         return savedPassword;
+    }
+
+    private Password fetchOldPassword(Password password) {
+        if (Objects.isNull(password.getId())) return null;
+
+        Password oldPassword = passwordRepository.getById(password.getId()).orElse(null);
+        if (!Objects.isNull(oldPassword)) {
+            try {
+                oldPassword = (Password) oldPassword.clone();
+            } catch (CloneNotSupportedException e) {
+                log.error("failed cloning password " + password.getId(), e);
+            }
+        }
+
+        return oldPassword;
     }
 
     private Consumer<Response.Builder> savePasswordHistory(Password password, Password oldPassword) {
