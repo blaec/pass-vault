@@ -5,6 +5,7 @@ import ItemDataRow from "./ItemDataRow";
 import PasswordStrength from "../../Pages/Modals/PasswordGenerator/components/PasswordStrength";
 import ItemDetails from "../ItemDetails";
 import SecretItemDataRow from "./SecretItemDataRow";
+import {getAge} from "../../../utils/Utils";
 
 import {CircularProgress} from "@mui/material";
 
@@ -16,7 +17,7 @@ const PasswordDetails = (props) => {
     const strengthElement = isStrengthLoaded
         ? <PasswordStrength strength={strength}/>
         : <CircularProgress size={'1rem'}/>;
-    const {id, title, folderName, note, creationDate, user, password, website, type} = selectedPassword;
+    const {id, title, folderName, note, creationDate, user, password, website, type, age} = selectedPassword;
     const passwordDetails = (
         <>
             <ItemDataRow
@@ -57,6 +58,18 @@ const PasswordDetails = (props) => {
                 description={"Creation date"}
                 isHideIcons={true}
                 value={creationDate}
+            />
+            <ItemDataRow
+                id={id}
+                description={"Actual age"}
+                isHideIcons={true}
+                value={getAge(creationDate)}
+            />
+            <ItemDataRow
+                id={id}
+                description={"Recommended age"}
+                isHideIcons={true}
+                value={age}
             />
         </>
     );

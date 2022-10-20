@@ -45,3 +45,7 @@ export const expirationDateToDate = (exp) => {
 
     return `01/${dateParts[0]}/20${dateParts[1]}`;
 }
+
+export const getAge = (date) => {
+    return Math.floor((new Date() - new Date(date)) / (1000 * 3600 * 24));
+}
