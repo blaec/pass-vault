@@ -14,6 +14,7 @@ import NoteElement from "./elements/NoteElement";
 import FolderElement from "./elements/FolderElement";
 import UserElement from "./elements/UserElement";
 import WebsiteElement from "./elements/WebsiteElement";
+import AgeElement from "./elements/AgeElement";
 
 import {CardContent, CircularProgress, Grid} from "@mui/material";
 import Box from "@mui/material/Box";
@@ -30,6 +31,7 @@ const NewPassword = (props) => {
         titleRef,
         noteRef,
         creationDateRef,
+        ageRef,
         userRef,
         passwordRef,
         websiteRef,
@@ -58,6 +60,7 @@ const NewPassword = (props) => {
         noteValue: "",
         folderValue: "",
         creationDateValue: new Date(),
+        ageValue:"",
         actionHandler: onSave,
         actionName: "Create"
     };
@@ -69,10 +72,11 @@ const NewPassword = (props) => {
         password: passwordRef?.current?.value,
         website: websiteRef?.current?.value,
         note: noteRef?.current?.value,
-        creationDate: creationDateRef?.current?.value
+        creationDate: creationDateRef?.current?.value,
+        age: ageRef?.current?.value,
     });
     if (isObjectExist(item)) {
-        const {id, title, user, password, website, note, folderId, creationDate} = item;
+        const {id, title, user, password, website, note, folderId, creationDate, age} = item;
         passwordInput = {
             titleValue: title,
             userValue: user,
@@ -81,6 +85,7 @@ const NewPassword = (props) => {
             noteValue: note,
             folderValue: selectedFolderId || folderId,
             creationDateValue: creationDate,
+            ageValue: age,
             actionHandler: onUpdate,
             actionName: "Update"
         };
@@ -92,6 +97,7 @@ const NewPassword = (props) => {
             website: websiteRef?.current?.value,
             note: noteRef?.current?.value,
             creationDate: creationDateRef?.current?.value,
+            age: ageRef?.current?.value,
             id: id,
             folderId: selectedFolderId || folderId
         });
@@ -138,6 +144,13 @@ const NewPassword = (props) => {
             elemRef={creationDateRef}
         />
     );
+    const ageElement = (
+        <AgeElement
+            style={elementStyle}
+            value={passwordInput.ageValue}
+            elemRef={ageRef}
+        />
+    );
     const folderSelect = (
         <FolderElement
             value={selectedFolderId || passwordInput.folderValue}
@@ -177,6 +190,7 @@ const NewPassword = (props) => {
             {folderSelect}
             {noteElement}
             {creationDateElement}
+            {ageElement}
         </CardContent>
     );
 
