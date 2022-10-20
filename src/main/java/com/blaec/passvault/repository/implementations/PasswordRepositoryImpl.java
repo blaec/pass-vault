@@ -2,14 +2,17 @@ package com.blaec.passvault.repository.implementations;
 
 import com.blaec.passvault.model.Password;
 import com.blaec.passvault.repository.ItemRepository;
+import com.blaec.passvault.repository.PasswordRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Slf4j
 @AllArgsConstructor
 @Repository
-public class PasswordRepositoryImpl implements ItemRepository<Password> {
+public class PasswordRepositoryImpl implements ItemRepository<Password>, PasswordRepository {
     private final CrudPasswordRepository crudPasswordRepository;
 
     @Override
@@ -25,6 +28,11 @@ public class PasswordRepositoryImpl implements ItemRepository<Password> {
     @Override
     public Iterable<Password> getAllByFolderId(int folderId) {
         return crudPasswordRepository.findAllByFolderId(folderId);
+    }
+
+    @Override
+    public Optional<Password> getById(int id) {
+        return crudPasswordRepository.findById(id);
     }
 
     @Override

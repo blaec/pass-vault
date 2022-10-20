@@ -9,12 +9,12 @@ public class Response {
 
     private Response(Builder builder) {
         this.isSuccess = builder.isSuccess;
-        this.message = builder.message;
+        this.message = builder.message.toString();
     }
 
     public static class Builder {
         private boolean isSuccess = true;
-        private String message;
+        private final StringBuilder message = new StringBuilder();
 
         private Builder() {
         }
@@ -25,15 +25,21 @@ public class Response {
 
 
         public Builder setSuccess(String message) {
-            this.message = message;
+            this.message.append(message);
             this.isSuccess = true;
             return this;
         }
 
         public Builder setFailure (String message) {
-            this.message = message;
+            this.message.append(message);
             this.isSuccess = false;
             return this;
+        }
+
+        public Builder updateMessage(String message, boolean isSuccess) {
+            this.message.append(message);
+            this.isSuccess = this.isSuccess && isSuccess;
+            return  this;
         }
 
         public Response build() {

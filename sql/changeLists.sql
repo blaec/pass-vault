@@ -44,12 +44,11 @@ ALTER TABLE credit_cards DROP COLUMN deleted;
 ALTER TABLE credit_cards ADD COLUMN deleted BOOLEAN NOT NULL DEFAULT false;
 
 # changelist #52
-DROP TABLE IF EXISTS password_history;
-CREATE TABLE password_history
+DROP TABLE IF EXISTS passwords_history;
+CREATE TABLE passwords_history
 (
     id                  INT auto_increment,
     password_id         INT 			            NULL,
-    password            VARCHAR(100) 			    NOT NULL,
     creation_date       DATE     					NOT NULL,
     expiration_date     DATE     					NOT NULL,
     FOREIGN KEY (password_id) REFERENCES passwords (id),

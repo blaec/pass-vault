@@ -4,6 +4,7 @@ import com.blaec.passvault.enums.HealthType;
 import com.blaec.passvault.enums.PasswordStrength;
 import com.blaec.passvault.model.Folder;
 import com.blaec.passvault.model.Password;
+import com.blaec.passvault.model.PasswordHistory;
 import com.blaec.passvault.model.passGenerator.PasswordValidation;
 import com.blaec.passvault.model.response.Response;
 import com.blaec.passvault.model.to.item.BaseItemTo;
@@ -11,6 +12,8 @@ import com.blaec.passvault.model.to.item.FullItemTo;
 import com.blaec.passvault.model.to.item.PasswordTo;
 import com.blaec.passvault.repository.FolderRepository;
 import com.blaec.passvault.repository.ItemRepository;
+import com.blaec.passvault.repository.PasswordHistoryRepository;
+import com.blaec.passvault.repository.PasswordRepository;
 import com.blaec.passvault.service.ItemService;
 import com.blaec.passvault.service.PasswordService;
 import lombok.AllArgsConstructor;
@@ -19,11 +22,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.BooleanSupplier;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -33,23 +34,25 @@ import static java.util.stream.Collectors.groupingBy;
 @AllArgsConstructor
 @Service
 public class PasswordServiceImpl implements ItemService<Password>, PasswordService {
-    private final ItemRepository<Password> passwordRepository;
+    private final ItemRepository<Password> globalPasswordRepository;
+    private final PasswordRepository passwordRepository;
     private final FolderRepository folderRepository;
+    private final PasswordHistoryRepository passwordHistoryRepository;
     public static final int MAX_RECOMMENDED_AGE = 180;
 
     @Override
     public Iterable<Password> getAllActive() {
-        return passwordRepository.getAllActive();
+        return globalPasswordRepository.getAllActive();
     }
 
     @Override
     public Iterable<Password> getAllDeleted() {
-        return passwordRepository.getAllDeleted();
+        return globalPasswordRepository.getAllDeleted();
     }
 
     @Override
     public Iterable<Password> getAllByFolderId(int folderId) {
-        return passwordRepository.getAllByFolderId(folderId);
+        return globalPasswordRepository.getAllByFolderId(folderId);
     }
 
     @Override
@@ -68,15 +71,38 @@ public class PasswordServiceImpl implements ItemService<Password>, PasswordServi
     }
 
     private Response.Builder save(Password password, String message) {
-        return ItemServiceUtils.save(() -> {
-            Password saved = passwordRepository.save(password);
+        Optional<Password> oldPassword = passwordRepository.getById(password.getId());
+
+        Response.Builder savedPassword = ItemServiceUtils.save(() -> {
+            Password saved = globalPasswordRepository.save(password);
             log.info(message, saved.getTitle());
         });
+        savePasswordHistory(password, oldPassword).accept(savedPassword);
+
+        return savedPassword;
+    }
+
+    private Consumer<Response.Builder> savePasswordHistory(Password password, Optional<Password> oldPassword) {
+        boolean isPasswordChanged = oldPassword.isPresent()
+                && !oldPassword.get().getPassword().equals(password.getPassword());
+        if (isPasswordChanged) {
+            try {
+                PasswordHistory savedHistory = passwordHistoryRepository.save(PasswordHistory.from(password, oldPassword.get()));
+                log.info("New password history object {} successfully created", savedHistory.getPassword().getTitle());
+                return (Response.Builder response) -> response.updateMessage(" | success - password history", true);
+            } catch (Exception e) {
+                log.error("failed to save password history for password " + password.getId(), e);
+                return (Response.Builder response) -> response.updateMessage(" | failure - password history", false);
+            }
+        }
+
+        // do nothing - it is new password or password value wasn't updated
+        return (Response.Builder response) -> response.updateMessage("", true);
     }
 
     @Override
     public Response.Builder restoreFromTrash(int id) {
-        BooleanSupplier isRestoredFromTrash = () -> passwordRepository.isRestoredFromTrash(id);
+        BooleanSupplier isRestoredFromTrash = () -> globalPasswordRepository.isRestoredFromTrash(id);
         String message = String.format("restored | password with id %d", id);
 
         return ItemServiceUtils.handleExistingItem(isRestoredFromTrash, message);
@@ -84,7 +110,7 @@ public class PasswordServiceImpl implements ItemService<Password>, PasswordServi
 
     @Override
     public Response.Builder moveToTrash(int id) {
-        BooleanSupplier isMovedToTrash = () -> passwordRepository.isMovedToTrash(id);
+        BooleanSupplier isMovedToTrash = () -> globalPasswordRepository.isMovedToTrash(id);
         String message = String.format("moved to trash | password with id %d", id);
 
         return ItemServiceUtils.handleExistingItem(isMovedToTrash, message);
@@ -92,7 +118,7 @@ public class PasswordServiceImpl implements ItemService<Password>, PasswordServi
 
     @Override
     public Response.Builder delete(int id) {
-        BooleanSupplier isDeleted = () -> passwordRepository.isDeleted(id);
+        BooleanSupplier isDeleted = () -> globalPasswordRepository.isDeleted(id);
         String message = String.format("deleted | password with id %d", id);
 
         return ItemServiceUtils.handleExistingItem(isDeleted, message);
@@ -100,7 +126,7 @@ public class PasswordServiceImpl implements ItemService<Password>, PasswordServi
 
     @Override
     public Map<HealthType, Iterable<BaseItemTo>> getAllHealthPasswords() {
-        Iterable<Password> allPasswords = passwordRepository.getAllActive();
+        Iterable<Password> allPasswords = globalPasswordRepository.getAllActive();
         List<BaseItemTo> weakPasswords = StreamSupport.stream(allPasswords.spliterator(), false)
                 .filter(p -> PasswordValidation.getPasswordStrength(p.getPassword()) == PasswordStrength.weak)
                 .map(PasswordTo::from)
