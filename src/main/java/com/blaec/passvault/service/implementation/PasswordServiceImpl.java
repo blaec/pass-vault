@@ -133,7 +133,9 @@ public class PasswordServiceImpl implements ItemService<Password>, PasswordServi
 
     @Override
     public Response.Builder delete(int id) {
-        passwordHistoryRepository.isDeleted(id);    // TODO maybe need some info about it
+        if (passwordHistoryRepository.isDeleted(id)) {
+            log.info("all password history for password " + id + " is deleted");
+        }
         BooleanSupplier isDeleted = () -> globalPasswordRepository.isDeleted(id);
         String message = String.format("deleted | password with id %d", id);
 
