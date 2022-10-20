@@ -13,11 +13,6 @@ public class PasswordHistoryRepositoryImpl implements PasswordHistoryRepository 
     private final CrudPasswordHistoryRepository crudPasswordHistoryRepository;
 
     @Override
-    public Iterable<PasswordHistory> getAllByPasswordId(int passwordId) {
-        return crudPasswordHistoryRepository.findAllByPasswordId(passwordId);
-    }
-
-    @Override
     public PasswordHistory save(PasswordHistory passwordHistory) {
         return crudPasswordHistoryRepository.save(passwordHistory);
     }

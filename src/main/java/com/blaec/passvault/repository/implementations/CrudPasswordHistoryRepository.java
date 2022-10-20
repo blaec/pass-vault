@@ -8,9 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface CrudPasswordHistoryRepository extends CrudRepository<PasswordHistory, Integer> {
 
-    @Query("SELECT ph FROM PasswordHistory ph WHERE ph.password.id=:passwordId")
-    Iterable<PasswordHistory> findAllByPasswordId(int passwordId);
-
     @Transactional
     @Modifying
     @Query("DELETE FROM PasswordHistory ph WHERE ph.password.id=:id")
