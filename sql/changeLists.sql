@@ -55,3 +55,7 @@ CREATE TABLE passwords_history
     FOREIGN KEY (password_id) REFERENCES passwords (id),
     PRIMARY KEY     (id)
 );
+
+# changelist #61
+ALTER TABLE passwords DROP COLUMN age;
+ALTER TABLE passwords ADD COLUMN age INT NOT NULL DEFAULT 180;
