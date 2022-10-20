@@ -16,6 +16,7 @@ public class FullItemTo extends BaseItemTo {
     private String user;
     private String password;
     private String website;
+    private int age;
 
     // credit card fields
     private String cardholderName;

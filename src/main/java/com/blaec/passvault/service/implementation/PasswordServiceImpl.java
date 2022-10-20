@@ -38,7 +38,6 @@ public class PasswordServiceImpl implements ItemService<Password>, PasswordServi
     private final PasswordRepository passwordRepository;
     private final FolderRepository folderRepository;
     private final PasswordHistoryRepository passwordHistoryRepository;
-    public static final int MAX_RECOMMENDED_AGE = 180;
 
     @Override
     public Iterable<Password> getAllActive() {
@@ -159,7 +158,7 @@ public class PasswordServiceImpl implements ItemService<Password>, PasswordServi
 
         final LocalDate now = LocalDate.now();
         List<BaseItemTo> oldPasswords = StreamSupport.stream(allPasswords.spliterator(), false)
-                .filter(p -> ChronoUnit.DAYS.between(p.getCreationDate(), now) >= MAX_RECOMMENDED_AGE)
+                .filter(p -> ChronoUnit.DAYS.between(p.getCreationDate(), now) >= p.getAge())
                 .map(PasswordTo::from)
                 .collect(Collectors.toList());
 
