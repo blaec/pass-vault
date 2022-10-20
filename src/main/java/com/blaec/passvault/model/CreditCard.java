@@ -6,6 +6,7 @@ import com.blaec.passvault.utils.IdUtils;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.time.LocalDate;
@@ -19,6 +20,7 @@ import java.time.LocalDate;
 public class CreditCard extends BaseItem {
     @NonNull private String cardholderName;
     private long cardNumber;
+    @Column(name="expiration_date")
     @NonNull private LocalDate expirationDate;
     private int cvv;
     private int cardPin;
