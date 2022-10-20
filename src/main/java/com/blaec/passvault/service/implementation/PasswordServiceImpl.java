@@ -71,7 +71,14 @@ public class PasswordServiceImpl implements ItemService<Password>, PasswordServi
     }
 
     private Response.Builder save(Password password, String message) {
-        Optional<Password> oldPassword = passwordRepository.getById(password.getId());
+        Password oldPassword = passwordRepository.getById(password.getId()).orElse(null);
+        if (!Objects.isNull(oldPassword)) {
+            try {
+                oldPassword = (Password) oldPassword.clone();
+            } catch (CloneNotSupportedException e) {
+                e.printStackTrace();
+            }
+        }
 
         Response.Builder savedPassword = ItemServiceUtils.save(() -> {
             Password saved = globalPasswordRepository.save(password);
@@ -82,12 +89,12 @@ public class PasswordServiceImpl implements ItemService<Password>, PasswordServi
         return savedPassword;
     }
 
-    private Consumer<Response.Builder> savePasswordHistory(Password password, Optional<Password> oldPassword) {
-        boolean isPasswordChanged = oldPassword.isPresent()
-                && !oldPassword.get().getPassword().equals(password.getPassword());
+    private Consumer<Response.Builder> savePasswordHistory(Password password, Password oldPassword) {
+        boolean isPasswordChanged = !Objects.isNull(oldPassword)
+                && !oldPassword.getPassword().equals(password.getPassword());
         if (isPasswordChanged) {
             try {
-                PasswordHistory savedHistory = passwordHistoryRepository.save(PasswordHistory.from(password, oldPassword.get()));
+                PasswordHistory savedHistory = passwordHistoryRepository.save(PasswordHistory.from(password, oldPassword));
                 log.info("New password history object {} successfully created", savedHistory.getPassword().getTitle());
                 return (Response.Builder response) -> response.updateMessage(" | success - password history", true);
             } catch (Exception e) {
@@ -118,6 +125,7 @@ public class PasswordServiceImpl implements ItemService<Password>, PasswordServi
 
     @Override
     public Response.Builder delete(int id) {
+        passwordHistoryRepository.isDeleted(id);    // TODO maybe need some info about it
         BooleanSupplier isDeleted = () -> globalPasswordRepository.isDeleted(id);
         String message = String.format("deleted | password with id %d", id);
 

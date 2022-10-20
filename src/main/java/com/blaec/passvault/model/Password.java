@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @Setter(AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "passwords")
-public class Password extends BaseItem {
+public class Password extends BaseItem implements Cloneable {
     @NonNull private String user;
     @NonNull private String password;
     @NonNull private String website;
@@ -34,5 +34,10 @@ public class Password extends BaseItem {
         created.creationDate = LocalDate.parse(passwordTo.getCreationDate(), DateTimeUtils.formatter);
 
         return created;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }

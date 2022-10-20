@@ -21,4 +21,9 @@ public class PasswordHistoryRepositoryImpl implements PasswordHistoryRepository 
     public PasswordHistory save(PasswordHistory passwordHistory) {
         return crudPasswordHistoryRepository.save(passwordHistory);
     }
+
+    @Override
+    public boolean isDeleted(int id) {
+        return crudPasswordHistoryRepository.deleteByPasswordId(id) != 0;
+    }
 }
