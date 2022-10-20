@@ -49,6 +49,7 @@ CREATE TABLE passwords_history
 (
     id                  INT auto_increment,
     password_id         INT 			            NULL,
+    old_password        VARCHAR(100) 			    NOT NULL,
     creation_date       DATE     					NOT NULL,
     expiration_date     DATE     					NOT NULL,
     FOREIGN KEY (password_id) REFERENCES passwords (id),

@@ -21,6 +21,9 @@ public class PasswordHistory {
     @JoinColumn(name = "password_id", nullable = false)
     private Password password;
 
+    @Column(name="old_password")
+    @NonNull private String oldPassword;
+
     @Column(name="creation_date")
     @NonNull private LocalDate creationDate;
 
@@ -31,6 +34,7 @@ public class PasswordHistory {
         PasswordHistory created = new PasswordHistory();
 
         created.password = newPassword;
+        created.oldPassword = oldPassword.getPassword();
         created.creationDate = oldPassword.getCreationDate();
         created.expirationDate = newPassword.getCreationDate();
 
