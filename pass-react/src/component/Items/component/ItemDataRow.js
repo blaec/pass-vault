@@ -5,20 +5,40 @@ import IconCopy from "../../../UI/IconButtons/IconCopy";
 
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
+import {Chip} from "@mui/material";
+import WarningTwoToneIcon from '@mui/icons-material/WarningTwoTone';
+import ErrorTwoToneIcon from '@mui/icons-material/ErrorTwoTone';
 
 
 const ItemDataRow = (props) => {
-    const {id, description, value, isHideIcons, isHidden, icon} = props;
+    const {id, description, value, isHideIcons, isHidden, icon, alertIndex} = props;
 
     const _description = {width: '25%'};
     const _value = {width: '65%'};
     const _icons = {width: '10%'};
 
-    const displayValue = isHidden
+    let displayValue = isHidden
         ? convertToPassword(value)
         : value;
-
-
+    if (alertIndex > 1) {
+        displayValue = (
+            <Chip
+                icon={<ErrorTwoToneIcon/>}
+                color="error"
+                variant="outlined"
+                label={displayValue}
+            />
+        );
+    } else if (alertIndex > 0.8) {
+        displayValue = (
+            <Chip
+                icon={<WarningTwoToneIcon/>}
+                color="warning"
+                variant="outlined"
+                label={displayValue}
+            />
+        );
+    }
     const icons = isHideIcons
         ? null
         : (
@@ -27,6 +47,8 @@ const ItemDataRow = (props) => {
                 <IconCopy copyValue={value}/>
             </>
         );
+
+
     return (
         <TableRow key={id}>
             <TableCell style={_description}>
