@@ -38,6 +38,10 @@ public class Password extends BaseItem implements Cloneable {
         return created;
     }
 
+    public void resetCreationDate() {
+        this.creationDate = LocalDate.now();
+    }
+
     @Override
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
