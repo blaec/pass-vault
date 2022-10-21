@@ -71,9 +71,7 @@ public class PasswordServiceImpl implements ItemService<Password>, PasswordServi
 
     private Response.Builder save(Password password, String message) {
         Password oldPassword = fetchOldPassword(password);
-        if (isPasswordChanged(password, oldPassword)) {
-            password.resetCreationDate();
-        }
+        password.resetCreationDate(oldPassword);
 
         Response.Builder savedPassword = ItemServiceUtils.save(() -> {
             Password saved = globalPasswordRepository.save(password);
@@ -100,7 +98,7 @@ public class PasswordServiceImpl implements ItemService<Password>, PasswordServi
     }
 
     private Consumer<Response.Builder> savePasswordHistory(Password password, Password oldPassword) {
-        if (isPasswordChanged(password, oldPassword)) {
+        if (password.isPasswordChanged(oldPassword)) {
             try {
                 PasswordHistory savedHistory = passwordHistoryRepository.save(PasswordHistory.from(password, oldPassword));
                 log.info("New password history object {} successfully created", savedHistory.getPassword().getTitle());
@@ -113,11 +111,6 @@ public class PasswordServiceImpl implements ItemService<Password>, PasswordServi
 
         // do nothing - it is new password or password value wasn't updated
         return (Response.Builder response) -> response.updateMessage("", true);
-    }
-
-    private boolean isPasswordChanged(Password password, Password oldPassword) {
-        return !Objects.isNull(oldPassword)
-                && !oldPassword.getPassword().equals(password.getPassword());
     }
 
     @Override
