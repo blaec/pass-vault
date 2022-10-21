@@ -22,6 +22,11 @@ export const passwordStrength = {
     weak: 2,
 };
 
+export const passwordAge = {
+    error: 0,
+    warning: 14,
+};
+
 // see enum ItemType
 export const itemType = {
     passwords: 'passwords',
@@ -33,4 +38,4 @@ export const itemType = {
 export const itemDefaults = {
     age: 180,
     creationDate: new Date(),
-}
+};

@@ -8,10 +8,11 @@ import TableCell from "@mui/material/TableCell";
 import {Chip} from "@mui/material";
 import WarningTwoToneIcon from '@mui/icons-material/WarningTwoTone';
 import ErrorTwoToneIcon from '@mui/icons-material/ErrorTwoTone';
+import {passwordAge} from "../../../utils/Constants";
 
 
 const ItemDataRow = (props) => {
-    const {id, description, value, isHideIcons, isHidden, icon, alertIndex} = props;
+    const {id, description, value, isHideIcons, isHidden, icon, passwordUpdateCounter} = props;
 
     const _description = {width: '25%'};
     const _value = {width: '65%'};
@@ -20,7 +21,7 @@ const ItemDataRow = (props) => {
     let displayValue = isHidden
         ? convertToPassword(value)
         : value;
-    if (alertIndex > 1) {
+    if (passwordUpdateCounter < passwordAge.error) {
         displayValue = (
             <Chip
                 icon={<ErrorTwoToneIcon/>}
@@ -29,7 +30,7 @@ const ItemDataRow = (props) => {
                 label={displayValue}
             />
         );
-    } else if (alertIndex > 0.8) {
+    } else if (passwordUpdateCounter < passwordAge.warning) {
         displayValue = (
             <Chip
                 icon={<WarningTwoToneIcon/>}
