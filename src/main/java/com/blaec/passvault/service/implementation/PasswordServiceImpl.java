@@ -98,19 +98,18 @@ public class PasswordServiceImpl implements ItemService<Password>, PasswordServi
     }
 
     private Consumer<Response.Builder> savePasswordHistory(Password password, Password oldPassword) {
-        if (password.isPasswordChanged(oldPassword)) {
-            try {
-                PasswordHistory savedHistory = passwordHistoryRepository.save(PasswordHistory.from(password, oldPassword));
-                log.info("New password history object {} successfully created", savedHistory.getPassword().getTitle());
-                return (Response.Builder response) -> response.updateMessage(" | success - password history", true);
-            } catch (Exception e) {
-                log.error("failed to save password history for password " + password.getId(), e);
-                return (Response.Builder response) -> response.updateMessage(" | failure - password history", false);
-            }
+        if (!password.isPasswordChanged(oldPassword)) {
+            return (Response.Builder response) -> response.updateMessage("", true);
         }
 
-        // do nothing - it is new password or password value wasn't updated
-        return (Response.Builder response) -> response.updateMessage("", true);
+        try {
+            PasswordHistory savedHistory = passwordHistoryRepository.save(PasswordHistory.from(password, oldPassword));
+            log.info("New password history object {} successfully created", savedHistory.getPassword().getTitle());
+            return (Response.Builder response) -> response.updateMessage(" | success - password history", true);
+        } catch (Exception e) {
+            log.error("failed to save password history for password " + password.getId(), e);
+            return (Response.Builder response) -> response.updateMessage(" | failure - password history", false);
+        }
     }
 
     @Override
