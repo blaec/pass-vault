@@ -2,7 +2,7 @@ import React from 'react';
 import {useSelector} from "react-redux";
 
 import PasswordGenerator from "../../../Modals/PasswordGenerator/PasswordGenerator";
-import {itemType} from "../../../../../utils/Constants";
+import {itemDefaults, itemType} from "../../../../../utils/Constants";
 import NewItem from "../NewItem";
 import {isObjectExist} from "../../../../../utils/Utils";
 import PasswordElement from "./elements/PasswordElement";
@@ -59,8 +59,8 @@ const NewPassword = (props) => {
         websiteValue: "",
         noteValue: "",
         folderValue: "",
-        creationDateValue: new Date(),
-        ageValue:"",
+        creationDateValue: itemDefaults.creationDate,
+        ageValue: itemDefaults.age,
         actionHandler: onSave,
         actionName: "Create"
     };

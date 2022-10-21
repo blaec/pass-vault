@@ -2,7 +2,7 @@ import React from 'react';
 
 import {isObjectExist} from "../../../../../utils/Utils";
 import CreationDateElement from "./elements/CreationDateElement";
-import {itemType} from "../../../../../utils/Constants";
+import {itemDefaults, itemType} from "../../../../../utils/Constants";
 import NewItem from "../NewItem";
 import {reactLinks} from "../../../../../utils/UrlUtils";
 
@@ -31,7 +31,7 @@ const NewSecureNote = (props) => {
         titleValue: "",
         noteValue: "",
         folderValue: "",
-        creationDateValue: new Date(),
+        creationDateValue: itemDefaults.creationDate,
         actionHandler: onSave,
         actionName: "Create"
     };

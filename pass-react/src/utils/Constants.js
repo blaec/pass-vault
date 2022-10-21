@@ -29,3 +29,8 @@ export const itemType = {
     creditCards: 'creditCards',
     all: 'all',
 };
+
+export const itemDefaults = {
+    age: 180,
+    creationDate: new Date(),
+}
