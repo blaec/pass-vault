@@ -3,6 +3,7 @@ import {folderActions} from "./folder-slice";
 import {folderApi} from "../../../utils/UrlUtils";
 import {fetchActiveItems} from "../item/item-actions";
 import {feedbackActions} from "../feedback/feedback-slice";
+import {itemActions} from "../item/item-slice";
 
 export const fetchFolders = () => {
     return async (dispatch) => {
@@ -26,6 +27,7 @@ export const saveFolder = (folder) => {
         axios.post(`${folderApi.post.save}${folder}`)
             .then(response => {
                 const {data} = response;
+                dispatch(itemActions.setResult(data));
                 dispatch(fetchFolders());
             })
             .catch(error => {
@@ -43,6 +45,7 @@ export const updateFolder = (folder) => {
         axios.put(`${folderApi.put.update}`, folder)
             .then(response => {
                 const {data} = response;
+                dispatch(itemActions.setResult(data));
                 dispatch(fetchFolders());
                 dispatch(fetchActiveItems());
             })
@@ -61,6 +64,7 @@ export const deleteFolder = (id) => {
         axios.delete(`${folderApi.delete.delete}${id}`)
             .then(response => {
                 const {data} = response;
+                dispatch(itemActions.setResult(data));
                 dispatch(fetchFolders());
             })
             .catch(error => {

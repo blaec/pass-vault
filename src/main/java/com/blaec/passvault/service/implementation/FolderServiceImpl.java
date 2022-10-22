@@ -22,12 +22,12 @@ public class FolderServiceImpl implements FolderService {
 
     @Override
     public Response.Builder create(Folder folder) {
-        return save(folder, "Folder {} successfully created");
+        return save(folder, "Folder %s successfully created");
     }
 
     @Override
     public Response.Builder update(Folder folder) {
-        return save(folder, "Folder {} successfully updated");
+        return save(folder, "Folder %s successfully updated");
     }
 
     private Response.Builder save(Folder folder, String message) {
@@ -35,10 +35,11 @@ public class FolderServiceImpl implements FolderService {
         try {
             Folder saved = folderRepository.save(folder)
                     .orElseThrow(IllegalArgumentException::new);
-            log.info(message, saved.getName());
-            response.setSuccess("success");
+            String finalMessage = String.format(message, saved.getName());
+            log.info(finalMessage);
+            response.setSuccess(finalMessage);
         } catch (Exception e) {
-            response.setFailure("failure");
+            response.setFailure("Failed to save/update folder " + folder.getName());
         }
 
         return response;
