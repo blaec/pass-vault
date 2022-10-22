@@ -17,6 +17,7 @@ public class PasswordTo extends BaseItemTo {
     private String user;
     private String password;
     private String website;
+    private int age;
 
     public static BaseItemTo from(Password password) {
         PasswordTo passwordTo = new PasswordTo();
@@ -30,6 +31,7 @@ public class PasswordTo extends BaseItemTo {
         passwordTo.setUser(password.getUser());
         passwordTo.setPassword(password.getPassword());
         passwordTo.setWebsite(password.getWebsite());
+        passwordTo.setAge(password.getAge());
 
         return passwordTo;
     }

@@ -22,10 +22,20 @@ export const passwordStrength = {
     weak: 2,
 };
 
+export const passwordAgeLevel = {
+    error: 0,
+    warning: 14,
+};
+
 // see enum ItemType
 export const itemType = {
     passwords: 'passwords',
     secureNotes: 'secureNotes',
     creditCards: 'creditCards',
     all: 'all',
+};
+
+export const itemDefaults = {
+    age: 180,
+    creationDate: new Date(),
 };

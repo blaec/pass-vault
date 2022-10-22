@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {itemType} from "../../../../../utils/Constants";
+import {itemDefaults, itemType} from "../../../../../utils/Constants";
 import {expirationDateToDate, isObjectExist} from "../../../../../utils/Utils";
 import TitleElement from "./elements/TitleElement";
 import NoteElement from "./elements/NoteElement";
@@ -48,7 +48,7 @@ const NewCreditCard = (props) => {
         cardPin: "",
         noteValue: "",
         folderValue: "",
-        creationDateValue: new Date(),
+        creationDateValue: itemDefaults.creationDate,
         actionHandler: onSave,
         actionName: "Create"
     };

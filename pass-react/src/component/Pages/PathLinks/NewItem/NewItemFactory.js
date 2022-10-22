@@ -31,6 +31,7 @@ const NewItemFactory = (props) => {
     const userRef = React.useRef();
     const passwordRef = React.useRef();
     const websiteRef = React.useRef();
+    const ageRef = React.useRef();
 
     // credit card fields
     const cardholderNameRef = React.useRef();
@@ -79,6 +80,7 @@ const NewItemFactory = (props) => {
                 userRef={userRef}
                 passwordRef={passwordRef}
                 websiteRef={websiteRef}
+                ageRef={ageRef}
                 selectedFolderId={selectedFolderId}
                 onFolderChange={handleFolderChange}
                 onSave={handleSaveItem}

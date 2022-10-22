@@ -64,7 +64,7 @@ const PasswordHealth = () => {
                 color="secondary.main"
                 icon={<WatchLaterTwoToneIcon/>}
                 title="Old Passwords"
-                subtitle="Over 180 days old"
+                subtitle="Older than recommended age in days"
                 count={oldPasswords.length}
                 link={reactLinks.oldPassword}
             />

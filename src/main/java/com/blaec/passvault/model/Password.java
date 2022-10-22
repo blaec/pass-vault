@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Slf4j
 @Entity
@@ -20,6 +21,7 @@ public class Password extends BaseItem implements Cloneable {
     @NonNull private String user;
     @NonNull private String password;
     @NonNull private String website;
+    private int age;
 
     public static Password from(FullItemTo passwordTo, Folder folder) {
         Password created = new Password();
@@ -32,8 +34,20 @@ public class Password extends BaseItem implements Cloneable {
         created.website = passwordTo.getWebsite();
         created.note = passwordTo.getNote();
         created.creationDate = LocalDate.parse(passwordTo.getCreationDate(), DateTimeUtils.formatter);
+        created.age = passwordTo.getAge();
 
         return created;
+    }
+
+    public void resetCreationDate(Password oldPassword) {
+        if (this.isPasswordChanged(oldPassword)) {
+            this.creationDate = LocalDate.now();
+        }
+    }
+
+    public boolean isPasswordChanged(Password oldPassword) {
+        return !Objects.isNull(oldPassword)
+                && !oldPassword.getPassword().equals(password);
     }
 
     @Override
