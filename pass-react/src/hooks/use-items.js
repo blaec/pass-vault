@@ -20,6 +20,7 @@ import AppsTwoToneIcon from '@mui/icons-material/AppsTwoTone';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import {styled} from "@mui/material/styles";
 import Avatar from "@mui/material/Avatar";
+import {feedbackActions} from "../store/state/feedback/feedback-slice";
 
 
 const _iconStyle = {opacity: .5};
@@ -91,6 +92,8 @@ const useItems = (type, itemKey, folderId) => {
 
     const {passwords, secureNotes = [], creditCards = [], isLoaded} = useSelector(state => state.item[itemKey]);
     const {folders, isFoldersLoaded} = useSelector(state => state.folder.folders);
+    const {response, hasResponse} = useSelector(state => state.item.result);
+    const onSetSnackbar = (snackbar) => dispatch(feedbackActions.setSnackbar(snackbar));
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -191,6 +194,17 @@ const useItems = (type, itemKey, folderId) => {
             dispatch(passgenActions.resetStrength());
         }
     }, []);
+
+    useEffect(() => {
+        if (hasResponse) {
+            const {message, success} = response;
+            const type = success ? 'success' : 'error';
+            onSetSnackbar({message, type});
+            dispatch(itemActions.resetResult());
+        }
+    }, [hasResponse])
+
+
 
     let table = null;
     if (isLoaded && isFoldersLoaded) {

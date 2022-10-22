@@ -78,6 +78,7 @@ export const saveItem = (item) => {
             .then(response => {
                 const {data} = response;
                 reload(dispatch);
+                dispatch(itemActions.setResult(data));
                 dispatch(itemActions.resetEditableItem());
             })
             .catch(error => {
@@ -95,6 +96,7 @@ export const updateItem = (item) => {
         axios.put(`${itemApi.put.update}`, item)
             .then(response => {
                 const {data} = response;
+                dispatch(itemActions.setResult(data));
                 reload(dispatch);
             })
             .catch(error => {
@@ -112,6 +114,7 @@ export const restoreItemFromTrash = (type, id) => {
         axios.put(`${itemApi.put.restore}${type}/${id}`)
             .then(response => {
                 const {data} = response;
+                dispatch(itemActions.setResult(data));
                 reload(dispatch);
             })
             .catch(error => {
@@ -129,6 +132,7 @@ export const moveItemToTrash = (type, id) => {
         axios.put(`${itemApi.put.moveToTrash}${type}/${id}`)
             .then(response => {
                 const {data} = response;
+                dispatch(itemActions.setResult(data));
                 reload(dispatch);
             })
             .catch(error => {
@@ -146,6 +150,7 @@ export const deleteItem = (type, id) => {
         axios.delete(`${itemApi.delete.delete}${type}/${id}`)
             .then(response => {
                 const {data} = response;
+                dispatch(itemActions.setResult(data));
                 reload(dispatch);
             })
             .catch(error => {
