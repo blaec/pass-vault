@@ -38,12 +38,12 @@ public class CreditCardServiceImpl implements ItemService<CreditCard> {
 
     @Override
     public Response.Builder create(FullItemTo to) {
-        return save(createCreditCardFrom(to), "Credit card for {} successfully saved");
+        return save(createCreditCardFrom(to), String.format("Credit card %s successfully saved", to.getTitle()));
     }
 
     @Override
     public Response.Builder update(FullItemTo to) {
-        return save(createCreditCardFrom(to), "Credit card for {} successfully updated");
+        return save(createCreditCardFrom(to), String.format("Credit card %s successfully updated", to.getTitle()));
     }
 
     private CreditCard createCreditCardFrom(FullItemTo to) {
@@ -52,10 +52,7 @@ public class CreditCardServiceImpl implements ItemService<CreditCard> {
     }
 
     private Response.Builder save(CreditCard creditCard, String message) {
-        return ItemServiceUtils.save(() -> {
-            CreditCard saved = creditCardRepository.save(creditCard);
-            log.info(message, saved.getTitle());
-        });
+        return ItemServiceUtils.save(() -> creditCardRepository.save(creditCard), message);
     }
 
     @Override

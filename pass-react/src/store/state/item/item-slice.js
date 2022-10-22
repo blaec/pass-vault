@@ -32,7 +32,11 @@ const initialState = {
         passwords: [],
         isLoaded: false,
     },
-    editableItem: {editableItem: {}}
+    editableItem: {editableItem: {}},
+    result: {
+        response: {},
+        hasResponse: false
+    },
 };
 
 const {passwords, secureNotes, creditCards} = itemType;
@@ -87,6 +91,12 @@ const itemSlice = createSlice({
         },
         resetEditableItem(state, action) {
             state.editableItem = initialState.editableItem;
+        },
+        setResult(state, action) {
+            state.result = {response: action.payload, hasResponse: true};
+        },
+        resetResult(state, action) {
+            state.result = initialState.result;
         },
     }
 });

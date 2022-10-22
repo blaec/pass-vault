@@ -38,12 +38,12 @@ public class SecureNoteServiceImpl implements ItemService<SecureNote> {
 
     @Override
     public Response.Builder create(FullItemTo to) {
-        return save(createSecureNoteFrom(to), "Secure note for {} successfully saved");
+        return save(createSecureNoteFrom(to), String.format("Secure note %s successfully saved", to.getTitle()));
     }
 
     @Override
     public Response.Builder update(FullItemTo to) {
-        return save(createSecureNoteFrom(to), "Password for {} successfully updated");
+        return save(createSecureNoteFrom(to), String.format("Secure note %s successfully updated", to.getTitle()));
     }
 
     private SecureNote createSecureNoteFrom(FullItemTo to) {
@@ -52,10 +52,7 @@ public class SecureNoteServiceImpl implements ItemService<SecureNote> {
     }
 
     private Response.Builder save(SecureNote secureNote, String message) {
-        return ItemServiceUtils.save(() -> {
-            SecureNote saved = secureNoteRepository.save(secureNote);
-            log.info(message, saved.getTitle());
-        });
+        return ItemServiceUtils.save(() -> secureNoteRepository.save(secureNote), message);
     }
 
     @Override

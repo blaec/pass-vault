@@ -56,12 +56,12 @@ public class PasswordServiceImpl implements ItemService<Password>, PasswordServi
 
     @Override
     public Response.Builder create(FullItemTo to) {
-        return save(createPasswordFrom(to), "Password for {} successfully saved");
+        return save(createPasswordFrom(to), String.format("Password %s successfully saved", to.getTitle()));
     }
 
     @Override
     public Response.Builder update(FullItemTo to) {
-        return save(createPasswordFrom(to), "Password for {} successfully updated");
+        return save(createPasswordFrom(to), String.format("Password %s successfully updated", to.getTitle()));
     }
 
     private Password createPasswordFrom(FullItemTo to) {
@@ -73,10 +73,7 @@ public class PasswordServiceImpl implements ItemService<Password>, PasswordServi
         Password oldPassword = fetchOldPassword(password);
         password.resetCreationDate(oldPassword);
 
-        Response.Builder savedPassword = ItemServiceUtils.save(() -> {
-            Password saved = globalPasswordRepository.save(password);
-            log.info(message, saved.getTitle());
-        });
+        Response.Builder savedPassword = ItemServiceUtils.save(() -> globalPasswordRepository.save(password), message);
         savePasswordHistory(password, oldPassword).accept(savedPassword);
 
         return savedPassword;

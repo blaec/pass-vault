@@ -2,6 +2,7 @@ import axios from "../../../axios-pass";
 import {itemActions} from "./item-slice";
 import {itemApi} from "../../../utils/UrlUtils";
 import {currentFolder} from "../../localStorage/actions";
+import {feedbackActions} from "../feedback/feedback-slice";
 
 export const fetchActiveItems = () => {
     return async (dispatch) => {
@@ -12,6 +13,10 @@ export const fetchActiveItems = () => {
             })
             .catch(error => {
                 console.log(error);
+                dispatch(feedbackActions.setSnackbar({
+                    message: `${error} | Failed to fetch active items`,
+                    type: 'error'
+                }));
             });
     };
 };
@@ -25,6 +30,10 @@ export const fetchDeletedItems = () => {
             })
             .catch(error => {
                 console.log(error);
+                dispatch(feedbackActions.setSnackbar({
+                    message: `${error} | Failed to fetch deleted items`,
+                    type: 'error'
+                }));
             });
     };
 };
@@ -38,6 +47,10 @@ export const fetchItemsInFolder = (folderId) => {
             })
             .catch(error => {
                 console.log(error);
+                dispatch(feedbackActions.setSnackbar({
+                    message: `${error} | Failed to items from folder id: ${folderId}`,
+                    type: 'error'
+                }));
             });
     };
 };
@@ -51,6 +64,10 @@ export const fetchHealthItems = () => {
             })
             .catch(error => {
                 console.log(error);
+                dispatch(feedbackActions.setSnackbar({
+                    message: `${error} | Failed to fetch health items`,
+                    type: 'error'
+                }));
             });
     };
 };
@@ -61,10 +78,15 @@ export const saveItem = (item) => {
             .then(response => {
                 const {data} = response;
                 reload(dispatch);
+                dispatch(itemActions.setResult(data));
                 dispatch(itemActions.resetEditableItem());
             })
             .catch(error => {
                 console.log(error);
+                dispatch(feedbackActions.setSnackbar({
+                    message: `${error} | Failed to save item ${item.itemType}`,
+                    type: 'error'
+                }));
             });
     };
 };
@@ -74,10 +96,15 @@ export const updateItem = (item) => {
         axios.put(`${itemApi.put.update}`, item)
             .then(response => {
                 const {data} = response;
+                dispatch(itemActions.setResult(data));
                 reload(dispatch);
             })
             .catch(error => {
                 console.log(error);
+                dispatch(feedbackActions.setSnackbar({
+                    message: `${error} | Failed to update item ${item.itemType}`,
+                    type: 'error'
+                }));
             });
     };
 };
@@ -87,10 +114,15 @@ export const restoreItemFromTrash = (type, id) => {
         axios.put(`${itemApi.put.restore}${type}/${id}`)
             .then(response => {
                 const {data} = response;
+                dispatch(itemActions.setResult(data));
                 reload(dispatch);
             })
             .catch(error => {
                 console.log(error);
+                dispatch(feedbackActions.setSnackbar({
+                    message: `${error} | Failed to restore item from trash ${type}`,
+                    type: 'error'
+                }));
             });
     };
 };
@@ -100,10 +132,15 @@ export const moveItemToTrash = (type, id) => {
         axios.put(`${itemApi.put.moveToTrash}${type}/${id}`)
             .then(response => {
                 const {data} = response;
+                dispatch(itemActions.setResult(data));
                 reload(dispatch);
             })
             .catch(error => {
                 console.log(error);
+                dispatch(feedbackActions.setSnackbar({
+                    message: `${error} | Failed to move item to trash ${type}`,
+                    type: 'error'
+                }));
             });
     };
 };
@@ -113,10 +150,15 @@ export const deleteItem = (type, id) => {
         axios.delete(`${itemApi.delete.delete}${type}/${id}`)
             .then(response => {
                 const {data} = response;
+                dispatch(itemActions.setResult(data));
                 reload(dispatch);
             })
             .catch(error => {
                 console.log(error);
+                dispatch(feedbackActions.setSnackbar({
+                    message: `${error} | Failed to delete item ${type}`,
+                    type: 'error'
+                }));
             });
     };
 };
