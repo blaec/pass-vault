@@ -64,7 +64,7 @@ const PasswordDetails = (props) => {
                 description={"Actual age"}
                 isHideIcons={true}
                 value={getAge(creationDate)}
-                passwordUpdateCounter={age - getAge(creationDate)}
+                passwordAgeLeft={age - getAge(creationDate)}
             />
             <ItemDataRow
                 id={id}

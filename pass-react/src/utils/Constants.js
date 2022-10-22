@@ -22,7 +22,7 @@ export const passwordStrength = {
     weak: 2,
 };
 
-export const passwordAge = {
+export const passwordAgeLevel = {
     error: 0,
     warning: 14,
 };

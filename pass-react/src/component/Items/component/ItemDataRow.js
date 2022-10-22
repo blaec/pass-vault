@@ -2,17 +2,17 @@ import React from 'react';
 
 import {convertToPassword} from "../../../utils/Utils";
 import IconCopy from "../../../UI/IconButtons/IconCopy";
+import {passwordAgeLevel} from "../../../utils/Constants";
 
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import {Chip} from "@mui/material";
 import WarningTwoToneIcon from '@mui/icons-material/WarningTwoTone';
 import ErrorTwoToneIcon from '@mui/icons-material/ErrorTwoTone';
-import {passwordAge} from "../../../utils/Constants";
 
 
 const ItemDataRow = (props) => {
-    const {id, description, value, isHideIcons, isHidden, icon, passwordUpdateCounter} = props;
+    const {id, description, value, isHideIcons, isHidden, icon, passwordAgeLeft} = props;
 
     const _description = {width: '25%'};
     const _value = {width: '65%'};
@@ -21,7 +21,7 @@ const ItemDataRow = (props) => {
     let displayValue = isHidden
         ? convertToPassword(value)
         : value;
-    if (passwordUpdateCounter < passwordAge.error) {
+    if (passwordAgeLeft < passwordAgeLevel.error) {
         displayValue = (
             <Chip
                 icon={<ErrorTwoToneIcon/>}
@@ -30,7 +30,7 @@ const ItemDataRow = (props) => {
                 label={displayValue}
             />
         );
-    } else if (passwordUpdateCounter < passwordAge.warning) {
+    } else if (passwordAgeLeft < passwordAgeLevel.warning) {
         displayValue = (
             <Chip
                 icon={<WarningTwoToneIcon/>}
