@@ -2,6 +2,7 @@ import axios from "../../../axios-pass";
 import {folderActions} from "./folder-slice";
 import {folderApi} from "../../../utils/UrlUtils";
 import {fetchActiveItems} from "../item/item-actions";
+import {feedbackActions} from "../feedback/feedback-slice";
 
 export const fetchFolders = () => {
     return async (dispatch) => {
@@ -12,6 +13,10 @@ export const fetchFolders = () => {
             })
             .catch(error => {
                 console.log(error);
+                dispatch(feedbackActions.setSnackbar({
+                    message: `${error} | Failed to fetch folders`,
+                    type: 'error'
+                }));
             });
     };
 }
@@ -25,6 +30,10 @@ export const saveFolder = (folder) => {
             })
             .catch(error => {
                 console.log(error);
+                dispatch(feedbackActions.setSnackbar({
+                    message: `${error} | Failed to save folder ${folder.name}`,
+                    type: 'error'
+                }));
             });
     };
 };
@@ -39,6 +48,10 @@ export const updateFolder = (folder) => {
             })
             .catch(error => {
                 console.log(error);
+                dispatch(feedbackActions.setSnackbar({
+                    message: `${error} | Failed to update folder ${folder.name}`,
+                    type: 'error'
+                }));
             });
     };
 };
@@ -52,6 +65,10 @@ export const deleteFolder = (id) => {
             })
             .catch(error => {
                 console.log(error);
+                dispatch(feedbackActions.setSnackbar({
+                    message: `${error} | Failed to delete folder id: ${id}`,
+                    type: 'error'
+                }));
             });
     };
 };

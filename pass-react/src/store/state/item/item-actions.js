@@ -13,6 +13,10 @@ export const fetchActiveItems = () => {
             })
             .catch(error => {
                 console.log(error);
+                dispatch(feedbackActions.setSnackbar({
+                    message: `${error} | Failed to fetch active items`,
+                    type: 'error'
+                }));
             });
     };
 };
@@ -26,6 +30,10 @@ export const fetchDeletedItems = () => {
             })
             .catch(error => {
                 console.log(error);
+                dispatch(feedbackActions.setSnackbar({
+                    message: `${error} | Failed to fetch deleted items`,
+                    type: 'error'
+                }));
             });
     };
 };
@@ -39,6 +47,10 @@ export const fetchItemsInFolder = (folderId) => {
             })
             .catch(error => {
                 console.log(error);
+                dispatch(feedbackActions.setSnackbar({
+                    message: `${error} | Failed to items from folder id: ${folderId}`,
+                    type: 'error'
+                }));
             });
     };
 };
@@ -52,6 +64,10 @@ export const fetchHealthItems = () => {
             })
             .catch(error => {
                 console.log(error);
+                dispatch(feedbackActions.setSnackbar({
+                    message: `${error} | Failed to fetch health items`,
+                    type: 'error'
+                }));
             });
     };
 };
@@ -67,7 +83,7 @@ export const saveItem = (item) => {
             .catch(error => {
                 console.log(error);
                 dispatch(feedbackActions.setSnackbar({
-                    message: `${error} | Failed to save item ${item}`,
+                    message: `${error} | Failed to save item ${item.itemType}`,
                     type: 'error'
                 }));
             });
@@ -83,6 +99,10 @@ export const updateItem = (item) => {
             })
             .catch(error => {
                 console.log(error);
+                dispatch(feedbackActions.setSnackbar({
+                    message: `${error} | Failed to update item ${item.itemType}`,
+                    type: 'error'
+                }));
             });
     };
 };
@@ -96,6 +116,10 @@ export const restoreItemFromTrash = (type, id) => {
             })
             .catch(error => {
                 console.log(error);
+                dispatch(feedbackActions.setSnackbar({
+                    message: `${error} | Failed to restore item from trash ${type}`,
+                    type: 'error'
+                }));
             });
     };
 };
@@ -109,6 +133,10 @@ export const moveItemToTrash = (type, id) => {
             })
             .catch(error => {
                 console.log(error);
+                dispatch(feedbackActions.setSnackbar({
+                    message: `${error} | Failed to move item to trash ${type}`,
+                    type: 'error'
+                }));
             });
     };
 };
@@ -122,6 +150,10 @@ export const deleteItem = (type, id) => {
             })
             .catch(error => {
                 console.log(error);
+                dispatch(feedbackActions.setSnackbar({
+                    message: `${error} | Failed to delete item ${type}`,
+                    type: 'error'
+                }));
             });
     };
 };

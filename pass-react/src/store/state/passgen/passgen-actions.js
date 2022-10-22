@@ -1,6 +1,7 @@
 import axios from "../../../axios-pass";
 import {passgenActions} from "./passgen-slice";
 import {passgenApi} from "../../../utils/UrlUtils";
+import {feedbackActions} from "../feedback/feedback-slice";
 
 
 export const fetchGeneratedPassword = (settings) => {
@@ -12,6 +13,10 @@ export const fetchGeneratedPassword = (settings) => {
             })
             .catch(error => {
                 console.log(error);
+                dispatch(feedbackActions.setSnackbar({
+                    message: `${error} | Failed to fetch generated password`,
+                    type: 'error'
+                }));
             });
     };
 };
@@ -25,6 +30,10 @@ export const fetchPasswordStrength = (password) => {
             })
             .catch(error => {
                 console.log(error);
+                dispatch(feedbackActions.setSnackbar({
+                    message: `${error} | Failed to fetch password strength`,
+                    type: 'error'
+                }));
             });
     };
 };
