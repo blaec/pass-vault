@@ -8,13 +8,14 @@ import java.util.function.BooleanSupplier;
 @Slf4j
 public class ItemServiceUtils {
 
-    public static Response.Builder save(Runnable saveAction) {
+    public static Response.Builder save(Runnable saveAction, String message) {
         Response.Builder response = Response.Builder.create();
         try {
             saveAction.run();
-            response.setSuccess("success");
+            response.setSuccess(message);
+            log.info(message);
         } catch (Exception e) {
-            response.setFailure("failure");
+            response.setFailure("Failed to save item");
         }
 
         return response;
