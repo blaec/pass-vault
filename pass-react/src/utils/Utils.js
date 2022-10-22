@@ -6,6 +6,10 @@ export const isObjectExist = (object) => {
     return object && (Object.keys(object).length !== 0 || object.constructor !== Object);
 };
 
+export const isStringExist = (string) => {
+    return string !== undefined && string !== null && string.trim() !== '';
+};
+
 export const convertToPassword = (string) => {
     const passBullet = String.fromCharCode(9679);
     const passLen = isObjectExist(string) ? string.toString().length : 0;
@@ -44,8 +48,8 @@ export const expirationDateToDate = (exp) => {
     const dateParts = exp.split("/");
 
     return `01/${dateParts[0]}/20${dateParts[1]}`;
-}
+};
 
 export const getAge = (date) => {
     return Math.floor((new Date() - new Date(date)) / (1000 * 3600 * 24));
-}
+};

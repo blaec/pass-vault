@@ -2,6 +2,7 @@ import axios from "../../../axios-pass";
 import {itemActions} from "./item-slice";
 import {itemApi} from "../../../utils/UrlUtils";
 import {currentFolder} from "../../localStorage/actions";
+import {feedbackActions} from "../feedback/feedback-slice";
 
 export const fetchActiveItems = () => {
     return async (dispatch) => {
@@ -65,6 +66,10 @@ export const saveItem = (item) => {
             })
             .catch(error => {
                 console.log(error);
+                dispatch(feedbackActions.setSnackbar({
+                    message: `${error} | Failed to save item ${item}`,
+                    type: 'error'
+                }));
             });
     };
 };
