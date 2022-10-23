@@ -4,6 +4,7 @@ import folderReducer from './folder/folder-slice'
 import itemReducer from './item/item-slice'
 import passgenReducer from './passgen/passgen-slice'
 import feedbackReducer from "./feedback/feedback-slice";
+import filterReducer from "./filter/filter-slice";
 
 
 const store = configureStore({
@@ -12,6 +13,7 @@ const store = configureStore({
         item: itemReducer,
         passgen: passgenReducer,
         feedback: feedbackReducer,
+        filter: filterReducer,
     },
 });
 

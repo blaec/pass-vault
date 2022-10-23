@@ -1,13 +1,16 @@
 import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
+import {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+
+import {filterActions} from "../store/state/filter/filter-slice";
+import {delay} from "../utils/Constants";
+
+import {alpha, styled} from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
-import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
+import {InputAdornment} from "@mui/material";
+import ClearTwoToneIcon from '@mui/icons-material/ClearTwoTone';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -53,6 +56,32 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 const MySearch = () => {
+    const [searchTerm, setSearchTerm] = React.useState('');
+
+    const {hasSearch} = useSelector(state => state.filter.search);
+    const onSearchChange = (searchString) => dispatch(filterActions.changeSearch(searchString));
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const identifier = setTimeout(() => {
+            onSearchChange(searchTerm);
+        }, delay.search)
+
+        return () => clearTimeout(identifier)
+    }, [searchTerm])
+
+    let endAdornment = () => '';
+    if (hasSearch) {
+        endAdornment = () =>
+            <InputAdornment position="end">
+                <IconButton onClick={() => setSearchTerm('')}>
+                    <ClearTwoToneIcon fontSize="small"/>
+                </IconButton>
+            </InputAdornment>;
+    }
+
+
     return (
         <Search>
             <SearchIconWrapper>
@@ -60,7 +89,10 @@ const MySearch = () => {
             </SearchIconWrapper>
             <StyledInputBase
                 placeholder="Search…"
-                inputProps={{ 'aria-label': 'search' }}
+                onChange={event => setSearchTerm(event.target.value)}
+                value={searchTerm}
+                endAdornment={endAdornment()}
+                // inputProps={{ 'aria-label': 'search' }}
             />
         </Search>
     );
