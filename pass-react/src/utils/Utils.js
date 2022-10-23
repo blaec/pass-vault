@@ -53,3 +53,9 @@ export const expirationDateToDate = (exp) => {
 export const getAge = (date) => {
     return Math.floor((new Date() - new Date(date)) / (1000 * 3600 * 24));
 };
+
+export const filterTypedCollection = (collection, type, search) => {
+    return collection
+        .map(item => ({...item, type: type}))
+        .filter(item => item.title.toLowerCase().includes(search));
+};
