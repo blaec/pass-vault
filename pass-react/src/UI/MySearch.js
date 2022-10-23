@@ -1,9 +1,11 @@
 import * as React from 'react';
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
+import {useLocation} from "react-router";
 
 import {filterActions} from "../store/state/filter/filter-slice";
 import {delay} from "../utils/Constants";
+import {isSearchable} from "../utils/UrlUtils";
 
 import {alpha, styled} from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
@@ -56,12 +58,17 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 const MySearch = () => {
+    const {pathname} = useLocation();
     const [searchTerm, setSearchTerm] = React.useState('');
 
     const {hasSearch} = useSelector(state => state.filter.search);
     const onSearchChange = (searchString) => dispatch(filterActions.changeSearch(searchString));
 
     const dispatch = useDispatch();
+
+    let _hidden = isSearchable(pathname)
+        ? null
+        : {display:'none'};
 
     useEffect(() => {
         const identifier = setTimeout(() => {
@@ -83,7 +90,7 @@ const MySearch = () => {
 
 
     return (
-        <Search>
+        <Search sx={_hidden}>
             <SearchIconWrapper>
                 <SearchIcon />
             </SearchIconWrapper>

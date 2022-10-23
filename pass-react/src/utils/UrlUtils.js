@@ -64,3 +64,9 @@ export const passgenApi = {
         create: `${basePassGeneratorApi}create/`,
     },
 };
+
+export const isSearchable = (pathname) => {
+    const {allItems, passwords, secureNotes, creditCards, trash, weakPassword, reusedPassword, oldPassword} = reactLinks;
+    const searchable = [allItems, passwords, secureNotes, creditCards, trash, weakPassword, reusedPassword, oldPassword];
+    return searchable.filter(url => pathname.startsWith(url)).length === 1;
+};
