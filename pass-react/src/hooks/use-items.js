@@ -93,14 +93,15 @@ const useItems = (type, itemKey, folderId) => {
     const {passwords, secureNotes = [], creditCards = [], isLoaded} = useSelector(state => state.item[itemKey]);
     const {folders, isFoldersLoaded} = useSelector(state => state.folder.folders);
     const {response, hasResponse} = useSelector(state => state.item.result);
+    const {search} = useSelector(state => state.filter.search);
     const onSetSnackbar = (snackbar) => dispatch(feedbackActions.setSnackbar(snackbar));
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const typedPasswords = passwords.map(p => ({...p, type: itemType.passwords}));
-    const typedSecureNotes = secureNotes.map(p => ({...p, type: itemType.secureNotes}));
-    const typedCreditCards = creditCards.map(p => ({...p, type: itemType.creditCards}));
+    const typedPasswords = passwords.map(p => ({...p, type: itemType.passwords})).filter(p => p.title.toLowerCase().includes(search));
+    const typedSecureNotes = secureNotes.map(s => ({...s, type: itemType.secureNotes})).filter(s => s.title.toLowerCase().includes(search));
+    const typedCreditCards = creditCards.map(c => ({...c, type: itemType.creditCards})).filter(c => c.title.toLowerCase().includes(search));
     const store = {
         [itemType.passwords]: {
             items: typedPasswords,
