@@ -88,5 +88,6 @@ export const isSearchable = (pathname) => {
         oldPassword,
         folderItemsEndpoint
     ];
+
     return searchable.filter(url => pathname.startsWith(url)).length === 1;
 };
