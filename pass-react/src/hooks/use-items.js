@@ -8,6 +8,8 @@ import {passgenActions} from "../store/state/passgen/passgen-slice";
 import {fetchPasswordStrength} from "../store/state/passgen/passgen-actions";
 import {itemActions} from "../store/state/item/item-slice";
 import DetailsFactory from "../component/Items/DetailsFactory";
+import {feedbackActions} from "../store/state/feedback/feedback-slice";
+import {filterTypedCollection} from "../utils/Utils";
 
 import {DataGrid} from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
@@ -20,8 +22,6 @@ import AppsTwoToneIcon from '@mui/icons-material/AppsTwoTone';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import {styled} from "@mui/material/styles";
 import Avatar from "@mui/material/Avatar";
-import {feedbackActions} from "../store/state/feedback/feedback-slice";
-
 
 const _iconStyle = {opacity: .5};
 const icons = {
@@ -84,6 +84,22 @@ const StyledSpeedDial = styled(SpeedDial)(({theme}) => ({
         left: theme.spacing(1),
     },
 }));
+const _root = {
+    height: {
+        xs: window.innerHeight - toolbarHeight.mobile - 20,  // TODO fix hardcoding
+        sm: window.innerHeight - toolbarHeight.desktop - 88, // TODO fix hardcoding
+    },
+    width: '100%',
+};
+const _title = {p: 1};
+const _speedDial = {
+    position: 'relative',
+    mt: 1,
+    height: {
+        xs: toolbarHeight.mobile,
+        sm: toolbarHeight.desktop,
+    }
+};
 
 
 const useItems = (type, itemKey, folderId) => {
@@ -93,14 +109,15 @@ const useItems = (type, itemKey, folderId) => {
     const {passwords, secureNotes = [], creditCards = [], isLoaded} = useSelector(state => state.item[itemKey]);
     const {folders, isFoldersLoaded} = useSelector(state => state.folder.folders);
     const {response, hasResponse} = useSelector(state => state.item.result);
+    const {search} = useSelector(state => state.filter.search);
     const onSetSnackbar = (snackbar) => dispatch(feedbackActions.setSnackbar(snackbar));
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const typedPasswords = passwords.map(p => ({...p, type: itemType.passwords}));
-    const typedSecureNotes = secureNotes.map(p => ({...p, type: itemType.secureNotes}));
-    const typedCreditCards = creditCards.map(p => ({...p, type: itemType.creditCards}));
+    const typedPasswords = filterTypedCollection(passwords, itemType.passwords, search);
+    const typedSecureNotes = filterTypedCollection(secureNotes, itemType.secureNotes, search);
+    const typedCreditCards = filterTypedCollection(creditCards, itemType.creditCards, search);
     const store = {
         [itemType.passwords]: {
             items: typedPasswords,
@@ -144,24 +161,6 @@ const useItems = (type, itemKey, folderId) => {
         },
     };
 
-    const _root = {
-        height: {
-            xs: window.innerHeight - toolbarHeight.mobile - 20,  // TODO fix hardcoding
-            sm: window.innerHeight - toolbarHeight.desktop - 88, // TODO fix hardcoding
-        },
-        width: '100%',
-    };
-    const _title = {p: 1};
-    const _speedDial = {
-        position: 'relative',
-        mt: 1,
-        height: {
-            xs: toolbarHeight.mobile,
-            sm: toolbarHeight.desktop,
-        }
-    };
-
-
     const handleRowClick = (params) => {
         const {row: {id}} = params;
         const {items} = store[type];
@@ -202,9 +201,13 @@ const useItems = (type, itemKey, folderId) => {
             onSetSnackbar({message, type});
             dispatch(itemActions.resetResult());
         }
-    }, [hasResponse])
+    }, [hasResponse]);
 
-
+    useEffect(() => {
+        if (store[type].items.length === 0) {
+            dispatch(feedbackActions.setSnackbar({message: 'Nothing found', type: 'warning'}));
+        }
+    }, [search]);
 
     let table = null;
     if (isLoaded && isFoldersLoaded) {

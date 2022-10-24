@@ -39,3 +39,7 @@ export const itemDefaults = {
     age: 180,
     creationDate: new Date(),
 };
+
+export const delay = {
+    search: 500,
+};
