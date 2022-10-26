@@ -5,7 +5,7 @@ import {useLocation} from "react-router";
 
 import Password from "./component/Pages/MenuItems/Password/Passwords";
 import Folder from "./component/Pages/MenuItems/Folder/Folder";
-import PasswordHealth from "./component/Pages/PasswordHealth/PasswordHealth";
+import PasswordHealth from "./component/Pages/MenuItems/PasswordHealth/PasswordHealth";
 import ItemsInFolder from "./component/Pages/PathLinks/ItemsInFolder/ItemsInFolder";
 import SecureNote from "./component/Pages/MenuItems/SecureNote/SecureNote";
 import CreditCard from "./component/Pages/MenuItems/CreditCard/CreditCard";
