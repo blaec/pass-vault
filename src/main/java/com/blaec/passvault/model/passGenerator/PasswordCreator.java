@@ -26,7 +26,7 @@ public class PasswordCreator {
 
     public static String from(PasswordConfigTo config) {
         PasswordGenerator passwordGenerator = new PasswordGenerator();
-        PasswordCreator settings = new PasswordCreator(config.getLength(), config.isUseUpperCase(), config.isUseDigits(), config.isUseSpecialChars());
+        PasswordCreator settings = new PasswordCreator(config.length(), config.isUseUpperCase(), config.isUseDigits(), config.isUseSpecialChars());
 
         return passwordGenerator.generatePassword(settings.getLength(), settings.getRules());
     }
