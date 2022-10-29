@@ -18,6 +18,7 @@ public class PasswordTo extends BaseItemTo {
     private String password;
     private String website;
     private int age;
+    private boolean pinned;
 
     public static BaseItemTo from(Password password) {
         PasswordTo passwordTo = new PasswordTo();
@@ -32,6 +33,7 @@ public class PasswordTo extends BaseItemTo {
         passwordTo.setPassword(password.getPassword());
         passwordTo.setWebsite(password.getWebsite());
         passwordTo.setAge(password.getAge());
+        passwordTo.setPinned(password.isPinned());
 
         return passwordTo;
     }

@@ -6,6 +6,7 @@ import com.blaec.passvault.utils.IdUtils;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.time.LocalDate;
@@ -21,6 +22,9 @@ public class Password extends BaseItem implements Cloneable {
     @NonNull private String user;
     @NonNull private String password;
     @NonNull private String website;
+
+    @Column(columnDefinition = "boolean default false")
+    protected boolean pinned;
     private int age;
 
     public static Password from(FullItemTo passwordTo, Folder folder) {
@@ -35,6 +39,7 @@ public class Password extends BaseItem implements Cloneable {
         created.note = passwordTo.getNote();
         created.creationDate = LocalDate.parse(passwordTo.getCreationDate(), DateTimeUtils.formatter);
         created.age = passwordTo.getAge();
+        created.pinned = passwordTo.isPinned();
 
         return created;
     }
