@@ -22,6 +22,8 @@ import AppsTwoToneIcon from '@mui/icons-material/AppsTwoTone';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import {styled} from "@mui/material/styles";
 import Avatar from "@mui/material/Avatar";
+import AddCircleOutlineTwoToneIcon from '@mui/icons-material/AddCircleOutlineTwoTone';
+import RemoveCircleOutlineTwoToneIcon from '@mui/icons-material/RemoveCircleOutlineTwoTone';
 
 const _iconStyle = {opacity: .5};
 const icons = {
@@ -54,6 +56,23 @@ const columns = [
         headerName: 'Creation date',
         width: 130,
         description: 'item creation date',
+    },
+    {
+        field: 'id',
+        headerName: 'Pin',
+        width: 60,
+        description: 'Pin item to the top',
+        renderCell: (params) => {
+            const onPin = (event) => {
+                event.stopPropagation();
+                alert("not implemented");
+            };
+            return (
+                params.row.title.toLowerCase().includes("pinned")
+                    ? <RemoveCircleOutlineTwoToneIcon onClick={onPin}/>
+                    : <AddCircleOutlineTwoToneIcon onClick={onPin}/>
+            );
+        }
     },
 ];
 const actions = [
