@@ -24,6 +24,7 @@ import {styled} from "@mui/material/styles";
 import Avatar from "@mui/material/Avatar";
 import AddCircleOutlineTwoToneIcon from '@mui/icons-material/AddCircleOutlineTwoTone';
 import RemoveCircleOutlineTwoToneIcon from '@mui/icons-material/RemoveCircleOutlineTwoTone';
+import PushPinTwoToneIcon from '@mui/icons-material/PushPinTwoTone';
 
 const _iconStyle = {opacity: .5};
 const icons = {
@@ -69,8 +70,8 @@ const columns = [
             };
             return (
                 params.row.title.toLowerCase().includes("pinned")
-                    ? <RemoveCircleOutlineTwoToneIcon onClick={onPin}/>
-                    : <AddCircleOutlineTwoToneIcon onClick={onPin}/>
+                    ? <PushPinTwoToneIcon onClick={onPin} sx={{color: 'success.light'}}/>
+                    : <AddCircleOutlineTwoToneIcon onClick={onPin} sx={{color: 'info.light'}}/>
             );
         }
     },

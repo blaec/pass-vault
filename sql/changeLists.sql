@@ -59,3 +59,7 @@ CREATE TABLE passwords_history
 # changelist #61
 ALTER TABLE passwords DROP COLUMN age;
 ALTER TABLE passwords ADD COLUMN age INT NOT NULL DEFAULT 180;
+
+# changelist #60
+ALTER TABLE passwords DROP COLUMN pinned;
+ALTER TABLE passwords ADD COLUMN pinned BOOLEAN NOT NULL DEFAULT false;
