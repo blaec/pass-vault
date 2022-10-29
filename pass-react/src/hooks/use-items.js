@@ -69,7 +69,7 @@ const columns = [
                 alert("not implemented");
             };
             return (
-                params.row.title.toLowerCase().includes("pinned")
+                params.row.pinned
                     ? <PushPinTwoToneIcon onClick={onPin} sx={{color: 'success.light'}}/>
                     : <AddCircleOutlineTwoToneIcon onClick={onPin} sx={{color: 'info.light'}}/>
             );
