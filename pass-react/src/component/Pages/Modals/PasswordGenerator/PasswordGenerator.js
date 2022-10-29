@@ -13,6 +13,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import {Dialog, DialogActions, DialogContent, DialogTitle, Grid} from "@mui/material";
 import DialogContentText from "@mui/material/DialogContentText";
+import ColorizedPass from "./components/ColorizedPass";
 
 
 const PASSWORD_MIN_LENGTH = 6;
@@ -107,7 +108,7 @@ const PasswordGenerator = (props) => {
                     component={'div'}
                 >
                     <Box sx={_passwordText}>
-                        {passgen}
+                        <ColorizedPass pass={passgen}/>
                     </Box>
                     <Grid
                         container
