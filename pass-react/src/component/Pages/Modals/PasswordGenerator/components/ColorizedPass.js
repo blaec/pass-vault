@@ -1,36 +1,41 @@
 import React from 'react';
+
 import Box from "@mui/material/Box";
 
-const isNumber = (char) => {
-    return /^\d$/.test(char);
-}
+const isDefault = (type) => type === 'symbol';
+const getType = (regex, char, fallBack, type) => isDefault(fallBack) && regex.test(char) ? type : fallBack;
+const isNumber = (char, fallBack) => getType(/^\d$/, char, fallBack, 'number');
+const isSmallLatin = (char, fallBack) =>  getType(/^[a-z]+$/, char, fallBack, 'smallLatin');
+const isCapitalLatin = (char, fallBack) => getType(/^[A-Z]+$/, char, fallBack, 'capitalLatin');
+const _colorScheme = Object.freeze(
+    {
+        number: {color: 'red'},
+        smallLatin: {color: 'black'},
+        capitalLatin: {color: 'green'},
+        symbol: {color: 'blue'},
+    }
+);
+const _inline = {display: 'inline'};
+const colorMessage = [];
 
-const isLatin = (char) => {
-    return /^[a-zA-Z]+$/.test(char);
-}
 
 const ColorizedPass = (props) => {
     const {pass} = props;
 
-    let colorMessage = [];
-    const colorScheme = [
-        {color: 'red'},
-        {color: 'green'},
-        {color: 'blue'},
-    ]
-    const inline = {display: 'inline'};
-
     for (let i = 0; i < pass.length; i++) {
-        let currentColor = isNumber(pass[i])
-            ? 0
-            : isLatin(pass[i]) ? 1 : 2;
+        const char = pass[i];
+        let charType = isCapitalLatin(char, isSmallLatin(char, isNumber(char, 'symbol')));
 
         colorMessage[i] = (
-            <Box key={i} sx={[colorScheme[currentColor], inline]}>
-                {pass[i]}
+            <Box
+                key={i}
+                sx={[_colorScheme[charType], _inline]}
+            >
+                {char}
             </Box>
         );
     }
+
 
     return (
         <>
