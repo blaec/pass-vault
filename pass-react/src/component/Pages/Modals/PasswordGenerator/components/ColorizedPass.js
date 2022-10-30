@@ -16,11 +16,11 @@ const _colorScheme = Object.freeze(
     }
 );
 const _inline = {display: 'inline'};
-const output = [];
 
 
 const ColorizedPass = (props) => {
     const {pass} = props;
+    const output = [];
 
     for (let position = 0; position < pass.length; position++) {
         const char = pass[position];
