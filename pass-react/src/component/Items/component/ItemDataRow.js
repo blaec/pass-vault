@@ -3,6 +3,7 @@ import React from 'react';
 import {convertToPassword} from "../../../utils/Utils";
 import IconCopy from "../../../UI/IconButtons/IconCopy";
 import {passwordAgeLevel} from "../../../utils/Constants";
+import ColorizedPass from "../../Pages/Modals/PasswordGenerator/components/ColorizedPass";
 
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
@@ -12,7 +13,7 @@ import ErrorTwoToneIcon from '@mui/icons-material/ErrorTwoTone';
 
 
 const ItemDataRow = (props) => {
-    const {id, description, value, isHideIcons, isHidden, icon, passwordAgeLeft} = props;
+    const {id, description, value, isHideIcons, isHidden, isPassword, icon, passwordAgeLeft} = props;
 
     const _description = {width: '25%'};
     const _value = {width: '65%'};
@@ -20,7 +21,7 @@ const ItemDataRow = (props) => {
 
     let displayValue = isHidden
         ? convertToPassword(value)
-        : value;
+        : isPassword ? <ColorizedPass pass={value}/> : value;
     if (passwordAgeLeft < passwordAgeLevel.error) {
         displayValue = (
             <Chip

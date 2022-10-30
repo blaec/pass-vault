@@ -5,7 +5,7 @@ import ItemDataRow from "./ItemDataRow";
 
 
 const SecretItemDataRow = (props) => {
-    const {id, description, value, showDetails} = props;
+    const {id, description, value, isPassword, showDetails} = props;
     const [isShow, setIsShow] = React.useState(false);
 
     const onShowHideCardPin = () => {
@@ -28,6 +28,7 @@ const SecretItemDataRow = (props) => {
             description={description}
             value={value}
             isHidden={!isShow}
+            isPassword={isPassword}
             icon={showHideCardPin}
         />
     );

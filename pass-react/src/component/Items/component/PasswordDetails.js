@@ -30,6 +30,7 @@ const PasswordDetails = (props) => {
                 description={"Password"}
                 value={password}
                 showDetails={showDetails}
+                isPassword={true}
             />
             <ItemDataRow
                 id={id}
