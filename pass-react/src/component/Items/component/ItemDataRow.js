@@ -3,7 +3,7 @@ import React from 'react';
 import {convertToPassword} from "../../../utils/Utils";
 import IconCopy from "../../../UI/IconButtons/IconCopy";
 import {passwordAgeLevel} from "../../../utils/Constants";
-import ColorizedPass from "../../Pages/Modals/PasswordGenerator/components/ColorizedPass";
+import ColorizedPass from "../../../UI/ColorizedPass";
 
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";

@@ -13,7 +13,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import {Dialog, DialogActions, DialogContent, DialogTitle, Grid} from "@mui/material";
 import DialogContentText from "@mui/material/DialogContentText";
-import ColorizedPass from "./components/ColorizedPass";
+import ColorizedPass from "../../../../UI/ColorizedPass";
 
 
 const PASSWORD_MIN_LENGTH = 6;
