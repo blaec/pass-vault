@@ -2,9 +2,11 @@ import React from 'react';
 
 import {actionScreen} from "../../../../utils/Constants";
 import {initialLocation} from "../../../../store/localStorage/actions";
+import MySubmitButton from "../../../../UI/MySubmitButton";
 
-import {Card, CardActions, Grid} from "@mui/material";
-import Button from "@mui/material/Button";
+import {Card, CardActions, Grid, Stack} from "@mui/material";
+import AddCircleTwoToneIcon from '@mui/icons-material/AddCircleTwoTone';
+import DoDisturbAltTwoToneIcon from '@mui/icons-material/DoDisturbAltTwoTone';
 
 const _root = {
     width: actionScreen.width,
@@ -28,12 +30,22 @@ const NewItem = (props) => {
                         direction="row"
                         justifyContent="flex-end"
                     >
-                        <Button onClick={() => onCancel(redirect)}>
-                            Cancel
-                        </Button>
-                        <Button onClick={() => action(item, redirect)}>
-                            {actionName}
-                        </Button>
+                        <Stack direction="row" spacing={1}>
+                            <MySubmitButton
+                                buttonStyles={{ml: 1}}
+                                caption="Cancel"
+                                icon={<DoDisturbAltTwoToneIcon/>}
+                                type="danger"
+                                onSubmit={() => onCancel(redirect)}
+                            />
+                            <MySubmitButton
+                                caption={actionName}
+                                icon={<AddCircleTwoToneIcon/>}
+                                type="success"
+                                fill="filled"
+                                onSubmit={() => action(item, redirect)}
+                            />
+                        </Stack>
                     </Grid>
                 </CardActions>
             </Card>
