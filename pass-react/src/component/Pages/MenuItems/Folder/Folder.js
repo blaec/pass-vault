@@ -7,13 +7,11 @@ import {itemActions} from "../../../../store/state/item/item-slice";
 
 import {Grid} from "@mui/material";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import List from "@mui/material/List";
 
 
 const Folder = () => {
     const root = {flexGrow: 1, maxWidth: 752};
-    const header = {mt: 4, mb: 2};
 
     const {folders, isFoldersLoaded} = useSelector(state => state.folder.folders);
     const {response, hasResponse} = useSelector(state => state.item.result);
@@ -39,7 +37,7 @@ const Folder = () => {
                 folder={folder.name}
             />
         ));
-        folderItems.push(
+        folderItems.unshift(
             <FolderItem
                 key='0'
                 id='0'
@@ -53,9 +51,6 @@ const Folder = () => {
     return (
         <Box sx={root}>
             <Grid item xs={12} md={6}>
-                <Typography sx={header} variant="h6" component="div">
-                    Folders list
-                </Typography>
                 <List>
                     {folderItems}
                 </List>

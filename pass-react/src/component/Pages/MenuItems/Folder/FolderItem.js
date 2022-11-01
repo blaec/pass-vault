@@ -101,7 +101,7 @@ const FolderItem = (props) => {
     const controls = isNew ? createControls : modifyControls;
 
     const avatar = Number(id) === 0
-        ? <Avatar><FolderTwoToneIcon/></Avatar>
+        ? null
         : (
             <Avatar
                 component={NavLink}
