@@ -4,17 +4,18 @@ import {useDispatch, useSelector} from "react-redux";
 import FolderItem from "./FolderItem";
 import {feedbackActions} from "../../../../store/state/feedback/feedback-slice";
 import {itemActions} from "../../../../store/state/item/item-slice";
+import {actionScreen} from "../../../../utils/Constants";
 
-import {Grid} from "@mui/material";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
+import {Card, Grid} from "@mui/material";
 import List from "@mui/material/List";
+
+const _root = {
+    flexGrow: 1,
+    maxWidth: actionScreen.width
+};
 
 
 const Folder = () => {
-    const root = {flexGrow: 1, maxWidth: 752};
-    const header = {mt: 4, mb: 2};
-
     const {folders, isFoldersLoaded} = useSelector(state => state.folder.folders);
     const {response, hasResponse} = useSelector(state => state.item.result);
     const onSetSnackbar = (snackbar) => dispatch(feedbackActions.setSnackbar(snackbar));
@@ -39,7 +40,7 @@ const Folder = () => {
                 folder={folder.name}
             />
         ));
-        folderItems.push(
+        folderItems.unshift(
             <FolderItem
                 key='0'
                 id='0'
@@ -51,16 +52,15 @@ const Folder = () => {
 
 
     return (
-        <Box sx={root}>
-            <Grid item xs={12} md={6}>
-                <Typography sx={header} variant="h6" component="div">
-                    Folders list
-                </Typography>
-                <List>
-                    {folderItems}
-                </List>
+        <Grid container justifyContent="center">
+            <Grid item sx={_root}>
+                <Card>
+                    <List>
+                        {folderItems}
+                    </List>
+                </Card>
             </Grid>
-        </Box>
+        </Grid>
     );
 };
 

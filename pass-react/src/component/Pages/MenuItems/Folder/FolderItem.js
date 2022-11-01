@@ -11,6 +11,20 @@ import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import FolderTwoToneIcon from "@mui/icons-material/FolderTwoTone";
 import CreateNewFolderTwoToneIcon from '@mui/icons-material/CreateNewFolderTwoTone';
 
+const _editIcon = {
+    ml: 2,
+    color: 'green'
+};
+const _deleteIcon = {
+    ml: 2,
+    color: 'red'
+};
+const _createIcon = {
+    ml: 2,
+    color: 'blue'
+};
+
+
 const FolderItem = (props) => {
     const {id, folder, isNew} = props;
     const secondary = false;
@@ -26,10 +40,6 @@ const FolderItem = (props) => {
         isOpen: false
     });
 
-    const editIcon = {ml: 2, color: 'green'};
-    const deleteIcon = {ml: 2, color: 'red'};
-    const createIcon = {ml: 2, color: 'blue'};
-
     const handleCloseDialog = () => {
         setDialog({...dialog, isOpen: false})
     };
@@ -39,18 +49,17 @@ const FolderItem = (props) => {
             id: id,
             action: FolderAction.edit,
             folder: folder,
-            title: `Edit folder #${id}`,
+            title: `Rename Folder`,
             ok: 'Edit',
             cancel: 'Cancel',
             isOpen: true,
-            message: 'Set new folder name'
         })
     };
     const handleDelete = (id) => {
         setDialog({
             id: id,
             action: FolderAction.delete,
-            title: `Delete folder #${id}`,
+            title: `Delete Folder`,
             ok: 'Delete',
             cancel: 'Cancel',
             isOpen: true,
@@ -61,11 +70,10 @@ const FolderItem = (props) => {
         setDialog({
             id: id,
             action: FolderAction.create,
-            title: `Create folder | ${id}`,
+            title: `Add New Folder`,
             ok: 'Create',
             cancel: 'Cancel',
             isOpen: true,
-            message: `Set name for a new folder`
         })
     };
 
@@ -73,14 +81,14 @@ const FolderItem = (props) => {
         <>
             <IconButton
                 edge="end"
-                sx={editIcon}
+                sx={_editIcon}
                 onClick={() => handleEdit(id)}
             >
                 <EditTwoToneIcon/>
             </IconButton>
             <IconButton
                 edge="end"
-                sx={deleteIcon}
+                sx={_deleteIcon}
                 onClick={() => handleDelete(id)}
             >
                 <DeleteTwoToneIcon/>
@@ -91,7 +99,7 @@ const FolderItem = (props) => {
         <>
             <IconButton
                 edge="end"
-                sx={createIcon}
+                sx={_createIcon}
                 onClick={() => handleCreate(id)}
             >
                 <CreateNewFolderTwoToneIcon/>
@@ -101,7 +109,7 @@ const FolderItem = (props) => {
     const controls = isNew ? createControls : modifyControls;
 
     const avatar = Number(id) === 0
-        ? <Avatar><FolderTwoToneIcon/></Avatar>
+        ? null
         : (
             <Avatar
                 component={NavLink}
