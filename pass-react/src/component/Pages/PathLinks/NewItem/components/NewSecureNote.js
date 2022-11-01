@@ -4,7 +4,6 @@ import {isObjectExist} from "../../../../../utils/Utils";
 import CreationDateElement from "./elements/CreationDateElement";
 import {itemDefaults, itemType} from "../../../../../utils/Constants";
 import NewItem from "../NewItem";
-import {reactLinks} from "../../../../../utils/UrlUtils";
 
 import {CardContent, Grid} from "@mui/material";
 import TitleElement from "./elements/TitleElement";
@@ -105,7 +104,6 @@ const NewSecureNote = (props) => {
                 item={secureNoteItem}
                 actionName={secureNoteInput.actionName}
                 action={secureNoteInput.actionHandler}
-                redirect={reactLinks.secureNotes}
                 cardContent={cardContent}
                 onCancel={onCancel}
             />

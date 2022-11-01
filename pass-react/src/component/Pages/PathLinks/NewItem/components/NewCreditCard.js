@@ -7,7 +7,6 @@ import NoteElement from "./elements/NoteElement";
 import CreationDateElement from "./elements/CreationDateElement";
 import FolderElement from "./elements/FolderElement";
 import NewItem from "../NewItem";
-import {reactLinks} from "../../../../../utils/UrlUtils";
 import CardholderNameElement from "./elements/CardholderNameElement";
 import CardNumberElement from "./elements/CardNumberElement";
 import ExpirationDateElement from "./elements/ExpirationDateElement";
@@ -184,7 +183,6 @@ const NewCreditCard = (props) => {
                 item={creditCardItem}
                 actionName={creditCardInput.actionName}
                 action={creditCardInput.actionHandler}
-                redirect={reactLinks.creditCards}
                 cardContent={cardContent}
                 onCancel={onCancel}
             />

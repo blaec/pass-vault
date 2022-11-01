@@ -1,7 +1,9 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {NavLink, useNavigate} from "react-router-dom";
+import {useLocation} from "react-router";
 
+import {initialLocation} from "../store/localStorage/actions";
 import {itemType, toolbarHeight} from "../utils/Constants";
 import {reactLinks} from "../utils/UrlUtils";
 import {passgenActions} from "../store/state/passgen/passgen-slice";
@@ -103,6 +105,9 @@ const _speedDial = {
 
 
 const useItems = (type, itemKey, folderId) => {
+    const {pathname} = useLocation();
+    initialLocation.set(pathname);
+
     const [isShowDetails, setIsShowDetails] = React.useState(false);
     const [selectedItem, setSelectedItem] = React.useState({});
 
