@@ -10,6 +10,8 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import Box from "@mui/material/Box";
+import FolderOpenTwoToneIcon from '@mui/icons-material/FolderOpenTwoTone';
 
 export const FolderAction = Object.freeze(
     {
@@ -18,6 +20,16 @@ export const FolderAction = Object.freeze(
         delete: 'deleted',
     }
 );
+let _inputComponent = {
+    display: 'flex',
+    alignItems: 'flex-end'
+};
+let _inputAdornment = {
+    color: 'primary.main',
+    mr: 1,
+    my: 0.5
+};
+
 
 const MyFormDialog = (props) => {
     const {dialog: {id, action, folder, title, ok, cancel, message, isOpen}, onClose} = props;
@@ -40,19 +52,25 @@ const MyFormDialog = (props) => {
     const textField = action === FolderAction.delete
         ? null
         : (
-            <TextField
-                inputRef={inputRef}
-                defaultValue={folder}
-                autoFocus
-                margin="dense"
-                id="name"
-                label="Folder name"
-                type="text"
-                fullWidth
-                variant="standard"
-            />
+            <Box sx={_inputComponent}>
+                <FolderOpenTwoToneIcon sx={_inputAdornment}/>
+                <TextField
+                    inputRef={inputRef}
+                    defaultValue={folder}
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    label="Folder name"
+                    type="text"
+                    fullWidth
+                    variant="standard"
+                />
+            </Box>
+
         )
     ;
+
+
     return (
         <Dialog open={isOpen} onClose={onClose}>
             <DialogTitle>{title}</DialogTitle>

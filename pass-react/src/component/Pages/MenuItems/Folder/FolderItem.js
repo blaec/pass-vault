@@ -49,18 +49,17 @@ const FolderItem = (props) => {
             id: id,
             action: FolderAction.edit,
             folder: folder,
-            title: `Edit folder #${id}`,
+            title: `Rename Folder`,
             ok: 'Edit',
             cancel: 'Cancel',
             isOpen: true,
-            message: 'Set new folder name'
         })
     };
     const handleDelete = (id) => {
         setDialog({
             id: id,
             action: FolderAction.delete,
-            title: `Delete folder #${id}`,
+            title: `Delete Folder`,
             ok: 'Delete',
             cancel: 'Cancel',
             isOpen: true,
@@ -71,11 +70,10 @@ const FolderItem = (props) => {
         setDialog({
             id: id,
             action: FolderAction.create,
-            title: `Create folder | ${id}`,
+            title: `Add New Folder`,
             ok: 'Create',
             cancel: 'Cancel',
             isOpen: true,
-            message: `Set name for a new folder`
         })
     };
 
