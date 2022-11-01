@@ -20,7 +20,10 @@ const _appBar = {
 };
 const _search = {
     display: 'flex',
-    justifyContent: 'flex-end'
+    justifyContent:  {
+        sm: 'flex-start',
+        md: 'flex-end'
+    }
 };
 
 
