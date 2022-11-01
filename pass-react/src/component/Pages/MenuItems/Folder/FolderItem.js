@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
 
-import MyFormDialog, {FolderAction} from "../../../../UI/MyFormDialog";
+import MyFolderDialog, {FolderAction} from "../../../../UI/MyFolderDialog";
 import {reactLinks} from "../../../../utils/UrlUtils";
 
 import {Avatar, ListItem, ListItemAvatar, ListItemText} from "@mui/material";
@@ -131,7 +131,7 @@ const FolderItem = (props) => {
                     secondary={secondary ? 'Secondary text' : null}
                 />
             </ListItem>
-            <MyFormDialog
+            <MyFolderDialog
                 dialog={dialog}
                 onClose={handleCloseDialog}
             />
