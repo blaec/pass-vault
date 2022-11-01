@@ -8,7 +8,6 @@ import {isObjectExist} from "../../../../../utils/Utils";
 import PasswordElement from "./elements/PasswordElement";
 import CreationDateElement from "./elements/CreationDateElement";
 import PasswordStrength from "../../../Modals/PasswordGenerator/components/PasswordStrength";
-import {reactLinks} from "../../../../../utils/UrlUtils";
 import TitleElement from "./elements/TitleElement";
 import NoteElement from "./elements/NoteElement";
 import FolderElement from "./elements/FolderElement";
@@ -200,7 +199,6 @@ const NewPassword = (props) => {
                 item={passwordItem}
                 actionName={passwordInput.actionName}
                 action={passwordInput.actionHandler}
-                redirect={reactLinks.passwords}
                 cardContent={cardContent}
                 onCancel={onCancel}
             />

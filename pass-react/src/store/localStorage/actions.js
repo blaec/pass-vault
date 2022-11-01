@@ -1,6 +1,7 @@
 const keys = Object.freeze(
     {
         selectedFolder: 'selected-folder',
+        returnLocation: 'return-location',
     }
 );
 
@@ -16,4 +17,10 @@ export const currentFolder = {
     set: globalFunctions(keys.selectedFolder).set,
     get: globalFunctions(keys.selectedFolder).get,
     remove: globalFunctions(keys.selectedFolder).remove,
+}
+
+export const initialLocation = {
+    set: globalFunctions(keys.returnLocation).set,
+    get: globalFunctions(keys.returnLocation).get,
+    remove: globalFunctions(keys.returnLocation).remove,
 }

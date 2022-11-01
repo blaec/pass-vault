@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {actionScreen} from "../../../../utils/Constants";
+import {initialLocation} from "../../../../store/localStorage/actions";
 
 import {Card, CardActions, Grid} from "@mui/material";
 import Button from "@mui/material/Button";
@@ -12,8 +13,8 @@ const _root = {
 
 
 const NewItem = (props) => {
-    const{item, actionName, action, redirect, onCancel, cardContent} = props;
-
+    const{item, actionName, action, onCancel, cardContent} = props;
+    let redirect = initialLocation.get();
 
     return (
             <Card
