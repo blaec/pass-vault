@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {drawer, passwordSideBar} from "../../utils/Constants";
-import ItemControls from "./component/ItemControls";
+import ItemControls from "./component/itemControls/ItemControls";
 
 import {styled} from "@mui/material/styles";
 import Box from "@mui/material/Box";
