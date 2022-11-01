@@ -11,6 +11,20 @@ import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import FolderTwoToneIcon from "@mui/icons-material/FolderTwoTone";
 import CreateNewFolderTwoToneIcon from '@mui/icons-material/CreateNewFolderTwoTone';
 
+const _editIcon = {
+    ml: 2,
+    color: 'green'
+};
+const _deleteIcon = {
+    ml: 2,
+    color: 'red'
+};
+const _createIcon = {
+    ml: 2,
+    color: 'blue'
+};
+
+
 const FolderItem = (props) => {
     const {id, folder, isNew} = props;
     const secondary = false;
@@ -25,10 +39,6 @@ const FolderItem = (props) => {
         message: '',
         isOpen: false
     });
-
-    const editIcon = {ml: 2, color: 'green'};
-    const deleteIcon = {ml: 2, color: 'red'};
-    const createIcon = {ml: 2, color: 'blue'};
 
     const handleCloseDialog = () => {
         setDialog({...dialog, isOpen: false})
@@ -73,14 +83,14 @@ const FolderItem = (props) => {
         <>
             <IconButton
                 edge="end"
-                sx={editIcon}
+                sx={_editIcon}
                 onClick={() => handleEdit(id)}
             >
                 <EditTwoToneIcon/>
             </IconButton>
             <IconButton
                 edge="end"
-                sx={deleteIcon}
+                sx={_deleteIcon}
                 onClick={() => handleDelete(id)}
             >
                 <DeleteTwoToneIcon/>
@@ -91,7 +101,7 @@ const FolderItem = (props) => {
         <>
             <IconButton
                 edge="end"
-                sx={createIcon}
+                sx={_createIcon}
                 onClick={() => handleCreate(id)}
             >
                 <CreateNewFolderTwoToneIcon/>

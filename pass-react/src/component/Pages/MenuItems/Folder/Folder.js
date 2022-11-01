@@ -4,15 +4,18 @@ import {useDispatch, useSelector} from "react-redux";
 import FolderItem from "./FolderItem";
 import {feedbackActions} from "../../../../store/state/feedback/feedback-slice";
 import {itemActions} from "../../../../store/state/item/item-slice";
+import {actionScreen} from "../../../../utils/Constants";
 
-import {Grid} from "@mui/material";
-import Box from "@mui/material/Box";
+import {Card, Grid} from "@mui/material";
 import List from "@mui/material/List";
+
+const _root = {
+    flexGrow: 1,
+    maxWidth: actionScreen.width
+};
 
 
 const Folder = () => {
-    const root = {flexGrow: 1, maxWidth: 752};
-
     const {folders, isFoldersLoaded} = useSelector(state => state.folder.folders);
     const {response, hasResponse} = useSelector(state => state.item.result);
     const onSetSnackbar = (snackbar) => dispatch(feedbackActions.setSnackbar(snackbar));
@@ -49,13 +52,15 @@ const Folder = () => {
 
 
     return (
-        <Box sx={root}>
-            <Grid item xs={12} md={6}>
-                <List>
-                    {folderItems}
-                </List>
+        <Grid container justifyContent="center">
+            <Grid item sx={_root}>
+                <Card>
+                    <List>
+                        {folderItems}
+                    </List>
+                </Card>
             </Grid>
-        </Box>
+        </Grid>
     );
 };
 
