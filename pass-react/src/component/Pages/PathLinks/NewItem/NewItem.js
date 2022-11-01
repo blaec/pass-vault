@@ -32,7 +32,6 @@ const NewItem = (props) => {
                     >
                         <Stack direction="row" spacing={1}>
                             <MySubmitButton
-                                buttonStyles={{ml: 1}}
                                 caption="Cancel"
                                 icon={<DoDisturbAltTwoToneIcon/>}
                                 type="danger"

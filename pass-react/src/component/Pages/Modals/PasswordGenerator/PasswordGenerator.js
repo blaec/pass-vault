@@ -8,13 +8,14 @@ import IconRefresh from "../../../../UI/IconButtons/IconRefresh";
 import SymbolSwitch from "./components/SymbolSwitch";
 import LengthSlider from "./components/LengthSlider";
 import PasswordStrength from "./components/PasswordStrength";
+import ColorizedPass from "../../../../UI/ColorizedPass";
+import MySubmitButton from "../../../../UI/MySubmitButton";
 
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import {Dialog, DialogActions, DialogContent, DialogTitle, Grid} from "@mui/material";
+import {Dialog, DialogActions, DialogContent, DialogTitle, Grid, Stack} from "@mui/material";
 import DialogContentText from "@mui/material/DialogContentText";
-import ColorizedPass from "../../../../UI/ColorizedPass";
-
+import AddCircleTwoToneIcon from '@mui/icons-material/AddCircleTwoTone';
+import DoDisturbAltTwoToneIcon from '@mui/icons-material/DoDisturbAltTwoTone';
 
 const PASSWORD_MIN_LENGTH = 6;
 const PASSWORD_MAX_LENGTH = 60;
@@ -156,8 +157,21 @@ const PasswordGenerator = (props) => {
                 </Box>
             </DialogContent>
             <DialogActions>
-                <Button onClick={handlePasswordInsert}>Insert</Button>
-                <Button onClick={handleClose}>Close</Button>
+                <Stack direction="row" spacing={1}>
+                    <MySubmitButton
+                        caption="Close"
+                        icon={<DoDisturbAltTwoToneIcon/>}
+                        type="danger"
+                        onSubmit={handleClose}
+                    />
+                    <MySubmitButton
+                        caption="Insert"
+                        icon={<AddCircleTwoToneIcon/>}
+                        type="success"
+                        fill="filled"
+                        onSubmit={handlePasswordInsert}
+                    />
+                </Stack>
             </DialogActions>
         </Dialog>
     );
