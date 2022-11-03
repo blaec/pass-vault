@@ -17,13 +17,12 @@ import TrashDialog from "../UI/dialogs/TrashDialog";
 import {DataGrid} from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
 import {Grid} from "@mui/material";
-import Typography from "@mui/material/Typography";
 import VpnKeyTwoToneIcon from "@mui/icons-material/VpnKeyTwoTone";
 import StickyNote2TwoToneIcon from '@mui/icons-material/StickyNote2TwoTone';
 import CreditCardTwoToneIcon from '@mui/icons-material/CreditCardTwoTone';
 import AppsTwoToneIcon from '@mui/icons-material/AppsTwoTone';
-import Avatar from "@mui/material/Avatar";
 import CustomSpeedDial from "./components/CustomSpeedDial";
+import TitleFactory from "./components/TitleFactory";
 
 const _root = {
     height: {
@@ -115,26 +114,6 @@ const useItems = (type, itemKey, folderId) => {
             title: 'All items',
         },
     };
-    const title = {
-        ["items"]: {
-            title: () => store[type].title,
-        },
-        ["deletedItems"]: {
-            title: () => "Trash",
-        },
-        ['itemsInFolder']: {
-            title: () => `Folder: ${folders.find(folder => folder.id === parseInt(folderId))?.name}`,
-        },
-        ['weakPasswords']: {
-            title: () => "Weak Passwords",
-        },
-        ['reusedPasswords']: {
-            title: () => "Reused Passwords",
-        },
-        ['oldPasswords']: {
-            title: () => "Old Passwords",
-        },
-    };
 
     const handleRowClick = (params) => {
         const {row: {id}} = params;
@@ -159,17 +138,11 @@ const useItems = (type, itemKey, folderId) => {
         dispatch(itemActions.resetEditableItem());
     };
 
-    const handleCloseDialog = () => {
-        setDialog({...dialog, isOpen: false})
-    };
+    const handleCloseDialog = () => setDialog({...dialog, isOpen: false});
 
-    const handleAddNewItem = () => {
-        dispatch(itemActions.resetEditableItem());
-    };
+    const handleAddNewItem = () => dispatch(itemActions.resetEditableItem());
 
-    const handlePrepareEmptyTrash = () => {
-        setDialog({...dialog, isOpen: true});
-    };
+    const handlePrepareEmptyTrash = () => setDialog({...dialog, isOpen: true});
 
     const handleEmptyTrash = () => {
         alert("not implemented");
@@ -224,23 +197,13 @@ const useItems = (type, itemKey, folderId) => {
         );
     }
     const titleElement = (
-        <Grid
-            item
-            container
-            direction="row"
-            spacing={1}
-        >
-            <Grid item>
-                <Typography variant={"h5"}>
-                    {title[itemKey].title()}
-                </Typography>
-            </Grid>
-            <Grid item>
-                <Avatar>
-                    {store[type].items.length}
-                </Avatar>
-            </Grid>
-        </Grid>
+        <TitleFactory
+            typedTitle={store[type].title}
+            folders={folders}
+            folderId={folderId}
+            itemKey={itemKey}
+            size={store[type].items.length}
+        />
     );
     const actionElement = (
         <CustomSpeedDial
