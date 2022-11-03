@@ -5,13 +5,14 @@ import {useLocation} from "react-router";
 
 import {initialLocation} from "../store/localStorage/actions";
 import {itemType, toolbarHeight} from "../utils/Constants";
-import {reactLinks} from "../utils/UrlUtils";
+import {isTrash, reactLinks} from "../utils/UrlUtils";
 import {passgenActions} from "../store/state/passgen/passgen-slice";
 import {fetchPasswordStrength} from "../store/state/passgen/passgen-actions";
 import {itemActions} from "../store/state/item/item-slice";
 import DetailsFactory from "../component/Items/DetailsFactory";
 import {feedbackActions} from "../store/state/feedback/feedback-slice";
 import {filterTypedCollection} from "../utils/Utils";
+import TrashDialog from "../UI/dialogs/TrashDialog";
 
 import {DataGrid} from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
@@ -24,7 +25,25 @@ import AppsTwoToneIcon from '@mui/icons-material/AppsTwoTone';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import {styled} from "@mui/material/styles";
 import Avatar from "@mui/material/Avatar";
+import ClearTwoToneIcon from '@mui/icons-material/ClearTwoTone';
+import DeleteSweepTwoToneIcon from '@mui/icons-material/DeleteSweepTwoTone';
 
+const _root = {
+    height: {
+        xs: window.innerHeight - toolbarHeight.mobile - 20,  // TODO fix hardcoding
+        sm: window.innerHeight - toolbarHeight.desktop - 88, // TODO fix hardcoding
+    },
+    width: '100%',
+};
+const _title = {p: 1};
+const _speedDial = {
+    position: 'relative',
+    mt: 1,
+    height: {
+        xs: toolbarHeight.mobile,
+        sm: toolbarHeight.desktop,
+    }
+};
 const _iconStyle = {opacity: .5};
 const icons = {
     [itemType.passwords]: <VpnKeyTwoToneIcon sx={_iconStyle}/>,
@@ -58,6 +77,14 @@ const columns = [
         description: 'item creation date',
     },
 ];
+const trashActions = [
+    {
+        icon: <DeleteSweepTwoToneIcon/>,
+        name: 'Empty Trash',
+        newItemLink: reactLinks.newPassword,
+    },
+];
+
 const actions = [
     {
         icon: <VpnKeyTwoToneIcon/>,
@@ -86,22 +113,6 @@ const StyledSpeedDial = styled(SpeedDial)(({theme}) => ({
         left: theme.spacing(1),
     },
 }));
-const _root = {
-    height: {
-        xs: window.innerHeight - toolbarHeight.mobile - 20,  // TODO fix hardcoding
-        sm: window.innerHeight - toolbarHeight.desktop - 88, // TODO fix hardcoding
-    },
-    width: '100%',
-};
-const _title = {p: 1};
-const _speedDial = {
-    position: 'relative',
-    mt: 1,
-    height: {
-        xs: toolbarHeight.mobile,
-        sm: toolbarHeight.desktop,
-    }
-};
 
 
 const useItems = (type, itemKey, folderId) => {
@@ -110,6 +121,12 @@ const useItems = (type, itemKey, folderId) => {
 
     const [isShowDetails, setIsShowDetails] = React.useState(false);
     const [selectedItem, setSelectedItem] = React.useState({});
+    const [dialog, setDialog] = React.useState({
+        title: 'Empty Trash?',
+        ok: 'Empty Trash',
+        message: 'This will delete all items in your Trash and you will no longer be able to restore them',
+        isOpen: false
+    });
 
     const {passwords, secureNotes = [], creditCards = [], isLoaded} = useSelector(state => state.item[itemKey]);
     const {folders, isFoldersLoaded} = useSelector(state => state.folder.folders);
@@ -189,8 +206,21 @@ const useItems = (type, itemKey, folderId) => {
         dispatch(itemActions.resetEditableItem());
     };
 
+    const handleCloseDialog = () => {
+        setDialog({...dialog, isOpen: false})
+    };
+
     const handleAddNewItem = () => {
         dispatch(itemActions.resetEditableItem());
+    };
+
+    const handlePrepareEmptyTrash = () => {
+        setDialog({...dialog, isOpen: true});
+    };
+
+    const handleEmptyTrash = () => {
+        alert("not implemented");
+        handleCloseDialog();
     };
 
     useEffect(() => {
@@ -232,6 +262,11 @@ const useItems = (type, itemKey, folderId) => {
                     onEdit={handleEditItem}
                     onClose={handleCloseDetails}
                 />
+                <TrashDialog
+                    dialog={dialog}
+                    onCancel={handleCloseDialog}
+                    onDelete={handleEmptyTrash}
+                />
             </>
         );
     }
@@ -254,26 +289,55 @@ const useItems = (type, itemKey, folderId) => {
             </Grid>
         </Grid>
     );
-    const speedDialElement = (
-        <Box sx={_speedDial}>
-            <StyledSpeedDial
-                ariaLabel="new items SpeedDial"
-                icon={<SpeedDialIcon/>}
-                direction={'left'}
-            >
-                {actions.map((action) => (
-                    <SpeedDialAction
-                        key={action.name}
-                        icon={action.icon}
-                        tooltipTitle={action.name}
-                        component={NavLink}
-                        onClick={handleAddNewItem}
-                        to={action.newItemLink}
-                    />
-                ))}
-            </StyledSpeedDial>
-        </Box>
-    );
+    const actionElement =
+        isTrash(pathname)
+            ? (
+                <Box sx={_speedDial}>
+                    <StyledSpeedDial
+                        ariaLabel="new items SpeedDial"
+                        icon={<ClearTwoToneIcon/>}
+                        direction={'left'}
+                        FabProps={{
+                            sx: {
+                                bgcolor: 'error.main',
+                                '&:hover': {
+                                    bgcolor: 'error.main',
+                                }
+                            }
+                        }}
+
+                    >
+                        {trashActions.map((action) => (
+                            <SpeedDialAction
+                                key={action.name}
+                                icon={action.icon}
+                                tooltipTitle={action.name}
+                                onClick={handlePrepareEmptyTrash}
+                            />
+                        ))}
+                    </StyledSpeedDial>
+                </Box>
+            )
+            : (
+                <Box sx={_speedDial}>
+                    <StyledSpeedDial
+                        ariaLabel="new items SpeedDial"
+                        icon={<SpeedDialIcon/>}
+                        direction={'left'}
+                    >
+                        {actions.map((action) => (
+                            <SpeedDialAction
+                                key={action.name}
+                                icon={action.icon}
+                                tooltipTitle={action.name}
+                                component={NavLink}
+                                onClick={handleAddNewItem}
+                                to={action.newItemLink}
+                            />
+                        ))}
+                    </StyledSpeedDial>
+                </Box>
+            );
 
 
     return (
@@ -286,7 +350,7 @@ const useItems = (type, itemKey, folderId) => {
                 alignItems="center"
             >
                 {titleElement}
-                {speedDialElement}
+                {actionElement}
             </Grid>
             {table}
         </Box>

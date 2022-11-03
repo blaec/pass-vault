@@ -19,13 +19,9 @@ const ItemControls = (props) => {
     const {pathname} = useLocation();
 
     const [dialog, setDialog] = React.useState({
-        // id: null,
-        // action: null,
-        // folder: '',
-        // title: '',
-        // ok: '',
-        // cancel: '',
-        // message: '',
+        title: 'Delete Item',
+        ok: 'Delete',
+        message: 'This item will be lost and you will no longer be able to restore it',
         isOpen: false
     });
 
@@ -95,7 +91,7 @@ const ItemControls = (props) => {
                 {actionIcons}
             </Box>
             <TrashDialog
-                isOpen={dialog.isOpen}
+                dialog={dialog}
                 onCancel={handleCloseDialog}
                 onDelete={handleDelete}
             />

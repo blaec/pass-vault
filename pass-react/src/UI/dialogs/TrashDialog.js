@@ -9,20 +9,20 @@ import Dialog from "@mui/material/Dialog";
 
 
 const TrashDialog = (props) => {
-    const {isOpen, onCancel, onDelete} = props;
+    const {dialog: {title, ok, message, isOpen}, onCancel, onDelete} = props;
 
 
     return (
         <Dialog open={isOpen} onClose={onCancel}>
-            <DialogTitle>Delete Item</DialogTitle>
+            <DialogTitle>{title}</DialogTitle>
             <DialogContent>
                 <DialogContentText>
-                    This item will be lost and you will no longer be able to restore it.
+                    {message}.
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
                 <Button onClick={onCancel}>Cancel</Button>
-                <Button onClick={onDelete}>Delete</Button>
+                <Button onClick={onDelete}>{ok}</Button>
             </DialogActions>
         </Dialog>
     );
