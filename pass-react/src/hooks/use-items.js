@@ -150,10 +150,10 @@ const useItems = (type, itemKey, folderId) => {
     };
 
     useEffect(() => {
-        if (store[type].useStrength) {
+        if (selectedItem.type === itemType.passwords) {
             dispatch(passgenActions.resetStrength());
         }
-    }, []);
+    }, [selectedItem]);
 
     useEffect(() => {
         if (hasResponse) {
