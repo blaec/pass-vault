@@ -8,7 +8,7 @@ import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 
 
-const ItemDeleteDialog = (props) => {
+const TrashDialog = (props) => {
     const {isOpen, onCancel, onDelete} = props;
 
 
@@ -28,4 +28,4 @@ const ItemDeleteDialog = (props) => {
     );
 };
 
-export default ItemDeleteDialog;
+export default TrashDialog;

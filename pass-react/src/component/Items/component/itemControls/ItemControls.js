@@ -6,7 +6,7 @@ import {deleteItem, moveItemToTrash, restoreItemFromTrash} from "../../../../sto
 import {reactLinks} from "../../../../utils/UrlUtils";
 import DeletedItemControls from "./DeletedItemControls";
 import ActiveItemControls from "./ActiveItemControls";
-import ItemDeleteDialog from "../../../../UI/dialogs/ItemDeleteDialog";
+import TrashDialog from "../../../../UI/dialogs/TrashDialog";
 
 import {Grid} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
@@ -94,7 +94,7 @@ const ItemControls = (props) => {
             <Box>
                 {actionIcons}
             </Box>
-            <ItemDeleteDialog
+            <TrashDialog
                 isOpen={dialog.isOpen}
                 onCancel={handleCloseDialog}
                 onDelete={handleDelete}
