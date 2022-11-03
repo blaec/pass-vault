@@ -31,7 +31,7 @@ let _inputAdornment = {
 };
 
 
-const MyFolderDialog = (props) => {
+const FolderDialog = (props) => {
     const {dialog: {id, action, folder, title, ok, cancel, message, isOpen}, onClose} = props;
     const inputRef = React.useRef();
     const dispatch = useDispatch();
@@ -88,4 +88,4 @@ const MyFolderDialog = (props) => {
     );
 };
 
-export default MyFolderDialog;
+export default FolderDialog;
