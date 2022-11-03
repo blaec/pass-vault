@@ -25,8 +25,8 @@ import AppsTwoToneIcon from '@mui/icons-material/AppsTwoTone';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import {styled} from "@mui/material/styles";
 import Avatar from "@mui/material/Avatar";
-import ClearTwoToneIcon from '@mui/icons-material/ClearTwoTone';
 import DeleteSweepTwoToneIcon from '@mui/icons-material/DeleteSweepTwoTone';
+import ClearAllTwoToneIcon from '@mui/icons-material/ClearAllTwoTone';
 
 const _root = {
     height: {
@@ -295,17 +295,8 @@ const useItems = (type, itemKey, folderId) => {
                 <Box sx={_speedDial}>
                     <StyledSpeedDial
                         ariaLabel="new items SpeedDial"
-                        icon={<ClearTwoToneIcon/>}
+                        icon={<SpeedDialIcon openIcon={<ClearAllTwoToneIcon />}/>}
                         direction={'left'}
-                        FabProps={{
-                            sx: {
-                                bgcolor: 'error.main',
-                                '&:hover': {
-                                    bgcolor: 'error.main',
-                                }
-                            }
-                        }}
-
                     >
                         {trashActions.map((action) => (
                             <SpeedDialAction
