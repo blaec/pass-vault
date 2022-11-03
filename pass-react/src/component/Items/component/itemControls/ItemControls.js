@@ -4,19 +4,14 @@ import {useLocation} from "react-router";
 
 import {deleteItem, moveItemToTrash, restoreItemFromTrash} from "../../../../store/state/item/item-actions";
 import {reactLinks} from "../../../../utils/UrlUtils";
+import DeletedItemControls from "./DeletedItemControls";
+import ActiveItemControls from "./ActiveItemControls";
+import ItemDeleteDialog from "../../../../UI/dialogs/ItemDeleteDialog";
 
 import {Grid} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import CancelTwoToneIcon from "@mui/icons-material/CancelTwoTone";
 import Box from "@mui/material/Box";
-import DeletedItemControls from "./DeletedItemControls";
-import ActiveItemControls from "./ActiveItemControls";
-import DialogTitle from "@mui/material/DialogTitle";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogActions from "@mui/material/DialogActions";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
 
 
 const ItemControls = (props) => {
@@ -24,13 +19,13 @@ const ItemControls = (props) => {
     const {pathname} = useLocation();
 
     const [dialog, setDialog] = React.useState({
-        id: null,
-        action: null,
-        folder: '',
-        title: '',
-        ok: '',
-        cancel: '',
-        message: '',
+        // id: null,
+        // action: null,
+        // folder: '',
+        // title: '',
+        // ok: '',
+        // cancel: '',
+        // message: '',
         isOpen: false
     });
 
@@ -99,18 +94,11 @@ const ItemControls = (props) => {
             <Box>
                 {actionIcons}
             </Box>
-            <Dialog open={dialog.isOpen} onClose={handleCloseDialog}>
-                <DialogTitle>Delete Item</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        This item will be lost and you will no longer be able to restore it.
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleCloseDialog}>Cancel</Button>
-                    <Button onClick={handleDelete}>Delete</Button>
-                </DialogActions>
-            </Dialog>
+            <ItemDeleteDialog
+                isOpen={dialog.isOpen}
+                onCancel={handleCloseDialog}
+                onDelete={handleDelete}
+            />
         </Grid>
     );
 };

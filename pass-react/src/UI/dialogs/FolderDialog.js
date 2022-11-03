@@ -1,7 +1,7 @@
 import React from 'react';
 import {useDispatch} from "react-redux";
 
-import {deleteFolder, saveFolder, updateFolder} from "../store/state/folder/folder-actions";
+import {deleteFolder, saveFolder, updateFolder} from "../../store/state/folder/folder-actions";
 
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';

@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
 
-import FolderDialog, {FolderAction} from "../../../../UI/FolderDialog";
+import FolderDialog, {FolderAction} from "../../../../UI/dialogs/FolderDialog";
 import {reactLinks} from "../../../../utils/UrlUtils";
 
 import {Avatar, ListItem, ListItemAvatar, ListItemText} from "@mui/material";
