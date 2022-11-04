@@ -2,6 +2,7 @@ package com.blaec.passvault.service.implementation;
 
 import com.blaec.passvault.enums.HealthType;
 import com.blaec.passvault.enums.PasswordStrength;
+import com.blaec.passvault.model.BaseItem;
 import com.blaec.passvault.model.Folder;
 import com.blaec.passvault.model.Password;
 import com.blaec.passvault.model.PasswordHistory;
@@ -16,13 +17,17 @@ import com.blaec.passvault.repository.PasswordHistoryRepository;
 import com.blaec.passvault.repository.PasswordRepository;
 import com.blaec.passvault.service.ItemService;
 import com.blaec.passvault.service.PasswordService;
+import com.google.common.collect.Iterables;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -134,6 +139,27 @@ public class PasswordServiceImpl implements ItemService<Password>, PasswordServi
         String message = String.format("deleted | password with id %d", id);
 
         return ItemServiceUtils.handleExistingItem(isDeleted, message);
+    }
+
+    @Override
+    public boolean emptyTrash() {
+        boolean isRemoved = false;
+
+        Iterable<Password> passwordsInTrash = globalPasswordRepository.getAllDeleted();
+        int itemsInTrash = Iterables.size(passwordsInTrash);
+        List<Integer> deletedPasswordIds = StreamSupport.stream(passwordsInTrash.spliterator(), false)
+                .map(BaseItem::getId).toList();
+        if (itemsInTrash > 0 && passwordHistoryRepository.isDeletedByIds(deletedPasswordIds) && globalPasswordRepository.emptyTrash() == itemsInTrash) {
+            isRemoved = true;
+            log.info("All passwords with history removed from trash");
+        } else if (itemsInTrash == 0) {
+            isRemoved = true;
+            log.info("No passwords found in trash");
+        } else {
+            log.warn("Failed to remove passwords from trash");
+        }
+
+        return isRemoved;
     }
 
     @Override

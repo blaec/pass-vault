@@ -2,6 +2,7 @@ package com.blaec.passvault.repository.implementations;
 
 import com.blaec.passvault.model.CreditCard;
 import com.blaec.passvault.repository.ItemRepository;
+import com.google.common.collect.Iterables;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -33,6 +34,11 @@ public class CreditCardRepositoryImpl implements ItemRepository<CreditCard> {
     }
 
     @Override
+    public boolean hasItemsInTrash() {
+        return Iterables.size(crudCreditCardRepository.findAllInTrash()) > 0;
+    }
+
+    @Override
     public boolean isMovedToTrash(int id) {
         return crudCreditCardRepository.moveToTrash(id) == 1;
     }
@@ -45,5 +51,10 @@ public class CreditCardRepositoryImpl implements ItemRepository<CreditCard> {
     @Override
     public boolean isDeleted(int id) {
         return crudCreditCardRepository.deleteById(id) != 0;
+    }
+
+    @Override
+    public int emptyTrash() {
+        return crudCreditCardRepository.deleteFromTrash();
     }
 }

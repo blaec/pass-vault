@@ -2,6 +2,7 @@ package com.blaec.passvault.repository.implementations;
 
 import com.blaec.passvault.model.SecureNote;
 import com.blaec.passvault.repository.ItemRepository;
+import com.google.common.collect.Iterables;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -33,6 +34,11 @@ public class SecureNoteRepositoryImpl implements ItemRepository<SecureNote> {
     }
 
     @Override
+    public boolean hasItemsInTrash() {
+        return Iterables.size(crudSecureNoteRepository.findAllInTrash()) > 0;
+    }
+
+    @Override
     public boolean isMovedToTrash(int id) {
         return crudSecureNoteRepository.moveToTrash(id) == 1;
     }
@@ -45,5 +51,10 @@ public class SecureNoteRepositoryImpl implements ItemRepository<SecureNote> {
     @Override
     public boolean isDeleted(int id) {
         return crudSecureNoteRepository.deleteById(id) != 0;
+    }
+
+    @Override
+    public int emptyTrash() {
+        return crudSecureNoteRepository.deleteFromTrash();
     }
 }

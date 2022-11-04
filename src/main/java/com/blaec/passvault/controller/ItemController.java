@@ -105,6 +105,25 @@ public class ItemController extends AbstractController {
                 .build();
     }
 
+    @DeleteMapping("/delete/from-trash")
+    public Response emptyTrash() {
+        boolean isPasswordsRemoved = passwordService.emptyTrash();
+        boolean isSecureNotesRemoved = secureNoteService.emptyTrash();
+        boolean isCreditCardsRemoved = creditCardService.emptyTrash();
+        Response.Builder response = Response.Builder.create();
+        if (isPasswordsRemoved && isSecureNotesRemoved && isCreditCardsRemoved) {
+            response.setSuccess("Trash is empty");
+        } else if (isPasswordsRemoved) {
+            response.updateMessage("Failed to remove passwords", false);
+        } else if (isSecureNotesRemoved) {
+            response.updateMessage("Failed to remove secure notes", false);
+        } else if (isCreditCardsRemoved) {
+            response.updateMessage("Failed to remove credit cards", false);
+        }
+
+        return response.build();
+    }
+
     @SuppressWarnings("unchecked")
     private <T extends BaseItem> ItemService<T> serviceFactory(ItemType itemType) {
         if (itemType == ItemType.passwords) {

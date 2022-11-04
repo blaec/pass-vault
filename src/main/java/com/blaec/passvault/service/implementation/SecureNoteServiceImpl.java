@@ -7,6 +7,7 @@ import com.blaec.passvault.model.to.item.FullItemTo;
 import com.blaec.passvault.repository.FolderRepository;
 import com.blaec.passvault.repository.ItemRepository;
 import com.blaec.passvault.service.ItemService;
+import com.google.common.collect.Iterables;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -77,5 +78,23 @@ public class SecureNoteServiceImpl implements ItemService<SecureNote> {
         String message = String.format("deleted | secure note with id %d", id);
 
         return ItemServiceUtils.handleExistingItem(isDeleted, message);
+    }
+
+    @Override
+    public boolean emptyTrash() {
+        boolean isRemoved = false;
+
+        int itemsInTrash = Iterables.size(secureNoteRepository.getAllDeleted());
+        if (itemsInTrash > 0 && secureNoteRepository.emptyTrash() == itemsInTrash) {
+            isRemoved = true;
+            log.info("All secure notes removed from trash");
+        } else if (itemsInTrash == 0) {
+            isRemoved = true;
+            log.info("No secure notes found in trash");
+        } else {
+            log.warn("Failed to remove secure notes from trash");
+        }
+
+        return isRemoved;
     }
 }
