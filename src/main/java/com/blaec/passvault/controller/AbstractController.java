@@ -8,6 +8,7 @@ import com.blaec.passvault.model.to.item.BaseItemTo;
 import com.blaec.passvault.model.to.item.CreditCardTo;
 import com.blaec.passvault.model.to.item.PasswordTo;
 import com.blaec.passvault.model.to.item.SecureNoteTo;
+import com.blaec.passvault.utils.FunctionalInterfaces.Trash;
 import com.blaec.passvault.utils.IdUtils;
 import lombok.extern.slf4j.Slf4j;
 
@@ -43,4 +44,8 @@ public abstract class AbstractController {
 
         return itemId;
     }
+
+    protected Trash<Password> passwordTrash = Trash::empty;
+    protected Trash<SecureNote> secureNoteTrash = Trash::empty;
+    protected Trash<CreditCard> creditCardTrash = Trash::empty;
 }

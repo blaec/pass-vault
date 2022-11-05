@@ -107,21 +107,13 @@ public class ItemController extends AbstractController {
 
     @DeleteMapping("/empty-trash")
     public Response emptyTrash() {
-        boolean isPasswordsRemoved = passwordService.emptyTrash();
-        boolean isSecureNotesRemoved = secureNoteService.emptyTrash();
-        boolean isCreditCardsRemoved = creditCardService.emptyTrash();
         Response.Builder response = Response.Builder.create();
-        if (isPasswordsRemoved && isSecureNotesRemoved && isCreditCardsRemoved) {
+
+        boolean isTrashEmpty = passwordTrash.isEmpty(response, passwordService, "Failed to remove passwords")
+                        && secureNoteTrash.isEmpty(response, secureNoteService, "Failed to remove secure notes")
+                        && creditCardTrash.isEmpty(response, creditCardService, "Failed to remove credit cards");
+        if (isTrashEmpty) {
             response.setSuccess("Trash is empty");
-        }
-        if (!isPasswordsRemoved) {
-            response.updateMessage("Failed to remove passwords", false);
-        }
-        if (!isSecureNotesRemoved) {
-            response.updateMessage("Failed to remove secure notes", false);
-        }
-        if (!isCreditCardsRemoved) {
-            response.updateMessage("Failed to remove credit cards", false);
         }
 
         return response.build();
