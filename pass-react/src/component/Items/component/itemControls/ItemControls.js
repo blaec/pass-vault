@@ -10,8 +10,8 @@ import TrashDialog from "../../../../UI/dialogs/TrashDialog";
 
 import {Grid} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
-import CancelTwoToneIcon from "@mui/icons-material/CancelTwoTone";
 import Box from "@mui/material/Box";
+import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone';
 
 
 const ItemControls = (props) => {
@@ -85,7 +85,7 @@ const ItemControls = (props) => {
                 color="primary"
                 onClick={onClose}
             >
-                <CancelTwoToneIcon/>
+                <CloseTwoToneIcon/>
             </IconButton>
             <Box>
                 {actionIcons}

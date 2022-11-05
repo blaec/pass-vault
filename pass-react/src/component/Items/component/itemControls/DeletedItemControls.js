@@ -18,7 +18,7 @@ const DeletedItemControls = (props) => {
                 <RestoreFromTrashTwoToneIcon/>
             </IconButton>
             <IconButton
-                color="warning"
+                color="error"
                 onClick={onDelete}
             >
                 <DeleteForeverTwoToneIcon/>

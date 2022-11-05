@@ -13,6 +13,9 @@ import DetailsFactory from "../component/Items/DetailsFactory";
 import {feedbackActions} from "../store/state/feedback/feedback-slice";
 import {filterTypedCollection} from "../utils/Utils";
 import TrashDialog from "../UI/dialogs/TrashDialog";
+import CustomSpeedDial from "./components/CustomSpeedDial";
+import TitleFactory from "./components/TitleFactory";
+import {emptyTrash} from "../store/state/item/item-actions";
 
 import {DataGrid} from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
@@ -21,9 +24,6 @@ import VpnKeyTwoToneIcon from "@mui/icons-material/VpnKeyTwoTone";
 import StickyNote2TwoToneIcon from '@mui/icons-material/StickyNote2TwoTone';
 import CreditCardTwoToneIcon from '@mui/icons-material/CreditCardTwoTone';
 import AppsTwoToneIcon from '@mui/icons-material/AppsTwoTone';
-import CustomSpeedDial from "./components/CustomSpeedDial";
-import TitleFactory from "./components/TitleFactory";
-import {emptyTrash} from "../store/state/item/item-actions";
 
 const _root = {
     height: {

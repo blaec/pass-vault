@@ -62,48 +62,51 @@ const StyledSpeedDial = styled(SpeedDial)(({theme}) => ({
 const CustomSpeedDial = (props) => {
     const {isTrash, onTrashClick, onItemClick} = props;
 
+    let speedDial;
+    if (isTrash) {
+        speedDial = (
+            <Box sx={_speedDial}>
+                <StyledSpeedDial
+                    ariaLabel="removed items SpeedDial"
+                    icon={<SpeedDialIcon openIcon={<ClearAllTwoToneIcon/>}/>}
+                    direction={'left'}
+                >
+                    {trashActions.map((action) => (
+                        <SpeedDialAction
+                            key={action.name}
+                            icon={action.icon}
+                            tooltipTitle={action.name}
+                            onClick={onTrashClick}
+                        />
+                    ))}
+                </StyledSpeedDial>
+            </Box>
+        );
+    } else {
+        speedDial = (
+            <Box sx={_speedDial}>
+                <StyledSpeedDial
+                    ariaLabel="active items SpeedDial"
+                    icon={<SpeedDialIcon/>}
+                    direction={'left'}
+                >
+                    {itemActions.map((action) => (
+                        <SpeedDialAction
+                            key={action.name}
+                            icon={action.icon}
+                            tooltipTitle={action.name}
+                            component={NavLink}
+                            onClick={onItemClick}
+                            to={action.newItemLink}
+                        />
+                    ))}
+                </StyledSpeedDial>
+            </Box>
+        );
+    }
 
-    return (
-        isTrash
-            ? (
-                <Box sx={_speedDial}>
-                    <StyledSpeedDial
-                        ariaLabel="removed items SpeedDial"
-                        icon={<SpeedDialIcon openIcon={<ClearAllTwoToneIcon/>}/>}
-                        direction={'left'}
-                    >
-                        {trashActions.map((action) => (
-                            <SpeedDialAction
-                                key={action.name}
-                                icon={action.icon}
-                                tooltipTitle={action.name}
-                                onClick={onTrashClick}
-                            />
-                        ))}
-                    </StyledSpeedDial>
-                </Box>
-            )
-            : (
-                <Box sx={_speedDial}>
-                    <StyledSpeedDial
-                        ariaLabel="active items SpeedDial"
-                        icon={<SpeedDialIcon/>}
-                        direction={'left'}
-                    >
-                        {itemActions.map((action) => (
-                            <SpeedDialAction
-                                key={action.name}
-                                icon={action.icon}
-                                tooltipTitle={action.name}
-                                component={NavLink}
-                                onClick={onItemClick}
-                                to={action.newItemLink}
-                            />
-                        ))}
-                    </StyledSpeedDial>
-                </Box>
-            )
-    );
+
+    return speedDial;
 };
 
 export default CustomSpeedDial;

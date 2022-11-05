@@ -9,24 +9,12 @@ const TitleFactory = (props) => {
     const {typedTitle, folders, folderId, itemKey, size} = props;
 
     const title = {
-        ["items"]: {
-            title: () => typedTitle,
-        },
-        ["deletedItems"]: {
-            title: () => "Trash",
-        },
-        ['itemsInFolder']: {
-            title: () => `Folder: ${folders.find(folder => folder.id === parseInt(folderId))?.name}`,
-        },
-        ['weakPasswords']: {
-            title: () => "Weak Passwords",
-        },
-        ['reusedPasswords']: {
-            title: () => "Reused Passwords",
-        },
-        ['oldPasswords']: {
-            title: () => "Old Passwords",
-        },
+        ['items']: () => typedTitle,
+        ['deletedItems']: () => "Trash",
+        ['itemsInFolder']: () => `Folder: ${folders.find(folder => folder.id === parseInt(folderId))?.name}`,
+        ['weakPasswords']: () => "Weak Passwords",
+        ['reusedPasswords']: () => "Reused Passwords",
+        ['oldPasswords']: () => "Old Passwords",
     };
 
 
@@ -39,7 +27,7 @@ const TitleFactory = (props) => {
         >
             <Grid item>
                 <Typography variant={"h5"}>
-                    {title[itemKey].title()}
+                    {title[itemKey]()}
                 </Typography>
             </Grid>
             <Grid item>

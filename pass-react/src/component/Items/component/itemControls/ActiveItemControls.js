@@ -13,19 +13,19 @@ const ActiveItemControls = (props) => {
     return (
         <>
             <IconButton
-                color="primary"
+                color="success"
                 onClick={onEdit}
             >
                 <EditTwoToneIcon/>
             </IconButton>
             <IconButton
-                color="primary"
+                // color="primary"
                 onClick={onMoveToFolder}
             >
                 <DriveFileMoveTwoToneIcon/>
             </IconButton>
             <IconButton
-                color="primary"
+                color="error"
                 onClick={onMoveToTrash}
             >
                 <DeleteTwoToneIcon/>
