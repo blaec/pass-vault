@@ -17,9 +17,6 @@ public interface CrudCreditCardRepository extends CrudRepository<CreditCard, Int
     @Query("SELECT c FROM CreditCard c WHERE c.folder.id=:folderId and c.deleted=false")
     Iterable<CreditCard> findAllByFolderId(int folderId);
 
-    @Query("SELECT c FROM CreditCard c WHERE c.deleted=true")
-    Iterable<CreditCard> findAllInTrash();
-
     @Transactional
     @Modifying
     @Query("DELETE FROM CreditCard c WHERE c.id=:id")

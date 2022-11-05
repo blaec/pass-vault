@@ -17,9 +17,6 @@ public interface CrudSecureNoteRepository extends CrudRepository<SecureNote, Int
     @Query("SELECT s FROM SecureNote s WHERE s.folder.id=:folderId and s.deleted=false")
     Iterable<SecureNote> findAllByFolderId(int folderId);
 
-    @Query("SELECT s FROM SecureNote s WHERE s.deleted=true")
-    Iterable<SecureNote> findAllInTrash();
-
     @Transactional
     @Modifying
     @Query("DELETE FROM SecureNote s WHERE s.id=:id")

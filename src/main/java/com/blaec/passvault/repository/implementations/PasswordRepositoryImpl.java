@@ -3,7 +3,6 @@ package com.blaec.passvault.repository.implementations;
 import com.blaec.passvault.model.Password;
 import com.blaec.passvault.repository.ItemRepository;
 import com.blaec.passvault.repository.PasswordRepository;
-import com.google.common.collect.Iterables;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -39,11 +38,6 @@ public class PasswordRepositoryImpl implements ItemRepository<Password>, Passwor
     @Override
     public Password save(Password password) {
         return crudPasswordRepository.save(password);
-    }
-
-    @Override
-    public boolean hasItemsInTrash() {
-        return Iterables.size(crudPasswordRepository.findAllDeleted()) > 0;
     }
 
     @Override
