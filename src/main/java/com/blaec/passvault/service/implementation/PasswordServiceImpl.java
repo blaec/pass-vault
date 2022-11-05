@@ -149,7 +149,12 @@ public class PasswordServiceImpl implements ItemService<Password>, PasswordServi
         int itemsInTrash = Iterables.size(passwordsInTrash);
         List<Integer> deletedPasswordIds = StreamSupport.stream(passwordsInTrash.spliterator(), false)
                 .map(BaseItem::getId).toList();
-        if (itemsInTrash > 0 && passwordHistoryRepository.isDeletedByIds(deletedPasswordIds) && globalPasswordRepository.emptyTrash() == itemsInTrash) {
+        boolean isHistoryRemoved = passwordHistoryRepository.hasNoHistory(deletedPasswordIds)
+                || passwordHistoryRepository.isDeletedByIds(deletedPasswordIds);
+        boolean isPasswordsRemoved = isHistoryRemoved
+                && itemsInTrash > 0
+                && globalPasswordRepository.emptyTrash() == itemsInTrash;
+        if (isPasswordsRemoved) {
             isRemoved = true;
             log.info("All passwords with history removed from trash");
         } else if (itemsInTrash == 0) {

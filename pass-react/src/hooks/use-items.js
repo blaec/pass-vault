@@ -23,6 +23,7 @@ import CreditCardTwoToneIcon from '@mui/icons-material/CreditCardTwoTone';
 import AppsTwoToneIcon from '@mui/icons-material/AppsTwoTone';
 import CustomSpeedDial from "./components/CustomSpeedDial";
 import TitleFactory from "./components/TitleFactory";
+import {emptyTrash} from "../store/state/item/item-actions";
 
 const _root = {
     height: {
@@ -145,7 +146,7 @@ const useItems = (type, itemKey, folderId) => {
     const handlePrepareEmptyTrash = () => setDialog({...dialog, isOpen: true});
 
     const handleEmptyTrash = () => {
-        alert("not implemented");
+        dispatch(emptyTrash());
         handleCloseDialog();
     };
 

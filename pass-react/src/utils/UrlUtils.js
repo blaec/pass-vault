@@ -54,6 +54,7 @@ export const itemApi = {
     },
     delete: {
         delete: `${baseItemApi}delete/`,
+        emptyTrash: `${baseItemApi}empty-trash`,
     },
 };
 

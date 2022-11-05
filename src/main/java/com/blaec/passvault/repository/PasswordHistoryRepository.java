@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface PasswordHistoryRepository {
     PasswordHistory save(PasswordHistory passwordHistory);
+    boolean hasNoHistory(List<Integer> ids);
     boolean isDeleted(int id);
     boolean isDeletedByIds(List<Integer> ids);
 }

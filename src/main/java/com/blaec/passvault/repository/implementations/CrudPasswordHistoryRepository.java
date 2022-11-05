@@ -10,6 +10,9 @@ import java.util.List;
 
 public interface CrudPasswordHistoryRepository extends CrudRepository<PasswordHistory, Integer> {
 
+    @Query("SELECT ph FROM PasswordHistory ph WHERE ph.password.id IN (:ids)")
+    List<PasswordHistory> findAllInTrash(List<Integer> ids);
+
     @Transactional
     @Modifying
     @Query("DELETE FROM PasswordHistory ph WHERE ph.password.id=:id")
