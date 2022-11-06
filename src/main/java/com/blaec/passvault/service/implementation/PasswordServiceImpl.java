@@ -14,9 +14,7 @@ import com.blaec.passvault.model.to.item.PasswordTo;
 import com.blaec.passvault.repository.FolderRepository;
 import com.blaec.passvault.repository.ItemRepository;
 import com.blaec.passvault.repository.PasswordHistoryRepository;
-import com.blaec.passvault.repository.PasswordRepository;
 import com.blaec.passvault.service.ItemService;
-import com.blaec.passvault.service.PasswordService;
 import com.google.common.collect.Iterables;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,25 +37,24 @@ import static java.util.stream.Collectors.groupingBy;
 @Slf4j
 @AllArgsConstructor
 @Service
-public class PasswordServiceImpl implements ItemService<Password>, PasswordService {
-    private final ItemRepository<Password> globalPasswordRepository;
-    private final PasswordRepository passwordRepository;
+public class PasswordServiceImpl implements ItemService<Password> {
+    private final ItemRepository<Password> passwordRepository;
     private final FolderRepository folderRepository;
     private final PasswordHistoryRepository passwordHistoryRepository;
 
     @Override
     public Iterable<Password> getAllActive() {
-        return globalPasswordRepository.getAllActive();
+        return passwordRepository.getAllActive();
     }
 
     @Override
     public Iterable<Password> getAllDeleted() {
-        return globalPasswordRepository.getAllDeleted();
+        return passwordRepository.getAllDeleted();
     }
 
     @Override
     public Iterable<Password> getAllByFolderId(int folderId) {
-        return globalPasswordRepository.getAllByFolderId(folderId);
+        return passwordRepository.getAllByFolderId(folderId);
     }
 
     @Override
@@ -79,7 +76,7 @@ public class PasswordServiceImpl implements ItemService<Password>, PasswordServi
         Password oldPassword = fetchOldPassword(password);
         password.resetCreationDate(oldPassword);
 
-        Response.Builder savedPassword = ItemServiceUtils.save(() -> globalPasswordRepository.save(password), message);
+        Response.Builder savedPassword = ItemServiceUtils.save(() -> passwordRepository.save(password), message);
         savePasswordHistory(password, oldPassword).accept(savedPassword);
 
         return savedPassword;
@@ -117,7 +114,7 @@ public class PasswordServiceImpl implements ItemService<Password>, PasswordServi
 
     @Override
     public Response.Builder restoreFromTrash(int id) {
-        BooleanSupplier isRestoredFromTrash = () -> globalPasswordRepository.isRestoredFromTrash(id);
+        BooleanSupplier isRestoredFromTrash = () -> passwordRepository.isRestoredFromTrash(id);
         String message = String.format("restored | password with id %d", id);
 
         return ItemServiceUtils.handleExistingItem(isRestoredFromTrash, message);
@@ -125,7 +122,7 @@ public class PasswordServiceImpl implements ItemService<Password>, PasswordServi
 
     @Override
     public Response.Builder moveToTrash(int id) {
-        BooleanSupplier isMovedToTrash = () -> globalPasswordRepository.isMovedToTrash(id);
+        BooleanSupplier isMovedToTrash = () -> passwordRepository.isMovedToTrash(id);
         String message = String.format("moved to trash | password with id %d", id);
 
         return ItemServiceUtils.handleExistingItem(isMovedToTrash, message);
@@ -136,7 +133,7 @@ public class PasswordServiceImpl implements ItemService<Password>, PasswordServi
         if (passwordHistoryRepository.isDeleted(id)) {
             log.info("all password history for password " + id + " is deleted");
         }
-        BooleanSupplier isDeleted = () -> globalPasswordRepository.isDeleted(id);
+        BooleanSupplier isDeleted = () -> passwordRepository.isDeleted(id);
         String message = String.format("deleted | password with id %d", id);
 
         return ItemServiceUtils.handleExistingItem(isDeleted, message);
@@ -144,19 +141,19 @@ public class PasswordServiceImpl implements ItemService<Password>, PasswordServi
 
     @Override
     public boolean emptyTrash() {
-        Iterable<Password> passwordsInTrash = globalPasswordRepository.getAllDeleted();
+        Iterable<Password> passwordsInTrash = passwordRepository.getAllDeleted();
         List<Integer> deletedPasswordIds = StreamSupport.stream(passwordsInTrash.spliterator(), false)
                 .map(BaseItem::getId).toList();
         boolean isHistoryRemoved = passwordHistoryRepository.hasNoHistory(deletedPasswordIds)
                 || passwordHistoryRepository.isDeletedByIds(deletedPasswordIds);
-        Supplier<Integer> itemsRemoved = globalPasswordRepository::emptyTrash;
+        Supplier<Integer> itemsRemoved = passwordRepository::emptyTrash;
 
         return ItemServiceUtils.handleTrashEmpty(Iterables.size(passwordsInTrash), isHistoryRemoved, itemsRemoved, "passwords");
     }
 
     @Override
     public Map<HealthType, Iterable<BaseItemTo>> getAllHealthPasswords() {
-        Iterable<Password> allPasswords = globalPasswordRepository.getAllActive();
+        Iterable<Password> allPasswords = passwordRepository.getAllActive();
         List<BaseItemTo> weakPasswords = StreamSupport.stream(allPasswords.spliterator(), false)
                 .filter(p -> PasswordValidation.getPasswordStrength(p.getPassword()) == PasswordStrength.weak)
                 .map(PasswordTo::from)

@@ -10,7 +10,6 @@ import com.blaec.passvault.model.response.Response;
 import com.blaec.passvault.model.to.item.BaseItemTo;
 import com.blaec.passvault.model.to.item.FullItemTo;
 import com.blaec.passvault.service.ItemService;
-import com.blaec.passvault.service.PasswordService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +25,6 @@ import java.util.Map;
 public class ItemController extends AbstractController {
     static final String URL = API_VERSION + "/items";
 
-    private final PasswordService healthService;
     private final ItemService<Password> passwordService;
     private final ItemService<SecureNote> secureNoteService;
     private final ItemService<CreditCard> creditCardService;
@@ -60,7 +58,7 @@ public class ItemController extends AbstractController {
 
     @GetMapping("/get-all-health-items")
     public Map<HealthType, Iterable<BaseItemTo>> getAllHealthItems() {
-        return healthService.getAllHealthPasswords();
+        return passwordService.getAllHealthPasswords();
     }
 
     @PostMapping("/create")
