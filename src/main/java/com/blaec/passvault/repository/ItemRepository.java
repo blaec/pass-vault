@@ -10,4 +10,5 @@ public interface ItemRepository<T extends BaseItem> {
     boolean isMovedToTrash(int id);
     boolean isRestoredFromTrash(int id);
     boolean isDeleted(int id);
+    int emptyTrash();
 }

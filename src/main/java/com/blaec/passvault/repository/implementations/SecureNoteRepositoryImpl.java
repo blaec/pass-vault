@@ -46,4 +46,9 @@ public class SecureNoteRepositoryImpl implements ItemRepository<SecureNote> {
     public boolean isDeleted(int id) {
         return crudSecureNoteRepository.deleteById(id) != 0;
     }
+
+    @Override
+    public int emptyTrash() {
+        return crudSecureNoteRepository.deleteFromTrash();
+    }
 }

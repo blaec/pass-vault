@@ -1,7 +1,7 @@
 import React from 'react';
 import {useDispatch} from "react-redux";
 
-import {deleteFolder, saveFolder, updateFolder} from "../store/state/folder/folder-actions";
+import {deleteFolder, saveFolder, updateFolder} from "../../store/state/folder/folder-actions";
 
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -31,7 +31,7 @@ let _inputAdornment = {
 };
 
 
-const MyFormDialog = (props) => {
+const FolderDialog = (props) => {
     const {dialog: {id, action, folder, title, ok, cancel, message, isOpen}, onClose} = props;
     const inputRef = React.useRef();
     const dispatch = useDispatch();
@@ -88,4 +88,4 @@ const MyFormDialog = (props) => {
     );
 };
 
-export default MyFormDialog;
+export default FolderDialog;

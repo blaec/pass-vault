@@ -7,12 +7,14 @@ import com.blaec.passvault.model.to.item.FullItemTo;
 import com.blaec.passvault.repository.FolderRepository;
 import com.blaec.passvault.repository.ItemRepository;
 import com.blaec.passvault.service.ItemService;
+import com.google.common.collect.Iterables;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 import java.util.function.BooleanSupplier;
+import java.util.function.Supplier;
 
 @Slf4j
 @AllArgsConstructor
@@ -77,5 +79,13 @@ public class CreditCardServiceImpl implements ItemService<CreditCard> {
         String message = String.format("deleted | credit card with id %d", id);
 
         return ItemServiceUtils.handleExistingItem(isDeleted, message);
+    }
+
+    @Override
+    public boolean emptyTrash() {
+        Supplier<Integer> trashSize = () -> Iterables.size(creditCardRepository.getAllDeleted());
+        Supplier<Integer> itemsRemoved = creditCardRepository::emptyTrash;
+
+        return ItemServiceUtils.handleTrashEmpty(trashSize, itemsRemoved, "credit cards");
     }
 }

@@ -163,6 +163,24 @@ export const deleteItem = (type, id) => {
     };
 };
 
+export const emptyTrash = () => {
+    return async (dispatch) => {
+        axios.delete(`${itemApi.delete.emptyTrash}`)
+            .then(response => {
+                const {data} = response;
+                dispatch(itemActions.setResult(data));
+                reload(dispatch);
+            })
+            .catch(error => {
+                console.log(error);
+                dispatch(feedbackActions.setSnackbar({
+                    message: `${error} | Failed to empty trash`,
+                    type: 'error'
+                }));
+            });
+    };
+};
+
 const reload = (dispatch) => {
     dispatch(fetchActiveItems());
     dispatch(fetchDeletedItems());

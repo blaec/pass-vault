@@ -47,7 +47,7 @@ const NewCreditCard = (props) => {
         cardPin: "",
         noteValue: "",
         folderValue: "",
-        creationDateValue: itemDefaults.creationDate,
+        creationDateValue: itemDefaults.creationDate(),
         actionHandler: onSave,
         actionName: "Create"
     };

@@ -1,30 +1,38 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {NavLink, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {useLocation} from "react-router";
 
 import {initialLocation} from "../store/localStorage/actions";
 import {itemType, toolbarHeight} from "../utils/Constants";
-import {reactLinks} from "../utils/UrlUtils";
+import {isTrash, reactLinks} from "../utils/UrlUtils";
 import {passgenActions} from "../store/state/passgen/passgen-slice";
 import {fetchPasswordStrength} from "../store/state/passgen/passgen-actions";
 import {itemActions} from "../store/state/item/item-slice";
 import DetailsFactory from "../component/Items/DetailsFactory";
 import {feedbackActions} from "../store/state/feedback/feedback-slice";
 import {filterTypedCollection} from "../utils/Utils";
+import TrashDialog from "../UI/dialogs/TrashDialog";
+import CustomSpeedDial from "./components/CustomSpeedDial";
+import TitleFactory from "./components/TitleFactory";
+import {emptyTrash} from "../store/state/item/item-actions";
 
 import {DataGrid} from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
-import {Grid, SpeedDial, SpeedDialAction} from "@mui/material";
-import Typography from "@mui/material/Typography";
+import {Grid} from "@mui/material";
 import VpnKeyTwoToneIcon from "@mui/icons-material/VpnKeyTwoTone";
 import StickyNote2TwoToneIcon from '@mui/icons-material/StickyNote2TwoTone';
 import CreditCardTwoToneIcon from '@mui/icons-material/CreditCardTwoTone';
 import AppsTwoToneIcon from '@mui/icons-material/AppsTwoTone';
-import SpeedDialIcon from '@mui/material/SpeedDialIcon';
-import {styled} from "@mui/material/styles";
-import Avatar from "@mui/material/Avatar";
 
+const _root = {
+    height: {
+        xs: window.innerHeight - toolbarHeight.mobile - 20,  // TODO fix hardcoding
+        sm: window.innerHeight - toolbarHeight.desktop - 88, // TODO fix hardcoding
+    },
+    width: '100%',
+};
+const _title = {p: 1};
 const _iconStyle = {opacity: .5};
 const icons = {
     [itemType.passwords]: <VpnKeyTwoToneIcon sx={_iconStyle}/>,
@@ -58,50 +66,6 @@ const columns = [
         description: 'item creation date',
     },
 ];
-const actions = [
-    {
-        icon: <VpnKeyTwoToneIcon/>,
-        name: 'New Password',
-        newItemLink: reactLinks.newPassword,
-    },
-    {
-        icon: <StickyNote2TwoToneIcon/>,
-        name: 'New Secure Note',
-        newItemLink: reactLinks.newSecureNote,
-    },
-    {
-        icon: <CreditCardTwoToneIcon/>,
-        name: 'New Credit Card',
-        newItemLink: reactLinks.newCreditCard,
-    },
-];
-const StyledSpeedDial = styled(SpeedDial)(({theme}) => ({
-    position: 'absolute',
-    '&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft': {
-        bottom: theme.spacing(1),
-        right: theme.spacing(1),
-    },
-    '&.MuiSpeedDial-directionDown, &.MuiSpeedDial-directionRight': {
-        top: theme.spacing(1),
-        left: theme.spacing(1),
-    },
-}));
-const _root = {
-    height: {
-        xs: window.innerHeight - toolbarHeight.mobile - 20,  // TODO fix hardcoding
-        sm: window.innerHeight - toolbarHeight.desktop - 88, // TODO fix hardcoding
-    },
-    width: '100%',
-};
-const _title = {p: 1};
-const _speedDial = {
-    position: 'relative',
-    mt: 1,
-    height: {
-        xs: toolbarHeight.mobile,
-        sm: toolbarHeight.desktop,
-    }
-};
 
 
 const useItems = (type, itemKey, folderId) => {
@@ -110,6 +74,12 @@ const useItems = (type, itemKey, folderId) => {
 
     const [isShowDetails, setIsShowDetails] = React.useState(false);
     const [selectedItem, setSelectedItem] = React.useState({});
+    const [dialog, setDialog] = React.useState({
+        title: 'Empty Trash?',
+        ok: 'Empty Trash',
+        message: 'This will delete all items in your Trash and you will no longer be able to restore them',
+        isOpen: false
+    });
 
     const {passwords, secureNotes = [], creditCards = [], isLoaded} = useSelector(state => state.item[itemKey]);
     const {folders, isFoldersLoaded} = useSelector(state => state.folder.folders);
@@ -145,26 +115,6 @@ const useItems = (type, itemKey, folderId) => {
             title: 'All items',
         },
     };
-    const title = {
-        ["items"]: {
-            title: () => store[type].title,
-        },
-        ["deletedItems"]: {
-            title: () => "Trash",
-        },
-        ['itemsInFolder']: {
-            title: () => `Folder: ${folders.find(folder => folder.id === parseInt(folderId))?.name}`,
-        },
-        ['weakPasswords']: {
-            title: () => "Weak Passwords",
-        },
-        ['reusedPasswords']: {
-            title: () => "Reused Passwords",
-        },
-        ['oldPasswords']: {
-            title: () => "Old Passwords",
-        },
-    };
 
     const handleRowClick = (params) => {
         const {row: {id}} = params;
@@ -189,15 +139,22 @@ const useItems = (type, itemKey, folderId) => {
         dispatch(itemActions.resetEditableItem());
     };
 
-    const handleAddNewItem = () => {
-        dispatch(itemActions.resetEditableItem());
+    const handleCloseDialog = () => setDialog({...dialog, isOpen: false});
+
+    const handleAddNewItem = () => dispatch(itemActions.resetEditableItem());
+
+    const handlePrepareEmptyTrash = () => setDialog({...dialog, isOpen: true});
+
+    const handleEmptyTrash = () => {
+        dispatch(emptyTrash());
+        handleCloseDialog();
     };
 
     useEffect(() => {
-        if (store[type].useStrength) {
+        if (selectedItem.type === itemType.passwords) {
             dispatch(passgenActions.resetStrength());
         }
-    }, []);
+    }, [selectedItem]);
 
     useEffect(() => {
         if (hasResponse) {
@@ -232,48 +189,30 @@ const useItems = (type, itemKey, folderId) => {
                     onEdit={handleEditItem}
                     onClose={handleCloseDetails}
                 />
+                <TrashDialog
+                    dialog={dialog}
+                    onCancel={handleCloseDialog}
+                    onDelete={handleEmptyTrash}
+                />
             </>
         );
     }
     const titleElement = (
-        <Grid
-            item
-            container
-            direction="row"
-            spacing={1}
-        >
-            <Grid item>
-                <Typography variant={"h5"}>
-                    {title[itemKey].title()}
-                </Typography>
-            </Grid>
-            <Grid item>
-                <Avatar>
-                    {store[type].items.length}
-                </Avatar>
-            </Grid>
-        </Grid>
+        <TitleFactory
+            typedTitle={store[type].title}
+            folders={folders}
+            folderId={folderId}
+            itemKey={itemKey}
+            size={store[type].items.length}
+        />
     );
-    const speedDialElement = (
-        <Box sx={_speedDial}>
-            <StyledSpeedDial
-                ariaLabel="new items SpeedDial"
-                icon={<SpeedDialIcon/>}
-                direction={'left'}
-            >
-                {actions.map((action) => (
-                    <SpeedDialAction
-                        key={action.name}
-                        icon={action.icon}
-                        tooltipTitle={action.name}
-                        component={NavLink}
-                        onClick={handleAddNewItem}
-                        to={action.newItemLink}
-                    />
-                ))}
-            </StyledSpeedDial>
-        </Box>
-    );
+    const actionElement = (
+        <CustomSpeedDial
+            isTrash={isTrash(pathname)}
+            onTrashClick={handlePrepareEmptyTrash}
+            onItemClick={handleAddNewItem}
+        />
+    )
 
 
     return (
@@ -286,7 +225,7 @@ const useItems = (type, itemKey, folderId) => {
                 alignItems="center"
             >
                 {titleElement}
-                {speedDialElement}
+                {actionElement}
             </Grid>
             {table}
         </Box>

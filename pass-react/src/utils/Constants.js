@@ -37,7 +37,7 @@ export const itemType = {
 
 export const itemDefaults = {
     age: 180,
-    creationDate: new Date(),
+    creationDate: () => new Date(),
 };
 
 export const delay = {

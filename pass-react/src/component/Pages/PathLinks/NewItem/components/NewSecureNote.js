@@ -30,7 +30,7 @@ const NewSecureNote = (props) => {
         titleValue: "",
         noteValue: "",
         folderValue: "",
-        creationDateValue: itemDefaults.creationDate,
+        creationDateValue: itemDefaults.creationDate(),
         actionHandler: onSave,
         actionName: "Create"
     };

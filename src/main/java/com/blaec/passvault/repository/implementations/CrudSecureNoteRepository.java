@@ -24,6 +24,11 @@ public interface CrudSecureNoteRepository extends CrudRepository<SecureNote, Int
 
     @Transactional
     @Modifying
+    @Query("DELETE FROM SecureNote s WHERE s.deleted=true")
+    int deleteFromTrash();
+
+    @Transactional
+    @Modifying
     @Query("UPDATE SecureNote s SET s.deleted=true WHERE s.id=:id")
     int moveToTrash(int id);
 

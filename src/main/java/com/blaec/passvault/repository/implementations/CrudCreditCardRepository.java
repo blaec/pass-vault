@@ -24,6 +24,11 @@ public interface CrudCreditCardRepository extends CrudRepository<CreditCard, Int
 
     @Transactional
     @Modifying
+    @Query("DELETE FROM CreditCard c WHERE c.deleted=true")
+    int deleteFromTrash();
+
+    @Transactional
+    @Modifying
     @Query("UPDATE CreditCard c SET c.deleted=true WHERE c.id=:id")
     int moveToTrash(int id);
 

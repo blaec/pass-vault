@@ -7,12 +7,14 @@ import com.blaec.passvault.model.to.item.FullItemTo;
 import com.blaec.passvault.repository.FolderRepository;
 import com.blaec.passvault.repository.ItemRepository;
 import com.blaec.passvault.service.ItemService;
+import com.google.common.collect.Iterables;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 import java.util.function.BooleanSupplier;
+import java.util.function.Supplier;
 
 @Slf4j
 @AllArgsConstructor
@@ -77,5 +79,13 @@ public class SecureNoteServiceImpl implements ItemService<SecureNote> {
         String message = String.format("deleted | secure note with id %d", id);
 
         return ItemServiceUtils.handleExistingItem(isDeleted, message);
+    }
+
+    @Override
+    public boolean emptyTrash() {
+        Supplier<Integer> trashSize = () -> Iterables.size(secureNoteRepository.getAllDeleted());
+        Supplier<Integer> itemsRemoved = secureNoteRepository::emptyTrash;
+
+        return ItemServiceUtils.handleTrashEmpty(trashSize, itemsRemoved, "secure notes");
     }
 }

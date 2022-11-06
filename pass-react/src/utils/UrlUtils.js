@@ -54,6 +54,7 @@ export const itemApi = {
     },
     delete: {
         delete: `${baseItemApi}delete/`,
+        emptyTrash: `${baseItemApi}empty-trash`,
     },
 };
 
@@ -91,3 +92,7 @@ export const isSearchable = (pathname) => {
 
     return searchable.filter(url => pathname.startsWith(url)).length === 1;
 };
+
+export const isTrash = (pathname) => {
+    return pathname.startsWith(reactLinks.trash);
+}

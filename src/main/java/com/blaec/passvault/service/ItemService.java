@@ -14,4 +14,5 @@ public interface ItemService<T extends BaseItem> {
     @Transactional Response.Builder restoreFromTrash(int id);
     @Transactional Response.Builder moveToTrash(int id);
     @Transactional Response.Builder delete(int id);
+    @Transactional boolean emptyTrash();
 }

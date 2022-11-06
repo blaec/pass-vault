@@ -46,4 +46,9 @@ public class CreditCardRepositoryImpl implements ItemRepository<CreditCard> {
     public boolean isDeleted(int id) {
         return crudCreditCardRepository.deleteById(id) != 0;
     }
+
+    @Override
+    public int emptyTrash() {
+        return crudCreditCardRepository.deleteFromTrash();
+    }
 }

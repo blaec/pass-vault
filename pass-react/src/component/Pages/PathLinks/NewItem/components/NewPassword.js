@@ -58,7 +58,7 @@ const NewPassword = (props) => {
         websiteValue: "",
         noteValue: "",
         folderValue: "",
-        creationDateValue: itemDefaults.creationDate,
+        creationDateValue: itemDefaults.creationDate(),
         ageValue: itemDefaults.age,
         actionHandler: onSave,
         actionName: "Create"

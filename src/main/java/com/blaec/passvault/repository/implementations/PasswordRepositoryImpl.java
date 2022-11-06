@@ -54,4 +54,9 @@ public class PasswordRepositoryImpl implements ItemRepository<Password>, Passwor
     public boolean isDeleted(int id) {
         return crudPasswordRepository.deleteById(id) != 0;
     }
+
+    @Override
+    public int emptyTrash() {
+        return crudPasswordRepository.deleteFromTrash();
+    }
 }
