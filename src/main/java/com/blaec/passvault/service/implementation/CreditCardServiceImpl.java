@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 import java.util.function.BooleanSupplier;
+import java.util.function.Supplier;
 
 @Slf4j
 @AllArgsConstructor
@@ -82,19 +83,9 @@ public class CreditCardServiceImpl implements ItemService<CreditCard> {
 
     @Override
     public boolean emptyTrash() {
-        boolean isRemoved = false;
+        Supplier<Integer> trashSize = () -> Iterables.size(creditCardRepository.getAllDeleted());
+        Supplier<Integer> itemsRemoved = creditCardRepository::emptyTrash;
 
-        int itemsInTrash = Iterables.size(creditCardRepository.getAllDeleted());
-        if (itemsInTrash > 0 && creditCardRepository.emptyTrash() == itemsInTrash) {
-            isRemoved = true;
-            log.info("All credit cards removed from trash");
-        } else if (itemsInTrash == 0) {
-            isRemoved = true;
-            log.info("No credit cards found in trash");
-        } else {
-            log.warn("Failed to remove credit cards from trash");
-        }
-
-        return isRemoved;
+        return ItemServiceUtils.handleTrashEmpty(trashSize, itemsRemoved, "credit cards");
     }
 }

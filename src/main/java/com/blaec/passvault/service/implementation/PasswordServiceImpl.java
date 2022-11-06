@@ -30,6 +30,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -143,28 +144,14 @@ public class PasswordServiceImpl implements ItemService<Password>, PasswordServi
 
     @Override
     public boolean emptyTrash() {
-        boolean isRemoved = false;
-
         Iterable<Password> passwordsInTrash = globalPasswordRepository.getAllDeleted();
-        int itemsInTrash = Iterables.size(passwordsInTrash);
         List<Integer> deletedPasswordIds = StreamSupport.stream(passwordsInTrash.spliterator(), false)
                 .map(BaseItem::getId).toList();
         boolean isHistoryRemoved = passwordHistoryRepository.hasNoHistory(deletedPasswordIds)
                 || passwordHistoryRepository.isDeletedByIds(deletedPasswordIds);
-        boolean isPasswordsRemoved = isHistoryRemoved
-                && itemsInTrash > 0
-                && globalPasswordRepository.emptyTrash() == itemsInTrash;
-        if (isPasswordsRemoved) {
-            isRemoved = true;
-            log.info("All passwords with history removed from trash");
-        } else if (itemsInTrash == 0) {
-            isRemoved = true;
-            log.info("No passwords found in trash");
-        } else {
-            log.warn("Failed to remove passwords from trash");
-        }
+        Supplier<Integer> itemsRemoved = globalPasswordRepository::emptyTrash;
 
-        return isRemoved;
+        return ItemServiceUtils.handleTrashEmpty(Iterables.size(passwordsInTrash), isHistoryRemoved, itemsRemoved, "passwords");
     }
 
     @Override

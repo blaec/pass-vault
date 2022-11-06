@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 import java.util.function.BooleanSupplier;
+import java.util.function.Supplier;
 
 @Slf4j
 @AllArgsConstructor
@@ -82,19 +83,9 @@ public class SecureNoteServiceImpl implements ItemService<SecureNote> {
 
     @Override
     public boolean emptyTrash() {
-        boolean isRemoved = false;
+        Supplier<Integer> trashSize = () -> Iterables.size(secureNoteRepository.getAllDeleted());
+        Supplier<Integer> itemsRemoved = secureNoteRepository::emptyTrash;
 
-        int itemsInTrash = Iterables.size(secureNoteRepository.getAllDeleted());
-        if (itemsInTrash > 0 && secureNoteRepository.emptyTrash() == itemsInTrash) {
-            isRemoved = true;
-            log.info("All secure notes removed from trash");
-        } else if (itemsInTrash == 0) {
-            isRemoved = true;
-            log.info("No secure notes found in trash");
-        } else {
-            log.warn("Failed to remove secure notes from trash");
-        }
-
-        return isRemoved;
+        return ItemServiceUtils.handleTrashEmpty(trashSize, itemsRemoved, "secure notes");
     }
 }

@@ -21,7 +21,7 @@ public class PasswordHistoryRepositoryImpl implements PasswordHistoryRepository 
 
     @Override
     public boolean hasNoHistory(List<Integer> ids) {
-        return crudPasswordHistoryRepository.findAllInTrash(ids).isEmpty();
+        return crudPasswordHistoryRepository.findAllByIds(ids).isEmpty();
     }
 
     @Override
