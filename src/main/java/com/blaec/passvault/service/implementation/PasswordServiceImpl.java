@@ -64,6 +64,7 @@ public class PasswordServiceImpl implements ItemService<Password> {
 
     @Override
     public Response.Builder update(FullItemTo to) {
+        log.info("start update");
         return save(createPasswordFrom(to), String.format("Password %s successfully updated", to.getTitle()));
     }
 
@@ -76,34 +77,25 @@ public class PasswordServiceImpl implements ItemService<Password> {
         Password oldPassword = fetchOldPassword(password);
         password.resetCreationDate(oldPassword);
 
-        Response.Builder savedPassword = ItemServiceUtils.save(() -> passwordRepository.save(password), message);
-        savePasswordHistory(password, oldPassword).accept(savedPassword);
+        Response.Builder response = ItemServiceUtils.save(() -> passwordRepository.save(password), message);
+        savePasswordHistory(oldPassword).accept(response);
 
-        return savedPassword;
+        return response;
     }
 
     private Password fetchOldPassword(Password password) {
         if (Objects.isNull(password.getId())) return null;
 
-        Password oldPassword = passwordRepository.getById(password.getId()).orElse(null);
-        if (!Objects.isNull(oldPassword)) {
-            try {
-                oldPassword = (Password) oldPassword.clone();
-            } catch (CloneNotSupportedException e) {
-                log.error("failed cloning password " + password.getId(), e);
-            }
-        }
-
-        return oldPassword;
+        return passwordRepository.getById(password.getId()).orElse(null);
     }
 
-    private Consumer<Response.Builder> savePasswordHistory(Password password, Password oldPassword) {
-        if (!password.isPasswordChanged(oldPassword)) {
+    private Consumer<Response.Builder> savePasswordHistory(Password password) {
+        if (Objects.isNull(password) || !password.isPasswordChanged()) {
             return (Response.Builder response) -> response.updateMessage("", true);
         }
 
         try {
-            PasswordHistory savedHistory = passwordHistoryRepository.save(PasswordHistory.from(password, oldPassword));
+            PasswordHistory savedHistory = passwordHistoryRepository.save(PasswordHistory.from(password));
             log.info("New password history object {} successfully created", savedHistory.getPassword().getTitle());
             return (Response.Builder response) -> response.updateMessage(" | success - password history", true);
         } catch (Exception e) {

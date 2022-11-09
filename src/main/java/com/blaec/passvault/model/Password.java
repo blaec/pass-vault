@@ -6,8 +6,7 @@ import com.blaec.passvault.utils.IdUtils;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -22,6 +21,16 @@ public class Password extends BaseItem implements Cloneable {
     @NonNull private String password;
     @NonNull private String website;
     private int age;
+    @Transient
+    @Getter(AccessLevel.PUBLIC)
+    private Password previousState;
+
+    @PostLoad
+    private void storeState() {
+        previousState = new Password();
+        previousState.password = this.password;
+        previousState.creationDate = this.creationDate;
+    }
 
     public static Password from(FullItemTo passwordTo, Folder folder) {
         Password created = new Password();
@@ -40,12 +49,16 @@ public class Password extends BaseItem implements Cloneable {
     }
 
     public void resetCreationDate(Password oldPassword) {
-        if (this.isPasswordChanged(oldPassword)) {
+        if (isPasswordChanged(oldPassword)) {
             this.creationDate = LocalDate.now();
         }
     }
 
-    public boolean isPasswordChanged(Password oldPassword) {
+    public boolean isPasswordChanged() {
+        return isPasswordChanged(previousState);
+    }
+
+    private boolean isPasswordChanged(Password oldPassword) {
         return !Objects.isNull(oldPassword)
                 && !oldPassword.getPassword().equals(password);
     }
