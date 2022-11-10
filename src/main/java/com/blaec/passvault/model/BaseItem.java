@@ -28,12 +28,15 @@ public abstract class BaseItem {
 
     protected String note;
 
-
     public Integer getFolderId() {
         return folder.getId();
     }
 
     public String getFolderName() {
         return folder.getName();
+    }
+
+    public boolean isNew() {
+        return id == null;
     }
 }

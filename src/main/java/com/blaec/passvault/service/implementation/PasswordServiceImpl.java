@@ -73,41 +73,29 @@ public class PasswordServiceImpl implements ItemService<Password> {
     }
 
     private Response.Builder save(Password password, String message) {
-        Password oldPassword = fetchOldPassword(password);
-        password.resetCreationDate(oldPassword);
+        Password previousPassword = password.isNew()
+                ? null
+                : passwordRepository.getById(password.getId()).orElse(null);
+        password.resetCreationDate(previousPassword);
 
-        Response.Builder savedPassword = ItemServiceUtils.save(() -> passwordRepository.save(password), message);
-        savePasswordHistory(password, oldPassword).accept(savedPassword);
+        Response.Builder response = ItemServiceUtils.save(() -> passwordRepository.save(password), message);
+        savePasswordHistory(previousPassword).accept(response);
 
-        return savedPassword;
+        return response;
     }
 
-    private Password fetchOldPassword(Password password) {
-        if (Objects.isNull(password.getId())) return null;
-
-        Password oldPassword = passwordRepository.getById(password.getId()).orElse(null);
-        if (!Objects.isNull(oldPassword)) {
-            try {
-                oldPassword = (Password) oldPassword.clone();
-            } catch (CloneNotSupportedException e) {
-                log.error("failed cloning password " + password.getId(), e);
-            }
-        }
-
-        return oldPassword;
-    }
-
-    private Consumer<Response.Builder> savePasswordHistory(Password password, Password oldPassword) {
-        if (!password.isPasswordChanged(oldPassword)) {
+    private Consumer<Response.Builder> savePasswordHistory(Password previousPassword) {
+        boolean isNewPassword = Objects.isNull(previousPassword) || !previousPassword.isPasswordChanged();
+        if (isNewPassword) {
             return (Response.Builder response) -> response.updateMessage("", true);
         }
 
         try {
-            PasswordHistory savedHistory = passwordHistoryRepository.save(PasswordHistory.from(password, oldPassword));
+            PasswordHistory savedHistory = passwordHistoryRepository.save(PasswordHistory.from(previousPassword));
             log.info("New password history object {} successfully created", savedHistory.getPassword().getTitle());
             return (Response.Builder response) -> response.updateMessage(" | success - password history", true);
         } catch (Exception e) {
-            log.error("failed to save password history for password " + password.getId(), e);
+            log.error("failed to save password history for password " + previousPassword.getId(), e);
             return (Response.Builder response) -> response.updateMessage(" | failure - password history", false);
         }
     }

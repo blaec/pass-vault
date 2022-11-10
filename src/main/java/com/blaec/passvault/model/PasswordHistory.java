@@ -30,13 +30,13 @@ public class PasswordHistory {
     @Column(name="expiration_date")
     @NonNull private LocalDate expirationDate;
 
-    public static PasswordHistory from(Password newPassword, Password oldPassword) {
+    public static PasswordHistory from(Password password) {
         PasswordHistory created = new PasswordHistory();
 
-        created.password = newPassword;
-        created.oldPassword = oldPassword.getPassword();
-        created.creationDate = oldPassword.getCreationDate();
-        created.expirationDate = newPassword.getCreationDate();
+        created.password = password;
+        created.oldPassword = password.getPreviousState().getPassword();
+        created.creationDate = password.getPreviousState().getCreationDate();
+        created.expirationDate = password.getCreationDate();
 
         return created;
     }
