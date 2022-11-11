@@ -26,14 +26,14 @@ const TitleFactory = (props) => {
             spacing={1}
         >
             <Grid item>
-                <Typography variant={"h5"}>
-                    {title[itemKey]()}
-                </Typography>
-            </Grid>
-            <Grid item>
                 <Avatar>
                     {size}
                 </Avatar>
+            </Grid>
+            <Grid item>
+                <Typography variant={"h5"}>
+                    {title[itemKey]()}
+                </Typography>
             </Grid>
         </Grid>
     );
