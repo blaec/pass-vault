@@ -166,7 +166,8 @@ const useItems = (type, itemKey, folderId) => {
     }, [hasResponse]);
 
     useEffect(() => {
-        if (store[type].items.length === 0) {
+        const isNothingFound = isLoaded && store[type].items.length === 0;
+        if (isNothingFound) {
             dispatch(feedbackActions.setSnackbar({message: 'Nothing found', type: 'warning'}));
         }
     }, [search]);
