@@ -18,7 +18,7 @@ import OldPasswords from "./component/Pages/PathLinks/PasswordHealth/OldPassword
 import Layout from "./hoc/Layout";
 import {reactLinks} from "./utils/UrlUtils";
 import {fetchFolders} from "./store/state/folder/folder-actions";
-import {fetchActiveItems, fetchDeletedItems} from "./store/state/item/item-actions";
+import {fetchActiveItems, fetchDeletedItems, fetchHealthItems} from "./store/state/item/item-actions";
 import {itemType} from "./utils/Constants";
 import {currentFolder} from "./store/localStorage/actions";
 
@@ -51,6 +51,7 @@ function App() {
         dispatch(fetchFolders());
         dispatch(fetchActiveItems());
         dispatch(fetchDeletedItems());
+        dispatch(fetchHealthItems());
     }, []);
 
     useEffect(() => {
