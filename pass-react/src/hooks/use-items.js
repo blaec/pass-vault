@@ -198,15 +198,18 @@ const useItems = (type, itemKey, folderId) => {
             </>
         );
     }
-    const titleElement = (
-        <TitleFactory
-            typedTitle={store[type].title}
-            folders={folders}
-            folderId={folderId}
-            itemKey={itemKey}
-            size={store[type].items.length}
-        />
-    );
+    let titleElement = null;
+    if (isFoldersLoaded) {
+        titleElement = (
+            <TitleFactory
+                typedTitle={store[type].title}
+                folders={folders}
+                folderId={folderId}
+                itemKey={itemKey}
+                size={store[type].items.length}
+            />
+        );
+    }
     const actionElement = (
         <CustomSpeedDial
             isTrash={isTrash(pathname)}
