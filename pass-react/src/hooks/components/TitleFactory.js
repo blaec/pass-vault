@@ -4,6 +4,8 @@ import {Grid} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 
+const _root = {mt: 0.5};
+
 
 const TitleFactory = (props) => {
     const {typedTitle, folders, folderId, itemKey, size} = props;
@@ -31,7 +33,10 @@ const TitleFactory = (props) => {
                 </Avatar>
             </Grid>
             <Grid item>
-                <Typography variant={"h5"}>
+                <Typography
+                    variant={"h5"}
+                    sx={_root}
+                >
                     {title[itemKey]()}
                 </Typography>
             </Grid>
