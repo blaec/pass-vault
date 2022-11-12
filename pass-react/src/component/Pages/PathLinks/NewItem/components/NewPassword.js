@@ -42,14 +42,17 @@ const NewPassword = (props) => {
     } = props;
     const {strength, isStrengthLoaded} = useSelector(state => state.passgen.strength);
     const [isGeneratorOpen, setIsGeneratorOpen] = React.useState(false);
-
+    const [isTitleValid, setIsTitleValid] = React.useState(false);
 
     const handleGeneratePassword = () => {
         setIsGeneratorOpen(true);
     };
     const handleGeneratorOpen = (value) => {
         setIsGeneratorOpen(value);
-    }
+    };
+    const handleValidTitle = (isValid) => {
+        setIsTitleValid(isValid);
+    };
 
     let passwordInput = {
         titleValue: "",
@@ -106,6 +109,7 @@ const NewPassword = (props) => {
         <TitleElement
             value={passwordInput.titleValue}
             elemRef={titleRef}
+            onValid={(isValid) => {handleValidTitle(isValid)}}
         />
     );
     const userElement = (
@@ -193,6 +197,7 @@ const NewPassword = (props) => {
         </CardContent>
     );
 
+
     return (
         <Grid container justifyContent="center">
             <NewItem
@@ -200,6 +205,7 @@ const NewPassword = (props) => {
                 actionName={passwordInput.actionName}
                 action={passwordInput.actionHandler}
                 cardContent={cardContent}
+                canSubmit={isTitleValid}
                 onCancel={onCancel}
             />
             <PasswordGenerator isOpen={isGeneratorOpen} setIsOpen={handleGeneratorOpen}/>

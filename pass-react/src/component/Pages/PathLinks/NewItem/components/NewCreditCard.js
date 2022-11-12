@@ -37,6 +37,11 @@ const NewCreditCard = (props) => {
         onUpdate,
         onCancel
     } = props;
+    const [isTitleValid, setIsTitleValid] = React.useState(false);
+
+    const handleValidTitle = (isValid) => {
+        setIsTitleValid(isValid);
+    };
 
     let creditCardInput = {
         titleValue: "",
@@ -97,6 +102,7 @@ const NewCreditCard = (props) => {
         <TitleElement
             value={creditCardInput.titleValue}
             elemRef={titleRef}
+            onValid={(isValid) => {handleValidTitle(isValid)}}
         />
     );
     const cardholderNameElement = (
@@ -177,6 +183,7 @@ const NewCreditCard = (props) => {
         </CardContent>
     );
 
+
     return (
         <Grid container justifyContent="center">
             <NewItem
@@ -185,6 +192,7 @@ const NewCreditCard = (props) => {
                 action={creditCardInput.actionHandler}
                 cardContent={cardContent}
                 onCancel={onCancel}
+                canSubmit={isTitleValid}
             />
         </Grid>
     );};

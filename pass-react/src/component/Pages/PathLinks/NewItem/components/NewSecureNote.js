@@ -24,7 +24,11 @@ const NewSecureNote = (props) => {
         onUpdate,
         onCancel
     } = props;
+    const [isTitleValid, setIsTitleValid] = React.useState(false);
 
+    const handleValidTitle = (isValid) => {
+        setIsTitleValid(isValid);
+    };
 
     let secureNoteInput = {
         titleValue: "",
@@ -65,6 +69,7 @@ const NewSecureNote = (props) => {
         <TitleElement
             value={secureNoteInput.titleValue}
             elemRef={titleRef}
+            onValid={(isValid) => {handleValidTitle(isValid)}}
         />
     );
     const noteElement = (
@@ -106,6 +111,7 @@ const NewSecureNote = (props) => {
                 action={secureNoteInput.actionHandler}
                 cardContent={cardContent}
                 onCancel={onCancel}
+                canSubmit={isTitleValid}
             />
         </Grid>
     );
