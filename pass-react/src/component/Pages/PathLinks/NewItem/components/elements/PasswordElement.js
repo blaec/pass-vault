@@ -3,22 +3,21 @@ import {useDispatch, useSelector} from "react-redux";
 
 import {fetchPasswordStrength} from "../../../../../../store/state/passgen/passgen-actions";
 import SecretElement from "./SecretElement";
+import {passgenActions} from "../../../../../../store/state/passgen/passgen-slice";
 
 
 const PasswordElement = (props) => {
     const {style, value, elemRef} = props;
     const [typedPassword, setTypedPassword] = React.useState('');
-    const {passgen, isPassgenLoaded, canInsertPassword} = useSelector(state => state.passgen.passgen);
+    const {passgen, isPassgenLoaded, canInsertPassword, isPassgenInserted} = useSelector(state => state.passgen.passgen);
 
     const dispatch = useDispatch();
 
-    let isFocused = undefined;
     const isInsertPassgen = canInsertPassword
         && isPassgenLoaded
         && elemRef?.current;
     if (isInsertPassgen) {
         elemRef.current.value = passgen;
-        isFocused = true;
     }
 
     const handleOnChange = () => {
@@ -31,6 +30,11 @@ const PasswordElement = (props) => {
 
         return () => clearTimeout(identifier)
     }, [typedPassword]);
+    useEffect(() => {
+        if (isInsertPassgen) {
+            dispatch(passgenActions.setPassenInserted());
+        }
+    }, [isInsertPassgen]);
 
 
     return (
@@ -38,7 +42,7 @@ const PasswordElement = (props) => {
             style={style}
             label="Password"
             value={value}
-            isFocused={isFocused}
+            isFocused={isPassgenInserted}
             elemRef={elemRef}
             onChange={handleOnChange}
         />

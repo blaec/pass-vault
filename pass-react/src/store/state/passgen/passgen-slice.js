@@ -7,7 +7,8 @@ const initialState = {
         passgen: '',
         strength: '',
         isPassgenLoaded: false,
-        canInsertPassword: false
+        canInsertPassword: false,
+        isPassgenInserted: false,
     },
     strength: {
         strength: passwordStrength.weak,
@@ -38,6 +39,9 @@ const passgenSlice = createSlice({
                 strength: action.payload.strength,
                 isStrengthLoaded: true
             };
+        },
+        setPassenInserted(state, action) {
+            state.passgen = {...state.passgen, canInsertPassword: false, isPassgenInserted: true};
         },
         resetPassgen(state, action) {
             state.passgen = initialState.passgen;
