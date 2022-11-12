@@ -11,8 +11,9 @@ const TitleElement = (props) => {
         <TextInputElement
             value={value}
             elemRef={elemRef}
-            label={"Title"}
+            label="Title"
             type={"text"}
+            isRequired={true}
             autofocus={true}
         />
     );

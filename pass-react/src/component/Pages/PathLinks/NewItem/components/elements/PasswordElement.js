@@ -8,12 +8,15 @@ import SecretElement from "./SecretElement";
 const PasswordElement = (props) => {
     const {style, value, elemRef} = props;
     const [typedPassword, setTypedPassword] = React.useState('');
-    const {passgen, isPassgenLoaded, isInsertPassword} = useSelector(state => state.passgen.passgen);
+    const {passgen, isPassgenLoaded, canInsertPassword} = useSelector(state => state.passgen.passgen);
 
     const dispatch = useDispatch();
 
-    let isFocused = false;
-    if (isInsertPassword && isPassgenLoaded && elemRef?.current) {
+    let isFocused = undefined;
+    const isInsertPassgen = canInsertPassword
+        && isPassgenLoaded
+        && elemRef?.current;
+    if (isInsertPassgen) {
         elemRef.current.value = passgen;
         isFocused = true;
     }
@@ -27,13 +30,13 @@ const PasswordElement = (props) => {
         }, 500);
 
         return () => clearTimeout(identifier)
-    }, [typedPassword])
+    }, [typedPassword]);
 
 
     return (
         <SecretElement
             style={style}
-            label={"Password"}
+            label="Password"
             value={value}
             isFocused={isFocused}
             elemRef={elemRef}

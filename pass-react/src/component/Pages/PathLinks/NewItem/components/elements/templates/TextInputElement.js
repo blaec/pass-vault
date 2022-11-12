@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 
 
 const TextInputElement = (props) => {
-    const {style, value, elemRef, limit, autofocus, label, type, multiline} = props;
+    const {style, value, elemRef, limit, autofocus, label, type, isRequired, multiline} = props;
     const maxLength = limit ? limit : 100;
 
     return (
@@ -15,6 +15,7 @@ const TextInputElement = (props) => {
             autoFocus={autofocus}
             label={label}
             type={type}
+            required={isRequired}
             fullWidth
             variant="filled"
             multiline={multiline}
