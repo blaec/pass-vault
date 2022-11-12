@@ -43,6 +43,7 @@ const PasswordElement = (props) => {
             label="Password"
             value={value}
             isFocused={isPassgenInserted}
+            isRequired={true}
             elemRef={elemRef}
             onChange={handleOnChange}
         />

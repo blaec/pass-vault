@@ -6,7 +6,7 @@ import {FilledInput, FormControl, InputAdornment, InputLabel} from "@mui/materia
 
 
 const SecretElement = (props) => {
-    const {style, label, value, isFocused, elemRef, onChange} = props;
+    const {style, label, value, isFocused, isRequired, elemRef, onChange} = props;
     const [isShow, setIsShow] = React.useState(false);
 
     const handleShow = () => {
@@ -31,6 +31,7 @@ const SecretElement = (props) => {
             fullWidth
             variant="filled"
             focused={isFocused}
+            required={isRequired}
         >
             <InputLabel>{label}</InputLabel>
             <FilledInput

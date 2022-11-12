@@ -23,6 +23,7 @@ const FolderElement = (props) => {
         <FormControl
             sx={style}
             fullWidth
+            required={true}
         >
             <InputLabel>{label}</InputLabel>
             <Select

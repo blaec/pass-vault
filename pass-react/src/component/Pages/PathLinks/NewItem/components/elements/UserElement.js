@@ -12,8 +12,9 @@ const UserElement = (props) => {
             style={style}
             value={value}
             elemRef={elemRef}
-            label={"User"}
+            label="User"
             type={"text"}
+            isRequired={true}
         />
     );
 };

@@ -12,8 +12,9 @@ const CardNumberElement = (props) => {
             style={style}
             value={value}
             elemRef={elemRef}
-            label={"Card Number"}
+            label="Card Number"
             type={"text"}
+            isRequired={true}
         />
     );
 };
