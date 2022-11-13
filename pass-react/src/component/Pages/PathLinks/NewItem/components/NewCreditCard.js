@@ -38,9 +38,13 @@ const NewCreditCard = (props) => {
         onCancel
     } = props;
     const [isTitleValid, setIsTitleValid] = React.useState(false);
+    const [isCardNumberValid, setIsCardNumberValid] = React.useState(false);
 
     const handleValidTitle = (isValid) => {
         setIsTitleValid(isValid);
+    };
+    const handleValidCardNumber = (isValid) => {
+        setIsCardNumberValid(isValid);
     };
 
     let creditCardInput = {
@@ -117,6 +121,7 @@ const NewCreditCard = (props) => {
             style={elementStyle}
             value={creditCardInput.cardNumberValue}
             elemRef={cardNumberRef}
+            onValid={(isValid) => {handleValidCardNumber(isValid)}}
         />
     );
     const expirationDateElement = (
@@ -182,7 +187,8 @@ const NewCreditCard = (props) => {
             {creationDateElement}
         </CardContent>
     );
-    const canSubmit = isTitleValid;
+    const canSubmit = isTitleValid
+        && isCardNumberValid;
 
 
     return (
