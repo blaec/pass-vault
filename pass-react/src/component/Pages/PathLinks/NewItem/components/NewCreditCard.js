@@ -10,7 +10,7 @@ import NewItem from "../NewItem";
 import CardholderNameElement from "./elements/CardholderNameElement";
 import CardNumberElement from "./elements/CardNumberElement";
 import ExpirationDateElement from "./elements/ExpirationDateElement";
-import SecretElement from "./elements/SecretElement";
+import SecretElement from "./elements/templates/SecretElement";
 
 import {CardContent, Grid} from "@mui/material";
 import Box from "@mui/material/Box";

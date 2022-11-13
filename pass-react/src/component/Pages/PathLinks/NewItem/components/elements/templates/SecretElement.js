@@ -1,12 +1,23 @@
 import React from 'react';
 
-import IconVisibility from "../../../../../../UI/IconButtons/IconVisibility";
+import IconVisibility from "../../../../../../../UI/IconButtons/IconVisibility";
 
 import {FilledInput, FormControl, InputAdornment, InputLabel} from "@mui/material";
 
 
 const SecretElement = (props) => {
-    const {style, label, value, isFocused, isRequired, elemRef, onChange} = props;
+    const {
+        style,
+        hasError,
+        label,
+        value,
+        isFocused,
+        isRequired,
+        elemRef,
+        onChange,
+        onChangeTextField,
+        onInputTouch
+    } = props;
     const [isShow, setIsShow] = React.useState(false);
 
     const handleShow = () => {
@@ -24,6 +35,11 @@ const SecretElement = (props) => {
         </InputAdornment>
     );
 
+    const handleOnChange = event => {
+        onChange();
+        return onChangeTextField(event.target.value);
+    };
+
 
     return (
         <FormControl
@@ -35,12 +51,14 @@ const SecretElement = (props) => {
         >
             <InputLabel>{label}</InputLabel>
             <FilledInput
+                error={hasError}
                 defaultValue={value}
                 inputRef={elemRef}
                 type={inputType}
                 endAdornment={inputEndAdornment}
                 label={label}
-                onChange={onChange}
+                onChange={handleOnChange}
+                onBlur={onInputTouch}
             />
         </FormControl>
     );
