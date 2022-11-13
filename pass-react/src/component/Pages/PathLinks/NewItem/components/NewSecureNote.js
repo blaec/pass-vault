@@ -101,6 +101,7 @@ const NewSecureNote = (props) => {
             {creationDateElement}
         </CardContent>
     );
+    const canSubmit = isTitleValid;
 
 
     return (
@@ -111,7 +112,7 @@ const NewSecureNote = (props) => {
                 action={secureNoteInput.actionHandler}
                 cardContent={cardContent}
                 onCancel={onCancel}
-                canSubmit={isTitleValid}
+                canSubmit={canSubmit}
             />
         </Grid>
     );

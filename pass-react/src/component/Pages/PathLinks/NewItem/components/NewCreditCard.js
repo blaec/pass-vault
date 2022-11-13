@@ -182,6 +182,7 @@ const NewCreditCard = (props) => {
             {creationDateElement}
         </CardContent>
     );
+    const canSubmit = isTitleValid;
 
 
     return (
@@ -192,7 +193,7 @@ const NewCreditCard = (props) => {
                 action={creditCardInput.actionHandler}
                 cardContent={cardContent}
                 onCancel={onCancel}
-                canSubmit={isTitleValid}
+                canSubmit={canSubmit}
             />
         </Grid>
     );};

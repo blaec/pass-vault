@@ -43,6 +43,7 @@ const NewPassword = (props) => {
     const {strength, isStrengthLoaded} = useSelector(state => state.passgen.strength);
     const [isGeneratorOpen, setIsGeneratorOpen] = React.useState(false);
     const [isTitleValid, setIsTitleValid] = React.useState(false);
+    const [isUserValid, setIsUserValid] = React.useState(false);
 
     const handleGeneratePassword = () => {
         setIsGeneratorOpen(true);
@@ -52,6 +53,9 @@ const NewPassword = (props) => {
     };
     const handleValidTitle = (isValid) => {
         setIsTitleValid(isValid);
+    };
+    const handleValidUser = (isValid) => {
+        setIsUserValid(isValid);
     };
 
     let passwordInput = {
@@ -117,6 +121,7 @@ const NewPassword = (props) => {
             style={elementStyle}
             value={passwordInput.userValue}
             elemRef={userRef}
+            onValid={(isValid) => {handleValidUser(isValid)}}
         />
     );
     const passwordElement = (
@@ -196,7 +201,8 @@ const NewPassword = (props) => {
             {ageElement}
         </CardContent>
     );
-
+    const canSubmit = isUserValid
+        && isTitleValid;
 
     return (
         <Grid container justifyContent="center">
@@ -205,7 +211,7 @@ const NewPassword = (props) => {
                 actionName={passwordInput.actionName}
                 action={passwordInput.actionHandler}
                 cardContent={cardContent}
-                canSubmit={isTitleValid}
+                canSubmit={canSubmit}
                 onCancel={onCancel}
             />
             <PasswordGenerator isOpen={isGeneratorOpen} setIsOpen={handleGeneratorOpen}/>
