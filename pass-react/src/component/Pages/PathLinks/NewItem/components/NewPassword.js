@@ -45,6 +45,7 @@ const NewPassword = (props) => {
     const [isTitleValid, setIsTitleValid] = React.useState(false);
     const [isUserValid, setIsUserValid] = React.useState(false);
     const [isPasswordValid, setIsPasswordValid] = React.useState(false);
+    const [isFolderValid, setIsFolderValid] = React.useState(false);
 
     const handleGeneratePassword = () => {
         setIsGeneratorOpen(true);
@@ -60,6 +61,9 @@ const NewPassword = (props) => {
     };
     const handleValidPassword = (isValid) => {
         setIsPasswordValid(isValid);
+    };
+    const handleValidFolder = (isValid) => {
+        setIsFolderValid(isValid);
     };
 
     let passwordInput = {
@@ -168,6 +172,7 @@ const NewPassword = (props) => {
         <FolderElement
             value={selectedFolderId || passwordInput.folderValue}
             onChange={onFolderChange}
+            onValid={handleValidFolder}
         />
     );
 
@@ -208,7 +213,8 @@ const NewPassword = (props) => {
     );
     const canSubmit = isUserValid
         && isTitleValid
-        && isPasswordValid;
+        && isPasswordValid
+        && isFolderValid;
 
 
     return (

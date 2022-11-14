@@ -25,9 +25,13 @@ const NewSecureNote = (props) => {
         onCancel
     } = props;
     const [isTitleValid, setIsTitleValid] = React.useState(false);
+    const [isFolderValid, setIsFolderValid] = React.useState(false);
 
     const handleValidTitle = (isValid) => {
         setIsTitleValid(isValid);
+    };
+    const handleValidFolder = (isValid) => {
+        setIsFolderValid(isValid);
     };
 
     let secureNoteInput = {
@@ -91,6 +95,7 @@ const NewSecureNote = (props) => {
             style={elementStyle}
             value={selectedFolderId || secureNoteInput.folderValue}
             onChange={onFolderChange}
+            onValid={handleValidFolder}
         />
     );
     const cardContent = (
@@ -101,7 +106,8 @@ const NewSecureNote = (props) => {
             {creationDateElement}
         </CardContent>
     );
-    const canSubmit = isTitleValid;
+    const canSubmit = isTitleValid
+        && isFolderValid;
 
 
     return (

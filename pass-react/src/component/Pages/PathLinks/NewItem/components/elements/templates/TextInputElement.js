@@ -20,6 +20,12 @@ const TextInputElement = (props) => {
     } = props;
     const maxLength = limit ? limit : 100;
 
+    const handleChange = event => {
+        if (onChangeTextField) {
+            return onChangeTextField(event.target.value);
+        }
+    };
+
 
     return (
         <TextField
@@ -36,7 +42,7 @@ const TextInputElement = (props) => {
             multiline={multiline}
             rows={4}
             inputProps={{maxLength: maxLength}}
-            onChange={event => onChangeTextField(event.target.value)}
+            onChange={handleChange}
             onBlur={onInputTouch}
         />
     );

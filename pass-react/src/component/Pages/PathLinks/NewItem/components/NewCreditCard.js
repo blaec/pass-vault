@@ -39,12 +39,16 @@ const NewCreditCard = (props) => {
     } = props;
     const [isTitleValid, setIsTitleValid] = React.useState(false);
     const [isCardNumberValid, setIsCardNumberValid] = React.useState(false);
+    const [isFolderValid, setIsFolderValid] = React.useState(false);
 
     const handleValidTitle = (isValid) => {
         setIsTitleValid(isValid);
     };
     const handleValidCardNumber = (isValid) => {
         setIsCardNumberValid(isValid);
+    };
+    const handleValidFolder = (isValid) => {
+        setIsFolderValid(isValid);
     };
 
     let creditCardInput = {
@@ -165,6 +169,7 @@ const NewCreditCard = (props) => {
         <FolderElement
             value={selectedFolderId || creditCardInput.folderValue}
             onChange={onFolderChange}
+            onValid={handleValidFolder}
         />
     );
 
@@ -188,7 +193,8 @@ const NewCreditCard = (props) => {
         </CardContent>
     );
     const canSubmit = isTitleValid
-        && isCardNumberValid;
+        && isCardNumberValid
+        && isFolderValid;
 
 
     return (
