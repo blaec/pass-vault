@@ -13,7 +13,12 @@ const validateValue = (text) => isStringExist(text);
 const PasswordElement = (props) => {
     const {style, value, elemRef, onValid} = props;
     const [typedPassword, setTypedPassword] = React.useState('');
-    const {passgen, isPassgenLoaded, canInsertPassword, isPassgenInserted} = useSelector(state => state.passgen.passgen);
+    const {
+        passgen,
+        isPassgenLoaded,
+        canInsertPassword,
+        isPassgenInserted
+    } = useSelector(state => state.passgen.passgen);
 
     const dispatch = useDispatch();
 
@@ -25,10 +30,6 @@ const PasswordElement = (props) => {
         hasError
     } = useInput(value, elemRef, validateValue);
 
-    useEffect(() => {
-        onValid(isValid);
-    }, [isValid]);
-
     const isInsertPassgen = canInsertPassword
         && isPassgenLoaded
         && elemRef?.current;
@@ -39,6 +40,7 @@ const PasswordElement = (props) => {
     const handleOnChange = () => {
         setTypedPassword(elemRef?.current?.value);
     };
+
     useEffect(() => {
         const identifier = setTimeout(() => {
             dispatch(fetchPasswordStrength(elemRef?.current?.value));
@@ -48,9 +50,12 @@ const PasswordElement = (props) => {
     }, [typedPassword]);
     useEffect(() => {
         if (isInsertPassgen) {
-            dispatch(passgenActions.setPassenInserted());
+            dispatch(passgenActions.setPassgenInserted());
         }
     }, [isInsertPassgen]);
+    useEffect(() => {
+        onValid(isValid);
+    }, [isValid]);
 
 
     return (

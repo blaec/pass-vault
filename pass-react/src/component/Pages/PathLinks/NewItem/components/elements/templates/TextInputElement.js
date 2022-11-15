@@ -18,17 +18,13 @@ const TextInputElement = (props) => {
         onChangeTextField,
         onInputTouch
     } = props;
-    const maxLength = limit ? limit : 100;
-
-    const handleChange = event => {
-        if (onChangeTextField) {
-            return onChangeTextField(event.target.value);
-        }
-    };
 
 
     return (
         <TextField
+            fullWidth
+            rows={4}
+            variant="filled"
             sx={style}
             error={hasError}
             defaultValue={value}
@@ -37,12 +33,9 @@ const TextInputElement = (props) => {
             label={label}
             type={type}
             required={isRequired}
-            fullWidth
-            variant="filled"
             multiline={multiline}
-            rows={4}
-            inputProps={{maxLength: maxLength}}
-            onChange={handleChange}
+            inputProps={{maxLength: limit || 100}}
+            onChange={event => onChangeTextField?.(event.target.value)}
             onBlur={onInputTouch}
         />
     );

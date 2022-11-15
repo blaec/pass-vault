@@ -2,15 +2,13 @@ import React, {useEffect} from 'react';
 import {useSelector} from "react-redux";
 
 import {isArrayExist, isStringExist} from "../../../../../../utils/Utils";
-
-import {FormControl, InputLabel, MenuItem, Select} from "@mui/material";
 import useSelect from "../../../../../../hooks/use-select";
 
-const validateValue = (text) => {
-    const value = `${text}`;
-    return isStringExist(value)
-        && Number.isInteger(+text);
-};
+import {FormControl, InputLabel, MenuItem, Select} from "@mui/material";
+
+const validateValue = (text) =>
+    isStringExist(`${text}`)
+    && Number.isInteger(+text);
 
 
 const FolderElement = (props) => {
