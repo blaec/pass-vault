@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Route, Routes} from "react-router-dom";
+import {Navigate, Route, Routes} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {useLocation} from "react-router";
 
@@ -48,7 +48,7 @@ function App() {
         reusedPassword,
         oldPassword,
     } = reactLinks;
-    const { pathname } = useLocation();
+    const {pathname} = useLocation();
 
     const dispatch = useDispatch();
 
@@ -96,6 +96,8 @@ function App() {
                 <Route path={weakPassword} exact element={<WeakPasswords/>}/>
                 <Route path={reusedPassword} exact element={<ReusedPasswords/>}/>
                 <Route path={oldPassword} exact element={<OldPasswords/>}/>
+
+                <Route path="*" element={<Navigate replace to={home}/>}/>
             </Routes>
         </Layout>
     );
