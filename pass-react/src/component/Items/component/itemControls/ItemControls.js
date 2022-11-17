@@ -35,10 +35,6 @@ const ItemControls = (props) => {
         onEdit();
     };
 
-    const handleMoveToFolder = () => {
-        alert("move to folder");
-    };
-
     const handlePrepareMoveToDelete = () => {
         setDialog({...dialog, isOpen: true});
     };
@@ -68,7 +64,6 @@ const ItemControls = (props) => {
         : (
             <ActiveItemControls
                 onEdit={handleEdit}
-                onMoveToFolder={handleMoveToFolder}
                 onMoveToTrash={handleMoveToTrash}
             />
         );
