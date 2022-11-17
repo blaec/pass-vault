@@ -18,11 +18,15 @@ export const convertToPassword = (string) => {
 };
 
 export const copyToClipboard = (text) => {
-    navigator.clipboard.writeText(text).then(() => {
-        console.log('Async: Copying to clipboard was successful!');
-    }, (err) => {
-        console.error('Async: Could not copy text: ', err);
-    });
+    if (window.isSecureContext && navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(() => {
+            console.log('Async: Copying to clipboard was successful!');
+        }, (err) => {
+            console.error('Async: Could not copy text: ', err);
+        });
+    } else {
+        alert("Copy is not supported, copy text manually.");
+    }
 };
 
 /**
