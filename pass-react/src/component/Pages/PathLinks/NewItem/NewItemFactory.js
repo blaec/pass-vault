@@ -47,8 +47,8 @@ const NewItemFactory = (props) => {
         }
     }, [editableItem]);
 
-    const handleFolderChange = (id) => {
-        setSelectedFolderId(id);
+    const handleFolderChange = (event) => {
+        setSelectedFolderId(event.target.value);
     };
 
     const handleSaveItem = (item, redirectLink) => {

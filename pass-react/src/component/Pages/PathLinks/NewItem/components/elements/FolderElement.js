@@ -30,9 +30,6 @@ const FolderElement = (props) => {
     }
     const menuItems = folderItems.map(fi => <MenuItem key={fi.id} value={fi.id}>{fi.name}</MenuItem>)
 
-    const handleChange = (event) => {
-        onChange(event.target.value);
-    };
     useEffect(() => {
         onValid(isValid);
     }, [isValid]);
@@ -48,7 +45,7 @@ const FolderElement = (props) => {
             <Select
                 error={hasError}
                 value={value}
-                onChange={handleChange}
+                onChange={onChange}
                 onBlur={handleFieldTouch}
             >
                 {menuItems}
