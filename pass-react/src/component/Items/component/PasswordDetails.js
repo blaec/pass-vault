@@ -84,6 +84,7 @@ const PasswordDetails = (props) => {
             itemDetails={passwordDetails}
             showDetails={showDetails}
             type={type}
+            icon={selectedPassword.website}
             onEdit={onEdit}
             onClose={onClose}
         />

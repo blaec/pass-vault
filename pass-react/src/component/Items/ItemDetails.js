@@ -5,7 +5,7 @@ import ItemControls from "./component/itemControls/ItemControls";
 
 import {styled} from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import {Drawer, Table, TableContainer} from "@mui/material";
+import {Avatar, Drawer, Table, TableContainer} from "@mui/material";
 import Paper from "@mui/material/Paper";
 import TableBody from "@mui/material/TableBody";
 import TableFooter from "@mui/material/TableFooter";
@@ -21,10 +21,15 @@ const _RootBox = styled(Box)(({theme}) => ({
         width: Math.min(window.innerWidth - drawer.width, passwordSideBar.maxWidth),
     },
 }));
+const _inline = {
+    display: 'flex',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+};
 
 
 const ItemDetails = (props) => {
-    const {itemId, itemTitle, itemDetails, showDetails, type, onEdit, onClose} = props;
+    const {itemId, itemTitle, itemDetails, showDetails, type, icon, onEdit, onClose} = props;
 
     const details = (
         <TableContainer component={Paper}>
@@ -37,6 +42,17 @@ const ItemDetails = (props) => {
             </Table>
         </TableContainer>
     );
+
+    let avatar = null
+    if (icon) {
+        avatar = <Box sx={{ml:2}}>
+            <Avatar
+                alt={`${icon}/favicon.ico`}
+                src={`${icon}/favicon.ico`}
+                variant="rounded"
+            />
+        </Box>;
+    }
 
 
     return (
@@ -54,11 +70,12 @@ const ItemDetails = (props) => {
             />
             <_RootBox>
                 <Typography
+                    sx={_inline}
                     color="primary"
                     variant="h3"
-                    align="center"
                 >
-                    {itemTitle}
+                    {avatar}
+                    <Box sx={{ml: 1}}>{itemTitle}</Box>
                 </Typography>
                 {details}
             </_RootBox>
