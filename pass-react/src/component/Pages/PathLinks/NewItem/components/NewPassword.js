@@ -222,9 +222,9 @@ const NewPassword = (props) => {
             <NewItem
                 item={passwordItem}
                 actionName={passwordInput.actionName}
-                action={passwordInput.actionHandler}
                 cardContent={cardContent}
                 canSubmit={canSubmit}
+                onAction={passwordInput.actionHandler}
                 onCancel={onCancel}
             />
             <PasswordGenerator isOpen={isGeneratorOpen} setIsOpen={handleGeneratorOpen}/>

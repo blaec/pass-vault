@@ -115,9 +115,9 @@ const NewSecureNote = (props) => {
             <NewItem
                 item={secureNoteItem}
                 actionName={secureNoteInput.actionName}
-                action={secureNoteInput.actionHandler}
                 cardContent={cardContent}
                 onCancel={onCancel}
+                onAction={secureNoteInput.actionHandler}
                 canSubmit={canSubmit}
             />
         </Grid>

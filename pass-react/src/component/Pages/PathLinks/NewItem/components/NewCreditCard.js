@@ -202,9 +202,9 @@ const NewCreditCard = (props) => {
             <NewItem
                 item={creditCardItem}
                 actionName={creditCardInput.actionName}
-                action={creditCardInput.actionHandler}
                 cardContent={cardContent}
                 onCancel={onCancel}
+                onAction={creditCardInput.actionHandler}
                 canSubmit={canSubmit}
             />
         </Grid>
