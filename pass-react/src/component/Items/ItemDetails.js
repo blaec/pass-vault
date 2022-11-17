@@ -25,6 +25,7 @@ const _inline = {
     display: 'flex',
     alignItems: 'center',
     flexWrap: 'wrap',
+    fontFamily: 'Just Another Hand'
 };
 
 
