@@ -12,7 +12,7 @@ const AgeElement = (props) => {
             style={style}
             value={value}
             elemRef={elemRef}
-            label={"Recommended Age"}
+            label="Recommended Age"
             type={"text"}
         />
     );

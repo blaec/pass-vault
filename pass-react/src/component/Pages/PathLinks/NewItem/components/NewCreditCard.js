@@ -10,7 +10,7 @@ import NewItem from "../NewItem";
 import CardholderNameElement from "./elements/CardholderNameElement";
 import CardNumberElement from "./elements/CardNumberElement";
 import ExpirationDateElement from "./elements/ExpirationDateElement";
-import SecretElement from "./elements/SecretElement";
+import SecretElement from "./elements/templates/SecretElement";
 
 import {CardContent, Grid} from "@mui/material";
 import Box from "@mui/material/Box";
@@ -37,6 +37,19 @@ const NewCreditCard = (props) => {
         onUpdate,
         onCancel
     } = props;
+    const [isTitleValid, setIsTitleValid] = React.useState(false);
+    const [isCardNumberValid, setIsCardNumberValid] = React.useState(false);
+    const [isFolderValid, setIsFolderValid] = React.useState(false);
+
+    const handleValidTitle = (isValid) => {
+        setIsTitleValid(isValid);
+    };
+    const handleValidCardNumber = (isValid) => {
+        setIsCardNumberValid(isValid);
+    };
+    const handleValidFolder = (isValid) => {
+        setIsFolderValid(isValid);
+    };
 
     let creditCardInput = {
         titleValue: "",
@@ -97,6 +110,7 @@ const NewCreditCard = (props) => {
         <TitleElement
             value={creditCardInput.titleValue}
             elemRef={titleRef}
+            onValid={(isValid) => {handleValidTitle(isValid)}}
         />
     );
     const cardholderNameElement = (
@@ -111,6 +125,7 @@ const NewCreditCard = (props) => {
             style={elementStyle}
             value={creditCardInput.cardNumberValue}
             elemRef={cardNumberRef}
+            onValid={(isValid) => {handleValidCardNumber(isValid)}}
         />
     );
     const expirationDateElement = (
@@ -154,6 +169,7 @@ const NewCreditCard = (props) => {
         <FolderElement
             value={selectedFolderId || creditCardInput.folderValue}
             onChange={onFolderChange}
+            onValid={handleValidFolder}
         />
     );
 
@@ -176,15 +192,20 @@ const NewCreditCard = (props) => {
             {creationDateElement}
         </CardContent>
     );
+    const canSubmit = isTitleValid
+        && isCardNumberValid
+        && isFolderValid;
+
 
     return (
         <Grid container justifyContent="center">
             <NewItem
                 item={creditCardItem}
                 actionName={creditCardInput.actionName}
-                action={creditCardInput.actionHandler}
                 cardContent={cardContent}
                 onCancel={onCancel}
+                onAction={creditCardInput.actionHandler}
+                canSubmit={canSubmit}
             />
         </Grid>
     );};

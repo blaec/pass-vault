@@ -20,7 +20,7 @@ const ExpirationDateElement = (props) => {
             <Stack sx={style}>
                 <DesktopDatePicker
                     views={['month', 'year']}
-                    label="Creation date"
+                    label="Expiration date"
                     inputFormat="MM/YY"
                     value={currentValue}
                     renderInput={(params) => <TextField {...params} />}

@@ -12,7 +12,7 @@ const WebsiteElement = (props) => {
             style={style}
             value={value}
             elemRef={elemRef}
-            label={"Website"}
+            label="Website"
             type={"text"}
         />
     );

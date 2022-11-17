@@ -42,14 +42,29 @@ const NewPassword = (props) => {
     } = props;
     const {strength, isStrengthLoaded} = useSelector(state => state.passgen.strength);
     const [isGeneratorOpen, setIsGeneratorOpen] = React.useState(false);
-
+    const [isTitleValid, setIsTitleValid] = React.useState(false);
+    const [isUserValid, setIsUserValid] = React.useState(false);
+    const [isPasswordValid, setIsPasswordValid] = React.useState(false);
+    const [isFolderValid, setIsFolderValid] = React.useState(false);
 
     const handleGeneratePassword = () => {
         setIsGeneratorOpen(true);
     };
     const handleGeneratorOpen = (value) => {
         setIsGeneratorOpen(value);
-    }
+    };
+    const handleValidTitle = (isValid) => {
+        setIsTitleValid(isValid);
+    };
+    const handleValidUser = (isValid) => {
+        setIsUserValid(isValid);
+    };
+    const handleValidPassword = (isValid) => {
+        setIsPasswordValid(isValid);
+    };
+    const handleValidFolder = (isValid) => {
+        setIsFolderValid(isValid);
+    };
 
     let passwordInput = {
         titleValue: "",
@@ -106,6 +121,7 @@ const NewPassword = (props) => {
         <TitleElement
             value={passwordInput.titleValue}
             elemRef={titleRef}
+            onValid={(isValid) => {handleValidTitle(isValid)}}
         />
     );
     const userElement = (
@@ -113,6 +129,7 @@ const NewPassword = (props) => {
             style={elementStyle}
             value={passwordInput.userValue}
             elemRef={userRef}
+            onValid={(isValid) => {handleValidUser(isValid)}}
         />
     );
     const passwordElement = (
@@ -120,6 +137,7 @@ const NewPassword = (props) => {
             style={elementStyle}
             value={passwordInput.passwordValue}
             elemRef={passwordRef}
+            onValid={(isValid) => {handleValidPassword(isValid)}}
         />
     );
     const websiteElement = (
@@ -154,6 +172,7 @@ const NewPassword = (props) => {
         <FolderElement
             value={selectedFolderId || passwordInput.folderValue}
             onChange={onFolderChange}
+            onValid={handleValidFolder}
         />
     );
 
@@ -192,14 +211,20 @@ const NewPassword = (props) => {
             {ageElement}
         </CardContent>
     );
+    const canSubmit = isUserValid
+        && isTitleValid
+        && isPasswordValid
+        && isFolderValid;
+
 
     return (
         <Grid container justifyContent="center">
             <NewItem
                 item={passwordItem}
                 actionName={passwordInput.actionName}
-                action={passwordInput.actionHandler}
                 cardContent={cardContent}
+                canSubmit={canSubmit}
+                onAction={passwordInput.actionHandler}
                 onCancel={onCancel}
             />
             <PasswordGenerator isOpen={isGeneratorOpen} setIsOpen={handleGeneratorOpen}/>

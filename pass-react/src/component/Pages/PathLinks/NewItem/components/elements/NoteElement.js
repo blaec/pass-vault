@@ -12,7 +12,7 @@ const NoteElement = (props) => {
             style={style}
             value={value}
             elemRef={elemRef}
-            label={"Note"}
+            label="Note"
             multiline={true}
             limit={300}
         />

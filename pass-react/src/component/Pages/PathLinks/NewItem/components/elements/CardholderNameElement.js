@@ -12,7 +12,7 @@ const CardholderNameElement = (props) => {
             style={style}
             value={value}
             elemRef={elemRef}
-            label={"Cardholder Name"}
+            label="Cardholder Name"
             type={"text"}
         />
     );

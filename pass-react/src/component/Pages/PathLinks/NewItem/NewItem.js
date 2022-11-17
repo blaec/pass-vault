@@ -15,7 +15,7 @@ const _root = {
 
 
 const NewItem = (props) => {
-    const{item, actionName, action, onCancel, cardContent} = props;
+    const{item, actionName, onAction, onCancel, cardContent, canSubmit} = props;
     let redirect = initialLocation.get();
 
     return (
@@ -39,10 +39,11 @@ const NewItem = (props) => {
                             />
                             <MySubmitButton
                                 caption={actionName}
+                                disabled={!canSubmit}
                                 icon={<AddCircleTwoToneIcon/>}
                                 type="success"
                                 fill="filled"
-                                onSubmit={() => action(item, redirect)}
+                                onSubmit={() => onAction(item, redirect)}
                             />
                         </Stack>
                     </Grid>

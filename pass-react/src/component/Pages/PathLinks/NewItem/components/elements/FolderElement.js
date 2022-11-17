@@ -1,14 +1,26 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useSelector} from "react-redux";
 
-import {isArrayExist} from "../../../../../../utils/Utils";
+import {isArrayExist, isStringExist} from "../../../../../../utils/Utils";
+import useSelect from "../../../../../../hooks/use-select";
 
 import {FormControl, InputLabel, MenuItem, Select} from "@mui/material";
 
+const validateValue = (text) =>
+    isStringExist(`${text}`)
+    && Number.isInteger(+text);
+
 
 const FolderElement = (props) => {
-    const {style, value, onChange} = props;
+    const {style, value, onChange, onValid} = props;
     const {folders, isFoldersLoaded} = useSelector(state => state.folder.folders);
+
+    const {
+        handleFieldTouch,
+        isValid,
+        hasError
+    } = useSelect(value, validateValue);
+
 
     let label = "Create folders";
     let folderItems = [];
@@ -18,16 +30,23 @@ const FolderElement = (props) => {
     }
     const menuItems = folderItems.map(fi => <MenuItem key={fi.id} value={fi.id}>{fi.name}</MenuItem>)
 
+    useEffect(() => {
+        onValid(isValid);
+    }, [isValid]);
+
 
     return (
         <FormControl
             sx={style}
             fullWidth
+            required={true}
         >
             <InputLabel>{label}</InputLabel>
             <Select
+                error={hasError}
                 value={value}
                 onChange={onChange}
+                onBlur={handleFieldTouch}
             >
                 {menuItems}
             </Select>

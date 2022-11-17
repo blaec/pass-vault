@@ -2,42 +2,74 @@ import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 
 import {fetchPasswordStrength} from "../../../../../../store/state/passgen/passgen-actions";
-import SecretElement from "./SecretElement";
+import SecretElement from "./templates/SecretElement";
+import {passgenActions} from "../../../../../../store/state/passgen/passgen-slice";
+import {isStringExist} from "../../../../../../utils/Utils";
+import useInput from "../../../../../../hooks/use-input";
+
+const validateValue = (text) => isStringExist(text);
 
 
 const PasswordElement = (props) => {
-    const {style, value, elemRef} = props;
+    const {style, value, elemRef, onValid} = props;
     const [typedPassword, setTypedPassword] = React.useState('');
-    const {passgen, isPassgenLoaded, isInsertPassword} = useSelector(state => state.passgen.passgen);
+    const {
+        passgen,
+        isPassgenLoaded,
+        canInsertPassword,
+        isPassgenInserted
+    } = useSelector(state => state.passgen.passgen);
 
     const dispatch = useDispatch();
 
-    let isFocused = false;
-    if (isInsertPassword && isPassgenLoaded && elemRef?.current) {
+    const {
+        value: password,
+        handleFieldTouch,
+        handleTextFieldChange,
+        isValid,
+        hasError
+    } = useInput(value, elemRef, validateValue);
+
+    const isInsertPassgen = canInsertPassword
+        && isPassgenLoaded
+        && elemRef?.current;
+    if (isInsertPassgen) {
         elemRef.current.value = passgen;
-        isFocused = true;
     }
 
     const handleOnChange = () => {
         setTypedPassword(elemRef?.current?.value);
     };
+
     useEffect(() => {
         const identifier = setTimeout(() => {
             dispatch(fetchPasswordStrength(elemRef?.current?.value));
         }, 500);
 
         return () => clearTimeout(identifier)
-    }, [typedPassword])
+    }, [typedPassword]);
+    useEffect(() => {
+        if (isInsertPassgen) {
+            dispatch(passgenActions.setPassgenInserted());
+        }
+    }, [isInsertPassgen]);
+    useEffect(() => {
+        onValid(isValid);
+    }, [isValid]);
 
 
     return (
         <SecretElement
             style={style}
-            label={"Password"}
-            value={value}
-            isFocused={isFocused}
+            hasError={hasError}
+            label="Password"
+            value={password}
+            isFocused={isPassgenInserted}
+            isRequired={true}
             elemRef={elemRef}
             onChange={handleOnChange}
+            onChangeTextField={handleTextFieldChange}
+            onInputTouch={handleFieldTouch}
         />
     );
 };

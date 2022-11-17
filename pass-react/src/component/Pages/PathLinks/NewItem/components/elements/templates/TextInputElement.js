@@ -4,22 +4,39 @@ import TextField from "@mui/material/TextField";
 
 
 const TextInputElement = (props) => {
-    const {style, value, elemRef, limit, autofocus, label, type, multiline} = props;
-    const maxLength = limit ? limit : 100;
+    const {
+        style,
+        value,
+        elemRef,
+        limit,
+        autofocus,
+        label,
+        type,
+        isRequired,
+        hasError,
+        multiline,
+        onChangeTextField,
+        onInputTouch
+    } = props;
+
 
     return (
         <TextField
+            fullWidth
+            rows={4}
+            variant="filled"
             sx={style}
+            error={hasError}
             defaultValue={value}
             inputRef={elemRef}
             autoFocus={autofocus}
             label={label}
             type={type}
-            fullWidth
-            variant="filled"
+            required={isRequired}
             multiline={multiline}
-            rows={4}
-            inputProps={{ maxLength: maxLength }}
+            inputProps={{maxLength: limit || 100}}
+            onChange={event => onChangeTextField?.(event.target.value)}
+            onBlur={onInputTouch}
         />
     );
 };
