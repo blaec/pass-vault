@@ -16,9 +16,7 @@ const FolderElement = (props) => {
     const {folders, isFoldersLoaded} = useSelector(state => state.folder.folders);
 
     const {
-        value: folderId,
         handleFieldTouch,
-        handleSelectChange,
         isValid,
         hasError
     } = useSelect(value, validateValue);
@@ -34,7 +32,6 @@ const FolderElement = (props) => {
 
     const handleChange = (event) => {
         onChange(event.target.value);
-        handleSelectChange(event.target.value);
     };
     useEffect(() => {
         onValid(isValid);
@@ -50,7 +47,7 @@ const FolderElement = (props) => {
             <InputLabel>{label}</InputLabel>
             <Select
                 error={hasError}
-                value={folderId}
+                value={value}
                 onChange={handleChange}
                 onBlur={handleFieldTouch}
             >
