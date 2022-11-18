@@ -5,7 +5,7 @@ import ItemControls from "./component/itemControls/ItemControls";
 
 import {styled} from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import {Avatar, Drawer, Table, TableContainer} from "@mui/material";
+import {Drawer, Table, TableContainer} from "@mui/material";
 import Paper from "@mui/material/Paper";
 import TableBody from "@mui/material/TableBody";
 import TableFooter from "@mui/material/TableFooter";
@@ -27,6 +27,14 @@ const _inline = {
     flexWrap: 'wrap',
     fontFamily: 'Just Another Hand'
 };
+const _avatar = {ml: 2};
+let _title = {ml: 1};
+const _faviconPaper = {
+    height: 45,
+    width: 45,
+    textAlign: 'center'
+};
+const faviconSize = 35;
 
 
 const ItemDetails = (props) => {
@@ -44,36 +52,27 @@ const ItemDetails = (props) => {
         </TableContainer>
     );
 
-    const handleBrokenImage = e => (e.target.src = `https://s2.googleusercontent.com/s2/favicons?domain_url=${icon}&size=64`);
-
     let avatar = null
     if (icon) {
-        avatar = <Box sx={{ml: 2}}>
-            <Paper
-                // elevation={3}
-                square={true}
-                sx={{height: 45, width: 45, textAlign: 'center'}}
-                // className={imageSize}
-                // style={{backgroundImage: `url("${errImage}")`}}
-            >
-                <img
-                    src={`${icon}/favicon.ico`}
-                    onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.src = `https://s2.googleusercontent.com/s2/favicons?domain_url=${icon}&size=64`
-                    }}
-                    alt={`${icon}`}
-                    width={30}
-                    height={30}
-                />
-            </Paper>
-            {/*<Avatar*/}
-            {/*    alt={`${icon}`}*/}
-            {/*    src={`${icon}/favicon.ico`}*/}
-            {/*    imgProps={{onError: e => (e.target.src = `https://s2.googleusercontent.com/s2/favicons?domain_url=${icon}&size=64`)}}*/}
-            {/*    variant="rounded"*/}
-            {/*/>*/}
-        </Box>;
+        avatar = (
+            <Box sx={_avatar}>
+                <Paper
+                    elevation={1}
+                    sx={_faviconPaper}
+                >
+                    <img
+                        src={`https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${icon}&size=64`}
+                        onError={(e) => {
+                            e.target.onerror = null;
+                            e.target.src = `${icon}/favicon.ico`
+                        }}
+                        alt={`${icon}`}
+                        width={faviconSize}
+                        height={faviconSize}
+                    />
+                </Paper>
+            </Box>
+        );
     }
 
 
@@ -97,7 +96,9 @@ const ItemDetails = (props) => {
                     variant="h3"
                 >
                     {avatar}
-                    <Box sx={{ml: 1}}>{itemTitle}</Box>
+                    <Box sx={_title}>
+                        {itemTitle}
+                    </Box>
                 </Typography>
                 {details}
             </_RootBox>
