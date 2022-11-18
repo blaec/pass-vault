@@ -27,9 +27,9 @@ const _inline = {
     flexWrap: 'wrap',
     fontFamily: 'Just Another Hand'
 };
-const _avatar = {ml: 2};
 let _title = {ml: 1};
 const _faviconPaper = {
+    ml: 2,
     height: 45,
     width: 45,
     textAlign: 'center'
@@ -55,23 +55,21 @@ const ItemDetails = (props) => {
     let avatar = null
     if (icon) {
         avatar = (
-            <Box sx={_avatar}>
-                <Paper
-                    elevation={1}
-                    sx={_faviconPaper}
-                >
-                    <img
-                        src={`https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${icon}&size=64`}
-                        onError={(e) => {
-                            e.target.onerror = null;
-                            e.target.src = `${icon}/favicon.ico`
-                        }}
-                        alt={`${icon}`}
-                        width={faviconSize}
-                        height={faviconSize}
-                    />
-                </Paper>
-            </Box>
+            <Paper
+                elevation={1}
+                sx={_faviconPaper}
+            >
+                <img
+                    src={`https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${icon}&size=64`}
+                    onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = `${icon}/favicon.ico`
+                    }}
+                    alt={`${icon}`}
+                    width={faviconSize}
+                    height={faviconSize}
+                />
+            </Paper>
         );
     }
 
