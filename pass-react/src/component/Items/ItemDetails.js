@@ -44,14 +44,35 @@ const ItemDetails = (props) => {
         </TableContainer>
     );
 
+    const handleBrokenImage = e => (e.target.src = `https://s2.googleusercontent.com/s2/favicons?domain_url=${icon}&size=64`);
+
     let avatar = null
     if (icon) {
-        avatar = <Box sx={{ml:2}}>
-            <Avatar
-                alt={`${icon}/favicon.ico`}
-                src={`${icon}/favicon.ico`}
-                variant="rounded"
-            />
+        avatar = <Box sx={{ml: 2}}>
+            <Paper
+                // elevation={3}
+                square={true}
+                sx={{height: 45, width: 45, textAlign: 'center'}}
+                // className={imageSize}
+                // style={{backgroundImage: `url("${errImage}")`}}
+            >
+                <img
+                    src={`${icon}/favicon.ico`}
+                    onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = `https://s2.googleusercontent.com/s2/favicons?domain_url=${icon}&size=64`
+                    }}
+                    alt={`${icon}`}
+                    width={30}
+                    height={30}
+                />
+            </Paper>
+            {/*<Avatar*/}
+            {/*    alt={`${icon}`}*/}
+            {/*    src={`${icon}/favicon.ico`}*/}
+            {/*    imgProps={{onError: e => (e.target.src = `https://s2.googleusercontent.com/s2/favicons?domain_url=${icon}&size=64`)}}*/}
+            {/*    variant="rounded"*/}
+            {/*/>*/}
         </Box>;
     }
 
