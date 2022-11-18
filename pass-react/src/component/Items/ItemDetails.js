@@ -5,7 +5,7 @@ import ItemControls from "./component/itemControls/ItemControls";
 
 import {styled} from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import {Drawer, Table, TableContainer} from "@mui/material";
+import {Avatar, Drawer, Table, TableContainer} from "@mui/material";
 import Paper from "@mui/material/Paper";
 import TableBody from "@mui/material/TableBody";
 import TableFooter from "@mui/material/TableFooter";
@@ -27,14 +27,8 @@ const _inline = {
     flexWrap: 'wrap',
     fontFamily: 'Just Another Hand'
 };
-let _title = {ml: 1};
-const _faviconPaper = {
-    ml: 2,
-    height: 45,
-    width: 45,
-    textAlign: 'center'
-};
-const faviconSize = 35;
+const _title = {ml: 1};
+const _avatar = {ml: 2};
 
 
 const ItemDetails = (props) => {
@@ -55,21 +49,13 @@ const ItemDetails = (props) => {
     let avatar = null
     if (icon) {
         avatar = (
-            <Paper
-                elevation={1}
-                sx={_faviconPaper}
-            >
-                <img
+            <Box sx={_avatar}>
+                <Avatar
+                    alt={`${icon}/favicon.ico`}
                     src={`https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${icon}&size=64`}
-                    onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.src = `${icon}/favicon.ico`
-                    }}
-                    alt={`${icon}`}
-                    width={faviconSize}
-                    height={faviconSize}
+                    variant="rounded"
                 />
-            </Paper>
+            </Box>
         );
     }
 
