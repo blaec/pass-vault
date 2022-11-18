@@ -46,7 +46,7 @@ const ItemDetails = (props) => {
         </TableContainer>
     );
 
-    let avatar = null
+    let avatar = null;
     if (icon) {
         avatar = (
             <Box sx={_avatar}>
