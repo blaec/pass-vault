@@ -6,6 +6,7 @@ import PasswordStrength from "../../Pages/Modals/PasswordGenerator/components/Pa
 import ItemDetails from "../ItemDetails";
 import SecretItemDataRow from "./SecretItemDataRow";
 import {getAge} from "../../../utils/Utils";
+import IconLaunch from "../../../UI/IconButtons/IconLaunch";
 
 import {CircularProgress} from "@mui/material";
 
@@ -42,6 +43,7 @@ const PasswordDetails = (props) => {
                 id={id}
                 description={"Website Address"}
                 value={website}
+                icon={<IconLaunch url={website}/>}
             />
             <ItemDataRow
                 id={id}
