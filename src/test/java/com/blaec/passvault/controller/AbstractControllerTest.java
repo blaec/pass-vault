@@ -1,20 +1,9 @@
 package com.blaec.passvault.controller;
 
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.TestMethodOrder;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import org.springframework.transaction.annotation.Transactional;
-
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 
 /**
  * Can't use application.yaml with test settings in resource folder -
@@ -26,23 +15,30 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 //        }
 //)
 
-@SpringBootTest
-@Transactional
-@AutoConfigureMockMvc
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+//@SpringBootTest
+//@Transactional
+//@AutoConfigureMockMvc
+//@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@ExtendWith({MockitoExtension.class})
+@MockitoSettings(strictness = Strictness.LENIENT)
 public class AbstractControllerTest {
 
-    @Autowired
-    protected MockMvc mockMvc;
-
-    protected ResultActions perform(MockHttpServletRequestBuilder builder) throws Exception {
-        return mockMvc.perform(builder);
+    protected String getExistingFolder(long id) {
+        return "{\"id\":\"" + id + "\", \"name\":\"test data\"}";
     }
 
-    protected ResultActions validate(ResultActions resultActions) throws Exception {
-        return resultActions
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
-    }
+
+//    @Autowired
+//    protected MockMvc mockMvc;
+//
+//    protected ResultActions perform(MockHttpServletRequestBuilder builder) throws Exception {
+//        return mockMvc.perform(builder);
+//    }
+//
+//    protected ResultActions validate(ResultActions resultActions) throws Exception {
+//        return resultActions
+//                .andExpect(status().isOk())
+//                .andDo(print())
+//                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
+//    }
 }
