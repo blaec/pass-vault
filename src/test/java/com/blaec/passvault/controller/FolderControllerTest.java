@@ -3,6 +3,8 @@ package com.blaec.passvault.controller;
 import com.blaec.passvault.model.Folder;
 import com.blaec.passvault.model.response.Response;
 import com.blaec.passvault.service.FolderService;
+import com.sun.istack.NotNull;
+import lombok.NonNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -60,32 +62,36 @@ public class FolderControllerTest extends AbstractControllerTest {
 
     @Test
     void givenExistingFolder_whenUpdate_thenIsUpdated() throws Exception {
-        String existingFolder = getFolder(1);
-        Mockito.when(folderService.update(any()))
-                .thenReturn(Response.Builder.create());
+        record FolderTo(@NotNull int id, @NonNull String name) {}
+        FolderTo folder = new FolderTo(1, "existingFolder");
+
+        Mockito.when(folderService.update(any(Folder.class)))
+                .thenReturn(Response.Builder.create().setSuccess("success"));
 
         mockMvc.perform(put(FolderController.URL + "/update")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .characterEncoding("UTF-8")
-                        .content(existingFolder)
+                        .content(gson.toJson(folder))
                 )
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.*").isNotEmpty())
-                .andExpect(jsonPath("$.success").value(true));
+                .andExpect(jsonPath("$.success").value(true))
+                .andExpect(jsonPath("$.message").value("success"));
     }
 
     @Test
     void givenFolderId_whenDelete_thenIsDeleted() throws Exception {
         Mockito.when(folderService.delete(anyInt()))
-                .thenReturn(Response.Builder.create());
+                .thenReturn(Response.Builder.create().setSuccess("success"));
 
         mockMvc.perform(delete(FolderController.URL + "/delete/" + 1))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.*").isNotEmpty())
-                .andExpect(jsonPath("$.success").value(true));
+                .andExpect(jsonPath("$.success").value(true))
+                .andExpect(jsonPath("$.message").value("success"));
     }
 
 

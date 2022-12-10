@@ -25,10 +25,6 @@ import org.mockito.quality.Strictness;
 public class AbstractControllerTest {
     protected Gson gson = new Gson();
 
-    protected String getFolder(long id) {
-        return "{\"id\":\"" + id + "\", \"name\":\"test data\"}";
-    }
-
 //    @Autowired
 //    protected MockMvc mockMvc;
 //

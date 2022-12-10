@@ -49,7 +49,7 @@ class PassGeneratorControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    void generatePassword() throws Exception {
+    void givenPasswordConfig_whenCreatePassword_thenReturnCreatedPassword() throws Exception {
         PasswordConfigTo passConfig = new PasswordConfigTo(8, true, true, true);
         GeneratedPasswordTo result = GeneratedPasswordTo.create(passConfig);
 
