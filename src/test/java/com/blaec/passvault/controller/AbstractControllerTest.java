@@ -1,5 +1,6 @@
 package com.blaec.passvault.controller;
 
+import com.google.gson.Gson;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
@@ -22,11 +23,11 @@ import org.mockito.quality.Strictness;
 @ExtendWith({MockitoExtension.class})
 @MockitoSettings(strictness = Strictness.LENIENT)
 public class AbstractControllerTest {
+    protected Gson gson = new Gson();
 
-    protected String getExistingFolder(long id) {
+    protected String getFolder(long id) {
         return "{\"id\":\"" + id + "\", \"name\":\"test data\"}";
     }
-
 
 //    @Autowired
 //    protected MockMvc mockMvc;

@@ -60,7 +60,7 @@ public class FolderControllerTest extends AbstractControllerTest {
 
     @Test
     void givenExistingFolder_whenUpdate_thenIsUpdated() throws Exception {
-        String existingFolder = getExistingFolder(1);
+        String existingFolder = getFolder(1);
         Mockito.when(folderService.update(any()))
                 .thenReturn(Response.Builder.create());
 
