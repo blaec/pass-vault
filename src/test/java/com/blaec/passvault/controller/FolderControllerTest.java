@@ -20,8 +20,7 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mockStatic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public class FolderControllerTest extends AbstractControllerTest {
     @InjectMocks FolderController folderController;
@@ -40,7 +39,8 @@ public class FolderControllerTest extends AbstractControllerTest {
     public void givenNone_whenGetAll_thenStatusIsOk() throws Exception {
         mockMvc.perform(get(FolderController.URL + "/get-all"))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(content().string("[]"));
     }
 
     @Test
