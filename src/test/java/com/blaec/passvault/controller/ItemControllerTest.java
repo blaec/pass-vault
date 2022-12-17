@@ -12,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -165,15 +166,72 @@ class ItemControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    void restore() throws Exception {
+    void givenPasswordId_whenRestore_thenRestoreFromTrash() throws Exception {
+        String id = "passwords-1";
+        ItemType itemType = ItemType.passwords;
+
+        doReturn(passwordService)
+                .when(itemController).serviceFactory(any(ItemType.class));
+        AbstractController abstractController = Mockito.mock(AbstractController.class, Mockito.CALLS_REAL_METHODS);
+        doReturn(1)
+                .when(abstractController).extractIdAndLogAction(itemType, id, "");
+        Response.Builder response = mock(Response.Builder.class, RETURNS_DEEP_STUBS);
+        doReturn(response)
+                .when(passwordService).restoreFromTrash(1);
+        doReturn(Response.Builder.create().build())
+                .when(response).build();
+
+        mockMvc.perform(put(ItemController.URL + "/restore/" + itemType + "/" + id))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.*").isNotEmpty())
+                .andExpect(jsonPath("$.success").value(true));
     }
 
     @Test
-    void moveToTrash() throws Exception {
+    void givenPasswordId_whenMoveToTrash_thenMoveToTrash() throws Exception {
+        String id = "passwords-1";
+        ItemType itemType = ItemType.passwords;
+
+        doReturn(passwordService)
+                .when(itemController).serviceFactory(any(ItemType.class));
+        AbstractController abstractController = Mockito.mock(AbstractController.class, Mockito.CALLS_REAL_METHODS);
+        doReturn(1)
+                .when(abstractController).extractIdAndLogAction(itemType, id, "");
+        Response.Builder response = mock(Response.Builder.class, RETURNS_DEEP_STUBS);
+        doReturn(response)
+                .when(passwordService).moveToTrash(1);
+        doReturn(Response.Builder.create().build())
+                .when(response).build();
+
+        mockMvc.perform(put(ItemController.URL + "/move-to-trash/" + itemType + "/" + id))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.*").isNotEmpty())
+                .andExpect(jsonPath("$.success").value(true));
     }
 
     @Test
-    void delete() throws Exception {
+    void givenPasswordId_whenDelete_thenDeleteFromTrash() throws Exception {
+        String id = "passwords-1";
+        ItemType itemType = ItemType.passwords;
+
+        doReturn(passwordService)
+                .when(itemController).serviceFactory(any(ItemType.class));
+        AbstractController abstractController = Mockito.mock(AbstractController.class, Mockito.CALLS_REAL_METHODS);
+        doReturn(1)
+                .when(abstractController).extractIdAndLogAction(itemType, id, "");
+        Response.Builder response = mock(Response.Builder.class, RETURNS_DEEP_STUBS);
+        doReturn(response)
+                .when(passwordService).delete(1);
+        doReturn(Response.Builder.create().build())
+                .when(response).build();
+
+        mockMvc.perform(delete(ItemController.URL + "/delete/" + itemType + "/" + id))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.*").isNotEmpty())
+                .andExpect(jsonPath("$.success").value(true));
     }
 
     @Test
