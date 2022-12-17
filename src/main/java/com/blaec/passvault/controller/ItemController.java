@@ -118,7 +118,7 @@ public class ItemController extends AbstractController {
     }
 
     @SuppressWarnings("unchecked")
-    private <T extends BaseItem> ItemService<T> serviceFactory(ItemType itemType) {
+    protected <T extends BaseItem> ItemService<T> serviceFactory(ItemType itemType) {
         if (itemType == ItemType.passwords) {
             return (ItemService<T>) passwordService;
         } else if (itemType == ItemType.secureNotes) {
