@@ -22,8 +22,7 @@ import java.util.Iterator;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -135,13 +134,34 @@ class ItemControllerTest extends AbstractControllerTest {
                         .content(gson.toJson(passwordTo))
                 )
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.*").isNotEmpty())
                 .andExpect(jsonPath("$.success").value(true));
     }
 
     @Test
-    void updateItem() throws Exception {
+    void givenPasswordTo_whenUpdateItem_thenCreateNew() throws Exception {
+        doReturn(passwordService)
+                .when(itemController).serviceFactory(any(ItemType.class));
+        Response.Builder response = mock(Response.Builder.class, RETURNS_DEEP_STUBS);
+        doReturn(response)
+                .when(passwordService).update(any(FullItemTo.class));
+        doReturn(Response.Builder.create().build())
+                .when(response).build();
+
+        record PasswordTo(String itemType, String user, String password, String website) { }
+        PasswordTo passwordTo = new PasswordTo("passwords", "user", "pass", "www.site.com");
+
+        mockMvc.perform(put(ItemController.URL + "/update/")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .characterEncoding("UTF-8")
+                        .content(gson.toJson(passwordTo))
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.*").isNotEmpty())
+                .andExpect(jsonPath("$.success").value(true));
     }
 
     @Test

@@ -12,6 +12,7 @@ import com.blaec.passvault.model.to.item.FullItemTo;
 import com.blaec.passvault.service.ItemService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -62,6 +63,7 @@ public class ItemController extends AbstractController {
     }
 
     @PostMapping("/create")
+    @ResponseStatus(HttpStatus.CREATED)
     public Response saveItem(@RequestBody FullItemTo to) {
         log.info("saving to {} | {}", to.getItemType(), to.getTitle());
         return serviceFactory(to.getItemType()).create(to).build();
