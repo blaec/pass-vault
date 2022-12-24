@@ -10,8 +10,10 @@ import com.blaec.passvault.model.response.Response;
 import com.blaec.passvault.model.to.item.BaseItemTo;
 import com.blaec.passvault.model.to.item.FullItemTo;
 import com.blaec.passvault.service.ItemService;
+import com.google.common.collect.ImmutableMap;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -62,6 +64,7 @@ public class ItemController extends AbstractController {
     }
 
     @PostMapping("/create")
+    @ResponseStatus(HttpStatus.CREATED)
     public Response saveItem(@RequestBody FullItemTo to) {
         log.info("saving to {} | {}", to.getItemType(), to.getTitle());
         return serviceFactory(to.getItemType()).create(to).build();
@@ -74,30 +77,24 @@ public class ItemController extends AbstractController {
     }
 
     @PutMapping("/restore/{itemType}/{id}")
-    public Response restore(
-            @PathVariable ItemType itemType,
-            @PathVariable String id
-    ) {
+    public Response restore(@PathVariable ItemType itemType,
+                            @PathVariable String id) {
         return serviceFactory(itemType)
                 .restoreFromTrash(extractIdAndLogAction(itemType, id, "restoring from {} trash | #{}"))
                 .build();
     }
 
     @PutMapping("/move-to-trash/{itemType}/{id}")
-    public Response moveToTrash(
-            @PathVariable ItemType itemType,
-            @PathVariable String id
-    ) {
+    public Response moveToTrash(@PathVariable ItemType itemType,
+                                @PathVariable String id) {
         return serviceFactory(itemType)
                 .moveToTrash(extractIdAndLogAction(itemType, id, "moving {} to trash | #{}"))
                 .build();
     }
 
     @DeleteMapping("/delete/{itemType}/{id}")
-    public Response delete(
-            @PathVariable ItemType itemType,
-            @PathVariable String id
-    ) {
+    public Response delete(@PathVariable ItemType itemType,
+                           @PathVariable String id) {
         return serviceFactory(itemType)
                 .delete(extractIdAndLogAction(itemType, id, "deleting from {} | #{}"))
                 .build();
@@ -118,15 +115,18 @@ public class ItemController extends AbstractController {
     }
 
     @SuppressWarnings("unchecked")
-    private <T extends BaseItem> ItemService<T> serviceFactory(ItemType itemType) {
-        if (itemType == ItemType.passwords) {
-            return (ItemService<T>) passwordService;
-        } else if (itemType == ItemType.secureNotes) {
-            return (ItemService<T>) secureNoteService;
-        } else if (itemType == ItemType.creditCards) {
-            return (ItemService<T>) creditCardService;
-        } else {
-            throw new IllegalArgumentException();
+    protected <T extends BaseItem> ItemService<T> serviceFactory(ItemType itemType) {
+        Map<ItemType, ItemService<T>> factory = ImmutableMap.of(
+                ItemType.passwords, (ItemService<T>) passwordService,
+                ItemType.secureNotes, (ItemService<T>) secureNoteService,
+                ItemType.creditCards, (ItemService<T>) creditCardService
+        );
+
+        ItemService<T> itemService = factory.get(itemType);
+        if (itemService == null) {
+            throw new IllegalArgumentException("item type " + itemType + " is not supported");
         }
+
+        return itemService;
     }
 }
