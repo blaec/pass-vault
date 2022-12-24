@@ -9,10 +9,9 @@ public interface Trash<T extends BaseItem> {
     boolean isEmpty(Response.Builder response, ItemService<T> service, String message);
 
     static <T extends BaseItem> boolean empty(Response.Builder res, ItemService<T> service, String message) {
-        if (!service.emptyTrash()) {
-            res.updateMessage(message, false);
-            return false;
-        }
-        return true;
+        if (service.emptyTrash()) return true;
+
+        res.updateMessage(message, false);
+        return false;
     }
 }

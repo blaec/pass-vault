@@ -10,6 +10,7 @@ import com.blaec.passvault.model.response.Response;
 import com.blaec.passvault.model.to.item.BaseItemTo;
 import com.blaec.passvault.model.to.item.FullItemTo;
 import com.blaec.passvault.service.ItemService;
+import com.google.common.collect.ImmutableMap;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -115,14 +116,17 @@ public class ItemController extends AbstractController {
 
     @SuppressWarnings("unchecked")
     protected <T extends BaseItem> ItemService<T> serviceFactory(ItemType itemType) {
-        if (itemType == ItemType.passwords) {
-            return (ItemService<T>) passwordService;
-        } else if (itemType == ItemType.secureNotes) {
-            return (ItemService<T>) secureNoteService;
-        } else if (itemType == ItemType.creditCards) {
-            return (ItemService<T>) creditCardService;
-        } else {
-            throw new IllegalArgumentException();
+        Map<ItemType, ItemService<T>> factory = ImmutableMap.of(
+                ItemType.passwords, (ItemService<T>) passwordService,
+                ItemType.secureNotes, (ItemService<T>) secureNoteService,
+                ItemType.creditCards, (ItemService<T>) creditCardService
+        );
+
+        ItemService<T> itemService = factory.get(itemType);
+        if (itemService == null) {
+            throw new IllegalArgumentException("item type " + itemType + " is not supported");
         }
+
+        return itemService;
     }
 }

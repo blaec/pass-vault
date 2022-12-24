@@ -1,14 +1,18 @@
 package com.blaec.passvault.controller;
 
 import com.blaec.passvault.enums.ItemType;
+import com.blaec.passvault.model.BaseItem;
 import com.blaec.passvault.model.CreditCard;
 import com.blaec.passvault.model.Password;
 import com.blaec.passvault.model.SecureNote;
 import com.blaec.passvault.model.response.Response;
 import com.blaec.passvault.model.to.item.FullItemTo;
 import com.blaec.passvault.service.ItemService;
+import com.blaec.passvault.utils.FunctionalInterfaces.Trash;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -27,6 +31,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+//TODO not working as should to. Injects wrong (generic) services
 class ItemControllerTest extends AbstractControllerTest {
     @Spy
     @InjectMocks
@@ -235,6 +240,36 @@ class ItemControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    void emptyTrash() throws Exception {
+    @SuppressWarnings("unchecked")
+    void givenNone_whenEmptyTrash_thanTrashIsEmptied() throws Exception {
+        Response.Builder response = Response.Builder.create();
+
+        when(passwordService.emptyTrash()).thenReturn(true);
+        Trash<Password> passwordTrash = mock(Trash.class);
+        when(passwordTrash.isEmpty(response, passwordService, "")).thenReturn(true);
+
+        when(secureNoteService.emptyTrash()).thenReturn(true);
+        Trash<SecureNote> secureNoteTrash = mock(Trash.class);
+        when(secureNoteTrash.isEmpty(response, secureNoteService, "")).thenReturn(true);
+
+        when(creditCardService.emptyTrash()).thenReturn(true);
+        Trash<CreditCard> creditCardTrash = mock(Trash.class);
+        when(creditCardTrash.isEmpty(response, creditCardService, "")).thenReturn(true);
+
+        mockMvc.perform(delete(ItemController.URL + "/empty-trash"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.*").isNotEmpty())
+                .andExpect(jsonPath("$.success").value(true));
+    }
+
+    @Test
+    @Disabled
+    void test() throws Exception {
+//        Assertions.assertThrows(IllegalArgumentException.class, () -> itemController.serviceFactory(null));
+        ItemService<BaseItem> actual = itemController.serviceFactory(ItemType.passwords);
+        Assertions.assertEquals(passwordService, actual);
+        Assertions.assertEquals(creditCardService, itemController.serviceFactory(ItemType.creditCards));
+        Assertions.assertEquals(secureNoteService, itemController.serviceFactory(ItemType.secureNotes));
     }
 }
