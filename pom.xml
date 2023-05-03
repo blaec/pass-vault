@@ -13,6 +13,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>pass-vault</name>
     <description>pass-vault</description>
+    <packaging>jar</packaging>
 
     <properties>
         <java.version>18</java.version>
@@ -91,6 +92,8 @@
     </dependencies>
 
     <build>
+        <finalName>pass-vault</finalName>
+        <defaultGoal>package</defaultGoal>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
