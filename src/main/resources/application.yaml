@@ -9,3 +9,6 @@ spring:
 
 server:
   port: 8082
+  ssl:
+    certificate-private-key: ..\ssl\localhost-key.pem
+    certificate: ..\ssl\localhost.pem
