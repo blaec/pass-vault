@@ -1,13 +1,13 @@
 import axios from "../../../axios-pass";
 import {folderActions} from "./folder-slice";
-import {folderApi} from "../../../utils/UrlUtils";
+import {authHeader, folderApi} from "../../../utils/UrlUtils";
 import {fetchActiveItems} from "../item/item-actions";
 import {feedbackActions} from "../feedback/feedback-slice";
 import {itemActions} from "../item/item-slice";
 
 export const fetchFolders = () => {
     return async (dispatch) => {
-        axios.get(folderApi.get.getAll)
+        axios.get(folderApi.get.getAll, authHeader)
             .then(response => {
                 const {data} = response;
                 dispatch(folderActions.setFolders(data));

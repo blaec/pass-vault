@@ -1,12 +1,12 @@
 import axios from "../../../axios-pass";
 import {itemActions} from "./item-slice";
-import {itemApi} from "../../../utils/UrlUtils";
+import {authHeader, itemApi} from "../../../utils/UrlUtils";
 import {currentFolder} from "../../localStorage/actions";
 import {feedbackActions} from "../feedback/feedback-slice";
 
 export const fetchActiveItems = () => {
     return async (dispatch) => {
-        axios.get(itemApi.get.getAllActive)
+        axios.get(itemApi.get.getAllActive, authHeader)
             .then(response => {
                 const {data} = response;
                 dispatch(itemActions.setItems(data));
@@ -23,7 +23,7 @@ export const fetchActiveItems = () => {
 
 export const fetchDeletedItems = () => {
     return async (dispatch) => {
-        axios.get(itemApi.get.getAllDeleted)
+        axios.get(itemApi.get.getAllDeleted, authHeader)
             .then(response => {
                 const {data} = response;
                 dispatch(itemActions.setDeletedItems(data));
@@ -57,7 +57,7 @@ export const fetchItemsInFolder = (folderId) => {
 
 export const fetchHealthItems = () => {
     return async (dispatch) => {
-        axios.get(itemApi.get.getAllHealthItems)
+        axios.get(itemApi.get.getAllHealthItems, authHeader)
             .then(response => {
                 const {data} = response;
                 dispatch(itemActions.setHealthItems(data));
