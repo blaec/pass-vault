@@ -1,5 +1,6 @@
 export const reactLinks = {
     home: "/all-items",
+    login: "/login",
     allItems: "/all-items",
     passwords: "/passwords",
     newPassword: "/new-password",

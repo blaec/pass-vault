@@ -22,7 +22,7 @@ const _childRoot = {
 
 
 const Layout = (props) => {
-    const {children} = props;
+    const {user, onLogin, onLogout, children} = props;
 
 
     return (
@@ -36,7 +36,7 @@ const Layout = (props) => {
             autoHideDuration={3000}
         >
             <CssBaseline/>
-            <MyToolbar/>
+            <MyToolbar user={user} onLogin={onLogin} onLogout={onLogout}/>
             <MySnackbar/>
             <Box sx={_childRoot}>
                 {children}

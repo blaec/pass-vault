@@ -8,6 +8,7 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import {Button} from "@material-ui/core";
 
 const _iconButton = {
     mr: 2,
@@ -28,7 +29,7 @@ const _search = {
 
 
 const MyAppBar = (props) => {
-    const {onToggle} = props;
+    const {user, onLogin, onLogout, onToggle} = props;
 
 
     return (
@@ -46,6 +47,11 @@ const MyAppBar = (props) => {
                     <MenuIcon/>
                 </IconButton>
                 <MySearch/>
+                {user ? (
+                    <Button onClick={() => onLogout(user)}>Sign Out</Button>
+                ) : (
+                    <Button onClick={() => onLogin(user)}>Sign In</Button>
+                )}
             </Toolbar>
         </AppBar>
     );

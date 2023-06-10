@@ -20,7 +20,7 @@ export const fetchFolders = () => {
                 }));
             });
     };
-}
+};
 
 export const saveFolder = (folder) => {
     return async (dispatch) => {

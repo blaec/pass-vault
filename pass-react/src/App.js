@@ -26,10 +26,13 @@ import {
 } from "./store/state/item/item-actions";
 import {itemType} from "./utils/Constants";
 import {currentFolder} from "./store/localStorage/actions";
+import ProtectedRoute from "./component/Pages/Login/ProtectedRoute";
+import Login from "./component/Pages/Login/Login";
 
 function App() {
     const {
         home,
+        login,
         allItems,
         passwords,
         folderItems,
@@ -52,6 +55,11 @@ function App() {
 
     const dispatch = useDispatch();
 
+    const [user, setUser] = React.useState(null);
+
+    const handleLogin = () => setUser({ id: '1', name: 'robin' });
+    const handleLogout = () => setUser(null);
+
     useEffect(() => {
         dispatch(fetchFolders());
         dispatch(fetchActiveItems());
@@ -73,17 +81,21 @@ function App() {
     }, [pathname])
 
     const layout = (
-        <Layout>
+        <Layout user={user} onLogin={handleLogin} onLogout={handleLogout}>
             <Routes>
+                <Route index element={<Login />} />
+                <Route path={login} element={<Login />} />
 
                 {/* Menu items */}
-                <Route path={allItems} exact element={<AllItems/>}/>
-                <Route path={passwords} exact element={<Password/>}/>
-                <Route path={secureNotes} exact element={<SecureNote/>}/>
-                <Route path={creditCards} exact element={<CreditCard/>}/>
-                <Route path={folders} exact element={<Folder/>}/>
-                <Route path={trash} exact element={<Trash/>}/>
-                <Route path={passwordHealth} exact element={<PasswordHealth/>}/>
+                <Route element={<ProtectedRoute user={user}/>}>
+                    <Route path={allItems} exact element={<AllItems/>}/>
+                    <Route path={passwords} exact element={<Password/>}/>
+                    <Route path={secureNotes} exact element={<SecureNote/>}/>
+                    <Route path={creditCards} exact element={<CreditCard/>}/>
+                    <Route path={folders} exact element={<Folder/>}/>
+                    <Route path={trash} exact element={<Trash/>}/>
+                    <Route path={passwordHealth} exact element={<PasswordHealth/>}/>
+                </Route>
 
                 {/* Path links */}
                 <Route path={newPassword} exact element={<NewItemFactory type={itemType.passwords}/>}/>
