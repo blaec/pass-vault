@@ -9,6 +9,8 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import {Button} from "@material-ui/core";
+import {reactLinks} from "../../../utils/UrlUtils";
+import {useNavigate} from "react-router-dom";
 
 const _iconButton = {
     mr: 2,
@@ -30,6 +32,7 @@ const _search = {
 
 const MyAppBar = (props) => {
     const {user, onLogin, onLogout, onToggle} = props;
+    const navigate = useNavigate();
 
 
     return (
@@ -50,7 +53,10 @@ const MyAppBar = (props) => {
                 {user ? (
                     <Button onClick={() => onLogout(user)}>Sign Out</Button>
                 ) : (
-                    <Button onClick={() => onLogin(user)}>Sign In</Button>
+                    <Button onClick={() => {
+                        onLogin(user);
+                        navigate(reactLinks.allItems);
+                    }}>Sign In</Button>
                 )}
             </Toolbar>
         </AppBar>
