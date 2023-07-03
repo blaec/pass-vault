@@ -55,11 +55,6 @@ function App() {
 
     const dispatch = useDispatch();
 
-    const [user, setUser] = React.useState(null);
-
-    const handleLogin = () => setUser({ id: '1', name: 'robin' });
-    const handleLogout = () => setUser(null);
-
     useEffect(() => {
         dispatch(fetchFolders());
         dispatch(fetchActiveItems());
@@ -81,13 +76,13 @@ function App() {
     }, [pathname])
 
     const layout = (
-        <Layout user={user} onLogin={handleLogin} onLogout={handleLogout}>
+        <Layout>
             <Routes>
                 <Route index element={<Login />} />
                 <Route path={login} element={<Login />} />
 
                 {/* Menu items */}
-                <Route element={<ProtectedRoute user={user}/>}>
+                <Route element={<ProtectedRoute/>}>
                     <Route path={allItems} exact element={<AllItems/>}/>
                     <Route path={passwords} exact element={<Password/>}/>
                     <Route path={secureNotes} exact element={<SecureNote/>}/>

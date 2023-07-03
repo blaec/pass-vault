@@ -11,6 +11,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import {Button} from "@material-ui/core";
 import {reactLinks} from "../../../utils/UrlUtils";
 import {useNavigate} from "react-router-dom";
+import useAuth from "../../../hooks/use-auth";
 
 const _iconButton = {
     mr: 2,
@@ -31,8 +32,10 @@ const _search = {
 
 
 const MyAppBar = (props) => {
-    const {user, onLogin, onLogout, onToggle} = props;
+    const {onToggle} = props;
     const navigate = useNavigate();
+
+    const {token, onLogin, onLogout} = useAuth();
 
 
     return (
@@ -50,11 +53,11 @@ const MyAppBar = (props) => {
                     <MenuIcon/>
                 </IconButton>
                 <MySearch/>
-                {user ? (
-                    <Button onClick={() => onLogout(user)}>Sign Out</Button>
+                {token ? (
+                    <Button onClick={() => onLogout()}>Sign Out</Button>
                 ) : (
                     <Button onClick={() => {
-                        onLogin(user);
+                        onLogin();
                         navigate(reactLinks.allItems);
                     }}>Sign In</Button>
                 )}

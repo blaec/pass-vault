@@ -7,6 +7,11 @@ import {SnackbarProvider} from "notistack";
 
 import Box from "@mui/material/Box";
 import {Collapse, CssBaseline} from "@material-ui/core";
+import {fakeAuth} from "../utils/Utils";
+import AuthContext from "../contexts/AuthContext";
+import {useNavigate} from "react-router-dom";
+import {reactLinks} from "../utils/UrlUtils";
+import {useLocation} from "react-router";
 
 
 const _childRoot = {
@@ -22,7 +27,29 @@ const _childRoot = {
 
 
 const Layout = (props) => {
-    const {user, onLogin, onLogout, children} = props;
+    const {children} = props;
+    const [token, setToken] = React.useState(null);
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const handleLogin = async () => {
+        const token = await fakeAuth();
+
+        setToken(token);
+
+        const origin = location.state?.from?.pathname || reactLinks.allItems;
+        navigate(origin);
+    };
+
+    const handleLogout = () => {
+        setToken(null);
+    };
+
+    const value = {
+        token,
+        onLogin: handleLogin,
+        onLogout: handleLogout,
+    };
 
 
     return (
@@ -35,12 +62,14 @@ const Layout = (props) => {
             TransitionComponent={Collapse}
             autoHideDuration={3000}
         >
-            <CssBaseline/>
-            <MyToolbar user={user} onLogin={onLogin} onLogout={onLogout}/>
-            <MySnackbar/>
-            <Box sx={_childRoot}>
-                {children}
-            </Box>
+            <AuthContext.Provider value={value}>
+                <CssBaseline/>
+                <MyToolbar/>
+                <MySnackbar/>
+                <Box sx={_childRoot}>
+                    {children}
+                </Box>
+            </AuthContext.Provider>
         </SnackbarProvider>
     );
 };
