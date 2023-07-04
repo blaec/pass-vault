@@ -5,7 +5,6 @@ import {Checkbox, Container, FormControlLabel, Grid, Link, TextField} from "@mui
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
-import {feedbackActions} from "../../../store/state/feedback/feedback-slice";
 
 
 const Login = () => {
