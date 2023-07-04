@@ -1,5 +1,7 @@
 import React from 'react';
 
+import useAuth from "../../../hooks/use-auth";
+
 import {Button, CssBaseline} from "@material-ui/core";
 import {Checkbox, Container, FormControlLabel, Grid, Link, TextField} from "@mui/material";
 import Typography from "@mui/material/Typography";
@@ -8,13 +10,16 @@ import Box from "@mui/material/Box";
 
 
 const Login = () => {
+    const {onLogin} = useAuth();
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
+        let credentials = {
             email: data.get("email"),
             password: data.get("password"),
-        });
+        };
+        onLogin(credentials);
     };
 
 

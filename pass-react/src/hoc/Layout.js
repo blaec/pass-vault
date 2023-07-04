@@ -32,8 +32,9 @@ const Layout = (props) => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const handleLogin = async () => {
-        const token = await fakeAuth();
+    const handleLogin = async (credentials) => {
+        const {email, password} = credentials;
+        const token = await fakeAuth(credentials);
 
         setToken(token);
 

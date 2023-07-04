@@ -64,7 +64,8 @@ export const filterTypedCollection = (collection, type, search) => {
         .filter(item => item.title.toLowerCase().includes(search));
 };
 
-export const fakeAuth = () =>
+export const fakeAuth = (credentials) =>
     new Promise((resolve) => {
         setTimeout(() => resolve('2342f2f1d131rf12'), 250);
+        console.log(credentials);
     });
