@@ -21,6 +21,7 @@
         <guava.version>31.1-jre</guava.version>
         <mockito.version>4.9.0</mockito.version>
         <gson.version>2.10</gson.version>
+        <jwt.version>0.9.1</jwt.version>
     </properties>
 
     <dependencies>
@@ -72,6 +73,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>${jwt.version}</version>
         </dependency>
         <dependency>
             <groupId>org.passay</groupId>

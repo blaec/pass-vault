@@ -6,10 +6,9 @@ spring:
   jackson:
     serialization:
       fail-on-empty-beans: false # https://stackoverflow.com/questions/24994440/no-serializer-found-for-class-org-hibernate-proxy-pojo-javassist-javassist
-  security:
-    user:
-      name: vault
-      password: pass
+
+jwt:
+  secret: javainuse
 
 server:
   port: 8082
