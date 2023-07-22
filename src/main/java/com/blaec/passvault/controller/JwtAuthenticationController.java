@@ -3,7 +3,8 @@ package com.blaec.passvault.controller;
 import com.blaec.passvault.config.JwtTokenUtil;
 import com.blaec.passvault.model.JwtRequest;
 import com.blaec.passvault.model.JwtResponse;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -15,20 +16,18 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
 
+@Slf4j
+@AllArgsConstructor
+@RequestMapping(JwtAuthenticationController.URL)
+@CrossOrigin(origins = "*")
 @RestController
-@CrossOrigin
-public class JwtAuthenticationController {
+public class JwtAuthenticationController extends AbstractController{
+	public static final String URL = API_VERSION + "/jwt";
+	private final AuthenticationManager authenticationManager;
+	private final JwtTokenUtil jwtTokenUtil;
+	private final UserDetailsService jwtInMemoryUserDetailsService;
 
-	@Autowired
-	private AuthenticationManager authenticationManager;
-
-	@Autowired
-	private JwtTokenUtil jwtTokenUtil;
-
-	@Autowired
-	private UserDetailsService jwtInMemoryUserDetailsService;
-
-	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+	@PostMapping(value = "/authenticate")
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
 		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
@@ -54,3 +53,5 @@ public class JwtAuthenticationController {
 		}
 	}
 }
+
+

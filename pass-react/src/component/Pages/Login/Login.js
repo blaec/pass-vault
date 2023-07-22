@@ -16,9 +16,13 @@ const Login = () => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         let credentials = {
-            email: data.get("email"),
-            password: data.get("password"),
+            username: "javainuse",
+            password: "password"
         };
+        // let credentials = {
+        //     username: data.get("email"),
+        //     password: data.get("password"),
+        // };
         onLogin(credentials);
     };
 

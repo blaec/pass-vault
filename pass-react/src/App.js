@@ -1,7 +1,8 @@
 import React, {useEffect} from 'react';
 import {Navigate, Route, Routes} from "react-router-dom";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useLocation} from "react-router";
+import axios from "axios";
 
 import Password from "./component/Pages/MenuItems/Password/Passwords";
 import Folder from "./component/Pages/MenuItems/Folder/Folder";
@@ -53,18 +54,24 @@ function App() {
     } = reactLinks;
     const {pathname} = useLocation();
 
+    const {authToken} = useSelector(state => state.auth.auth);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(fetchFolders());
-        dispatch(fetchActiveItems());
-        dispatch(fetchDeletedItems());
-        dispatch(fetchHealthItems());
-        const folderId = currentFolder.get();
-        if (folderId !== null) {
-            dispatch(fetchItemsInFolder(folderId));
+        if (authToken) {
+            axios.defaults.headers.common['Authorization'] = authToken;
+            dispatch(fetchFolders());
+            dispatch(fetchActiveItems());
+            dispatch(fetchDeletedItems());
+            dispatch(fetchHealthItems());
+            const folderId = currentFolder.get();
+            if (folderId !== null) {
+                dispatch(fetchItemsInFolder(folderId));
+            }
+        } else {
+            axios.defaults.headers.common['Authorization'] = null;
         }
-    }, []);
+    }, [authToken]);
 
     useEffect(() => {
         if (pathname.includes(reactLinks.folderItemsEndpoint)) {

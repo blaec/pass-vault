@@ -21,11 +21,11 @@ export const reactLinks = {
     oldPassword: "/password-health/old",
 };
 
-export const authHeader = {
-    headers:
-        {
-            authorization: 'Basic ' + window.btoa("vault" + ":" + "pass")
-        }
+let baseAuthApi = "/jwt/";
+export const authApi = {
+    post: {
+        createAuthenticationToken: `${baseAuthApi}authenticate`,
+    },
 };
 
 let baseFolderApi = "/folder/";
