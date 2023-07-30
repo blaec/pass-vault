@@ -13,6 +13,7 @@ import {fetchAuthenticationToken} from "../store/state/authentication/auth-actio
 
 import Box from "@mui/material/Box";
 import {Collapse, CssBaseline} from "@material-ui/core";
+import {authentication} from "../store/localStorage/actions";
 
 
 const _childRoot = {
@@ -47,6 +48,7 @@ const Layout = (props) => {
 
     const handleLogout = () => {
         setToken(null);
+        authentication.remove();
     };
 
     const value = {
@@ -57,6 +59,7 @@ const Layout = (props) => {
 
     useEffect(() => {
         setToken(authToken);
+        authentication.set(authToken);
 
         const origin = location.state?.from?.pathname || reactLinks.allItems;
         navigate(origin);
