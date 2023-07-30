@@ -1,6 +1,6 @@
 package com.blaec.passvault.controller;
 
-import com.blaec.passvault.config.JwtTokenUtil;
+import com.blaec.passvault.jwt.JwtTokenUtil;
 import com.blaec.passvault.model.JwtRequest;
 import com.blaec.passvault.model.JwtResponse;
 import lombok.AllArgsConstructor;

@@ -1,4 +1,4 @@
-package com.blaec.passvault.config;
+package com.blaec.passvault.jwt;
 
 import com.blaec.passvault.controller.JwtAuthenticationController;
 import lombok.AllArgsConstructor;

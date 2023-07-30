@@ -8,7 +8,7 @@ spring:
       fail-on-empty-beans: false # https://stackoverflow.com/questions/24994440/no-serializer-found-for-class-org-hibernate-proxy-pojo-javassist-javassist
 
 jwt:
-  secret: javainuse
+  secret: secret
 
 server:
   port: 8082
