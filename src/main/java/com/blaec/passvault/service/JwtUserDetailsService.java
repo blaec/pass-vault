@@ -11,17 +11,15 @@ import java.util.ArrayList;
 
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
-	@Value("${jwt.secret}")
-	private String secret;
+	@Value("${jwt.secret}") private String secret;
+	@Value("${jwt.password}") private String password;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		if (secret.equals(username)) {
-			return new User(secret, "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6",
-					new ArrayList<>());
+			return new User(secret, password, new ArrayList<>());
 		} else {
 			throw new UsernameNotFoundException("User not found with username: " + username);
 		}
 	}
-
 }
