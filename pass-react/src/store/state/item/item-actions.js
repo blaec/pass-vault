@@ -1,13 +1,12 @@
 import axios from "../../../axios-pass";
 import {itemActions} from "./item-slice";
 import {itemApi} from "../../../utils/UrlUtils";
-import {authentication, currentFolder} from "../../localStorage/actions";
+import {currentFolder} from "../../localStorage/actions";
 import {feedbackActions} from "../feedback/feedback-slice";
 
 export const fetchActiveItems = () => {
-    let headers = {headers: {"Authorization": `Bearer ${authentication.get()}`}}
     return async (dispatch) => {
-        axios.get(itemApi.get.getAllActive, headers)
+        axios.get(itemApi.get.getAllActive)
             .then(response => {
                 const {data} = response;
                 dispatch(itemActions.setItems(data));
@@ -23,9 +22,8 @@ export const fetchActiveItems = () => {
 };
 
 export const fetchDeletedItems = () => {
-    let headers = {headers: {"Authorization": `Bearer ${authentication.get()}`}}
     return async (dispatch) => {
-        axios.get(itemApi.get.getAllDeleted, headers)
+        axios.get(itemApi.get.getAllDeleted)
             .then(response => {
                 const {data} = response;
                 dispatch(itemActions.setDeletedItems(data));
@@ -41,9 +39,8 @@ export const fetchDeletedItems = () => {
 };
 
 export const fetchItemsInFolder = (folderId) => {
-    let headers = {headers: {"Authorization": `Bearer ${authentication.get()}`}}
     return async (dispatch) => {
-        axios.get(`${itemApi.get.getAllInFolder}${folderId}`, headers)
+        axios.get(`${itemApi.get.getAllInFolder}${folderId}`)
             .then(response => {
                 const {data} = response;
                 dispatch(itemActions.setItemsInFolder(data));
@@ -59,9 +56,8 @@ export const fetchItemsInFolder = (folderId) => {
 };
 
 export const fetchHealthItems = () => {
-    let headers = {headers: {"Authorization": `Bearer ${authentication.get()}`}}
     return async (dispatch) => {
-        axios.get(itemApi.get.getAllHealthItems, headers)
+        axios.get(itemApi.get.getAllHealthItems)
             .then(response => {
                 const {data} = response;
                 dispatch(itemActions.setHealthItems(data));

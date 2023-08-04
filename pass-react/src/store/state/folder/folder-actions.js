@@ -4,12 +4,10 @@ import {folderApi} from "../../../utils/UrlUtils";
 import {fetchActiveItems} from "../item/item-actions";
 import {feedbackActions} from "../feedback/feedback-slice";
 import {itemActions} from "../item/item-slice";
-import {authentication} from "../../localStorage/actions";
 
 export const fetchFolders = () => {
-    let headers = {headers: {"Authorization": `Bearer ${authentication.get()}`}}
     return async (dispatch) => {
-        axios.get(folderApi.get.getAll, headers)
+        axios.get(folderApi.get.getAll)
             .then(response => {
                 const {data} = response;
                 dispatch(folderActions.setFolders(data));

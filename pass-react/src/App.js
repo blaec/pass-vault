@@ -59,7 +59,6 @@ function App() {
 
     useEffect(() => {
         if (authToken) {
-            // axios.defaults.headers.common['Authorization'] = authToken;
             dispatch(fetchFolders());
             dispatch(fetchActiveItems());
             dispatch(fetchDeletedItems());
@@ -68,8 +67,6 @@ function App() {
             if (folderId !== null) {
                 dispatch(fetchItemsInFolder(folderId));
             }
-        } else {
-            // axios.defaults.headers.common['Authorization'] = null;
         }
     }, [authToken]);
 

@@ -17,11 +17,11 @@ public class JwtUserDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		String secret = jwt.getSecret();
+		String user = jwt.getSecret();
 		String password = jwt.getPassword();
 
-		if (secret.equals(username)) {
-			return new User(secret, password, new ArrayList<>());
+		if (user.equals(username)) {
+			return new User(user, password, new ArrayList<>());
 		} else {
 			throw new UsernameNotFoundException("User not found with username: " + username);
 		}
