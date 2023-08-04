@@ -9,6 +9,8 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import {Button} from "@material-ui/core";
+import LogoutTwoToneIcon from '@mui/icons-material/LogoutTwoTone';
+import Box from "@mui/material/Box";
 
 const _iconButton = {
     mr: 2,
@@ -21,17 +23,35 @@ const _appBar = {
 };
 const _search = {
     display: 'flex',
-    justifyContent:  {
+    justifyContent: {
         sm: 'flex-start',
         md: 'flex-end'
     }
+};
+const _signOut = {
+    ml: 1
 };
 
 
 const MyAppBar = (props) => {
     const {onToggle} = props;
 
-    const {token, onLogin, onLogout} = useAuth();
+    const {token, onLogout} = useAuth();
+
+    let SignOut = <>
+        {token
+            ? <Box sx={_signOut}>
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    startIcon={<LogoutTwoToneIcon/>}
+                    onClick={() => onLogout()}
+                >
+                    Sign Out
+                </Button>
+            </Box>
+            : null}
+    </>;
 
 
     return (
@@ -49,9 +69,7 @@ const MyAppBar = (props) => {
                     <MenuIcon/>
                 </IconButton>
                 <MySearch/>
-                {token ? (
-                    <Button onClick={() => onLogout()}>Sign Out</Button>
-                ) : null}
+                {SignOut}
             </Toolbar>
         </AppBar>
     );

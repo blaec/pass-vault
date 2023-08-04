@@ -9,7 +9,6 @@ export const fetchAuthenticationToken = (credentials) => {
             .then(response => {
                 const {data} = response;
                 dispatch(authActions.setToken(data.token));
-                // authentication.set(data.token);
             })
             .catch(error => {
                 console.log(error);

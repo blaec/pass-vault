@@ -37,13 +37,7 @@ const Layout = (props) => {
     const dispatch = useDispatch();
 
     const handleLogin = (credentials) => {
-        // const {email, password} = credentials;
         dispatch(fetchAuthenticationToken(credentials));
-        //
-        // setToken(token);
-        //
-        // const origin = location.state?.from?.pathname || reactLinks.allItems;
-        // navigate(origin);
     };
 
     const handleLogout = () => {

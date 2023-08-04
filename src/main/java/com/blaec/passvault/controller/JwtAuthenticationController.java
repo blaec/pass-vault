@@ -12,6 +12,7 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
@@ -25,6 +26,7 @@ public class JwtAuthenticationController extends AbstractController{
 	public static final String URL = API_VERSION + "/jwt";
 	private final AuthenticationManager authenticationManager;
 	private final JwtTokenUtil jwtTokenUtil;
+	private final PasswordEncoder passwordEncoder;
 	private final UserDetailsService jwtInMemoryUserDetailsService;
 
 	@PostMapping(value = "/authenticate")
@@ -51,6 +53,11 @@ public class JwtAuthenticationController extends AbstractController{
 		} catch (BadCredentialsException e) {
 			throw new Exception("INVALID_CREDENTIALS", e);
 		}
+	}
+
+	@GetMapping(value = "/encrypt")
+	public String encrypt(@RequestParam String word) {
+		return passwordEncoder.encode(word);
 	}
 }
 

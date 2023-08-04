@@ -3,10 +3,38 @@ import React from 'react';
 import useAuth from "../../../hooks/use-auth";
 
 import {Button, CssBaseline} from "@material-ui/core";
-import {Checkbox, Container, FormControlLabel, Grid, Link, TextField} from "@mui/material";
+import {Container, Grid, TextField} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
+
+const _root = {
+    mt: 8
+};
+const _picture = {
+    backgroundImage: "url(https://picsum.photos/672/430)",
+    backgroundRepeat: "no-repeat",
+    backgroundColor: (t) =>
+        t.palette.mode === "light"
+            ? t.palette.grey[50]
+            : t.palette.grey[900],
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+};
+const _login = {
+    my: 8,
+    mx: 4,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+};
+const _form = {
+    mt: 1
+};
+const _button = {
+    mt: 3,
+    mb: 2
+};
 
 
 const Login = () => {
@@ -16,41 +44,24 @@ const Login = () => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         let credentials = {
-            username: "javainuse",
-            password: "password"
+            username: data.get("user"),
+            password: data.get("password"),
         };
-        // let credentials = {
-        //     username: data.get("email"),
-        //     password: data.get("password"),
-        // };
         onLogin(credentials);
     };
 
 
     return (
         <Container component="main" maxWidth="lg">
-            <Box
-                sx={{
-                    marginTop: 8,
-                }}
-            >
+            <Box sx={_root}>
                 <Grid container>
                     <CssBaseline />
                     <Grid
+                        sx={_picture}
                         item
                         xs={false}
                         sm={4}
                         md={7}
-                        sx={{
-                            backgroundImage: "url(https://picsum.photos/672/430)",
-                            backgroundRepeat: "no-repeat",
-                            backgroundColor: (t) =>
-                                t.palette.mode === "light"
-                                    ? t.palette.grey[50]
-                                    : t.palette.grey[900],
-                            backgroundSize: "cover",
-                            backgroundPosition: "center",
-                        }}
                     />
                     <Grid
                         item
@@ -61,32 +72,22 @@ const Login = () => {
                         elevation={6}
                         square
                     >
-                        <Box
-                            sx={{
-                                my: 8,
-                                mx: 4,
-                                display: "flex",
-                                flexDirection: "column",
-                                alignItems: "center",
-                            }}
-                        >
+                        <Box sx={_login}>
                             <Typography component="h1" variant="h5">
                                 Sign in
                             </Typography>
                             <Box
+                                sx={_form}
                                 component="form"
                                 noValidate
                                 onSubmit={handleSubmit}
-                                sx={{ mt: 1 }}
                             >
                                 <TextField
                                     margin="normal"
                                     required
                                     fullWidth
-                                    id="email"
-                                    label="Email Address"
-                                    name="email"
-                                    autoComplete="email"
+                                    name="user"
+                                    autoComplete="user"
                                     autoFocus
                                 />
                                 <TextField
@@ -94,35 +95,18 @@ const Login = () => {
                                     required
                                     fullWidth
                                     name="password"
-                                    label="Password"
                                     type="password"
-                                    id="password"
                                     autoComplete="current-password"
                                 />
-                                <FormControlLabel
-                                    control={<Checkbox value="remember" color="primary" />}
-                                    label="Remember me"
-                                />
                                 <Button
+                                    sx={_button}
                                     type="submit"
                                     fullWidth
                                     variant="contained"
-                                    sx={{ mt: 3, mb: 2 }}
+                                    color="primary"
                                 >
                                     Sign In
                                 </Button>
-                                <Grid container>
-                                    <Grid item xs>
-                                        <Link href="#" variant="body2">
-                                            Forgot password?
-                                        </Link>
-                                    </Grid>
-                                    <Grid item>
-                                        <Link href="#" variant="body2">
-                                            {"Don't have an account? Sign Up"}
-                                        </Link>
-                                    </Grid>
-                                </Grid>
                             </Box>
                         </Box>
                     </Grid>
