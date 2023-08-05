@@ -14,6 +14,7 @@ import {fetchAuthenticationToken} from "../store/state/authentication/auth-actio
 import Box from "@mui/material/Box";
 import {Collapse, CssBaseline} from "@material-ui/core";
 import {authentication} from "../store/localStorage/actions";
+import {authActions} from "../store/state/authentication/auth-slice";
 
 
 const _childRoot = {
@@ -37,11 +38,13 @@ const Layout = (props) => {
     const dispatch = useDispatch();
 
     const handleLogin = (credentials) => {
+        console.log(`fetch token`);
         dispatch(fetchAuthenticationToken(credentials));
     };
 
     const handleLogout = () => {
         setToken(null);
+        console.log("remove token");
         authentication.remove();
     };
 
@@ -52,11 +55,15 @@ const Layout = (props) => {
     };
 
     useEffect(() => {
-        setToken(authToken);
-        authentication.set(authToken);
-
-        const origin = location.state?.from?.pathname || reactLinks.allItems;
-        navigate(origin);
+        // on page reload - redux store is reset - so restore it from local storage
+        if (authToken) {
+            setToken(authToken);
+            authentication.set(authToken);
+            const origin = location.state?.from?.pathname || reactLinks.allItems;
+            navigate(origin);
+        } else {
+            dispatch(authActions.setToken(authentication.get()));
+        }
     },[authToken])
 
 
