@@ -13,8 +13,12 @@ const IconVisibility = (props) => {
         ? <VisibilityOffTwoToneIcon/>
         : <VisibilityTwoToneIcon/>;
 
+    const iconTitle = isShow
+        ? "Hide password"
+        : "Show password";
+
     return (
-        <Tooltip title="Show password" placement="top">
+        <Tooltip title={iconTitle} placement="top">
             <IconButton
                 onClick={onAction}
                 onMouseDown={onAction}
