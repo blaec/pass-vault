@@ -9,7 +9,7 @@ import NavigateNextTwoToneIcon from "@mui/icons-material/NavigateNextTwoTone";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import {Grid} from "@mui/material";
+import {Grid, Tooltip} from "@mui/material";
 
 const _inline = {display: 'inline'};
 const _bold = {fontWeight: 800};
@@ -23,12 +23,14 @@ const HealthCard = (props) => {
     const action = count === 0 ?
         null :
         (
-            <IconButton
-                component={NavLink}
-                to={link}
-            >
-                <NavigateNextTwoToneIcon/>
-            </IconButton>
+            <Tooltip title="More details" placement="right">
+                <IconButton
+                    component={NavLink}
+                    to={link}
+                >
+                    <NavigateNextTwoToneIcon/>
+                </IconButton>
+            </Tooltip>
         );
 
     return (
