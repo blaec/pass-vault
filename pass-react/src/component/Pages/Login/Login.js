@@ -7,6 +7,7 @@ import {Container, Grid, TextField} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
+import LoginTwoToneIcon from '@mui/icons-material/LoginTwoTone';
 
 const _root = {
     mt: 8
@@ -100,6 +101,7 @@ const Login = () => {
                                 />
                                 <Button
                                     sx={_button}
+                                    startIcon={<LoginTwoToneIcon/>}
                                     type="submit"
                                     fullWidth
                                     variant="contained"
