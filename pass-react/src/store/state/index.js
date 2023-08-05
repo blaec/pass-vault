@@ -5,6 +5,7 @@ import itemReducer from './item/item-slice'
 import passgenReducer from './passgen/passgen-slice'
 import feedbackReducer from "./feedback/feedback-slice";
 import filterReducer from "./filter/filter-slice";
+import authReducer from "./authentication/auth-slice";
 
 
 const store = configureStore({
@@ -14,6 +15,7 @@ const store = configureStore({
         passgen: passgenReducer,
         feedback: feedbackReducer,
         filter: filterReducer,
+        auth: authReducer,
     },
 });
 

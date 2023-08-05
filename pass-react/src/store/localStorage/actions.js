@@ -2,6 +2,7 @@ const keys = Object.freeze(
     {
         selectedFolder: 'selected-folder',
         returnLocation: 'return-location',
+        authToken: 'auth-token',
     }
 );
 
@@ -23,4 +24,10 @@ export const initialLocation = {
     set: globalFunctions(keys.returnLocation).set,
     get: globalFunctions(keys.returnLocation).get,
     remove: globalFunctions(keys.returnLocation).remove,
+}
+
+export const authentication = {
+    set: globalFunctions(keys.authToken).set,
+    get: globalFunctions(keys.authToken).get,
+    remove: globalFunctions(keys.authToken).remove,
 }

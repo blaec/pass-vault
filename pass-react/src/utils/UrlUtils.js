@@ -1,5 +1,6 @@
 export const reactLinks = {
     home: "/all-items",
+    login: "/login",
     allItems: "/all-items",
     passwords: "/passwords",
     newPassword: "/new-password",
@@ -18,6 +19,13 @@ export const reactLinks = {
     weakPassword: "/password-health/weak",
     reusedPassword: "/password-health/reused",
     oldPassword: "/password-health/old",
+};
+
+let baseAuthApi = "/jwt/";
+export const authApi = {
+    post: {
+        createAuthenticationToken: `${baseAuthApi}authenticate`,
+    },
 };
 
 let baseFolderApi = "/folder/";

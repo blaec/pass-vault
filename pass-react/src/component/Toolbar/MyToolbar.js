@@ -6,6 +6,7 @@ import MyDrawer from "./components/MyDrawer";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 
+
 const MyToolbar = () => {
     const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -15,12 +16,11 @@ const MyToolbar = () => {
         setMobileOpen(!mobileOpen);
     };
 
+
     return (
         <Box sx={box}>
             <CssBaseline/>
-            <MyAppBar
-                onToggle={handleDrawerToggle}
-            />
+            <MyAppBar onToggle={handleDrawerToggle}/>
             <MyDrawer
                 mobileOpen={mobileOpen}
                 onToggle={handleDrawerToggle}

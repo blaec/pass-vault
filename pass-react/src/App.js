@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {Navigate, Route, Routes} from "react-router-dom";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useLocation} from "react-router";
 
 import Password from "./component/Pages/MenuItems/Password/Passwords";
@@ -26,10 +26,13 @@ import {
 } from "./store/state/item/item-actions";
 import {itemType} from "./utils/Constants";
 import {currentFolder} from "./store/localStorage/actions";
+import ProtectedRoute from "./component/Pages/Login/ProtectedRoute";
+import Login from "./component/Pages/Login/Login";
 
 function App() {
     const {
         home,
+        login,
         allItems,
         passwords,
         folderItems,
@@ -50,18 +53,21 @@ function App() {
     } = reactLinks;
     const {pathname} = useLocation();
 
+    const {authToken} = useSelector(state => state.auth.auth);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(fetchFolders());
-        dispatch(fetchActiveItems());
-        dispatch(fetchDeletedItems());
-        dispatch(fetchHealthItems());
-        const folderId = currentFolder.get();
-        if (folderId !== null) {
-            dispatch(fetchItemsInFolder(folderId));
+        if (authToken) {
+            dispatch(fetchFolders());
+            dispatch(fetchActiveItems());
+            dispatch(fetchDeletedItems());
+            dispatch(fetchHealthItems());
+            const folderId = currentFolder.get();
+            if (folderId !== null) {
+                dispatch(fetchItemsInFolder(folderId));
+            }
         }
-    }, []);
+    }, [authToken]);
 
     useEffect(() => {
         if (pathname.includes(reactLinks.folderItemsEndpoint)) {
@@ -75,15 +81,19 @@ function App() {
     const layout = (
         <Layout>
             <Routes>
+                <Route index element={<Login />} />
+                <Route path={login} element={<Login />} />
 
                 {/* Menu items */}
-                <Route path={allItems} exact element={<AllItems/>}/>
-                <Route path={passwords} exact element={<Password/>}/>
-                <Route path={secureNotes} exact element={<SecureNote/>}/>
-                <Route path={creditCards} exact element={<CreditCard/>}/>
-                <Route path={folders} exact element={<Folder/>}/>
-                <Route path={trash} exact element={<Trash/>}/>
-                <Route path={passwordHealth} exact element={<PasswordHealth/>}/>
+                <Route element={<ProtectedRoute/>}>
+                    <Route path={allItems} exact element={<AllItems/>}/>
+                    <Route path={passwords} exact element={<Password/>}/>
+                    <Route path={secureNotes} exact element={<SecureNote/>}/>
+                    <Route path={creditCards} exact element={<CreditCard/>}/>
+                    <Route path={folders} exact element={<Folder/>}/>
+                    <Route path={trash} exact element={<Trash/>}/>
+                    <Route path={passwordHealth} exact element={<PasswordHealth/>}/>
+                </Route>
 
                 {/* Path links */}
                 <Route path={newPassword} exact element={<NewItemFactory type={itemType.passwords}/>}/>
