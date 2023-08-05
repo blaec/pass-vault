@@ -2,6 +2,7 @@ import React from 'react';
 
 import LaunchTwoToneIcon from '@mui/icons-material/LaunchTwoTone';
 import IconButton from "@mui/material/IconButton";
+import {Tooltip} from "@mui/material";
 
 
 const IconLaunch = (props) => {
@@ -18,11 +19,13 @@ const IconLaunch = (props) => {
 
 
     return (
-        <IconButton
-            onClick={handlerFollowLink}
-        >
-            {launchIcon}
-        </IconButton>
+        <Tooltip title="Follow link" placement="top">
+            <IconButton
+                onClick={handlerFollowLink}
+            >
+                {launchIcon}
+            </IconButton>
+        </Tooltip>
     );
 };
 

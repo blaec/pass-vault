@@ -4,6 +4,7 @@ import {copyToClipboard} from "../../utils/Utils";
 
 import ContentCopyTwoToneIcon from "@mui/icons-material/ContentCopyTwoTone";
 import IconButton from "@mui/material/IconButton";
+import {Tooltip} from "@mui/material";
 
 
 const IconCopy = (props) => {
@@ -14,11 +15,13 @@ const IconCopy = (props) => {
     };
 
     return (
-        <IconButton
-            onClick={handleCopy}
-        >
-            <ContentCopyTwoToneIcon/>
-        </IconButton>
+        <Tooltip title="Copy to clipboard" placement="top">
+            <IconButton
+                onClick={handleCopy}
+            >
+                <ContentCopyTwoToneIcon/>
+            </IconButton>
+        </Tooltip>
     );
 };
 

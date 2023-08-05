@@ -4,7 +4,7 @@ import {NavLink} from "react-router-dom";
 import FolderDialog, {FolderAction} from "../../../../UI/dialogs/FolderDialog";
 import {reactLinks} from "../../../../utils/UrlUtils";
 
-import {Avatar, ListItem, ListItemAvatar, ListItemText} from "@mui/material";
+import {Avatar, ListItem, ListItemAvatar, ListItemText, Tooltip} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import EditTwoToneIcon from "@mui/icons-material/EditTwoTone";
 import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
@@ -79,31 +79,37 @@ const FolderItem = (props) => {
 
     const modifyControls = (
         <>
-            <IconButton
-                edge="end"
-                sx={_editIcon}
-                onClick={() => handleEdit(id)}
-            >
-                <EditTwoToneIcon/>
-            </IconButton>
-            <IconButton
-                edge="end"
-                sx={_deleteIcon}
-                onClick={() => handleDelete(id)}
-            >
-                <DeleteTwoToneIcon/>
-            </IconButton>
+            <Tooltip title="Edit folder" placement="left">
+                <IconButton
+                    edge="end"
+                    sx={_editIcon}
+                    onClick={() => handleEdit(id)}
+                >
+                    <EditTwoToneIcon/>
+                </IconButton>
+            </Tooltip>
+            <Tooltip title="Delete folder" placement="right">
+                <IconButton
+                    edge="end"
+                    sx={_deleteIcon}
+                    onClick={() => handleDelete(id)}
+                >
+                    <DeleteTwoToneIcon/>
+                </IconButton>
+            </Tooltip>
         </>
     );
     const createControls = (
         <>
-            <IconButton
-                edge="end"
-                sx={_createIcon}
-                onClick={() => handleCreate(id)}
-            >
-                <CreateNewFolderTwoToneIcon/>
-            </IconButton>
+            <Tooltip title="Create new folder" placement="right">
+                <IconButton
+                    edge="end"
+                    sx={_createIcon}
+                    onClick={() => handleCreate(id)}
+                >
+                    <CreateNewFolderTwoToneIcon/>
+                </IconButton>
+            </Tooltip>
         </>
     );
     const controls = isNew ? createControls : modifyControls;
@@ -111,12 +117,14 @@ const FolderItem = (props) => {
     const avatar = Number(id) === 0
         ? null
         : (
-            <Avatar
-                component={NavLink}
-                to={`${reactLinks.folderItemsEndpoint}${id}`}
-            >
-                <FolderTwoToneIcon/>
-            </Avatar>
+            <Tooltip title="Show items in folder" placement="left">
+                <Avatar
+                    component={NavLink}
+                    to={`${reactLinks.folderItemsEndpoint}${id}`}
+                >
+                    <FolderTwoToneIcon/>
+                </Avatar>
+            </Tooltip>
         );
 
 
