@@ -47,7 +47,7 @@ const MyAppBar = (props) => {
                     startIcon={<LogoutTwoToneIcon/>}
                     onClick={() => onLogout()}
                 >
-                    Sign Out
+                    logout
                 </Button>
             </Box>
             : null}

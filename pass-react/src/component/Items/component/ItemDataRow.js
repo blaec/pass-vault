@@ -12,7 +12,11 @@ import WarningTwoToneIcon from '@mui/icons-material/WarningTwoTone';
 import ErrorTwoToneIcon from '@mui/icons-material/ErrorTwoTone';
 
 const _description = {width: '25%'};
-const _value = {width: '65%'};
+const _value = {
+    width: '65%',
+    overflowWrap: 'break-word',
+    maxWidth: 1,    // similar to wordBreak:'break-all', but does not break usual words in the middle
+};
 const _icons = {width: '10%'};
 const updateByAge = (value, age) => {
     let output = value;
