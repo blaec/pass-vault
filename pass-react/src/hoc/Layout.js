@@ -10,11 +10,12 @@ import MyToolbar from "../component/Toolbar/MyToolbar";
 import AuthContext from "../contexts/AuthContext";
 import {reactLinks} from "../utils/UrlUtils";
 import {fetchAuthenticationToken} from "../store/state/authentication/auth-actions";
+import {authentication} from "../store/localStorage/actions";
+import {authActions} from "../store/state/authentication/auth-slice";
+import {isJWTTokenActive} from "../utils/Utils";
 
 import Box from "@mui/material/Box";
 import {Collapse, CssBaseline} from "@material-ui/core";
-import {authentication} from "../store/localStorage/actions";
-import {authActions} from "../store/state/authentication/auth-slice";
 
 
 const _childRoot = {
@@ -38,14 +39,13 @@ const Layout = (props) => {
     const dispatch = useDispatch();
 
     const handleLogin = (credentials) => {
-        console.log(`fetch token`);
         dispatch(fetchAuthenticationToken(credentials));
     };
 
     const handleLogout = () => {
         setToken(null);
-        console.log("remove token");
         authentication.remove();
+        dispatch(authActions.resetToken());
     };
 
     const value = {
@@ -64,7 +64,14 @@ const Layout = (props) => {
         } else {
             dispatch(authActions.setToken(authentication.get()));
         }
-    },[authToken])
+    }, [authToken]);
+
+    useEffect(() => {
+        if (isJWTTokenActive(authentication.get())) {
+            handleLogout();
+            navigate(reactLinks.allItems);
+        }
+    }, [location]);
 
 
     return (
