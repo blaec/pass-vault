@@ -12,7 +12,7 @@ import {reactLinks} from "../utils/UrlUtils";
 import {fetchAuthenticationToken} from "../store/state/authentication/auth-actions";
 import {authentication} from "../store/localStorage/actions";
 import {authActions} from "../store/state/authentication/auth-slice";
-import {isJWTTokenActive} from "../utils/Utils";
+import {isJwtExpired} from "../utils/Utils";
 
 import Box from "@mui/material/Box";
 import {Collapse, CssBaseline} from "@material-ui/core";
@@ -67,7 +67,7 @@ const Layout = (props) => {
     }, [authToken]);
 
     useEffect(() => {
-        if (isJWTTokenActive(authentication.get())) {
+        if (isJwtExpired(authentication.get())) {
             handleLogout();
             navigate(reactLinks.allItems);
         }

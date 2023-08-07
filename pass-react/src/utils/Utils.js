@@ -64,7 +64,7 @@ export const filterTypedCollection = (collection, type, search) => {
         .filter(item => item.title.toLowerCase().includes(search));
 };
 
-export const isJWTTokenActive = (token) => {
+export const isJwtExpired = (token) => {
     try {
         const parsedToken = JSON.parse(atob(token.split('.')[1]));
         return parsedToken.exp * 1000 < Date.now();

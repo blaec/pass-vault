@@ -1,6 +1,6 @@
 package com.blaec.passvault.controller;
 
-import com.blaec.passvault.jwt.JwtTokenUtil;
+import com.blaec.passvault.jwt.JwtUtil;
 import com.blaec.passvault.model.JwtRequest;
 import com.blaec.passvault.model.JwtResponse;
 import lombok.AllArgsConstructor;
@@ -25,7 +25,7 @@ import java.util.Objects;
 public class JwtAuthenticationController extends AbstractController{
 	public static final String URL = API_VERSION + "/jwt";
 	private final AuthenticationManager authenticationManager;
-	private final JwtTokenUtil jwtTokenUtil;
+	private final JwtUtil jwtUtil;
 	private final PasswordEncoder passwordEncoder;
 	private final UserDetailsService jwtInMemoryUserDetailsService;
 
@@ -37,7 +37,7 @@ public class JwtAuthenticationController extends AbstractController{
 		final UserDetails userDetails = jwtInMemoryUserDetailsService
 				.loadUserByUsername(authenticationRequest.getUsername());
 
-		final String token = jwtTokenUtil.generateToken(userDetails);
+		final String token = jwtUtil.generateToken(userDetails);
 
 		return ResponseEntity.ok(new JwtResponse(token));
 	}
