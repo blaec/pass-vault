@@ -17,7 +17,7 @@ import java.util.function.Function;
 
 @Component
 @AllArgsConstructor
-public class JwtTokenUtil implements Serializable {
+public class JwtUtil implements Serializable {
     public static final long JWT_TOKEN_VALIDITY = TimeUnit.HOURS.toMillis(5);
     private final Jwt jwt;
 
