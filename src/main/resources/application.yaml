@@ -11,6 +11,10 @@ jwt:
   secret: secret
   password: password
 
+encrypt:
+  password: password
+  salt: salt
+
 server:
   port: 8082
   ssl:
