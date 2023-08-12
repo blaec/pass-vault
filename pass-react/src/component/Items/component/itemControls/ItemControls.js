@@ -1,23 +1,25 @@
 import React from 'react';
 import {useDispatch} from "react-redux";
 import {useLocation} from "react-router";
+import {useNavigate} from "react-router-dom";
 
 import {deleteItem, moveItemToTrash, restoreItemFromTrash} from "../../../../store/state/item/item-actions";
 import {reactLinks} from "../../../../utils/UrlUtils";
 import DeletedItemControls from "./DeletedItemControls";
 import ActiveItemControls from "./ActiveItemControls";
 import TrashDialog from "../../../../UI/dialogs/TrashDialog";
+import {itemType} from "../../../../utils/Constants";
 
 import {Grid} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
 import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone';
-import {itemType} from "../../../../utils/Constants";
 
 
 const ItemControls = (props) => {
     const {id, type, onEdit, onClose} = props;
     const {pathname} = useLocation();
+    const navigate = useNavigate();
 
     const [dialog, setDialog] = React.useState({
         title: 'Delete Item',
@@ -37,7 +39,7 @@ const ItemControls = (props) => {
     };
 
     const handleShowHistory = () => {
-        alert(`show password history ${type}`);
+        navigate(reactLinks.passwordHistory);
     };
 
     const handlePrepareMoveToDelete = () => {

@@ -28,6 +28,7 @@ import {itemType} from "./utils/Constants";
 import {currentFolder} from "./store/localStorage/actions";
 import ProtectedRoute from "./component/Pages/Login/ProtectedRoute";
 import Login from "./component/Pages/Login/Login";
+import PasswordHistory from "./component/Pages/PathLinks/PasswordHistory/PasswordHistory";
 
 function App() {
     const {
@@ -45,6 +46,7 @@ function App() {
         editSecureNote,
         newCreditCard,
         editCreditCard,
+        passwordHistory,
         folders,
         passwordHealth,
         weakPassword,
@@ -102,6 +104,7 @@ function App() {
                 <Route path={editSecureNote} exact element={<NewItemFactory type={itemType.secureNotes}/>}/>
                 <Route path={newCreditCard} exact element={<NewItemFactory type={itemType.creditCards}/>}/>
                 <Route path={editCreditCard} exact element={<NewItemFactory type={itemType.creditCards}/>}/>
+                <Route path={passwordHistory} exact element={<PasswordHistory/>}/>
                 <Route path={folderItems} exact element={<ItemsInFolder/>}/>
                 <Route path={weakPassword} exact element={<WeakPasswords/>}/>
                 <Route path={reusedPassword} exact element={<ReusedPasswords/>}/>
