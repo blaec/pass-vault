@@ -1,13 +1,14 @@
 import React from 'react';
 import {useNavigate} from "react-router-dom";
 
+import HistoryData from "./HistoryData";
 import MySubmitButton from "../../../../UI/MySubmitButton";
 import {actionScreen} from "../../../../utils/Constants";
-import {initialLocation} from "../../../../store/localStorage/actions";
+import {initialLocation, selectedItemTitle} from "../../../../store/localStorage/actions";
 
-import {Card, CardActions, Grid, Stack} from "@mui/material";
-import BasicTable from "./BasicTable";
+import {Card, CardActions, CardContent, Grid, Stack} from "@mui/material";
 import ArrowBackIosNewTwoToneIcon from '@mui/icons-material/ArrowBackIosNewTwoTone';
+import CardHeader from "@mui/material/CardHeader";
 
 const _root = {
     width: actionScreen.width,
@@ -21,6 +22,7 @@ const PasswordHistory = () => {
     const navigate = useNavigate();
 
     const handleBack = (redirectLink) => {
+        selectedItemTitle.remove();
         navigate(redirectLink);
     };
 
@@ -30,7 +32,13 @@ const PasswordHistory = () => {
             variant="elevation"
             sx={_root}
         >
-            <BasicTable/>
+            <CardHeader
+                title="Password History"
+                subheader={selectedItemTitle.get()}
+            />
+            <CardContent>
+                <HistoryData/>
+            </CardContent>
             <CardActions>
                 <Grid
                     container

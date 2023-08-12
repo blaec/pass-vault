@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {useLocation} from "react-router";
 
-import {initialLocation} from "../store/localStorage/actions";
+import {initialLocation, selectedItemTitle} from "../store/localStorage/actions";
 import {itemType, toolbarHeight} from "../utils/Constants";
 import {isTrash, reactLinks} from "../utils/UrlUtils";
 import {passgenActions} from "../store/state/passgen/passgen-slice";
@@ -125,6 +125,7 @@ const useItems = (type, itemKey, folderId) => {
         const selected = items.find(item => item.id === id);
         setIsShowDetails(true);
         setSelectedItem(selected);
+        selectedItemTitle.set(selected.title);
         dispatch(itemActions.setEditableItem(selected));
         if (selected.type === itemType.passwords) {
             dispatch(fetchPasswordStrength(selected.password));
@@ -139,6 +140,7 @@ const useItems = (type, itemKey, folderId) => {
 
     const handleCloseDetails = () => {
         setIsShowDetails(false);
+        selectedItemTitle.remove();
         dispatch(itemActions.resetEditableItem());
         dispatch(passwordHistoryActions.resetPasswordHistory());
     };
