@@ -1,4 +1,7 @@
 import React from 'react';
+import {useSelector} from "react-redux";
+
+import {isArrayExist} from "../../../../utils/Utils";
 
 import IconButton from "@mui/material/IconButton";
 import EditTwoToneIcon from "@mui/icons-material/EditTwoTone";
@@ -6,18 +9,22 @@ import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import {Tooltip} from "@mui/material";
 import LockClockTwoToneIcon from '@mui/icons-material/LockClockTwoTone';
 
+
 const ActiveItemControls = (props) => {
     const {onEdit, onShowHistory, onMoveToTrash} = props;
+    const {passwordHistory} = useSelector(state => state.passwordHistory.passwordHistory);
 
-    const passwordHistory = onShowHistory
-        ? <Tooltip title="Edit item">
-              <IconButton
-                  color="info"
-                  onClick={onShowHistory}
-              >
-                  <LockClockTwoToneIcon/>
-              </IconButton>
-          </Tooltip>
+    const hasNoHistory = !isArrayExist(passwordHistory);
+    const passwordHistoryElement = onShowHistory
+        ? <Tooltip title="View password history"><span>
+            <IconButton
+                color="info"
+                onClick={onShowHistory}
+                disabled={hasNoHistory}
+            >
+                <LockClockTwoToneIcon/>
+            </IconButton>
+          </span></Tooltip>
         : null;
 
 
@@ -31,7 +38,7 @@ const ActiveItemControls = (props) => {
                     <EditTwoToneIcon/>
                 </IconButton>
             </Tooltip>
-            {passwordHistory}
+            {passwordHistoryElement}
             <Tooltip title="Move to trash">
                 <IconButton
                     color="error"
