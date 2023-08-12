@@ -45,6 +45,13 @@ export const folderApi = {
     },
 };
 
+let basePasswordHistoryApi = "/password-history/";
+export const passwordHistoryApi = {
+    get: {
+        getAllByPasswordId: `${basePasswordHistoryApi}get-all/`,
+    },
+};
+
 let baseItemApi = "/items/";
 export const itemApi = {
     get: {

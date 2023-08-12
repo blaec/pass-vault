@@ -16,6 +16,8 @@ import TrashDialog from "../UI/dialogs/TrashDialog";
 import CustomSpeedDial from "./components/CustomSpeedDial";
 import TitleFactory from "./components/TitleFactory";
 import {emptyTrash} from "../store/state/item/item-actions";
+import {fetchPasswordHistory} from "../store/state/passwordHistory/passwordHistory-actions";
+import {passwordHistoryActions} from "../store/state/passwordHistory/passwordHistory-slice";
 
 import {DataGrid} from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
@@ -126,6 +128,7 @@ const useItems = (type, itemKey, folderId) => {
         dispatch(itemActions.setEditableItem(selected));
         if (selected.type === itemType.passwords) {
             dispatch(fetchPasswordStrength(selected.password));
+            dispatch(fetchPasswordHistory(selected.id));
         }
     };
 
@@ -137,6 +140,7 @@ const useItems = (type, itemKey, folderId) => {
     const handleCloseDetails = () => {
         setIsShowDetails(false);
         dispatch(itemActions.resetEditableItem());
+        dispatch(passwordHistoryActions.resetPasswordHistory());
     };
 
     const handleCloseDialog = () => setDialog({...dialog, isOpen: false});
