@@ -12,6 +12,7 @@ import {Grid} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
 import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone';
+import {itemType} from "../../../../utils/Constants";
 
 
 const ItemControls = (props) => {
@@ -35,6 +36,10 @@ const ItemControls = (props) => {
         onEdit();
     };
 
+    const handleShowHistory = () => {
+        alert(`show password history ${type}`);
+    };
+
     const handlePrepareMoveToDelete = () => {
         setDialog({...dialog, isOpen: true});
     };
@@ -54,6 +59,9 @@ const ItemControls = (props) => {
         onClose();
     };
 
+    const onShowHistory = type === itemType.passwords
+        ? handleShowHistory
+        : null;
     const actionIcons = pathname.includes(reactLinks.trash)
         ? (
             <DeletedItemControls
@@ -64,6 +72,7 @@ const ItemControls = (props) => {
         : (
             <ActiveItemControls
                 onEdit={handleEdit}
+                onShowHistory={onShowHistory}
                 onMoveToTrash={handleMoveToTrash}
             />
         );
