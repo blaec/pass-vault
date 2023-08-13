@@ -86,8 +86,8 @@ function App() {
                 <Route index element={<Login />} />
                 <Route path={login} element={<Login />} />
 
-                {/* Menu items */}
                 <Route element={<ProtectedRoute/>}>
+                    {/* Menu items */}
                     <Route path={allItems} exact element={<AllItems/>}/>
                     <Route path={passwords} exact element={<Password/>}/>
                     <Route path={secureNotes} exact element={<SecureNote/>}/>
@@ -95,20 +95,20 @@ function App() {
                     <Route path={folders} exact element={<Folder/>}/>
                     <Route path={trash} exact element={<Trash/>}/>
                     <Route path={passwordHealth} exact element={<PasswordHealth/>}/>
-                </Route>
 
-                {/* Path links */}
-                <Route path={newPassword} exact element={<NewItemFactory type={itemType.passwords}/>}/>
-                <Route path={editPassword} exact element={<NewItemFactory type={itemType.passwords}/>}/>
-                <Route path={newSecureNote} exact element={<NewItemFactory type={itemType.secureNotes}/>}/>
-                <Route path={editSecureNote} exact element={<NewItemFactory type={itemType.secureNotes}/>}/>
-                <Route path={newCreditCard} exact element={<NewItemFactory type={itemType.creditCards}/>}/>
-                <Route path={editCreditCard} exact element={<NewItemFactory type={itemType.creditCards}/>}/>
-                <Route path={passwordHistory} exact element={<PasswordHistory/>}/>
-                <Route path={folderItems} exact element={<ItemsInFolder/>}/>
-                <Route path={weakPassword} exact element={<WeakPasswords/>}/>
-                <Route path={reusedPassword} exact element={<ReusedPasswords/>}/>
-                <Route path={oldPassword} exact element={<OldPasswords/>}/>
+                    {/* Path links */}
+                    <Route path={newPassword} exact element={<NewItemFactory type={itemType.passwords}/>}/>
+                    <Route path={editPassword} exact element={<NewItemFactory type={itemType.passwords}/>}/>
+                    <Route path={newSecureNote} exact element={<NewItemFactory type={itemType.secureNotes}/>}/>
+                    <Route path={editSecureNote} exact element={<NewItemFactory type={itemType.secureNotes}/>}/>
+                    <Route path={newCreditCard} exact element={<NewItemFactory type={itemType.creditCards}/>}/>
+                    <Route path={editCreditCard} exact element={<NewItemFactory type={itemType.creditCards}/>}/>
+                    <Route path={passwordHistory} exact element={<PasswordHistory/>}/>
+                    <Route path={folderItems} exact element={<ItemsInFolder/>}/>
+                    <Route path={weakPassword} exact element={<WeakPasswords/>}/>
+                    <Route path={reusedPassword} exact element={<ReusedPasswords/>}/>
+                    <Route path={oldPassword} exact element={<OldPasswords/>}/>
+                </Route>
 
                 <Route path="*" element={<Navigate replace to={home}/>}/>
             </Routes>
