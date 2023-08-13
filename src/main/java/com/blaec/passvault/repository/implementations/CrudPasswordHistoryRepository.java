@@ -10,6 +10,9 @@ import java.util.List;
 
 public interface CrudPasswordHistoryRepository extends CrudRepository<PasswordHistory, Integer> {
 
+    @Query("SELECT ph FROM PasswordHistory ph WHERE ph.password.id=:passwordId order by ph.id desc")
+    List<PasswordHistory> findAllByPasswordId(int passwordId);
+
     @Query("SELECT ph FROM PasswordHistory ph WHERE ph.password.id IN (:ids)")
     List<PasswordHistory> findAllByIds(List<Integer> ids);
 

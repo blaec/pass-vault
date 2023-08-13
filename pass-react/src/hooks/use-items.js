@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {useLocation} from "react-router";
 
-import {initialLocation} from "../store/localStorage/actions";
+import {initialLocation, selectedItemTitle} from "../store/localStorage/actions";
 import {itemType, toolbarHeight} from "../utils/Constants";
 import {isTrash, reactLinks} from "../utils/UrlUtils";
 import {passgenActions} from "../store/state/passgen/passgen-slice";
@@ -16,6 +16,8 @@ import TrashDialog from "../UI/dialogs/TrashDialog";
 import CustomSpeedDial from "./components/CustomSpeedDial";
 import TitleFactory from "./components/TitleFactory";
 import {emptyTrash} from "../store/state/item/item-actions";
+import {fetchPasswordHistory} from "../store/state/passwordHistory/passwordHistory-actions";
+import {passwordHistoryActions} from "../store/state/passwordHistory/passwordHistory-slice";
 
 import {DataGrid} from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
@@ -123,9 +125,11 @@ const useItems = (type, itemKey, folderId) => {
         const selected = items.find(item => item.id === id);
         setIsShowDetails(true);
         setSelectedItem(selected);
+        selectedItemTitle.set(selected.title);
         dispatch(itemActions.setEditableItem(selected));
         if (selected.type === itemType.passwords) {
             dispatch(fetchPasswordStrength(selected.password));
+            dispatch(fetchPasswordHistory(selected.id));
         }
     };
 
@@ -136,7 +140,9 @@ const useItems = (type, itemKey, folderId) => {
 
     const handleCloseDetails = () => {
         setIsShowDetails(false);
+        selectedItemTitle.remove();
         dispatch(itemActions.resetEditableItem());
+        dispatch(passwordHistoryActions.resetPasswordHistory());
     };
 
     const handleCloseDialog = () => setDialog({...dialog, isOpen: false});

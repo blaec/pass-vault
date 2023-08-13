@@ -11,6 +11,7 @@ export const reactLinks = {
     creditCards: "/credit-cards",
     newCreditCard: "/new-credit-card",
     editCreditCard: "/update-credit-card",
+    passwordHistory: "/password-history",
     trash: "/trash",
     folders: "/folders",
     folderItemsEndpoint: "/folder-items/",
@@ -41,6 +42,13 @@ export const folderApi = {
     },
     delete: {
         delete: `${baseFolderApi}delete/`,
+    },
+};
+
+let basePasswordHistoryApi = "/password-history/";
+export const passwordHistoryApi = {
+    get: {
+        getAllByPasswordId: `${basePasswordHistoryApi}get-all/`,
     },
 };
 

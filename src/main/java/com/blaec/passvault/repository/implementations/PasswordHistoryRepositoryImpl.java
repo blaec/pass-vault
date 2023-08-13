@@ -20,6 +20,11 @@ public class PasswordHistoryRepositoryImpl implements PasswordHistoryRepository 
     }
 
     @Override
+    public Iterable<PasswordHistory> getAllByPasswordId(int passwordId) {
+        return crudPasswordHistoryRepository.findAllByPasswordId(passwordId);
+    }
+
+    @Override
     public boolean hasNoHistory(List<Integer> ids) {
         return crudPasswordHistoryRepository.findAllByIds(ids).isEmpty();
     }
