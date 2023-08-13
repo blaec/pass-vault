@@ -12,6 +12,8 @@ import Paper from '@mui/material/Paper';
 const _body = {
     '&:last-child td, &:last-child th': {border: 0}
 };
+const _minDateWidth = {minWidth: 106};
+
 
 const HistoryData = () => {
     const {passwordHistory} = useSelector(state => state.passwordHistory.passwordHistory);
@@ -36,8 +38,8 @@ const HistoryData = () => {
             <Table>
                 <TableHead>
                     <TableRow>
-                        <TableCell>Creation date</TableCell>
-                        <TableCell>Expiration date</TableCell>
+                        <TableCell sx={_minDateWidth}>Creation date</TableCell>
+                        <TableCell sx={_minDateWidth}>Expiration date</TableCell>
                         <TableCell>Password</TableCell>
                     </TableRow>
                 </TableHead>
