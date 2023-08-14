@@ -24,8 +24,8 @@ const _appBar = {
 const _search = {
     display: 'flex',
     justifyContent: {
-        sm: 'flex-start',
-        md: 'flex-end'
+        xs: 'space-between',
+        sm: 'flex-end'
     }
 };
 const _signOut = {
