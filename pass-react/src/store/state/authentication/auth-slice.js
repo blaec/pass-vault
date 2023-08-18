@@ -1,13 +1,26 @@
 import {createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
-    auth: {authToken: '', authHeader: '', isTokenLoaded: false},
+    auth: {authToken: '', authHeader: '', prod: false, isTokenLoaded: false},
 };
 
 const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
+        authenticate(state, action) {
+            const {token, prod} = action.payload;
+            state.auth = {
+                authToken: token,
+                authHeader: {
+                    headers: {
+                        Authorization: 'Bearer ' + token
+                    }
+                },
+                prod: prod,
+                isTokenLoaded: true
+            };
+        },
         setToken(state, action) {
             state.auth = {
                 authToken: action.payload,

@@ -8,7 +8,7 @@ export const fetchAuthenticationToken = (credentials) => {
         axios.post(authApi.post.createAuthenticationToken, credentials)
             .then(response => {
                 const {data} = response;
-                dispatch(authActions.setToken(data.token));
+                dispatch(authActions.authenticate(data));
             })
             .catch(error => {
                 console.log(error);
