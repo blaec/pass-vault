@@ -18,18 +18,20 @@ const authSlice = createSlice({
                     }
                 },
                 prod: prod,
-                isTokenLoaded: true
+                isTokenLoaded: true,
             };
         },
         setToken(state, action) {
+            const {token, prod} = action.payload;
             state.auth = {
-                authToken: action.payload,
+                authToken: token,
                 authHeader: {
                     headers: {
-                        Authorization: 'Bearer ' + action.payload
+                        Authorization: 'Bearer ' + token
                     }
                 },
-                isTokenLoaded: true
+                prod: prod,
+                isTokenLoaded: true,
             };
         },
         resetToken(state, action) {

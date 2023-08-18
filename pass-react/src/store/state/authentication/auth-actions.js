@@ -2,6 +2,7 @@ import axios from "../../../axios-pass";
 import {feedbackActions} from "../feedback/feedback-slice";
 import {authApi} from "../../../utils/UrlUtils";
 import {authActions} from "./auth-slice";
+import {productionEnv} from "../../localStorage/actions";
 
 export const fetchAuthenticationToken = (credentials) => {
     return async (dispatch) => {
@@ -9,6 +10,7 @@ export const fetchAuthenticationToken = (credentials) => {
             .then(response => {
                 const {data} = response;
                 dispatch(authActions.authenticate(data));
+                productionEnv.set(data.prod);
             })
             .catch(error => {
                 console.log(error);

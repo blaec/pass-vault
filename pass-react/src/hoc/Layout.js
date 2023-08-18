@@ -10,7 +10,7 @@ import MyToolbar from "../component/Toolbar/MyToolbar";
 import AuthContext from "../contexts/AuthContext";
 import {reactLinks} from "../utils/UrlUtils";
 import {fetchAuthenticationToken} from "../store/state/authentication/auth-actions";
-import {authentication} from "../store/localStorage/actions";
+import {authentication, productionEnv} from "../store/localStorage/actions";
 import {authActions} from "../store/state/authentication/auth-slice";
 import {isJwtExpired} from "../utils/Utils";
 
@@ -45,6 +45,7 @@ const Layout = (props) => {
     const handleLogout = () => {
         setToken(null);
         authentication.remove();
+        productionEnv.remove();
         dispatch(authActions.resetToken());
     };
 
@@ -62,7 +63,11 @@ const Layout = (props) => {
             const origin = location.state?.from?.pathname || reactLinks.allItems;
             navigate(origin);
         } else {
-            dispatch(authActions.setToken(authentication.get()));
+            const payload = {
+                token: authentication.get(),
+                prod: productionEnv.get()
+            };
+            dispatch(authActions.setToken(payload));
         }
     }, [authToken]);
 

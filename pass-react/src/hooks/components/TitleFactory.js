@@ -1,6 +1,7 @@
 import React from 'react';
+import {useSelector} from "react-redux";
 
-import {Grid} from "@mui/material";
+import {Chip, Grid, Stack} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 
@@ -9,6 +10,7 @@ const _root = {mt: 0.5};
 
 const TitleFactory = (props) => {
     const {typedTitle, folders, folderId, itemKey, size} = props;
+    const {prod} = useSelector(state => state.auth.auth);
 
     const title = {
         ['items']: () => typedTitle,
@@ -18,6 +20,26 @@ const TitleFactory = (props) => {
         ['reusedPasswords']: () => "Reused Passwords",
         ['oldPasswords']: () => "Old Passwords",
     };
+    const tableTitle = prod
+        ? (
+            <Typography
+                variant={"h5"}
+                sx={_root}
+            >
+                {title[itemKey]()}
+            </Typography>
+        )
+        : (
+            <Stack direction="row" spacing={1}>
+                <Typography
+                    variant={"h5"}
+                    sx={_root}
+                >
+                    {title[itemKey]()}
+                </Typography>
+                <Chip label="DEV" color="error"/>
+            </Stack>
+        );
 
 
     return (
@@ -33,12 +55,7 @@ const TitleFactory = (props) => {
                 </Avatar>
             </Grid>
             <Grid item>
-                <Typography
-                    variant={"h5"}
-                    sx={_root}
-                >
-                    {title[itemKey]()}
-                </Typography>
+                {tableTitle}
             </Grid>
         </Grid>
     );

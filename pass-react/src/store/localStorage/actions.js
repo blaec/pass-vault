@@ -4,6 +4,7 @@ const keys = Object.freeze(
         returnLocation: 'return-location',
         authToken: 'auth-token',
         selectedItem: 'selected-item',
+        prodEnv: 'prod-environment',
     }
 );
 
@@ -37,4 +38,10 @@ export const selectedItemTitle = {
     set: globalFunctions(keys.selectedItem).set,
     get: globalFunctions(keys.selectedItem).get,
     remove: globalFunctions(keys.selectedItem).remove,
+};
+
+export const productionEnv = {
+    set: globalFunctions(keys.prodEnv).set,
+    get: globalFunctions(keys.prodEnv).get,
+    remove: globalFunctions(keys.prodEnv).remove,
 };
