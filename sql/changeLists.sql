@@ -59,3 +59,13 @@ CREATE TABLE passwords_history
 # changelist #61
 ALTER TABLE passwords DROP COLUMN age;
 ALTER TABLE passwords ADD COLUMN age INT NOT NULL DEFAULT 180;
+
+# changelist #87
+DROP FUNCTION IF EXISTS is_prod;
+DELIMITER //
+CREATE FUNCTION is_prod() RETURNS BOOLEAN
+    NO SQL
+BEGIN
+    RETURN FALSE;
+END //
+DELIMITER ;

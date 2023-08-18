@@ -7,7 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 public interface CrudFolderRepository extends CrudRepository<Folder, Integer> {
-    Folder findByName(String name);
 
     @Transactional
     @Modifying
