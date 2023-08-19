@@ -9,7 +9,7 @@ export const fetchAuthenticationToken = (credentials) => {
         axios.post(authApi.post.createAuthenticationToken, credentials)
             .then(response => {
                 const {data} = response;
-                dispatch(authActions.authenticate(data));
+                dispatch(authActions.setToken(data));
                 productionEnv.set(data.prod);
             })
             .catch(error => {

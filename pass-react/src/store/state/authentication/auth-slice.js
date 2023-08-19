@@ -8,19 +8,6 @@ const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        authenticate(state, action) {
-            const {token, prod} = action.payload;
-            state.auth = {
-                authToken: token,
-                authHeader: {
-                    headers: {
-                        Authorization: 'Bearer ' + token
-                    }
-                },
-                prod: prod,
-                isTokenLoaded: true,
-            };
-        },
         setToken(state, action) {
             const {token, prod} = action.payload;
             state.auth = {
