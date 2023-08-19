@@ -42,6 +42,6 @@ export const selectedItemTitle = {
 
 export const productionEnv = {
     set: globalFunctions(keys.prodEnv).set,
-    get: globalFunctions(keys.prodEnv).get,
+    get: globalFunctions(keys.prodEnv).getBoolean,
     remove: globalFunctions(keys.prodEnv).remove,
 };
