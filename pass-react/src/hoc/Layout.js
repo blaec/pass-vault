@@ -65,7 +65,7 @@ const Layout = (props) => {
         } else {
             const payload = {
                 token: authentication.get(),
-                prod: productionEnv.get()
+                prod: productionEnv.get() === 'true'
             };
             dispatch(authActions.setToken(payload));
         }

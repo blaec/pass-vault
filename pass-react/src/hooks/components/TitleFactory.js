@@ -20,26 +20,6 @@ const TitleFactory = (props) => {
         ['reusedPasswords']: () => "Reused Passwords",
         ['oldPasswords']: () => "Old Passwords",
     };
-    const tableTitle = prod
-        ? (
-            <Typography
-                variant={"h5"}
-                sx={_root}
-            >
-                {title[itemKey]()}
-            </Typography>
-        )
-        : (
-            <Stack direction="row" spacing={1}>
-                <Typography
-                    variant={"h5"}
-                    sx={_root}
-                >
-                    {title[itemKey]()}
-                </Typography>
-                <Chip label="DEV" color="error"/>
-            </Stack>
-        );
 
 
     return (
@@ -55,7 +35,12 @@ const TitleFactory = (props) => {
                 </Avatar>
             </Grid>
             <Grid item>
-                {tableTitle}
+                <Stack direction="row" spacing={1}>
+                    <Typography sx={_root} variant="h5">
+                        {title[itemKey]()}
+                    </Typography>
+                    {!prod && <Chip label="DEV" color="error"/>}
+                </Stack>
             </Grid>
         </Grid>
     );
