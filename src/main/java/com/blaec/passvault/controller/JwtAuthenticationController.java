@@ -3,6 +3,7 @@ package com.blaec.passvault.controller;
 import com.blaec.passvault.jwt.JwtUtil;
 import com.blaec.passvault.model.JwtRequest;
 import com.blaec.passvault.model.JwtResponse;
+import com.blaec.passvault.service.FunctionService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,7 @@ public class JwtAuthenticationController extends AbstractController{
 	private final JwtUtil jwtUtil;
 	private final PasswordEncoder passwordEncoder;
 	private final UserDetailsService jwtInMemoryUserDetailsService;
+	private final FunctionService functionService;
 
 	@PostMapping(value = "/authenticate")
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
@@ -38,8 +40,9 @@ public class JwtAuthenticationController extends AbstractController{
 				.loadUserByUsername(authenticationRequest.getUsername());
 
 		final String token = jwtUtil.generateToken(userDetails);
+		final boolean isProd = functionService.isProd();
 
-		return ResponseEntity.ok(new JwtResponse(token));
+		return ResponseEntity.ok(new JwtResponse(token, isProd));
 	}
 
 	private void authenticate(String username, String password) throws Exception {

@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
-    auth: {authToken: '', authHeader: '', isTokenLoaded: false},
+    auth: {authToken: '', authHeader: '', prod: false, isTokenLoaded: false},
 };
 
 const authSlice = createSlice({
@@ -9,14 +9,16 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         setToken(state, action) {
+            const {token, prod} = action.payload;
             state.auth = {
-                authToken: action.payload,
+                authToken: token,
                 authHeader: {
                     headers: {
-                        Authorization: 'Bearer ' + action.payload
+                        Authorization: 'Bearer ' + token
                     }
                 },
-                isTokenLoaded: true
+                prod: prod,
+                isTokenLoaded: true,
             };
         },
         resetToken(state, action) {

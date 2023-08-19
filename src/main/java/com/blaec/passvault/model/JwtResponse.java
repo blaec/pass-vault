@@ -9,4 +9,5 @@ import java.io.Serializable;
 @Getter
 public class JwtResponse implements Serializable {
 	private final String token;
+	private final boolean isProd;
 }
